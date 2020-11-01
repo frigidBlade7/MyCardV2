@@ -3,4 +3,13 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="mc_purple">#5513C1</color>
+    <color name="mc_red">#FB4E4E</color>
+    <color name="mc_yellow">#F6A609</color>
+    <color name="mc_green">#2AC769</color>
+
+    <color name="mc_black_60">#99000000</color>
+    <color name="mc_black_5">#1A000000</color>
+    <color name="mc_purple_10">#1A5513C1</color>
 </resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_nav"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.codedevtech.mycardv2.fragments.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_skipOnboardingFragment"
+            app:destination="@id/skipOnboardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/skipOnboardingFragment"
+        android:name="com.codedevtech.mycardv2.fragments.SkipOnboardingFragment"
+        android:label="fragment_skip_onboarding"
+        tools:layout="@layout/fragment_skip_onboarding" >
+        <action
+            android:id="@+id/action_skipOnboardingFragment_to_captureCardFragment"
+            app:destination="@id/captureCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/captureCardFragment"
+        android:name="com.codedevtech.mycardv2.fragments.CaptureCardFragment"
+        android:label="fragment_capture_card"
+        tools:layout="@layout/fragment_capture_card" >
+        <action
+            android:id="@+id/action_captureCardFragment_to_confirmDetailsFragment"
+            app:destination="@id/confirmDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setUpAccountFragment"
+        tools:layout="@layout/fragment_setup_account_onboarding"
+        android:name="com.codedevtech.mycardv2.fragments.SetUpAccountFragment"
+        android:label="SetUpAccountFragment" />
+    <fragment
+        android:id="@+id/confirmDetailsFragment"
+        tools:layout="@layout/fragment_confirm_details"
+        android:name="com.codedevtech.mycardv2.fragments.ConfirmDetailsFragment"
+        android:label="ConfirmDetailsFragment" >
+        <action
+            android:id="@+id/action_confirmDetailsFragment_to_setUpAccountFragment"
+            app:destination="@id/setUpAccountFragment" />
+    </fragment>
+</navigation>

@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">MyCardV2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_network_in_one_place">Your network in one place</string>
+    <string name="a_quick_taste_of_what_s_in_store_for_you">A quick taste of what’s in store for you.</string>
+    <string name="set_up_your_personal_card">Set up your personal card</string>
+    <string name="skip_for_now">Skip for now</string>
+    <string name="capture_your_physical_card">Capture your physical card</string>
+    <string name="add_manually">Add manually</string>
+    <string name="import_card">Import card</string>
+    <string name="edit">Edit</string>
+    <string name="lastly_set_up_your_account">Lastly, set up your account</string>
+    <string name="keep_all_your_cards_in_one_place">Keep all your cards in one place</string>
+    <string name="continue_btn">Continue</string>
+    <string name="create_card">Create card</string>
+    <string name="use_new_credentials">Use new credentials</string>
+    <string name="use_my_card_information">Use my card information</string>
 </resources>
