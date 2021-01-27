@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".fragments.onboarding.CardOptionsFragment">
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_marginTop="32dp"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_card"
+            app:drawableStartCompat="@drawable/edit"
+            android:padding="16dp"
+            android:drawablePadding="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/add"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/add"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:text="@string/add_to_collection"
+            android:padding="16dp"
+            app:drawableStartCompat="@drawable/add_to_collection"
+            android:drawablePadding="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:layout_height="wrap_content"
+            android:text="@string/view_card_qr"
+            android:padding="16dp"
+            android:drawablePadding="16dp"
+            app:drawableStartCompat="@drawable/scan_card_qr"
+            app:layout_constraintBottom_toTopOf="@+id/export"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add" />
+
+        <TextView
+            android:id="@+id/export"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/export_to_contacts"
+            app:drawableStartCompat="@drawable/contacts"
+            android:padding="16dp"
+            android:drawablePadding="16dp"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            app:layout_constraintBottom_toTopOf="@+id/delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_card"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawableTint="@color/mc_red"
+            android:textColor="@color/mc_red"
+            android:drawablePadding="16dp"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/export"
+            app:drawableStartCompat="@drawable/delete" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

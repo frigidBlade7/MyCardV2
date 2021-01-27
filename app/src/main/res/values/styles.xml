@@ -1,10 +1,294 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:actionMenuTextColor">?attr/colorPrimary</item>
+        <item name="actionMenuTextAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+        <item name="textInputStyle">@style/Widget.MyCardStyles.TextInputLayout</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="colorPrimary">@color/mc_purple</item>
+        <item name="chipStyle">@style/ShapeAppearanceOverlay.MyCardStyles.Chip</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyCardStyles.LargeComponent</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyCardStyles.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyCardStyles.MediumComponent</item>
+        <item name="floatingActionButtonStyle">@style/ShapeAppearance.MyCardStyles.Fab</item>
     </style>
 
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="TextAppearance.MyCardStyles.Headline1" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">32dp</item>
+        <item name="color">@android:color/black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextAppearance.MyCardStyles.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="fontWeight">500</item>
+        <item name="lineHeight">24dp</item>
+        <item name="color">@color/mc_black_40</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ShapeAppearance.MyCardStyles.Fab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="tint">@android:color/white</item>
+        <item name="backgroundTint">@color/mc_purple</item>
+    </style>
+
+    <style name="TextAppearance.MyCardStyles.Subtitle.Regular" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="lineHeight">22dp</item>
+        <item name="color">@color/mc_black_60</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.MyCardStyles.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="lineHeight">18dp</item>
+        <item name="fontWeight">500</item>
+        <item name="color">@color/mc_black_60</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="TextAppearance.MyCardStyles.Label" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="lineHeight">18dp</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="TextAppearance.MyCardStyles.Body.Semibold" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="fontWeight">500</item>
+        <item name="lineHeight">24dp</item>
+        <item name="color">@android:color/black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.MyCardStyles.Body.Bold" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/inter_bold</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="fontWeight">700</item>
+        <item name="lineHeight">24dp</item>
+        <item name="color">@android:color/black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="TextAppearance.MyCardStyles.Body.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="fontWeight">400</item>
+        <item name="lineHeight">24dp</item>
+        <item name="color">@android:color/black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Widget.MyCardStyles.Button.RoundedButton.Outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:textColor">@color/mc_black</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.MyCardStyles.MaterialButtonToggleGroup" parent="Widget.MaterialComponents.MaterialButtonToggleGroup">
+
+    </style>
+
+    <style name="Widget.MyCardStyles.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+    <style name="Widget.MyCardStyles.Button.RoundedButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.MyCardStyles.Button.Outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeWidth">0dp</item>
+        <item name="android:textColor">@color/mc_black</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="background">@android:color/transparent</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.MyCardStyles.Button.Dialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="cornerFamily">cut</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="android:inset">0dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="android:textColor">@color/mc_black</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.MyCardStyles.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="hintEnabled">false</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="boxBackgroundColor">@color/mc_black_5</item>
+
+    </style>
+
+    <style name="Widget.MyCardStyles.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="endIconDrawable">@drawable/chevron</item>
+        <item name="hintEnabled">false</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxBackgroundColor">@color/mc_black_5</item>
+
+    </style>
+
+
+    <style name="CircularImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="alpha">0.2</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="RoundedRectangleImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="strokeWidth">20dp</item>
+        <item name="strokeColor">@color/mc_purple_10</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="ItemImageView" parent="CircularImageView">
+        <item name="backgroundColor">@color/mc_black_40</item>
+    </style>
+
+
+    <style name="ShapeAppearance.MyCardStyles.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+]
+    </style>
+
+    <style name="ShapeAppearance.MyCardStyles.ExtraLargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+
+    </style>
+
+    <style name="ShapeAppearance.MyCardStyles.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyCardStyles.Chip" parent= "Widget.MaterialComponents.Chip.Filter">
+        <item name="chipCornerRadius">8dp</item>
+        <item name="chipMinHeight">36dp</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="checkedIcon">@null</item>
+        <item name="android:textColor">@color/text_on_selector_color</item>
+        <item name="chipBackgroundColor">@color/selector_color</item>
+        <item name="chipStrokeColor">@color/mc_black_5</item>
+    </style>
+    <style name="ShapeAppearance.MyCardStyles.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+<!--
+    <style name="Theme.MyCardStyles.Options" parent="Theme.MaterialComponents.BottomSheetDialog">
+
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.MyCardStyles.MediumComponent.16</item>
+
+    </style>
+
+    <style name="ShapeAppearance.MyCardStyles.MediumComponent.16" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>-->
+
+
+    <style name="Theme.MyCardStyles.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="cornerFamily">rounded</item>
+        <item name="dialogCornerRadius">8dp</item>
+    </style>
+
+
+    <style name="Pin" parent="PinWidget.PinView">
+
+        <item name="viewType">rectangle</item>
+        <item name="lineWidth">0dp</item>
+        <item name="android:itemBackground">@color/mc_black_5</item>
+        <item name="hideLineWhenFilled">true</item>
+        <item name="itemCount">6</item>
+        <item name="itemHeight">48dp</item>
+        <item name="itemTextAppearance">@style/TextAppearance.MyCardStyles.Body.Body</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="itemWidth">39dp</item>
+        <item name="itemRadius">8dp</item>
+        <item name="itemSpacing">8dp</item>
+    </style>
 </resources>

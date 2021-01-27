@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="56dp"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/name"
+        layout="@layout/card_name_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/part_divider" />
+
+    <include
+        android:id="@+id/phone"
+        layout="@layout/card_phone_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/part_divider" />
+
+    <include
+        android:id="@+id/email"
+        layout="@layout/card_email_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/part_divider" />
+
+    <include
+        android:id="@+id/work"
+        layout="@layout/card_work_info_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/part_divider" />
+
+    <include
+        android:id="@+id/work_location"
+        layout="@layout/card_work_location_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/part_divider" />
+
+    <include
+        android:id="@+id/social_media"
+        layout="@layout/card_social_media_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/part_divider" />
+
+    <include
+        android:id="@+id/note"
+        layout="@layout/card_note_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

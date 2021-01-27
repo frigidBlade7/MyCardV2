@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".fragments.onboarding.CardOptionsFragment">
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/handle" />
+
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/TextAppearance.MyCardStyles.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/sort_by"
+            android:textAllCaps="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+        <View
+            android:id="@+id/first"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/mc_black_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="9dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+
+        <view
+            android:id="@+id/list"
+            class="com.codedevtech.mycardv2.utils.MyCardToggleGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/recent"
+                style="@style/Widget.MyCardStyles.Button.Dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recently_added"
+                android:textAlignment="textStart"
+                android:textAppearance="@style/TextAppearance.MyCardStyles.Body.Body"
+                app:icon="@drawable/check"
+                android:paddingStart="28dp"
+                app:iconGravity="start"
+                app:iconPadding="12dp"
+                app:iconTint="@color/selector_color"
+                app:strokeColor="@color/outline_selector_color"
+                tools:layout_editor_absoluteX="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/name"
+                style="@style/Widget.MyCardStyles.Button.Dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:paddingStart="28dp"
+                android:textAlignment="textStart"
+                android:textAppearance="@style/TextAppearance.MyCardStyles.Body.Body"
+                app:icon="@drawable/check"
+                app:iconGravity="start"
+                app:iconPadding="12dp"
+                app:iconTint="@color/selector_color"
+                app:strokeColor="@color/outline_selector_color"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="48dp" />
+
+        </view>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

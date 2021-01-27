@@ -1,2 +1,4 @@
+include ':pinview'
+include ':scanlibrary'
 include ':app'
 rootProject.name = "MyCardV2"

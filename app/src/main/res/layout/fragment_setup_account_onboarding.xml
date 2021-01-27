@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.onboarding.SkipOnboardingFragment">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/back_on_surface" />
+
+
+            <view
+                android:id="@+id/selection"
+                class="com.codedevtech.mycardv2.utils.MyCardToggleGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:src="@drawable/forward"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/use_card"
+                    style="@style/Widget.MyCardStyles.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:padding="16dp"
+                    app:iconGravity="end"
+                    app:icon="@drawable/check"
+                    app:strokeColor="@color/outline_selector_color"
+                    app:iconTint="@color/selector_color"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:layout_weight="1"
+                    android:text="@string/use_my_card_information" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/use_credentials"
+                    style="@style/Widget.MyCardStyles.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    app:iconGravity="end"
+                    app:icon="@drawable/check"
+                    app:strokeColor="@color/outline_selector_color"
+                    app:iconTint="@color/selector_color"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:text="@string/use_new_credentials"
+                    android:textAlignment="textStart" />
+
+            </view>
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/TextAppearance.MyCardStyles.Headline1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="72dp"
+                android:text="@string/lastly_set_up_your_account"
+                app:layout_constraintBottom_toTopOf="@+id/title2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/title2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/keep_all_your_cards_in_one_place"
+                app:layout_constraintBottom_toTopOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="@+id/title"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/business_card"
+                app:layout_constraintBottom_toTopOf="@+id/selection"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title2" />
+
+            <Button
+                android:id="@+id/skip"
+                style="@style/Widget.MyCardStyles.Button.RoundedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/continue_btn"
+                android:onClick="@{()->viewModel.goToSignUp()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
