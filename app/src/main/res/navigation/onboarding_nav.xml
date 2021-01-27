@@ -5,9 +5,19 @@
     android:id="@+id/onboarding_nav"
     app:startDestination="@id/welcomeFragment">
 
+
+    <fragment
+        android:id="@+id/cardDetailsFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.CardDetailsFragment"
+        tools:layout="@layout/fragment_card_details" >
+        <action
+            android:id="@+id/action_cardDetailsFragment_to_cardOptionsFragment"
+            app:destination="@id/cardOptionsFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.codedevtech.mycardv2.fragments.WelcomeFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -16,16 +26,19 @@
     </fragment>
     <fragment
         android:id="@+id/skipOnboardingFragment"
-        android:name="com.codedevtech.mycardv2.fragments.SkipOnboardingFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.SkipOnboardingFragment"
         android:label="fragment_skip_onboarding"
         tools:layout="@layout/fragment_skip_onboarding" >
         <action
             android:id="@+id/action_skipOnboardingFragment_to_captureCardFragment"
             app:destination="@id/captureCardFragment" />
+        <action
+            android:id="@+id/action_skipOnboardingFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/captureCardFragment"
-        android:name="com.codedevtech.mycardv2.fragments.CaptureCardFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.CaptureCardFragment"
         android:label="fragment_capture_card"
         tools:layout="@layout/fragment_capture_card" >
         <action
@@ -35,15 +48,111 @@
     <fragment
         android:id="@+id/setUpAccountFragment"
         tools:layout="@layout/fragment_setup_account_onboarding"
-        android:name="com.codedevtech.mycardv2.fragments.SetUpAccountFragment"
-        android:label="SetUpAccountFragment" />
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.SetUpAccountFragment"
+        android:label="SetUpAccountFragment" >
+        <action
+            android:id="@+id/action_setUpAccountFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/confirmDetailsFragment"
         tools:layout="@layout/fragment_confirm_details"
-        android:name="com.codedevtech.mycardv2.fragments.ConfirmDetailsFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.ConfirmDetailsFragment"
         android:label="ConfirmDetailsFragment" >
         <action
             android:id="@+id/action_confirmDetailsFragment_to_setUpAccountFragment"
             app:destination="@id/setUpAccountFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.SignUpFragment"
+        tools:layout="@layout/fragment_sign_up"
+        android:label="SignUpFragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_verifyNumberFragment"
+            app:destination="@id/verifyNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyNumberFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.VerifyNumberFragment"
+        tools:layout="@layout/fragment_verify_number" >
+        <action
+            android:id="@+id/action_verifyNumberFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.DashboardFragment"
+        tools:layout="@layout/dashboard_fragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_cardDetailsFragment"
+            app:destination="@id/cardDetailsFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_add_card_nav"
+            app:destination="@id/add_card_nav" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_cardFilterFragment"
+            app:destination="@id/cardFilterFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_searchCardsFragment"
+            app:destination="@id/searchCardsFragment" />
+    </fragment>
+    <navigation android:id="@+id/add_card_nav"
+        app:startDestination="@id/addPersonalCardFragment">
+        <dialog
+            android:id="@+id/addSocialsFragment"
+            android:name="com.codedevtech.mycardv2.fragments.dashboard.AddSocialsFragment"
+            tools:layout="@layout/fragment_add_socials" />
+        <fragment
+            android:id="@+id/addPersonalCardFragment"
+            android:name="com.codedevtech.mycardv2.fragments.dashboard.AddPersonalCardFragment"
+            tools:layout="@layout/fragment_add_personal_card">
+            <action
+                android:id="@+id/action_addPersonalCardFragment_to_addSocialsFragment"
+                app:destination="@id/addSocialsFragment" />
+            <action
+                android:id="@+id/action_addPersonalCardFragment_to_addWorkFragment"
+                app:destination="@id/addWorkFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/addWorkFragment"
+            android:name="com.codedevtech.mycardv2.fragments.dashboard.AddWorkFragment"
+            tools:layout="@layout/fragment_add_work">
+            <action
+                android:id="@+id/action_addWorkFragment_to_confirmAddDetailsFragment"
+                app:destination="@id/confirmAddDetailsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/confirmAddDetailsFragment"
+            android:name="com.codedevtech.mycardv2.fragments.onboarding.ConfirmAddDetailsFragment"
+            tools:layout="@layout/fragment_add_confirm_details" />
+        <action
+            android:id="@+id/action_global_cardDetailsFragment"
+            app:destination="@id/cardDetailsFragment"
+            app:popUpTo="@id/dashboardFragment" />
+    </navigation>
+    <dialog
+        android:id="@+id/cardOptionsFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.CardOptionsFragment"
+        tools:layout="@layout/fragment_card_options" >
+        <action
+            android:id="@+id/action_cardOptionsFragment_to_viewCardQrFragment"
+            app:destination="@id/viewCardQrFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/deleteCardDialogFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.DeleteCardDialogFragment"
+        tools:layout="@layout/fragment_delete_card_dialog" />
+    <fragment
+        android:id="@+id/viewCardQrFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.ViewCardQrFragment"
+        tools:layout="@layout/fragment_qr" />
+    <dialog
+        android:id="@+id/cardFilterFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.CardFilterFragment"
+        tools:layout="@layout/fragment_card_filter" />
+    <fragment
+        android:id="@+id/searchCardsFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.SearchCardsFragment"
+        tools:layout="@layout/fragment_search_cards" />
 </navigation>

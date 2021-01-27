@@ -1,4 +1,4 @@
-package com.codedevtech.mycardv2.fragments
+package com.codedevtech.mycardv2.fragments.onboarding
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
+import com.codedevtech.mycardv2.databinding.FragmentSetupAccountOnboardingBinding
+import com.codedevtech.mycardv2.databinding.FragmentSignUpBinding
 import com.codedevtech.mycardv2.databinding.FragmentSkipOnboardingBinding
+import com.codedevtech.mycardv2.databinding.FragmentVerifyNumberBinding
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 
 
-class SkipOnboardingFragment : Fragment() {
+class VerifyNumberFragment : Fragment() {
 
-    lateinit var binding: FragmentSkipOnboardingBinding
+    lateinit var binding: FragmentVerifyNumberBinding
     val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav){
         defaultViewModelProviderFactory
     }
@@ -24,13 +27,17 @@ class SkipOnboardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentSkipOnboardingBinding.inflate(layoutInflater,container, false)
+        binding = FragmentVerifyNumberBinding.inflate(layoutInflater,container, false)
         binding.viewModel = viewmodel
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
         })
 
+
+        binding.toolbar.setNavigationOnClickListener{
+            findNavController().popBackStack()
+        }
         return binding.root
     }
 

@@ -16,4 +16,96 @@
     <string name="create_card">Create card</string>
     <string name="use_new_credentials">Use new credentials</string>
     <string name="use_my_card_information">Use my card information</string>
+    <string name="sign_up">Sign up</string>
+    <string name="camera_rationale">"We need access to your camera to spy on you lol jk or am i? "</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="note">Note</string>
+    <string name="phone">Phone</string>
+    <string name="social_media">Social Media</string>
+    <string name="work">Work</string>
+    <string name="work_location">Work Location</string>
+    <string name="full_name">Full name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="verify_your_number">Verify your number</string>
+    <string name="enter_the_one_time_pin_that_was_sent_to_your_number">Enter the one-time pin that was sent to your number %1$s</string>
+    <string name="verify">Verify</string>
+    <string name="resend_code">Resend code</string>
+    <string name="cards">Cards</string>
+    <string name="me">Me</string>
+    <string name="let_s_get_something_going_here">Let\'s get something going here</string>
+    <string name="start_adding_some_cards">Start adding some cards</string>
+    <string name="_1_d_of_2_d">%1$s of %2$s</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="prefix">Prefix</string>
+    <string name="first_name">First name</string>
+    <string name="middle_name">Middle name</string>
+    <string name="last_name">Last name</string>
+    <string name="suffix">Suffix</string>
+    <string name="home">Home</string>
+    <string name="fax">Fax</string>
+    <string name="mobile">Mobile</string>
+    <string name="pager">Pager</string>
+    <string name="other">Other</string>
+    <string name="personal">Personal</string>
+    <string name="add_a_profile">Add a profile</string>
+    <string name="add_another_profile">Add another profile</string>
+
+    <string name="add_another_field">Add another field</string>
+    <string name="next">Next</string>
+    <string name="_1_of_2">1 of 2</string>
+    <string name="_2_of_2">2 of 2</string>
+    <string name="username_or_url">Username or url</string>
+    <string name="done">Done</string>
+    <string name="socials">Socials</string>
+    <string name="work_or_company">Work or Company</string>
+    <string name="work_info">Work Info</string>
+    <string name="company_name">Company name</string>
+    <string name="role_or_job_title">Role or Job title</string>
+    <string name="address">Address</string>
+    <string name="continue_string">Continue</string>
+    <string name="the_image_uploaded_here_will_be_the_cover_of_this_card">The image uploaded here will be the cover of this card</string>
+    <string name="share">Share</string>
+    <string name="options">Options</string>
+    <string name="delete_card">Delete card</string>
+    <string name="delete_card_title">Delete Card</string>
+    <string name="view_card_qr">View card QR</string>
+    <string name="add_to_collection">Add to collection</string>
+    <string name="edit_card">Edit card</string>
+    <string name="export_to_contacts">Export to Contacts</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_you_sure_you_want_to_delete_this_card">Are you sure you want to delete this card?</string>
+    <string name="mail">Mail</string>
+    <string name="location">Location</string>
+    <string name="search_for_card">Search for card</string>
+    <string name="sort_by">Sort by</string>
+    <string name="recently_added">Recently added</string>
+    <string name="all_chip">All</string>
+    <string name="name_chip">Name</string>
+    <string name="company_chip">Company</string>
+    <string name="role_chip">Role</string>
+    <string name="oops_seems_to_not_be_in_the_mix">Oops! Seems to not be in the mix</string>
+
+
+    <array name="phone_types">
+        <item>@string/mobile</item>
+        <item>@string/home</item>
+        <item>@string/work</item>
+        <item>@string/other</item>
+
+    </array>
+
+    <array name="email_types">
+        <item>@string/personal</item>
+        <item>@string/work</item>
+        <item>@string/other</item>
+
+    </array>
+
+    <array name="filters">
+        <item>@string/recently_added</item>
+        <item>@string/name</item>
+
+    </array>
 </resources>

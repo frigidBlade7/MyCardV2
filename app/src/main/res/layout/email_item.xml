@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.codedevtech.mycardv2.converters.EmailTypeConverter"/>
+        <variable
+            name="item"
+            type="com.codedevtech.mycardv2.models.EmailAddress" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/number_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/type_layout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/number"
+                style="@style/TextAppearance.MyCardStyles.Body.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:text="@={item.address}"
+                android:inputType="textEmailAddress"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/type_layout"
+            style="@style/Widget.MyCardStyles.ExposedDropdownMenu"
+            android:layout_width="wrap_content"
+            android:maxWidth="108dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/number_layout"
+            app:layout_constraintEnd_toStartOf="@+id/remove"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/number_layout"
+            app:layout_constraintTop_toTopOf="@+id/number_layout">
+
+            <AutoCompleteTextView
+                android:id="@+id/type"
+                android:editable="false"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@={EmailTypeConverter.INSTANCE.emailTypeToString(item.type)}"
+                style="@style/TextAppearance.MyCardStyles.Body.Body"
+                android:layout_width="108dp"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/number_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/type_layout"
+            app:layout_constraintTop_toTopOf="@+id/number_layout"
+            app:srcCompat="@drawable/remove" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

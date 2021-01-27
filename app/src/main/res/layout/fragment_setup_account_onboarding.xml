@@ -12,7 +12,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.SkipOnboardingFragment">
+        tools:context=".fragments.onboarding.SkipOnboardingFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -132,6 +132,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
                 android:text="@string/continue_btn"
+                android:onClick="@{()->viewModel.goToSignUp()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

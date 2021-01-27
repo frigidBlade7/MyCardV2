@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="@style/TextAppearance.MyCardStyles.Body.Body"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+    android:checkMark="@drawable/check"
+    android:gravity="center_vertical"
+    android:drawablePadding="12dp"
+    android:paddingStart="28dp"
+    android:checked="false"
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+    android:textAlignment="textStart"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
