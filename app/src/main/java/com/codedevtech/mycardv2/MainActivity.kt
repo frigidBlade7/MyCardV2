@@ -5,7 +5,10 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.scanlibrary.IScanner
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)

@@ -7,7 +7,6 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import java.util.concurrent.TimeUnit
 import com.codedevtech.mycardv2.utils.getCode
-import com.codedevtech.mycardv2.R
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -70,7 +69,7 @@ import javax.inject.Singleton
             authCallback.onAuthSuccess()
         }catch (e: Exception){
             Log.d(TAG, "attemptAuth: ${e.localizedMessage}")
-            authCallback.onAuthFailure(R.string.invalid_code)
+            authCallback.onAuthFailure(e.getCode())
         }
     }
 

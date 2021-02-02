@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.CardAdapter
 import com.codedevtech.mycardv2.databinding.FragmentConfirmDetailsBinding
@@ -15,15 +15,15 @@ import com.codedevtech.mycardv2.models.Card
 import com.codedevtech.mycardv2.models.Name
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ConfirmDetailsFragment : Fragment() {
 
     lateinit var binding : FragmentConfirmDetailsBinding
     lateinit var cardAdapter: CardAdapter
 
-    val onboardingViewModel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav){
-        defaultViewModelProviderFactory
-    }
+    val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
 
 

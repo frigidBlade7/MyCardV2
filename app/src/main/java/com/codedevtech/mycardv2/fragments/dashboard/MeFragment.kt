@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.databinding.FragmentSetupAccountOnboardingBinding
 import com.codedevtech.mycardv2.databinding.FragmentSignUpBinding
@@ -19,9 +19,7 @@ import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 class MeFragment : Fragment() {
 
     lateinit var binding: MeFragmentBinding
-    val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.dashboard_nav){
-        defaultViewModelProviderFactory
-    }
+    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.dashboard_nav)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

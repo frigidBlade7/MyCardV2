@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.DropDownAdapter
 import com.codedevtech.mycardv2.adapter.rv.EmailAdapter
@@ -36,9 +36,7 @@ class DeleteCardDialogFragment : DialogFragment() {
 
     lateinit var binding: FragmentDeleteCardDialogBinding
 
-    val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav){
-        defaultViewModelProviderFactory
-    }
+    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
     override fun getTheme(): Int {
         return R.style.Theme_MyCardStyles_Dialog

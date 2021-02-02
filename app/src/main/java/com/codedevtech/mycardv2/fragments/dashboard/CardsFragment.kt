@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
@@ -23,10 +24,7 @@ class CardsFragment : Fragment() {
 
     lateinit var binding: CardsFragmentBinding
 
-    val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.dashboard_nav){
-        defaultViewModelProviderFactory
-    }
-
+    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.dashboard_nav)
     override fun onResume() {
         super.onResume()
         binding.addCard.show()

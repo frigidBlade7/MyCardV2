@@ -18,9 +18,9 @@ import android.view.*
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.databinding.FragmentCaptureCardBinding
 import com.codedevtech.mycardv2.event.Event
@@ -32,6 +32,7 @@ import com.codedevtech.mycardv2.viewmodel.CaptureCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.scanlibrary.ScanActivity
 import com.scanlibrary.ScanConstants
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -49,7 +50,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-
+@AndroidEntryPoint
 class CaptureCardFragment : Fragment() {
 
     lateinit var binding: FragmentCaptureCardBinding
@@ -109,9 +110,7 @@ class CaptureCardFragment : Fragment() {
 
 
 
-    val viewModel : OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav){
-        defaultViewModelProviderFactory
-    }
+    val viewModel : OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
     val captureCardViewModel: CaptureCardViewModel by viewModels{
         defaultViewModelProviderFactory

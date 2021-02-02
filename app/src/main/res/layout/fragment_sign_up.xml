@@ -61,12 +61,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/title">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
+                    android:id="@+id/full_name"
                     style="@style/TextAppearance.MyCardStyles.Body.Body"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
+                    android:hint="@string/full_name"
                     android:inputType="textPersonName"
-                    android:hint="@string/full_name" />
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -81,12 +82,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/fullnamelayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_number"
+                    style="@style/TextAppearance.MyCardStyles.Body.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
+                    android:hint="@string/phone_number"
+                    android:text="@={viewModel.phoneNumber}"
                     android:inputType="phone"
-                    style="@style/TextAppearance.MyCardStyles.Body.Body"
-                    android:hint="@string/phone_number" />
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.CardAdapter
 import com.codedevtech.mycardv2.databinding.FragmentAddConfirmDetailsBinding
@@ -23,9 +23,7 @@ class ConfirmAddDetailsFragment : Fragment() {
     lateinit var binding : FragmentAddConfirmDetailsBinding
     lateinit var cardAdapter: CardAdapter
 
-    val addPersonalCardViewModel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_card_nav){
-        defaultViewModelProviderFactory
-    }
+    val addPersonalCardViewModel: AddPersonalCardViewModel by hiltNavGraphViewModels(R.id.add_card_nav)
 
 
 
