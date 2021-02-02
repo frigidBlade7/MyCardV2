@@ -6,21 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.databinding.DashboardFragmentBinding
 import com.codedevtech.mycardv2.viewmodel.DashboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DashboardFragment : Fragment() {
 
-    val viewModel: DashboardViewModel by navGraphViewModels(R.id.dashboard_nav){
-        defaultViewModelProviderFactory
-    }
-
+    val viewModel: DashboardViewModel by hiltNavGraphViewModels(R.id.dashboard_nav)
     private lateinit var binding: DashboardFragmentBinding
 
     override fun onCreateView(

@@ -1,24 +1,61 @@
 package com.codedevtech.mycardv2.viewmodel
 
+import android.telephony.PhoneNumberUtils
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.ActionOnlyNavDirections
+import com.codedevtech.mycardv2.AuthenticationCallbacks
 import com.codedevtech.mycardv2.R
+import com.codedevtech.mycardv2.services.AuthenticationService
 import com.codedevtech.mycardv2.event.Event
-import com.codedevtech.mycardv2.fragments.*
 import com.codedevtech.mycardv2.fragments.dashboard.DashboardFragmentDirections
-import com.codedevtech.mycardv2.fragments.dashboard.DeleteCardDialogFragment
 import com.codedevtech.mycardv2.fragments.onboarding.*
 import com.codedevtech.mycardv2.models.Card
 import com.codedevtech.mycardv2.utils.Utils
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class OnboardingViewModel : BaseViewModel() {
+@HiltViewModel
+class OnboardingViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle,
+                                              private val authenticationService: AuthenticationService ) : BaseViewModel() {
 
     lateinit var filePath: String
 
     var selectedCard = MutableLiveData<Card>()
+
+    //private val authenticationService: AuthenticationService = AuthenticationServiceImpl(auth)
+
+    var phoneNumber = MutableLiveData<String>()
+    var isVerifyButtonEnabled = MutableLiveData<Boolean>(false)
+    var isResendButtonEnabled = MutableLiveData<Boolean>(false)
+    var smsCode = MutableLiveData<String>()
+
+
+    var authCallbacks = object : AuthenticationCallbacks(){
+        override fun onCodeSent() {
+            //start countdown
+            isVerifyButtonEnabled.value = true
+            isResendButtonEnabled.value = false
+        }
+
+        override fun onAuthSuccess() {
+            //go to dashboard
+            goToDashboard()
+        }
+
+        override fun onAuthFailure(errorCode: Int) {
+            _snackbarInt.postValue(Event(errorCode))
+        }
+
+        override fun onCodeTimeout() {
+            //countdown complete
+            isResendButtonEnabled.value = true
+
+        }
+
+    }
 
     fun goToSkip(){
         val action = WelcomeFragmentDirections.actionWelcomeFragmentToSkipOnboardingFragment()
@@ -57,8 +94,26 @@ class OnboardingViewModel : BaseViewModel() {
     }
 
     fun goToVerify(){
+
+        val number = phoneNumber.value?.trim()
+
+        if(!PhoneNumberUtils.isGlobalPhoneNumber(number)) {
+            _snackbarInt.postValue(Event(R.string.enter_valid_number))
+            return
+        }
+
         val action = SignUpFragmentDirections.actionSignUpFragmentToVerifyNumberFragment()
         _destination.value = Event(action)
+
+    }
+
+    fun resendCode(){
+        authenticationService.resendVerificationCode()
+    }
+
+    fun sendVerificationCode(phoneNumber: String){
+        authenticationService.setUpAuthCallbacks(authCallbacks)
+        authenticationService.sendVerificationCode(phoneNumber, Utils.TIMEOUT)
     }
 
     fun goToDashboard(){
@@ -67,6 +122,14 @@ class OnboardingViewModel : BaseViewModel() {
         _destination.value = Event(action)
     }
 
+    fun attemptAuth(phoneNumber: String){
+        viewModelScope.launch {
+            smsCode.value?.let {
+                authenticationService.attemptAuth(phoneNumber, it)
+            }
+        }
+
+    }
     fun showCardOptions() {
         _destination.value = Event(CardDetailsFragmentDirections.actionCardDetailsFragmentToCardOptionsFragment())
     }

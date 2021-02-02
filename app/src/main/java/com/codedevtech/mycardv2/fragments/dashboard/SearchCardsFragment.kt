@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.DropDownAdapter
 import com.codedevtech.mycardv2.adapter.rv.EmailAdapter
@@ -31,15 +31,15 @@ import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class SearchCardsFragment : Fragment() {
 
     lateinit var binding:FragmentSearchCardsBinding
 
-    val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav){
-        defaultViewModelProviderFactory
-    }
+    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
 /*    override fun getTheme(): Int {
         return R.style.Theme_MyCardStyles_Options

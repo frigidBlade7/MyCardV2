@@ -86,6 +86,11 @@
     <string name="company_chip">Company</string>
     <string name="role_chip">Role</string>
     <string name="oops_seems_to_not_be_in_the_mix">Oops! Seems to not be in the mix</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+    <string name="too_many_tries">Too many attempts. Please try again in a few minutes</string>
+    <string name="default_error">Something went wrong</string>
+    <string name="enter_valid_number">Enter a valid mobile phone number</string>
+    <string name="invalid_code">Invalid code</string>
 
 
     <array name="phone_types">

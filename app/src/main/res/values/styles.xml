@@ -16,7 +16,7 @@
         <item name="chipStyle">@style/ShapeAppearanceOverlay.MyCardStyles.Chip</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="toolbarStyle">@style/Widget.MyCard.Toolbar</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyCardStyles.LargeComponent</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyCardStyles.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyCardStyles.MediumComponent</item>
@@ -290,5 +290,9 @@
         <item name="itemWidth">39dp</item>
         <item name="itemRadius">8dp</item>
         <item name="itemSpacing">8dp</item>
+    </style>
+
+    <style name="Widget.MyCard.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:paddingStart">8dp</item>
     </style>
 </resources>

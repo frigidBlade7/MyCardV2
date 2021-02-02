@@ -12,5 +12,7 @@ class Utils {
         const val ANIMATION_SLOW_MILLIS = 100L
         const val IMAGE_CAPTURE_TIMEOUT_MILLIS: Long = 5000
 
+        const val TIMEOUT: Long = 60000
+
     }
 }
