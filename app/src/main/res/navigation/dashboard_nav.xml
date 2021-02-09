@@ -6,10 +6,26 @@
     app:startDestination="@id/cardsFragment">
 
     <fragment
+        android:id="@+id/viewCardDetailsFragment"
+        android:label=""
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.ViewCardDetailsFragment"
+        tools:layout="@layout/fragment_card_details">
+        <argument
+            android:name="card"
+            android:defaultValue="@null"
+            app:argType="com.codedevtech.mycardv2.models.Card"
+            app:nullable="true" />
+    </fragment>
+    <fragment
         android:id="@+id/cardsFragment"
         android:name="com.codedevtech.mycardv2.fragments.dashboard.CardsFragment"
         tools:layout="@layout/cards_fragment"
-        android:label="@string/cards" />
+        android:label="@string/cards" >
+        <action
+            android:id="@+id/action_cardsFragment_to_viewCardDetailsFragment"
+            app:destination="@id/viewCardDetailsFragment"
+            app:launchSingleTop="true" />
+    </fragment>
     <fragment
         android:id="@+id/meFragment"
         tools:layout="@layout/me_fragment"

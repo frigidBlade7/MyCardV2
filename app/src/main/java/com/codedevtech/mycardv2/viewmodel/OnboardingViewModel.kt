@@ -9,6 +9,7 @@ import com.codedevtech.mycardv2.AuthenticationCallbacks
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.services.AuthenticationService
 import com.codedevtech.mycardv2.event.Event
+import com.codedevtech.mycardv2.fragments.dashboard.CardsFragment
 import com.codedevtech.mycardv2.fragments.dashboard.DashboardFragmentDirections
 import com.codedevtech.mycardv2.fragments.onboarding.*
 import com.codedevtech.mycardv2.models.Card
@@ -28,8 +29,8 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     //private val authenticationService: AuthenticationService = AuthenticationServiceImpl(auth)
 
     var phoneNumber = MutableLiveData<String>()
-    var isVerifyButtonEnabled = MutableLiveData<Boolean>(false)
-    var isResendButtonEnabled = MutableLiveData<Boolean>(false)
+    var isVerifyButtonEnabled = MutableLiveData<Boolean>(true)
+    var isResendButtonEnabled = MutableLiveData<Boolean>(true)
     var smsCode = MutableLiveData<String>()
 
 
@@ -88,6 +89,10 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
         _destination.value = Event(DashboardFragmentDirections.actionDashboardFragmentToAddCardNav())
     }
 
+    fun goToAddCardFromCapture(){
+        _destination.value = Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav())
+    }
+
     fun goToSignUp(){
         val action = SetUpAccountFragmentDirections.actionSetUpAccountFragmentToSignUpFragment()
         _destination.value = Event(action)
@@ -120,6 +125,11 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
         val action = VerifyNumberFragmentDirections.actionVerifyNumberFragmentToDashboardFragment()
         _destination.value = Event(action)
+    }
+
+    fun goToCardDetails(card: Card?){
+        val action = DashboardFragmentDirections.actionDashboardFragmentToCardDetailsFragment(card)
+        _destination.postValue(Event(action))
     }
 
     fun attemptAuth(phoneNumber: String){

@@ -3,6 +3,7 @@ package com.codedevtech.mycardv2.adapter.rv
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.codedevtech.mycardv2.databinding.EmailItemBinding
@@ -17,16 +18,18 @@ import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.models.SocialMediaProfile
 import com.codedevtech.mycardv2.viewholders.BaseViewHolder
 
-class SocialAdapter (val itemInteraction: SocialItemInteraction): ListAdapter<SocialMediaProfile, BaseViewHolder>(DiffCallback()) {
+class SocialAdapter (val itemInteraction: SocialItemInteraction?): ListAdapter<SocialMediaProfile, BaseViewHolder>(DiffCallback()) {
 
     lateinit var binding: SocialItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+
         binding = SocialItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        if (itemInteraction==null)
+            binding.edit.visibility = View.GONE
         val baseViewHolder = BaseViewHolder(binding)
 
         binding.title.setOnClickListener{
-            if(itemCount>1)
-                itemInteraction.onItemClicked(getItem(baseViewHolder.adapterPosition))
+            itemInteraction?.onItemClicked(getItem(baseViewHolder.bindingAdapterPosition))
         }
 
         return baseViewHolder

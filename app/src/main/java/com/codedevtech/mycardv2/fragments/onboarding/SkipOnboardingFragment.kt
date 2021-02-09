@@ -25,6 +25,7 @@ class SkipOnboardingFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSkipOnboardingBinding.inflate(layoutInflater,container, false)
         binding.viewModel = viewmodel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)

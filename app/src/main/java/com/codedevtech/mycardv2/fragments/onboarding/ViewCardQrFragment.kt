@@ -36,6 +36,7 @@ class ViewCardQrFragment : Fragment() {
 
         binding = FragmentQrBinding.inflate(layoutInflater, container, false)
         binding.viewModel = onboardingViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
 
         onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {

@@ -32,6 +32,7 @@ class VerifyNumberFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentVerifyNumberBinding.inflate(layoutInflater,container, false)
         binding.viewModel = viewmodel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)

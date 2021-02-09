@@ -13,6 +13,7 @@ open class BaseViewModel : ViewModel() {
     val _destination = MutableLiveData<Event<NavDirections>>()
     val _snackbarInt = MutableLiveData<Event<Int>>()
     val _snackbarString = MutableLiveData<Event<String>>()
+    val _loaderVisibility = MutableLiveData<Event<Boolean>>()
 
 
     val destination: LiveData<Event<NavDirections>>
@@ -24,6 +25,10 @@ open class BaseViewModel : ViewModel() {
 
 
     val snackbarString: LiveData<Event<String>>
+        get() = _snackbarString
+
+
+    val loaderVisibility: LiveData<Event<String>>
         get() = _snackbarString
 
 

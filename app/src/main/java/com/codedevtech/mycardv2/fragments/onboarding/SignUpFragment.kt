@@ -28,6 +28,7 @@ class SignUpFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(layoutInflater,container, false)
         binding.viewModel = viewmodel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)

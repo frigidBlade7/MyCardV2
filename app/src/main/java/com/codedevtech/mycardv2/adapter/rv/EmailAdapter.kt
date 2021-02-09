@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.codedevtech.mycardv2.adapter.diffutils.EmailAddressDiffCallback
 import com.codedevtech.mycardv2.databinding.EmailItemBinding
 import com.codedevtech.mycardv2.databinding.PhoneItemBinding
 import com.codedevtech.mycardv2.fragments.dashboard.AddPersonalCardFragment
@@ -15,7 +16,7 @@ import com.codedevtech.mycardv2.models.EmailAddress
 import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.viewholders.BaseViewHolder
 
-class EmailAdapter (val itemInteraction: EmailItemInteraction, val arrayAdapter: ArrayAdapter<String>): ListAdapter<EmailAddress, BaseViewHolder>(DiffCallback()) {
+class EmailAdapter (val itemInteraction: EmailItemInteraction, val arrayAdapter: ArrayAdapter<String>): ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
 
     lateinit var binding: EmailItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -25,7 +26,7 @@ class EmailAdapter (val itemInteraction: EmailItemInteraction, val arrayAdapter:
         binding.type.setAdapter(arrayAdapter)
         binding.remove.setOnClickListener{
             if(itemCount>1)
-                itemInteraction.onItemClicked(getItem(baseViewHolder.adapterPosition))
+                itemInteraction.onItemClicked(getItem(baseViewHolder.bindingAdapterPosition))
         }
 
         return baseViewHolder
@@ -38,31 +39,6 @@ class EmailAdapter (val itemInteraction: EmailItemInteraction, val arrayAdapter:
             binding.remove.visibility = View.INVISIBLE
         }else
             binding.remove.visibility = View.VISIBLE
-    }
-
-
-    private class DiffCallback : DiffUtil.ItemCallback<EmailAddress>() {
-        override fun areItemsTheSame(oldItem: EmailAddress, newItem: EmailAddress): Boolean {
-            return oldItem.address == newItem.address
-        }
-
-        override fun areContentsTheSame(oldItem: EmailAddress, newItem: EmailAddress): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-    fun removeItem(item: EmailAddress){
-        val mutable = mutableListOf<EmailAddress>()
-        mutable.addAll(currentList)
-        mutable.remove(item)
-        submitList(mutable.sortedBy { it.id })
-    }
-
-    fun addItem(){
-        val mutable = mutableListOf<EmailAddress>()
-        mutable.addAll(currentList)
-        mutable.add(EmailAddress())
-        submitList(mutable.sortedBy { it.id })
     }
 
 

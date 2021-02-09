@@ -26,5 +26,6 @@ import com.google.android.material.imageview.ShapeableImageView
             SocialMediaProfile.SocialMedia.Instagram -> {
                 Glide.with(imageView.context).load(R.drawable.instagram___medium).into(imageView)
             }
+            else -> Glide.with(imageView.context).load(R.drawable.cards).into(imageView)
         }
     }

@@ -1,84 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="56dp"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include
-        android:id="@+id/name"
-        layout="@layout/card_name_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="item"
+            type="com.codedevtech.mycardv2.models.Card" />
+    </data>
 
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@drawable/part_divider" />
+        android:orientation="vertical"
+        android:paddingBottom="56dp"
+        android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/phone"
-        layout="@layout/card_phone_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:layout_anchor="@+id/top"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@drawable/part_divider" />
 
-    <include
-        android:id="@+id/email"
-        layout="@layout/card_email_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pager"
+                android:background="@android:color/transparent"
+                app:tabBackground="@drawable/indicator_selector"
+                app:tabIndicator="@null">
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@drawable/part_divider" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-    <include
-        android:id="@+id/work"
-        layout="@layout/card_work_info_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.tabs.TabLayout>
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@drawable/part_divider" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="156dp"
+                app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/work_location"
-        layout="@layout/card_work_location_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@drawable/part_divider" />
+        <include
+            android:id="@+id/name"
+            app:name="@{item.name}"
+            layout="@layout/card_name_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <include
-        android:id="@+id/social_media"
-        layout="@layout/card_social_media_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
 
-    <View
-        android:id="@+id/view5"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@drawable/part_divider" />
+        <include
+            android:id="@+id/phone"
+            app:item="@{item}"
+            layout="@layout/card_phone_item"
+            android:visibility="@{item.phoneNumbers.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <include
-        android:id="@+id/note"
-        layout="@layout/card_note_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:visibility="@{item.phoneNumbers.empty?View.GONE: View.VISIBLE}"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/email"
+            app:item="@{item}"
+            layout="@layout/card_email_item"
+            android:visibility="@{item.emailAddresses.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:visibility="@{item.emailAddresses.empty?View.GONE: View.VISIBLE}"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/work"
+            app:workInfo="@{item.businessInfo}"
+            android:visibility="@{item.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
+            layout="@layout/card_work_info_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:visibility="@{item.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/work_location"
+            app:location="@{item.businessInfo.companyAddress}"
+            android:visibility="@{item.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
+            layout="@layout/card_work_location_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:visibility="@{item.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/social_media"
+            layout="@layout/card_social_media_item"
+            android:visibility="@{item.socialMediaProfiles.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider"
+            android:visibility="@{item.socialMediaProfiles.empty?View.GONE: View.VISIBLE}" />
+
+        <include
+            android:id="@+id/note"
+            layout="@layout/card_note_item"
+            app:item="@{item}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>

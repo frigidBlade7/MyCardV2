@@ -13,6 +13,7 @@ import com.codedevtech.mycardv2.databinding.FragmentConfirmDetailsBinding
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.models.Card
 import com.codedevtech.mycardv2.models.Name
+import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,7 @@ class ConfirmDetailsFragment : Fragment() {
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
+    val addPersonalCardViewModel: AddPersonalCardViewModel by hiltNavGraphViewModels(R.id.add_card_nav)
 
 
 
@@ -36,9 +38,13 @@ class ConfirmDetailsFragment : Fragment() {
 
         binding = FragmentConfirmDetailsBinding.inflate(layoutInflater, container, false)
         binding.viewModel = onboardingViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         cardAdapter= CardAdapter()
-        cardAdapter.submitList(listOf(Card(1, Name("Nate","Att")), Card(2, Name("Nate","Att"))))
+        addPersonalCardViewModel.card.observe(viewLifecycleOwner){
+            cardAdapter.submitList(listOf(it,it))
+        }
+        //cardAdapter.submitList(listOf(Card("1", Name("Nate","Att")), Card("2", Name("Nate","Att"))))
         binding.pager.adapter = cardAdapter
 
         onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {

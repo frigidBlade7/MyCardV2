@@ -14,13 +14,21 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="colorPrimary">@color/mc_purple</item>
         <item name="chipStyle">@style/ShapeAppearanceOverlay.MyCardStyles.Chip</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/mc_purple</item>
+        <item name="colorAccent">@color/mc_purple</item>
         <item name="toolbarStyle">@style/Widget.MyCard.Toolbar</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyCardStyles.LargeComponent</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyCardStyles.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyCardStyles.MediumComponent</item>
         <item name="floatingActionButtonStyle">@style/ShapeAppearance.MyCardStyles.Fab</item>
+    </style>
+
+    <style name="CropTheme" parent="Base.Theme.AppCompat">
+        <item name="colorPrimary">@color/mc_purple</item>
+        <item name="colorAccent">@color/mc_purple</item>
+        <item name="toolbarStyle">@style/Widget.MyCard.Toolbar</item>
+        <item name="actionMenuTextAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold</item>
+
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
@@ -73,6 +81,16 @@
         <item name="color">@color/mc_black_60</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.MyCardStyles.NavLabel" parent="TextAppearance.MyCardStyles.Caption">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="lineHeight">12dp</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textColor">@color/mc_purple</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
 

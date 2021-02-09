@@ -91,6 +91,13 @@
     <string name="default_error">Something went wrong</string>
     <string name="enter_valid_number">Enter a valid mobile phone number</string>
     <string name="invalid_code">Invalid code</string>
+    <string name="card_not_found">Card not found</string>
+    <string name="cards_not_found">No cards found</string>
+    <string name="failed">operation failed</string>
+    <string name="success">Operation successful</string>
+    <string name="add_a_note">Add a note</string>
+    <string name="require_gallery">MyCard requires access to your gallery to upload a photo</string>
+    <string name="adding_card">Adding Card</string>
 
 
     <array name="phone_types">

@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="note"
-            type="String" />
+            name="item"
+            type="com.codedevtech.mycardv2.models.Card" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +18,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
+            android:background="@color/mc_black_40"
+            app:contentPadding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"
@@ -25,7 +27,8 @@
             app:layout_constraintTop_toTopOf="@+id/heading"
             app:layout_constraintVertical_bias="0.0"
             app:shapeAppearanceOverlay="@style/CircularImageView"
-            android:background="@color/mc_black_40" />
+            app:srcCompat="@drawable/notes"
+            app:tint="@android:color/white" />
 
         <TextView
             android:id="@+id/heading"
@@ -43,6 +46,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/background"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="@string/note" />
 
         <TextView
@@ -52,7 +56,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/add_a_note"
             android:textAlignment="textStart"
+            android:textColor="@color/mc_purple"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"
@@ -60,16 +68,52 @@
             app:layout_constraintTop_toBottomOf="@+id/heading"
             tools:text="Senior Android Dev" />
 
-        <ImageView
-            android:id="@+id/imageView8"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/note_text"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:maxLength="120"
+            android:text="@={item.note}"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/heading"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/heading"
+            app:layout_constraintTop_toBottomOf="@+id/heading"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Senior Android Dev" />
+
+        <TextView
+            android:id="@+id/count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/notes"
-            app:tint="@android:color/white" />
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="4dp"
+            android:text="@{String.valueOf(120-item.note.length())}"
+            android:textAppearance="@style/TextAppearance.MyCardStyles.NavLabel"
+            app:layout_constraintEnd_toEndOf="@+id/note_text"
+            app:layout_constraintTop_toTopOf="@+id/note_text" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="note_text,count" />
+        <!--
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/background"
+                    app:layout_constraintEnd_toEndOf="@+id/background"
+                    app:layout_constraintStart_toStartOf="@+id/background"
+                    app:layout_constraintTop_toTopOf="@+id/background"
+                    app:srcCompat="@drawable/notes"
+                    app:tint="@android:color/white" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

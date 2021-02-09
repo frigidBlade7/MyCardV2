@@ -18,6 +18,9 @@
             android:id="@+id/background"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            app:contentPadding="8dp"
+            app:srcCompat="@drawable/location_icon"
+            app:tint="@android:color/white"
             android:layout_marginStart="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/heading"
@@ -54,6 +57,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
             android:textAlignment="textStart"
+            android:text="@{location}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"
@@ -61,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/heading"
             tools:text="Senior Android Dev" />
 
-        <ImageView
+<!--        <ImageView
             android:id="@+id/imageView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +74,7 @@
             app:layout_constraintStart_toStartOf="@+id/background"
             app:layout_constraintTop_toTopOf="@+id/background"
             app:srcCompat="@drawable/location"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

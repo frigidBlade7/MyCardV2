@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
         <variable
             name="name"
             type="com.codedevtech.mycardv2.models.Name" />
@@ -13,13 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/background"
             android:layout_width="40dp"
+            app:contentPadding="8dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
+            app:srcCompat="@drawable/user"
+            app:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"
@@ -55,6 +57,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
             android:textAlignment="textStart"
+            android:text="@{ExtensionsKt.fullname(name)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"
@@ -62,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/heading"
             tools:text="Senior Android Dev" />
 
-
+<!--
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="wrap_content"
@@ -72,6 +75,6 @@
             app:layout_constraintStart_toStartOf="@+id/background"
             app:layout_constraintTop_toTopOf="@+id/background"
             app:srcCompat="@drawable/user"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

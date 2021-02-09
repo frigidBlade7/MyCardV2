@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.codedevtech.mycardv2.adapter.diffutils.PhoneNumberDiffCallback
 import com.codedevtech.mycardv2.databinding.PhoneItemBinding
 import com.codedevtech.mycardv2.fragments.dashboard.AddPersonalCardFragment
 import com.codedevtech.mycardv2.listeners.ItemInteraction
 import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.viewholders.BaseViewHolder
 
-class PhoneNumberAdapter (val itemInteraction: ItemInteraction<PhoneNumber>,val arrayAdapter: ArrayAdapter<String>): ListAdapter<PhoneNumber, BaseViewHolder>(DiffCallback()) {
+class PhoneNumberAdapter (val itemInteraction: ItemInteraction<PhoneNumber>,val arrayAdapter: ArrayAdapter<String>): ListAdapter<PhoneNumber, BaseViewHolder>(PhoneNumberDiffCallback()) {
 
     lateinit var binding: PhoneItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -23,7 +24,7 @@ class PhoneNumberAdapter (val itemInteraction: ItemInteraction<PhoneNumber>,val 
 
         binding.remove.setOnClickListener{
             if(itemCount>1)
-                itemInteraction.onItemClicked(getItem(baseViewHolder.adapterPosition))
+                itemInteraction.onItemClicked(getItem(baseViewHolder.bindingAdapterPosition))
         }
 
         return baseViewHolder
@@ -39,29 +40,11 @@ class PhoneNumberAdapter (val itemInteraction: ItemInteraction<PhoneNumber>,val 
     }
 
 
-    private class DiffCallback : DiffUtil.ItemCallback<PhoneNumber>() {
-        override fun areItemsTheSame(oldItem: PhoneNumber, newItem: PhoneNumber): Boolean {
-            return oldItem.number == newItem.number
-        }
 
-        override fun areContentsTheSame(oldItem: PhoneNumber, newItem: PhoneNumber): Boolean {
-            return oldItem == newItem
-        }
-    }
 
-    fun removePhoneNumber(item: PhoneNumber){
-        val mutable = mutableListOf<PhoneNumber>()
-        mutable.addAll(currentList)
-        mutable.remove(item)
-        submitList(mutable.sortedBy { it.id })
-    }
 
-    fun addPhoneNumber(){
-        val mutable = mutableListOf<PhoneNumber>()
-        mutable.addAll(currentList)
-        mutable.add(PhoneNumber())
-        submitList(mutable.sortedBy { it.id })
-    }
+
+
 
 
 }

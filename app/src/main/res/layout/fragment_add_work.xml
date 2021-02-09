@@ -87,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_height="144dp"
                     android:layout_marginTop="28dp"
-                    android:scaleType="fitXY"
+                    companyLogoUrl="@{viewmodel.card.businessInfo.companyLogo}"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/title"
@@ -185,7 +185,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
-                    android:visibility="@{viewmodel.isNameExpanded? View.GONE: View.VISIBLE}"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/company_layout">
@@ -195,6 +194,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:text="@={viewmodel.businessInfo.role}"
                         android:hint="@string/role_or_job_title"
                         android:inputType="textPersonName"
                         android:maxLines="1" />
@@ -205,7 +205,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="19dp"
-                    android:visibility="@{viewmodel.isNameExpanded? View.GONE: View.VISIBLE}"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/textView7">
@@ -216,6 +215,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:hint="@string/address"
+                        android:text="@={viewmodel.businessInfo.companyAddress}"
                         android:inputType="textPersonName"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -225,7 +225,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="19dp"
-                    android:visibility="@{viewmodel.isNameExpanded? View.GONE: View.VISIBLE}"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/textView6">
@@ -236,6 +235,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:hint="@string/company_name"
+                        android:text="@={viewmodel.businessInfo.companyName}"
                         android:inputType="textPersonName"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>

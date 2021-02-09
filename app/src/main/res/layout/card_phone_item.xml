@@ -4,15 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
-            name="phone"
-            type="com.codedevtech.mycardv2.models.PhoneNumber" />
+            name="item"
+            type="com.codedevtech.mycardv2.models.Card" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:paddingBottom="16dp"
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -20,6 +20,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
+            android:background="@color/mc_black_40"
+            app:contentPadding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"
@@ -27,7 +29,8 @@
             app:layout_constraintTop_toTopOf="@+id/heading"
             app:layout_constraintVertical_bias="0.0"
             app:shapeAppearanceOverlay="@style/CircularImageView"
-            android:background="@color/mc_black_40" />
+            app:srcCompat="@drawable/phone_icon"
+            app:tint="@android:color/white" />
 
         <TextView
             android:id="@+id/heading"
@@ -41,11 +44,26 @@
             android:textAlignment="textStart"
             android:textAllCaps="true"
             app:layout_constraintBottom_toTopOf="@+id/role"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/chevron"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/background"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/phone" />
+
+        <com.codedevtech.mycardv2.view.ToggleImageButton
+            android:id="@+id/chevron"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{item.phoneNumbers.size()>1?View.VISIBLE:View.GONE}"
+            android:layout_marginEnd="24dp"
+            android:background="?attr/colorSurface"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@drawable/chevron"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/heading"
+            app:layout_constraintTop_toTopOf="@+id/heading" />
 
         <TextView
             android:id="@+id/role"
@@ -53,6 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="@{item.phoneNumbers.empty?null:item.phoneNumbers.get(0).number}"
             android:textAlignment="textStart"
             app:layout_constraintBottom_toTopOf="@+id/type"
             app:layout_constraintEnd_toEndOf="@+id/heading"
@@ -68,15 +87,29 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="@{item.phoneNumbers.empty?null:item.phoneNumbers.get(0).type.toString()}"
             android:textAlignment="textStart"
             android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/list"
             app:layout_constraintEnd_toEndOf="@+id/role"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/background"
             app:layout_constraintTop_toBottomOf="@+id/role"
             tools:text="Nate Att" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/heading"
+            app:layout_constraintStart_toStartOf="@+id/heading"
+            app:layout_constraintTop_toBottomOf="@+id/type"
+            tools:listitem="@layout/card_phone_item_additional" />
+        <!--
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="wrap_content"
@@ -86,6 +119,6 @@
             app:layout_constraintStart_toStartOf="@+id/background"
             app:layout_constraintTop_toTopOf="@+id/background"
             app:srcCompat="@drawable/phone"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

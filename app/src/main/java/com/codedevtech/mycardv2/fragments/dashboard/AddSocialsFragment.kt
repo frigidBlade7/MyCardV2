@@ -24,12 +24,14 @@ import com.codedevtech.mycardv2.listeners.SocialItemInteraction
 import com.codedevtech.mycardv2.models.EmailAddress
 import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.models.SocialMediaProfile
+import com.codedevtech.mycardv2.utils.notifyObserver
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AddSocialsFragment : BottomSheetDialogFragment(){
 
     lateinit var binding: FragmentAddSocialsBinding
@@ -63,10 +65,11 @@ class AddSocialsFragment : BottomSheetDialogFragment(){
             findNavController().navigate(it)
         })
 
-        binding.linkedin.item = viewmodel.socials.value!![0]
-        binding.facebook.item = viewmodel.socials.value!![1]
-        binding.twitter.item = viewmodel.socials.value!![2]
-        binding.instagram.item = viewmodel.socials.value!![3]
+        val newSocials = viewmodel.socials.value!!
+        binding.linkedin.item = newSocials[0].copy()
+        binding.facebook.item = newSocials[1].copy()
+        binding.twitter.item = newSocials[2].copy()
+        binding.instagram.item = newSocials[3].copy()
 
 /*
         binding.linkedin.isSelected = viewmodel.socials.value!![0].usernameOrUrl.isNotEmpty()
@@ -115,9 +118,7 @@ class AddSocialsFragment : BottomSheetDialogFragment(){
         }
 
         binding.button.setOnClickListener {
-            viewmodel.socials.value?.let {
-                viewmodel.socials.value = it.toMutableList()
-            }
+            viewmodel.socials.value = mutableListOf(binding.linkedin.item!!,binding.facebook.item!!,binding.twitter.item!!,binding.instagram.item!!)
             dismiss()
         }
 

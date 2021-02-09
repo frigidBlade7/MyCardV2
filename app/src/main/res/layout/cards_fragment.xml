@@ -23,28 +23,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorSurface"
+                android:minHeight="?attr/actionBarSize"
+                app:elevation="0dp"
+                app:titleMarginStart="24dp"
+                android:paddingStart="0dp"
+                app:title="@string/cards"
+                app:layout_constraintBottom_toTopOf="@+id/search"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
                 app:endIconDrawable="@drawable/sort"
                 app:endIconMode="custom"
-                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toTopOf="@+id/list"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintVertical_bias="0.0">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/filter"
                     style="@style/TextAppearance.MyCardStyles.Subtitle.Regular"
                     android:layout_width="match_parent"
-                    android:maxLines="1"
-                    android:editable="false"
                     android:layout_height="wrap_content"
-                    android:hint="@string/search_for_card" />
+                    android:editable="false"
+                    android:hint="@string/search_for_card"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -52,12 +68,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:transitionGroup="true"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search" />
+                app:layout_constraintTop_toBottomOf="@+id/search"
+                tools:itemCount="4"
+                tools:listitem="@layout/card_name_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,11 +104,11 @@
                 style="@style/TextAppearance.MyCardStyles.Subtitle.Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/mc_black_40"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/start_adding_some_cards"
                 android:textAlignment="center"
+                android:textColor="@color/mc_black_40"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +128,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:constraint_referenced_ids="imageView12,textView3,textView2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -116,11 +142,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="80dp"
             android:clickable="true"
             android:contentDescription="TODO"
             android:focusable="true"
-            android:visibility="visible"
+            android:visibility="gone"
+            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
             app:srcCompat="@drawable/add_card" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminate="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@+id/main_view"
+            app:layout_anchorGravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

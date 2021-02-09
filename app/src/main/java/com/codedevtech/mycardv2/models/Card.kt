@@ -1,21 +1,28 @@
 package com.codedevtech.mycardv2.models
 
-import androidx.lifecycle.MutableLiveData
+import android.os.Parcelable
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.Exclude
+import kotlinx.android.parcel.Parcelize
 import java.util.*
+@Parcelize
+data class Card(@DocumentId
+                var id: String=""):Parcelable {
 
-data class Card(var id: Int = 0, var name: Name) {
 
-
-    var imageName: String = ""
+    var profilePicUrl: String = ""
     var emailAddresses: List<EmailAddress> = listOf()
     var phoneNumbers: List<PhoneNumber> = listOf()
     var socialMediaProfiles: List<SocialMediaProfile> = listOf()
     var businessInfo: BusinessInfo = BusinessInfo()
     var note: String? =""
-
+    var name: Name = Name()
+    var timestamp = Timestamp.now()
 }
 
 data class PhoneNumber ( var number: String = "") {
+    @Exclude
     val id = Calendar.getInstance().timeInMillis
     var type: PhoneNumberType = PhoneNumberType.Mobile
 
@@ -26,6 +33,7 @@ data class PhoneNumber ( var number: String = "") {
 
 data class EmailAddress (var address: String = ""){
 
+    @Exclude
     val id = Calendar.getInstance().timeInMillis
 
     var type: EmailType = EmailType.Personal
@@ -35,7 +43,7 @@ data class EmailAddress (var address: String = ""){
     }
 }
 
-data class SocialMediaProfile (var usernameOrUrl: String = "", var socialMedia: SocialMedia = SocialMedia.None) {
+data class SocialMediaProfile (var usernameOrUrl: String = "", var type: SocialMedia = SocialMedia.None) {
 
     val id = Calendar.getInstance().timeInMillis
 
@@ -44,15 +52,17 @@ data class SocialMediaProfile (var usernameOrUrl: String = "", var socialMedia: 
     }
 }
 
-class BusinessInfo {
-    var companyName: String = ""
+data class BusinessInfo(var companyName: String = "") {
     var role: String = ""
     var companyAddress: String? =""
-    var logoUrl: String?=""
+    var companyLogo: String?=""
 }
 
-data class Name(var first: String = "",var last: String = "") {
+data class Name(var firstName: String = "", var lastName: String = "") {
     var prefix: String? =""
-    var middle: String?=""
+    var middleName: String=""
+    var fullName: String=""
     var suffix: String? = ""
+
 }
+
