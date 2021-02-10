@@ -1,14 +1,21 @@
 package com.codedevtech.mycardv2.utils
 
+import android.animation.ValueAnimator
+import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
+import androidx.core.view.drawToBitmap
 import androidx.lifecycle.MutableLiveData
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.models.Card
 import com.codedevtech.mycardv2.models.Name
 import com.codedevtech.mycardv2.models.SocialMediaProfile
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import kotlin.random.Random
@@ -108,5 +115,67 @@ fun Exception.getCode(): Int{
             Log.d("ERROR", "onVerificationFailed: ${this.localizedMessage}")
             R.string.default_error
         }
+    }
+}
+
+fun BottomNavigationView.hide() {
+    if (visibility == View.GONE) return
+
+    val drawable = BitmapDrawable(context.resources, drawToBitmap())
+    val parent = parent as ViewGroup
+    drawable.setBounds(left, top, right, bottom)
+    parent.overlay.add(drawable)
+    visibility = View.GONE
+    ValueAnimator.ofInt(top, parent.height).apply {
+        startDelay = 100L
+        duration = 200L
+        interpolator = AnimationUtils.loadInterpolator(
+            context,
+            android.R.interpolator.fast_out_linear_in
+        )
+        addUpdateListener {
+            val newTop = it.animatedValue as Int
+            drawable.setBounds(left, newTop, right, newTop + height)
+        }
+        doOnEnd {
+            parent.overlay.remove(drawable)
+        }
+        start()
+    }
+}
+
+fun BottomNavigationView.show() {
+    if (visibility == View.VISIBLE) return
+
+    val parent = parent as ViewGroup
+    // View needs to be laid out to create a snapshot & know position to animate. If view isn't
+    // laid out yet, need to do this manually.
+    if (!isLaidOut) {
+        measure(
+            View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY),
+            View.MeasureSpec.makeMeasureSpec(parent.height, View.MeasureSpec.AT_MOST)
+        )
+        layout(parent.left, parent.height - measuredHeight, parent.right, parent.height)
+    }
+
+    val drawable = BitmapDrawable(context.resources, drawToBitmap())
+    drawable.setBounds(left, parent.height, right, parent.height + height)
+    parent.overlay.add(drawable)
+    ValueAnimator.ofInt(parent.height, top).apply {
+        startDelay = 100L
+        duration = 300L
+        interpolator = AnimationUtils.loadInterpolator(
+            context,
+            android.R.interpolator.linear_out_slow_in
+        )
+        addUpdateListener {
+            val newTop = it.animatedValue as Int
+            drawable.setBounds(left, newTop, right, newTop + height)
+        }
+        doOnEnd {
+            parent.overlay.remove(drawable)
+            visibility = View.VISIBLE
+        }
+        start()
     }
 }
