@@ -1,7 +1,6 @@
 package com.codedevtech.mycardv2.viewmodel
 
 import android.net.Uri
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.codedevtech.mycardv2.AddCardNavDirections
@@ -9,15 +8,12 @@ import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.event.Event
 import com.codedevtech.mycardv2.fragments.dashboard.AddPersonalCardFragmentDirections
 import com.codedevtech.mycardv2.fragments.dashboard.AddWorkFragmentDirections
-import com.codedevtech.mycardv2.fragments.dashboard.DashboardFragmentDirections
-import com.codedevtech.mycardv2.fragments.onboarding.ConfirmAddDetailsFragment
 import com.codedevtech.mycardv2.models.*
 import com.codedevtech.mycardv2.repositories.CardsRepository
 import com.codedevtech.mycardv2.services.UpdateImageService
 import com.codedevtech.mycardv2.utils.aggregateNameToFullName
 import com.codedevtech.mycardv2.utils.notifyObserver
 import com.codedevtech.mycardv2.utils.segregateFullName
-import com.codedevtech.mycardv2.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

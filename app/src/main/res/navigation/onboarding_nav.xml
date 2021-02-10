@@ -10,9 +10,6 @@
         android:id="@+id/cardDetailsFragment"
         android:name="com.codedevtech.mycardv2.fragments.onboarding.CardDetailsFragment"
         tools:layout="@layout/fragment_card_details" >
-        <action
-            android:id="@+id/action_cardDetailsFragment_to_cardOptionsFragment"
-            app:destination="@id/cardOptionsFragment" />
         <argument
             android:name="card"
             app:argType="com.codedevtech.mycardv2.models.Card"
@@ -29,10 +26,14 @@
             android:id="@+id/action_welcomeFragment_to_skipOnboardingFragment"
             app:destination="@id/skipOnboardingFragment" />
         <action
-            android:id="@+id/action_welcomeFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment"
+            android:id="@+id/action_welcomeFragment_to_cardsFragment"
+            app:destination="@id/cardsFragment"
+            app:launchSingleTop="true"
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/skipOnboardingFragment"
@@ -93,29 +94,10 @@
         android:name="com.codedevtech.mycardv2.fragments.onboarding.VerifyNumberFragment"
         tools:layout="@layout/fragment_verify_number" >
         <action
-            android:id="@+id/action_verifyNumberFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment"
+            android:id="@+id/action_verifyNumberFragment_to_cardsFragment"
+            app:destination="@id/cardsFragment"
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.codedevtech.mycardv2.fragments.dashboard.DashboardFragment"
-        tools:layout="@layout/dashboard_fragment" >
-        <action
-            android:id="@+id/action_dashboardFragment_to_cardDetailsFragment"
-            app:destination="@id/cardDetailsFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_add_card_nav"
-            app:destination="@id/add_card_nav"
-            app:launchSingleTop="true" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_cardFilterFragment"
-            app:destination="@id/cardFilterFragment"
-            app:launchSingleTop="true" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_searchCardsFragment"
-            app:destination="@id/searchCardsFragment" />
     </fragment>
     <navigation android:id="@+id/add_card_nav"
         app:startDestination="@id/addPersonalCardFragment">
@@ -153,7 +135,7 @@
             android:id="@+id/action_global_cardDetailsFragment"
             app:destination="@id/cardDetailsFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/dashboardFragment"
+            app:popUpTo="@id/cardsFragment"
             app:popUpToInclusive="false" />
     </navigation>
     <dialog
@@ -180,4 +162,49 @@
         android:id="@+id/searchCardsFragment"
         android:name="com.codedevtech.mycardv2.fragments.dashboard.SearchCardsFragment"
         tools:layout="@layout/fragment_search_cards" />
+
+    <fragment
+        android:id="@+id/viewCardDetailsFragment"
+        android:label=""
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.ViewCardDetailsFragment"
+        tools:layout="@layout/fragment_card_details">
+        <argument
+            android:name="card"
+            android:defaultValue="@null"
+            app:argType="com.codedevtech.mycardv2.models.Card"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardsFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.CardsFragment"
+        tools:layout="@layout/cards_fragment"
+        android:label="@string/cards" >
+        <action
+            android:id="@+id/action_cardsFragment_to_viewCardDetailsFragment"
+            app:destination="@id/viewCardDetailsFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_cardsFragment_to_cardFilterFragment"
+            app:destination="@id/cardFilterFragment" />
+        <action
+            android:id="@+id/action_cardsFragment_to_searchCardsFragment"
+            app:destination="@id/searchCardsFragment" />
+        <action
+            android:id="@+id/action_cardsFragment_to_add_card_nav"
+            app:destination="@id/add_card_nav" />
+        <action
+            android:id="@+id/action_cardsFragment_to_cardDetailsFragment"
+            app:destination="@id/cardDetailsFragment" />
+        <action
+            android:id="@+id/action_cardsFragment_to_meFragment"
+            app:destination="@id/meFragment"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/meFragment"
+        tools:layout="@layout/me_fragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.MeFragment"
+        android:label="@string/me" />
+    <action android:id="@+id/action_global_cardOptionsFragment" app:destination="@id/cardOptionsFragment" />
+
 </navigation>

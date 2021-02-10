@@ -19,7 +19,7 @@ import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 class MeFragment : Fragment() {
 
     lateinit var binding: MeFragmentBinding
-    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.dashboard_nav)
+    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

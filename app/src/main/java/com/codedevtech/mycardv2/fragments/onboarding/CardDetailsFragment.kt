@@ -42,7 +42,7 @@ class CardDetailsFragment : Fragment() {
     lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
 
 
-    val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.dashboard_nav)
+    val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 /*
 
     val addPersonalCardViewModel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_card_nav){

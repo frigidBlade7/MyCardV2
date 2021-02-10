@@ -6,6 +6,7 @@
 
     <color name="mc_blue">#16B1F3</color>
     <color name="mc_blue_20">#d0effd</color>
+    <color name="mc_orange_30">#fcd1b9</color>
 
     <color name="divider_tint">#E6E6E6</color>
 
@@ -13,7 +14,8 @@
     <color name="mc_red">#FB4E4E</color>
     <color name="mc_gray_light">#F5F5F5</color>
     <color name="mc_yellow">#F6A609</color>
-    <color name="mc_green">#2AC769</color>
+    <color name="mc_green">#1AB759</color>
+    <color name="mc_orange">#F6A609</color>
 
     <color name="mc_red_gradient">#9c0078</color>
     <color name="mc_black_60">#99000000</color>

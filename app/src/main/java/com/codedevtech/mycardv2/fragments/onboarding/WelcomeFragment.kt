@@ -22,26 +22,40 @@ class WelcomeFragment : Fragment() {
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
+
         if(FirebaseAuth.getInstance().currentUser!=null)
-            onboardingViewModel._destination.value = Event(WelcomeFragmentDirections.actionWelcomeFragmentToDashboardFragment())
+            binding.apply {
+                //findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
+            }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+       super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentWelcomeBinding.inflate(layoutInflater, container, false)
-        binding.viewModel = onboardingViewModel
-        binding.lifecycleOwner = viewLifecycleOwner
 
-        onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {
-            findNavController().navigate(it)
-        })
-        return binding.root
-    }
+   }
+   override fun onCreateView(
+       inflater: LayoutInflater, container: ViewGroup?,
+       savedInstanceState: Bundle?
+   ): View? {
+       // Inflate the layout for this fragment
+
+       binding = FragmentWelcomeBinding.inflate(layoutInflater, container, false)
+       binding.viewModel = onboardingViewModel
+       binding.lifecycleOwner = viewLifecycleOwner
+
+       onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {
+           findNavController().navigate(it)
+       })
+/*
+       binding.title.setOnClickListener {
+           findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
+       }*/
+
+
+      return binding.root
+  }
 
 }

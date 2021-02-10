@@ -9,11 +9,12 @@ import com.codedevtech.mycardv2.AuthenticationCallbacks
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.services.AuthenticationService
 import com.codedevtech.mycardv2.event.Event
-import com.codedevtech.mycardv2.fragments.dashboard.CardsFragment
-import com.codedevtech.mycardv2.fragments.dashboard.DashboardFragmentDirections
+import com.codedevtech.mycardv2.fragments.dashboard.CardOptionsFragmentDirections
+import com.codedevtech.mycardv2.fragments.dashboard.CardsFragmentDirections
 import com.codedevtech.mycardv2.fragments.onboarding.*
 import com.codedevtech.mycardv2.models.Card
 import com.codedevtech.mycardv2.utils.Utils
+import com.google.firebase.auth.PhoneAuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,6 +26,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     lateinit var filePath: String
 
     var selectedCard = MutableLiveData<Card>()
+    var position = MutableLiveData<Int>()
 
     //private val authenticationService: AuthenticationService = AuthenticationServiceImpl(auth)
 
@@ -46,6 +48,12 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
             goToDashboard()
         }
 
+        override fun onAuthCredentialSent(phoneAuthCredential: PhoneAuthCredential) {
+            viewModelScope.launch {
+                authenticationService.attemptAuth(phoneAuthCredential)
+            }
+        }
+
         override fun onAuthFailure(errorCode: Int) {
             _snackbarInt.postValue(Event(errorCode))
         }
@@ -59,7 +67,8 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun goToSkip(){
-        val action = WelcomeFragmentDirections.actionWelcomeFragmentToSkipOnboardingFragment()
+        val action = //WelcomeFragmentDirections.actionWelcomeFragmentToSkipOnboardingFragment()
+            WelcomeFragmentDirections.actionWelcomeFragmentToSignUpFragment()
         _destination.value = Event(action)
     }
 
@@ -86,7 +95,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun goToAddCard(){
-        _destination.value = Event(DashboardFragmentDirections.actionDashboardFragmentToAddCardNav())
+        _destination.value = Event(CardsFragmentDirections.actionCardsFragmentToAddCardNav())
     }
 
     fun goToAddCardFromCapture(){
@@ -123,12 +132,12 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
     fun goToDashboard(){
 
-        val action = VerifyNumberFragmentDirections.actionVerifyNumberFragmentToDashboardFragment()
+        val action = VerifyNumberFragmentDirections.actionVerifyNumberFragmentToCardsFragment()
         _destination.value = Event(action)
     }
 
     fun goToCardDetails(card: Card?){
-        val action = DashboardFragmentDirections.actionDashboardFragmentToCardDetailsFragment(card)
+        val action = CardsFragmentDirections.actionCardsFragmentToCardDetailsFragment(card)
         _destination.postValue(Event(action))
     }
 
@@ -140,8 +149,9 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
         }
 
     }
+
     fun showCardOptions() {
-        _destination.value = Event(CardDetailsFragmentDirections.actionCardDetailsFragmentToCardOptionsFragment())
+        _destination.value = Event(CardOptionsFragmentDirections.actionGlobalCardOptionsFragment())
     }
 
     fun confirmCardDeletion() {
@@ -158,11 +168,11 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
 
     fun showFilter(){
-        _destination.value = Event(DashboardFragmentDirections.actionDashboardFragmentToCardFilterFragment())
+        _destination.value = Event(CardsFragmentDirections.actionCardsFragmentToCardFilterFragment())
     }
 
     fun goToSearch(){
-        _destination.value = Event(DashboardFragmentDirections.actionDashboardFragmentToSearchCardsFragment())
+        _destination.value = Event(CardsFragmentDirections.actionCardsFragmentToSearchCardsFragment())
     }
 
 

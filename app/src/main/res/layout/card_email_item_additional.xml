@@ -5,6 +5,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
         <variable
             name="item"
             type="com.codedevtech.mycardv2.models.EmailAddress" />
@@ -38,6 +39,7 @@
             android:layout_marginBottom="16dp"
             android:text="@{item.type.toString()}"
             android:textAlignment="textStart"
+            android:textColor="@{ExtensionsKt.textColor(type,item.type.toString())}"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/role"

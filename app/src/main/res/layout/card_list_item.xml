@@ -10,6 +10,9 @@
         <variable
             name="item"
             type="com.codedevtech.mycardv2.models.Card" />
+        <variable
+            name="position"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,7 +83,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
-            app:backgroundColor="@{ExtensionsKt.backgroundColor(icon)}"
+            app:backgroundColor="@{ExtensionsKt.backgroundColor(icon,position)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/name"
             app:layout_constraintHorizontal_bias="0.5"
@@ -97,7 +100,7 @@
             android:layout_height="wrap_content"
             android:text="@{ExtensionsKt.initials(item)}"
             android:visibility="@{item.profilePicUrl.empty?View.VISIBLE:View.GONE}"
-            android:textColor="@color/mc_blue"
+            android:textColor="@{ExtensionsKt.initialsColor(icon,position)}"
             app:layout_constraintBottom_toBottomOf="@+id/icon"
             app:layout_constraintEnd_toEndOf="@+id/icon"
             app:layout_constraintStart_toStartOf="@+id/icon"

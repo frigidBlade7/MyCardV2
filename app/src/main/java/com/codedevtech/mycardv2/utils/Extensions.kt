@@ -21,11 +21,31 @@ fun Card?.initials():String{
     return ""
 }
 
-fun View.backgroundColor(): Int{
-    return when(Random.nextInt(0,2)){
+fun View.backgroundColor(colorCode: Int): Int{
+    return when(colorCode%3){
         0 -> ContextCompat.getColor(context, R.color.mc_purple_10)
         1 -> ContextCompat.getColor(context, R.color.mc_blue_20)
+        2-> ContextCompat.getColor(context, R.color.mc_orange_30)
         else -> ContextCompat.getColor(context, R.color.mc_gray_light)
+    }
+}
+
+fun View.initialsColor(colorCode: Int): Int{
+    return when(colorCode%3){
+        0 -> ContextCompat.getColor(context, R.color.mc_purple)
+        1 -> ContextCompat.getColor(context, R.color.mc_blue)
+        2-> ContextCompat.getColor(context, R.color.mc_orange)
+        else -> ContextCompat.getColor(context, android.R.color.darker_gray)
+    }
+}
+
+fun View.textColor(type: String?): Int{
+    return when(type){
+        this.context.getString(R.string.personal) -> ContextCompat.getColor(context, R.color.mc_purple)
+        this.context.getString(R.string.mobile) -> ContextCompat.getColor(context, R.color.mc_purple)
+        this.context.getString(R.string.home) -> ContextCompat.getColor(context, R.color.mc_green)
+        this.context.getString(R.string.work) -> ContextCompat.getColor(context, R.color.mc_green)
+        else -> ContextCompat.getColor(context, R.color.mc_orange)
     }
 }
 

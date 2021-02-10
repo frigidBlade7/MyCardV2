@@ -229,6 +229,7 @@
 
     <style name="CircularImageView">
         <item name="cornerFamily">rounded</item>
+        <item name="background">?attr/colorSurface</item>
         <item name="alpha">0.2</item>
         <item name="cornerSize">50%</item>
     </style>

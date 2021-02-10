@@ -7,7 +7,9 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import java.util.concurrent.TimeUnit
 import com.codedevtech.mycardv2.utils.getCode
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,12 +27,11 @@ import javax.inject.Singleton
 
     private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
         override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-            authCallback.onAuthSuccess()
+            authCallback.onAuthCredentialSent(p0)
         }
 
         override fun onVerificationFailed(p0: FirebaseException) {
             authCallback.onAuthFailure(p0.getCode())
-
         }
 
         override fun onCodeAutoRetrievalTimeOut(p0: String) {
@@ -72,6 +73,17 @@ import javax.inject.Singleton
             authCallback.onAuthFailure(e.getCode())
         }
     }
+
+    override suspend fun attemptAuth(phoneAuthCredential: PhoneAuthCredential) {
+        try{
+            auth.signInWithCredential(phoneAuthCredential).await()
+            authCallback.onAuthSuccess()
+        }catch (e: Exception){
+            Log.d(TAG, "attemptAuth: ${e.localizedMessage}")
+            authCallback.onAuthFailure(e.getCode())
+        }
+    }
+
 
     override fun setUpAuthCallbacks(authenticationCallbacks: AuthenticationCallbacks) {
         this.authCallback = authenticationCallbacks

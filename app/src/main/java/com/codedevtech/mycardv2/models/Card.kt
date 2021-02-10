@@ -19,6 +19,9 @@ data class Card(@DocumentId
     var note: String? =""
     var name: Name = Name()
     var timestamp = Timestamp.now()
+
+    @Exclude
+    var position= 1
 }
 
 data class PhoneNumber ( var number: String = "") {

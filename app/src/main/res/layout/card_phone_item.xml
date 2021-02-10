@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
         <import type="android.view.View"/>
         <variable
             name="item"
@@ -90,6 +91,7 @@
             android:layout_marginBottom="16dp"
             android:text="@{item.phoneNumbers.empty?null:item.phoneNumbers.get(0).type.toString()}"
             android:textAlignment="textStart"
+            android:textColor="@{ExtensionsKt.textColor(type,item.phoneNumbers.empty?null:item.phoneNumbers.get(0).type.toString())}"
             android:textAllCaps="false"
             app:layout_constraintBottom_toTopOf="@+id/list"
             app:layout_constraintEnd_toEndOf="@+id/role"

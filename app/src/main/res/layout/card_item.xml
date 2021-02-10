@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="item"
             type="com.codedevtech.mycardv2.models.Card"/>
@@ -32,7 +33,7 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/background"
+                    android:id="@+id/icon"
                     android:layout_width="40dp"
                     imageUrl="@{item.profilePicUrl}"
                     android:layout_height="40dp"
@@ -44,7 +45,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/CircularImageView"
-                    android:background="@color/mc_blue_20"/>
+                    app:backgroundColor="@{ExtensionsKt.backgroundColor(icon,item.position)}"/>
 
                 <TextView
                     android:id="@+id/initials"
@@ -52,11 +53,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{ExtensionsKt.initials(item)}"
-                    android:textColor="@color/mc_blue"
-                    app:layout_constraintBottom_toBottomOf="@+id/background"
-                    app:layout_constraintEnd_toEndOf="@+id/background"
-                    app:layout_constraintStart_toStartOf="@+id/background"
-                    app:layout_constraintTop_toTopOf="@+id/background"
+                    android:visibility="@{item.profilePicUrl.empty?View.VISIBLE:View.GONE}"
+                    android:textColor="@{ExtensionsKt.initialsColor(initials,item.position)}"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon"
+                    app:layout_constraintEnd_toEndOf="@+id/icon"
+                    app:layout_constraintStart_toStartOf="@+id/icon"
+                    app:layout_constraintTop_toTopOf="@+id/icon"
                     tools:text="NA" />
 
                 <TextView
@@ -72,7 +74,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/background"
+                    app:layout_constraintTop_toBottomOf="@+id/icon"
                     tools:text="Nate Att" />
 
                 <TextView

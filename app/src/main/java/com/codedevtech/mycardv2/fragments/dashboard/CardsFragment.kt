@@ -12,10 +12,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.navigation.ui.setupWithNavController
 import androidx.paging.LoadState
+import com.codedevtech.mycardv2.MainActivity
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.rv.CardPagingAdapter
 import com.codedevtech.mycardv2.databinding.CardsFragmentBinding
@@ -28,6 +31,8 @@ import com.codedevtech.mycardv2.listeners.ItemInteraction
 import com.codedevtech.mycardv2.listeners.ItemViewInteraction
 import com.codedevtech.mycardv2.models.Card
 import com.codedevtech.mycardv2.models.Resource
+import com.codedevtech.mycardv2.utils.hide
+import com.codedevtech.mycardv2.utils.show
 import com.codedevtech.mycardv2.viewmodel.CardViewModel
 import com.codedevtech.mycardv2.viewmodel.DashboardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
@@ -45,32 +50,34 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
     lateinit var binding: CardsFragmentBinding
     val pagedAdapter= CardPagingAdapter(this)
 
-    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.dashboard_nav)
+    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
-    val cardViewmodel: CardViewModel by hiltNavGraphViewModels(R.id.dashboard_nav)
-
+    val cardViewmodel: CardViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 /*
     private val closeCardOnBackPressed = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
-            findNavController().navigateUp()
+            requireActivity().finish()
         }
     }*/
 
+    override fun onStart() {
+        super.onStart()
+
+    }
+
     override fun onResume() {
         super.onResume()
-
-        binding.addCard.show()
+        //binding.addCard.show()
     }
 
     override fun onPause() {
         super.onPause()
-        binding.addCard.hide()
+        //binding.addCard.hide()
         Log.d("TAG", "onPause: ")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //requireActivity().onBackPressedDispatcher.addCallback(this, closeCardOnBackPressed)
 
         enterTransition = MaterialFadeThrough()
     }
@@ -78,10 +85,12 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d(TAG, "onViewCreated: ${findNavController().currentDestination} ${findNavController().currentDestination?.id} ${findNavController().previousBackStackEntry}")
         postponeEnterTransition()
         view.doOnPreDraw {
             startPostponedEnterTransition()
+/*            //todo fix up
+            val mainActivity = requireActivity() as MainActivity
+            mainActivity.binding.bottomNav.show()*/
         }
 
         binding.list.adapter = pagedAdapter
@@ -103,9 +112,9 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
         binding = CardsFragmentBinding.inflate(layoutInflater,container, false)
 
 
-        binding.addCard.setOnClickListener {
+/*        binding.addCard.setOnClickListener {
             viewmodel.goToAddCard()
-        }
+        }*/
 
         binding.filter.setOnClickListener {
             viewmodel.goToSearch()
@@ -117,7 +126,7 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             //if(it.actionId == R.id.action_dashboardFragment_to_add_card_nav)
-                requireParentFragment().requireParentFragment().findNavController().navigate(it)
+                findNavController().navigate(it)
 
         })
 
@@ -129,12 +138,28 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
             }
         }
 
+/*        binding.apply {
+
+            val navController = Navigation.findNavController(requireActivity(), R.id.fragment)
+            bottomNav.setupWithNavController(navController)
+
+            lifecycleScope.launchWhenResumed {
+                findNavController().addOnDestinationChangedListener { _, destination, _ ->
+                    when (destination.id) {
+                        R.id.cardsFragment, R.id.meFragment -> bottomNav.show()
+                        else -> binding.bottomNav.hide()
+                    }
+                }
+            }
+        }*/
+
 
         return binding.root
     }
 
-    override fun onItemClicked(item: Card?, view: View) {
+    override fun onItemClicked(item: Card?, view: View, position: Int) {
 
+        item?.position = position
         exitTransition = MaterialElevationScale(false)
         reenterTransition = MaterialElevationScale(true)
 

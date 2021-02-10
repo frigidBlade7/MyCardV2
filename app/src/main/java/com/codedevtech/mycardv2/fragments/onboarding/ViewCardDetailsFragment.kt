@@ -27,6 +27,7 @@ import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.card.MaterialCardView.OnCheckedChangeListener
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +44,7 @@ class ViewCardDetailsFragment : Fragment() {
     lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
 
 
-    val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.dashboard_nav)
+    val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 /*
 
     val addPersonalCardViewModel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_card_nav){
@@ -57,14 +58,16 @@ class ViewCardDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
 
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            scrimColor = Color.TRANSPARENT
-        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            scrimColor = Color.TRANSPARENT
+            setAllContainerColors(MaterialColors.getColor(requireView(),R.attr.colorSurface))
+        }
 
         binding.toolbar.setNavigationOnClickListener{
             findNavController().navigateUp()

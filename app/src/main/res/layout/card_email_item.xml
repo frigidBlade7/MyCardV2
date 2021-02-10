@@ -91,7 +91,7 @@
             android:text="@{item.emailAddresses.empty?null:item.emailAddresses.get(0).type.toString()}"
             android:textAlignment="textStart"
             android:textAllCaps="false"
-            android:textColor="@{ExtensionsKt.backgroundColor(type)}"
+            android:textColor="@{ExtensionsKt.textColor(type,item.emailAddresses.empty?null:item.emailAddresses.get(0).type.toString())}"
             app:layout_constraintBottom_toTopOf="@+id/list"
             app:layout_constraintEnd_toEndOf="@+id/role"
             app:layout_constraintHorizontal_bias="0.5"

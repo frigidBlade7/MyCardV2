@@ -4,6 +4,7 @@ package com.codedevtech.mycardv2.fragments.dashboard
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView
+import com.codedevtech.mycardv2.MainActivity
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.DropDownAdapter
 import com.codedevtech.mycardv2.adapter.rv.EmailAdapter
@@ -35,6 +37,8 @@ import com.codedevtech.mycardv2.utils.aggregateNameToFullName
 import com.codedevtech.mycardv2.utils.notifyObserver
 import com.codedevtech.mycardv2.utils.segregateFullName
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
@@ -58,6 +62,24 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val mainActivity = requireActivity() as MainActivity
+        enterTransition = MaterialContainerTransform().apply {
+            // Manually add the Views to be shared since this is not a standard Fragment to
+            // Fragment shared element transition.
+            startView = mainActivity.binding.addCard
+            endView = binding.layout
+/*
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+*/
+            scrimColor = Color.TRANSPARENT
+            containerColor = MaterialColors.getColor(view,R.attr.colorSurface)
+            startContainerColor = MaterialColors.getColor(view,R.attr.colorPrimary)
+            endContainerColor = MaterialColors.getColor(view,R.attr.colorSurface)
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

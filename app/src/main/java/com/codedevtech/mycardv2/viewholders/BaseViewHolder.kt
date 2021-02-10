@@ -13,4 +13,11 @@ class BaseViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding
         binding!!.executePendingBindings()
     }
 
+
+    fun bindTo(item: Any?,position: Int) {
+        binding!!.setVariable(BR.item, item)
+        binding!!.setVariable(BR.position, position)
+        binding!!.executePendingBindings()
+    }
+
 }
