@@ -5,8 +5,16 @@ import android.Manifest
 class Utils {
 
     companion object {
+        const val SORT_MODE_NAME= "NAME"
+        const val SORT_MODE_RECENT= "RECENT"
+
+
+        const val FILTER_ALL= "ALL"
+        const val FILTER_COMPANY= "COMPANY"
+        const val FILTER_ROLE= "ROLE"
+        const val FILTER_NAME= "NAME"
         const val REQUEST_PHOTO: Int = 77
-        const val PAGE_SIZE: Long = 10
+        const val PAGE_SIZE: Long = 3
         const val RC_CAMERA = 59
         const val IMAGE_FILE_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         const val PHOTO_EXTENSION = ".jpg"

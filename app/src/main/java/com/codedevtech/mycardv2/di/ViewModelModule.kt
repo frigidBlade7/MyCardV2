@@ -1,7 +1,10 @@
 package com.codedevtech.mycardv2.di
 
-import com.codedevtech.mycardv2.models.CardDataSource
-import com.codedevtech.mycardv2.models.FirebaseCardDataSourceImpl
+import com.codedevtech.mycardv2.db.AppDb
+import com.codedevtech.mycardv2.db.dao.AddedCardDao
+import com.codedevtech.mycardv2.models.*
+import com.codedevtech.mycardv2.models.datasource.*
+import com.codedevtech.mycardv2.models.datasource.AddedCardDataSource
 import com.codedevtech.mycardv2.services.AuthenticationServiceImpl
 import com.codedevtech.mycardv2.services.AuthenticationService
 import com.codedevtech.mycardv2.services.UpdateImageService
@@ -27,14 +30,34 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun providesFirebaseCardDataSource(db: FirebaseFirestore): CardDataSource {
-        return FirebaseCardDataSourceImpl(db.collection("cards"))
+    fun providesAddedCardDataSource(db: FirebaseFirestore, auth: FirebaseAuth, addedCardDao: AddedCardDao): AddedCardDataSource {
+        return FirebaseAddedCardDataSourceImpl(db.collection("users")
+            .document(auth.currentUser!!.uid).collection("addedCards"),addedCardDao)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun providesPersonalCardDataSource(db: FirebaseFirestore): LiveCardDataSource {
+        return FirebaseLiveCardDataSourceImpl(db.collection("personalCards"))
+    }
+
+
+    @Provides
+    @ViewModelScoped
+    fun providesUserDataSource(auth: FirebaseAuth): UserDataSourceImpl {
+        return FirebaseUserDataSourceImpl(auth)
     }
 
     @Provides
     @ViewModelScoped
     fun providesUpdateImageService(fs: FirebaseStorage): UpdateImageService{
         return FirebaseUpdateImageServiceImpl(fs)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun providesAddedCardDao(appDb: AppDb): AddedCardDao{
+        return appDb.addedCardsDao()
     }
 }
 

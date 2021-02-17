@@ -15,12 +15,14 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
+import com.codedevtech.mycardv2.adapter.AddedCardAdapter
 import com.codedevtech.mycardv2.adapter.CardAdapter
 import com.codedevtech.mycardv2.adapter.rv.*
+import com.codedevtech.mycardv2.databinding.FragmentAddedCardDetailsBinding
 import com.codedevtech.mycardv2.databinding.FragmentCardDetailsBinding
 import com.codedevtech.mycardv2.databinding.FragmentConfirmDetailsBinding
 import com.codedevtech.mycardv2.event.EventObserver
-import com.codedevtech.mycardv2.models.Card
+import com.codedevtech.mycardv2.models.LiveCard
 import com.codedevtech.mycardv2.models.Name
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
@@ -35,8 +37,8 @@ private const val TAG = "CardDetailsFragment"
 @AndroidEntryPoint
 class CardDetailsFragment : Fragment() {
 
-    lateinit var binding : FragmentCardDetailsBinding
-    lateinit var cardAdapter: CardAdapter
+    lateinit var binding : FragmentAddedCardDetailsBinding
+    lateinit var cardAdapter: AddedCardAdapter
     lateinit var socialAdapter: SocialAdapter
     lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
     lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
@@ -55,10 +57,13 @@ class CardDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            scrimColor = Color.TRANSPARENT
+        CardDetailsFragmentArgs.fromBundle(requireArguments()).card?.let {
+            onboardingViewModel.selectedCard.value  = it
         }
+
+/*        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            scrimColor = Color.TRANSPARENT
+        }*/
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,13 +80,13 @@ class CardDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        binding = FragmentCardDetailsBinding.inflate(layoutInflater, container, false)
+        binding = FragmentAddedCardDetailsBinding.inflate(layoutInflater, container, false)
         binding.onboardingViewModel = onboardingViewModel
         //binding.viewModel = addPersonalCardViewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        cardAdapter= CardAdapter()
+        cardAdapter= AddedCardAdapter()
         extraEmailAddressAdapter = ExtraEmailAddressAdapter()
         extraPhoneNumbersAdapter = ExtraPhoneNumbersAdapter()
 
@@ -90,7 +95,7 @@ class CardDetailsFragment : Fragment() {
         binding.include.phone.list.adapter = extraPhoneNumbersAdapter
 
         onboardingViewModel.selectedCard.observe(viewLifecycleOwner){
-            cardAdapter.submitList(listOf(it,it))
+            cardAdapter.submitList(listOf(it))
             if(it.phoneNumbers.size>1)
                 extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
             if(it.emailAddresses.size>1)

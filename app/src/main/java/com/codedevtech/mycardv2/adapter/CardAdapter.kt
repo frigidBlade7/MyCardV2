@@ -3,14 +3,14 @@ package com.codedevtech.mycardv2.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.codedevtech.mycardv2.adapter.diffutils.CardDiffUtil
+import com.codedevtech.mycardv2.adapter.diffutils.PersonalCardDiffUtil
 import com.codedevtech.mycardv2.databinding.CardItemBinding
 import com.codedevtech.mycardv2.databinding.CardItemFlippedBinding
-import com.codedevtech.mycardv2.models.Card
+import com.codedevtech.mycardv2.models.LiveCard
 import com.codedevtech.mycardv2.viewholders.BaseViewHolder
 
 
-class CardAdapter : ListAdapter<Card, BaseViewHolder>(CardDiffUtil()) {
+class CardAdapter : ListAdapter<LiveCard, BaseViewHolder>(PersonalCardDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
         return when(viewType) {

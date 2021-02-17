@@ -8,7 +8,7 @@
         <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
         <variable
             name="viewmodel"
-            type="com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel" />
+            type="com.codedevtech.mycardv2.viewmodel.AddCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,11 +83,12 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/company_logo"
-                    android:background="@drawable/rounded_rectangle_border"
+                    companyLogoUrl="@{viewmodel.card.businessInfo.companyLogo}"
                     android:layout_width="0dp"
                     android:layout_height="144dp"
                     android:layout_marginTop="28dp"
-                    companyLogoUrl="@{viewmodel.card.businessInfo.companyLogo}"
+                    android:background="@drawable/rounded_rectangle_border"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/title"
@@ -99,6 +100,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/rounded_rectangle"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/company_logo">
@@ -143,6 +145,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/camera_icon"
+                    android:visibility="gone"
                     app:fabSize="mini"
                     app:layout_constraintBottom_toBottomOf="@+id/company_logo"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2" />

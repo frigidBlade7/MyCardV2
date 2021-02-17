@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.Card" />
+            type="com.codedevtech.mycardv2.models.LiveCard" />
         <variable
             name="position"
             type="Integer" />
@@ -98,7 +98,7 @@
             style="@style/TextAppearance.MyCardStyles.Body.Semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{ExtensionsKt.initials(item)}"
+            android:text="@{ExtensionsKt.initials(item.name)}"
             android:visibility="@{item.profilePicUrl.empty?View.VISIBLE:View.GONE}"
             android:textColor="@{ExtensionsKt.initialsColor(icon,position)}"
             app:layout_constraintBottom_toBottomOf="@+id/icon"

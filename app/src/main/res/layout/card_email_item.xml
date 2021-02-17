@@ -8,7 +8,12 @@
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.Card" />
+            type="com.codedevtech.mycardv2.models.EmailAddress" />
+
+
+        <variable
+            name="size"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +63,7 @@
             android:background="?attr/colorSurface"
             android:clickable="true"
             android:focusable="true"
-            android:visibility="@{item.emailAddresses.size()>1?View.VISIBLE:View.GONE}"
+            android:visibility="@{size>1?View.VISIBLE:View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/heading"
@@ -71,7 +76,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@{item.emailAddresses.empty?null:item.emailAddresses.get(0).address}"
+            android:text="@{size==0?null:item.address}"
             android:textAlignment="textStart"
             app:layout_constraintBottom_toTopOf="@+id/type"
             app:layout_constraintEnd_toEndOf="@+id/heading"
@@ -88,10 +93,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
-            android:text="@{item.emailAddresses.empty?null:item.emailAddresses.get(0).type.toString()}"
+            android:text="@{size==0?null:item.type.toString()}"
             android:textAlignment="textStart"
             android:textAllCaps="false"
-            android:textColor="@{ExtensionsKt.textColor(type,item.emailAddresses.empty?null:item.emailAddresses.get(0).type.toString())}"
+            android:textColor="@{ExtensionsKt.textColor(type,size==0?null:item.type.toString())}"
             app:layout_constraintBottom_toTopOf="@+id/list"
             app:layout_constraintEnd_toEndOf="@+id/role"
             app:layout_constraintHorizontal_bias="0.5"

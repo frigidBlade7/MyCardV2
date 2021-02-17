@@ -1,13 +1,20 @@
 package com.codedevtech.mycardv2.di
 
+import android.content.Context
+import com.codedevtech.mycardv2.converters.EmailAddressConverter
+import com.codedevtech.mycardv2.converters.PhoneNumberConverter
+import com.codedevtech.mycardv2.converters.SocialMediaProfileConverter
+import com.codedevtech.mycardv2.db.AppDb
 import com.codedevtech.mycardv2.services.AuthenticationServiceImpl
 import com.codedevtech.mycardv2.services.AuthenticationService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -22,6 +29,11 @@ object AppModule {
         return FirebaseAuth.getInstance()
     }
 
+    @Provides
+    @Singleton
+    fun providesMoshi():Moshi{
+        return Moshi.Builder().build()
+    }
 
     @Provides
     @Singleton
@@ -33,6 +45,13 @@ object AppModule {
     @Singleton
     fun providesFileStorage():FirebaseStorage{
         return FirebaseStorage.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun providesLocalDb(@ApplicationContext context: Context, socialMediaProfileConverter: SocialMediaProfileConverter
+                        ,phoneNumberConverter: PhoneNumberConverter,emailAddressConverter: EmailAddressConverter):AppDb{
+        return AppDb.getDatabase(context, socialMediaProfileConverter, phoneNumberConverter, emailAddressConverter)
     }
 
 

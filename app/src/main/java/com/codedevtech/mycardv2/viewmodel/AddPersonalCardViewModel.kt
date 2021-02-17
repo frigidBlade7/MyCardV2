@@ -3,13 +3,13 @@ package com.codedevtech.mycardv2.viewmodel
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.codedevtech.mycardv2.AddCardNavDirections
+import com.codedevtech.mycardv2.AddPersonalCardNavDirections
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.event.Event
 import com.codedevtech.mycardv2.fragments.dashboard.AddPersonalCardFragmentDirections
-import com.codedevtech.mycardv2.fragments.dashboard.AddWorkFragmentDirections
+import com.codedevtech.mycardv2.fragments.dashboard.AddPersonalWorkFragmentDirections
 import com.codedevtech.mycardv2.models.*
-import com.codedevtech.mycardv2.repositories.CardsRepository
+import com.codedevtech.mycardv2.repositories.PersonalCardsRepository
 import com.codedevtech.mycardv2.services.UpdateImageService
 import com.codedevtech.mycardv2.utils.aggregateNameToFullName
 import com.codedevtech.mycardv2.utils.notifyObserver
@@ -19,14 +19,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddPersonalCardViewModel @Inject constructor(val cardsRepository: CardsRepository, val uploadService: UpdateImageService): BaseViewModel() {
+class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: PersonalCardsRepository, val uploadService: UpdateImageService): BaseViewModel() {
     // TODO: Implement the ViewModel
     var isNameExpanded =  MutableLiveData<Boolean>(false)
     var profileImageUri = MutableLiveData<Uri>()
     var businessImageUri = MutableLiveData<Uri>()
 
 
-    var card = MutableLiveData(Card())
+    var card = MutableLiveData(LiveCard())
 
     var name = MutableLiveData(Name())
     var socials = MutableLiveData(mutableListOf<SocialMediaProfile>(SocialMediaProfile(type= SocialMediaProfile.SocialMedia.LinkedIn),
@@ -39,7 +39,7 @@ class AddPersonalCardViewModel @Inject constructor(val cardsRepository: CardsRep
     var businessInfo = MutableLiveData(BusinessInfo())
 
     fun goToSocialProfile(){
-        _destination.postValue(Event(AddPersonalCardFragmentDirections.actionAddPersonalCardFragmentToAddSocialsFragment()))
+        _destination.postValue(Event(AddPersonalCardFragmentDirections.actionAddPersonalCardFragmentToAddPersonalSocialsFragment()))
     }
 
     fun goToWorkProfile(){
@@ -55,19 +55,19 @@ class AddPersonalCardViewModel @Inject constructor(val cardsRepository: CardsRep
 
         card.notifyObserver()
 
-        _destination.value = Event(AddPersonalCardFragmentDirections.actionAddPersonalCardFragmentToAddWorkFragment())
+        _destination.value = Event(AddPersonalCardFragmentDirections.actionAddPersonalCardFragmentToAddPersonalWorkFragment())
     }
 
     fun goToConfirmDetails(){
         card.value?.businessInfo = businessInfo.value!!
         card.notifyObserver()
 
-        _destination.value = Event(AddWorkFragmentDirections.actionAddWorkFragmentToConfirmAddDetailsFragment())
+        _destination.value = Event(AddPersonalWorkFragmentDirections.actionAddPersonalWorkFragmentToConfirmAddPersonalDetailsFragment())
     }
 
     fun goToCard(){
-        //addCard()
-        _destination.value = Event(AddCardNavDirections.actionGlobalCardDetailsFragment())
+        addCard()
+        //_destination.value = Event(AddCardNavDirections.actionGlobalCardDetailsFragment())
     }
 
     fun updateProfile(uri: Uri?) {
@@ -88,11 +88,11 @@ class AddPersonalCardViewModel @Inject constructor(val cardsRepository: CardsRep
         //todo make this an observable return type
        viewModelScope.launch {
            card.value?.let {
-               when(val data = cardsRepository.firebaseCardDataSource.addData(it)){
+               when(val data = personalCardsRepository.firebaseLiveCardDataSource.addData(it)){
                    is Resource.Success->{
                        //todo hide loader
                        _snackbarInt.postValue(Event(R.string.success))
-                       _destination.postValue(Event(AddCardNavDirections.actionGlobalCardDetailsFragment(card.value)))
+                       _destination.postValue(Event(AddPersonalCardNavDirections.actionGlobalCardPersonalDetailsFragment(card.value)))
 
                        updateBusinessLogo(data.data)
                        updateProfileImage(data.data)
@@ -118,10 +118,10 @@ class AddPersonalCardViewModel @Inject constructor(val cardsRepository: CardsRep
 
             viewModelScope.launch {
                 uploadService.setUri(uri)
-                when(val uploadData = uploadService.uploadImage("profiles/$cardId")){
+                when(val uploadData = uploadService.uploadImage("images/profiles/$cardId")){
                     is Resource.Success->{
                         //todo success upload _snackbarInt.postValue(Event(uploadData.errorCode))
-                            when (val profileData = cardsRepository.firebaseCardDataSource.updateCardProfilePhoto(uploadData.data.toString(),cardId)){
+                            when (val profileData = personalCardsRepository.firebaseLiveCardDataSource.updateCardProfilePhoto(uploadData.data.toString(),cardId)){
                                 is Resource.Error ->{
                                     _snackbarInt.postValue(Event(profileData.errorCode))
                                 }
@@ -143,10 +143,10 @@ class AddPersonalCardViewModel @Inject constructor(val cardsRepository: CardsRep
 
             viewModelScope.launch {
                 uploadService.setUri(uri)
-                when(val uploadData = uploadService.uploadImage("businesses/$cardId")){
+                when(val uploadData = uploadService.uploadImage("images/companyLogos/$cardId")){
                     is Resource.Success->{
                         //todo success upload _snackbarInt.postValue(Event(uploadData.errorCode))
-                        when (val logoData = cardsRepository.firebaseCardDataSource.updateCardCompanyLogo(uploadData.data.toString(),cardId)){
+                        when (val logoData = personalCardsRepository.firebaseLiveCardDataSource.updateCardCompanyLogo(uploadData.data.toString(),cardId)){
                             is Resource.Error ->{
                                 _snackbarInt.postValue(Event(logoData.errorCode))
                             }

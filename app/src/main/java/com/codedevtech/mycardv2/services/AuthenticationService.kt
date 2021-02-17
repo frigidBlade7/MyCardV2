@@ -1,6 +1,9 @@
 package com.codedevtech.mycardv2.services
 
+
 import com.codedevtech.mycardv2.AuthenticationCallbacks
+import com.codedevtech.mycardv2.models.Resource
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 
 interface AuthenticationService {
@@ -11,7 +14,7 @@ interface AuthenticationService {
 
     suspend fun attemptAuth(phoneAuthCredential: PhoneAuthCredential)
 
-    fun setUpAuthCallbacks(authenticationCallbacks: AuthenticationCallbacks)
+    fun setUpAuthCallbacks(authenticationCallbacks: AuthenticationCallbacks<FirebaseUser>)
 
     fun resendVerificationCode()
 }

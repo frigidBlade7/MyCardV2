@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.Card" />
+            type="com.codedevtech.mycardv2.models.LiveCard" />
     </data>
 
     <LinearLayout
@@ -153,7 +153,8 @@
 
         <include
             android:id="@+id/phone"
-            app:item="@{item}"
+            app:item="@{item.phoneNumbers.get(0)}"
+            app:size="@{item.phoneNumbers.size()}"
             layout="@layout/card_phone_item"
             android:visibility="@{item.phoneNumbers.empty?View.GONE: View.VISIBLE}"
             android:layout_width="match_parent"
@@ -168,7 +169,8 @@
 
         <include
             android:id="@+id/email"
-            app:item="@{item}"
+            app:item="@{item.emailAddresses.get(0)}"
+            app:size="@{item.emailAddresses.size()}"
             layout="@layout/card_email_item"
             android:visibility="@{item.emailAddresses.empty?View.GONE: View.VISIBLE}"
             android:layout_width="match_parent"
@@ -228,7 +230,7 @@
         <include
             android:id="@+id/note"
             layout="@layout/card_note_item"
-            app:item="@{item}"
+            app:item="@{item.note}"
             android:visibility="@{item.note.empty?View.GONE: View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

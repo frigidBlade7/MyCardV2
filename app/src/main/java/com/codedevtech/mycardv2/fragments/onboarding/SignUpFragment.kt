@@ -29,6 +29,12 @@ class SignUpFragment : Fragment() {
         binding = FragmentSignUpBinding.inflate(layoutInflater,container, false)
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.countryCodeHolder.registerCarrierNumberEditText(binding.phoneNumber)
+
+        binding.skip.setOnClickListener {
+            viewmodel.phoneNumberFormatted.value = binding.countryCodeHolder.fullNumberWithPlus
+            viewmodel.goToConfirmNumber(binding.countryCodeHolder.fullNumberWithPlus)
+        }
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)

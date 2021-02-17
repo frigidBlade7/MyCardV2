@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="item"
+            type="com.codedevtech.mycardv2.models.AddedCard" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="56dp"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:layout_anchor="@+id/top"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pager"
+                app:tabBackground="@drawable/indicator_selector"
+                app:tabIndicator="@null">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="156dp"
+                app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/make_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/send_mail"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/send_mail"
+                app:srcCompat="@drawable/phone" />
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/TextAppearance.MyCardStyles.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/phone"
+                android:textColor="@color/mc_black"
+                app:layout_constraintEnd_toEndOf="@+id/make_call"
+                app:layout_constraintStart_toStartOf="@+id/make_call"
+                app:layout_constraintTop_toBottomOf="@+id/make_call" />
+
+            <TextView
+                android:id="@+id/textView9"
+                style="@style/TextAppearance.MyCardStyles.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/mail"
+                android:textColor="@color/mc_black"
+                app:layout_constraintEnd_toEndOf="@+id/send_mail"
+                app:layout_constraintStart_toStartOf="@+id/send_mail"
+                app:layout_constraintTop_toBottomOf="@+id/send_mail" />
+
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/TextAppearance.MyCardStyles.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/location"
+                android:textColor="@color/mc_black"
+                app:layout_constraintEnd_toEndOf="@+id/show_location"
+                app:layout_constraintStart_toStartOf="@+id/show_location"
+                app:layout_constraintTop_toBottomOf="@+id/show_location" />
+
+            <ImageView
+                android:id="@+id/send_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:layout_marginBottom="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/show_location"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/make_call"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/mail" />
+
+            <ImageView
+                android:id="@+id/show_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/send_mail"
+                app:layout_constraintTop_toTopOf="@+id/send_mail"
+                app:srcCompat="@drawable/location" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/name"
+            app:name="@{item.name}"
+            layout="@layout/card_name_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/phone"
+            app:item="@{item.phoneNumbers.empty?null: item.phoneNumbers.get(0)}"
+            app:size="@{item.phoneNumbers.size()}"
+            layout="@layout/card_phone_item"
+            android:visibility="@{item.phoneNumbers.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:visibility="@{item.phoneNumbers.empty?View.GONE: View.VISIBLE}"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/email"
+            app:item="@{item.emailAddresses.empty?null: item.emailAddresses.get(0)}"
+            app:size="@{item.emailAddresses.size()}"
+            layout="@layout/card_email_item"
+            android:visibility="@{item.emailAddresses.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:visibility="@{item.emailAddresses.empty?View.GONE: View.VISIBLE}"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/work"
+            app:workInfo="@{item.businessInfo}"
+            android:visibility="@{item.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
+            layout="@layout/card_work_info_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:visibility="@{item.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/work_location"
+            app:location="@{item.businessInfo.companyAddress}"
+            android:visibility="@{item.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
+            layout="@layout/card_work_location_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:visibility="@{item.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/social_media"
+            layout="@layout/card_social_media_item"
+            android:visibility="@{item.socialMediaProfiles.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider"
+            android:visibility="@{item.socialMediaProfiles.empty?View.GONE: View.VISIBLE}" />
+
+        <include
+            android:id="@+id/note"
+            layout="@layout/card_note_item"
+            app:item="@{item.note}"
+            android:visibility="@{item.note.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>

@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.codedevtech.mycardv2.utils.Utils"/>
         <variable
             name="viewModel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.codedevtech.mycardv2.viewmodel.CardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,6 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".fragments.onboarding.CardOptionsFragment">
+
+
 
         <ImageView
             android:id="@+id/imageView13"
@@ -50,12 +53,12 @@
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
 
-        <view
+        <com.codedevtech.mycardv2.utils.MyCardToggleGroup
             android:id="@+id/list"
-            class="com.codedevtech.mycardv2.utils.MyCardToggleGroup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
+            app:checkedButton="@+id/recent"
             android:focusable="true"
             android:orientation="vertical"
             android:layout_marginTop="16dp"
@@ -102,7 +105,7 @@
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="48dp" />
 
-        </view>
+        </com.codedevtech.mycardv2.utils.MyCardToggleGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

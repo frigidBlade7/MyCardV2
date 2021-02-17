@@ -15,6 +15,7 @@ import com.codedevtech.mycardv2.listeners.ItemInteraction
 import com.codedevtech.mycardv2.models.EmailAddress
 import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.viewholders.BaseViewHolder
+import com.squareup.moshi.JsonClass
 
 class EmailAdapter (val itemInteraction: EmailItemInteraction, val arrayAdapter: ArrayAdapter<String>): ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
 

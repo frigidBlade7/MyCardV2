@@ -2,11 +2,11 @@ package com.codedevtech.mycardv2
 
 import com.google.firebase.auth.PhoneAuthCredential
 
-abstract class AuthenticationCallbacks {
+abstract class AuthenticationCallbacks<T> {
 
     abstract fun onCodeSent()
 
-    abstract fun onAuthSuccess()
+    abstract fun onAuthSuccess(userObject: T)
 
     abstract fun onAuthCredentialSent(phoneAuthCredential: PhoneAuthCredential)
 

@@ -17,6 +17,7 @@ import com.codedevtech.mycardv2.models.EmailAddress
 import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.models.SocialMediaProfile
 import com.codedevtech.mycardv2.viewholders.BaseViewHolder
+import com.squareup.moshi.JsonClass
 
 class SocialAdapter (val itemInteraction: SocialItemInteraction?): ListAdapter<SocialMediaProfile, BaseViewHolder>(DiffCallback()) {
 

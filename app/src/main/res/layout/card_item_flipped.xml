@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.Card"/>
+            type="com.codedevtech.mycardv2.models.LiveCard"/>
         <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
     </data>
 

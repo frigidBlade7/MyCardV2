@@ -30,8 +30,8 @@ import com.codedevtech.mycardv2.utils.Utils
 import com.codedevtech.mycardv2.utils.getPreviewOutputSize
 import com.codedevtech.mycardv2.viewmodel.CaptureCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
-import com.scanlibrary.ScanActivity
-import com.scanlibrary.ScanConstants
+/*import com.scanlibrary.ScanActivity
+import com.scanlibrary.ScanConstants*/
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -233,15 +233,15 @@ class CaptureCardFragment : Fragment() {
                     Log.d(TAG, "Image saved: ${output.absolutePath}")
                     viewModel.filePath = output.absolutePath
 
-                    val intent = Intent(context, ScanActivity::class.java)
+                    //val intent = Intent(context, ScanActivity::class.java)
 
 /*
                     val inputBuffer = viewModel.loadInputBuffer()
                     val bitmap = viewModel.decodeBitmap(inputBuffer, 0, inputBuffer.size)
 */
 
-                    intent.putExtra(ScanConstants.SELECTED_BITMAP, output.absolutePath)
-                    startActivity(intent)
+                    //intent.putExtra(ScanConstants.SELECTED_BITMAP, output.absolutePath)
+                    //startActivity(intent)
                     viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToConfirmDetailsFragment()))
 
                     // Display the photo taken to user

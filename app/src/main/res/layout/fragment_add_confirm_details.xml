@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel" />
+            type="com.codedevtech.mycardv2.viewmodel.AddCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +62,7 @@
                     <include
                         android:id="@+id/categories"
                         app:item="@{viewModel.card}"
-                        layout="@layout/confirm_categories" />
+                        layout="@layout/added_cards_confirm_categories" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.core.widget.NestedScrollView>

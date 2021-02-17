@@ -59,7 +59,7 @@
 
                 <include
                     android:id="@+id/include"
-                    app:item="@{onboardingViewModel.selectedCard}"
+                    app:item="@{onboardingViewModel.selectedPersonalCard}"
                     layout="@layout/card_details"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

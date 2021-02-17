@@ -27,7 +27,10 @@ import com.codedevtech.mycardv2.listeners.SocialItemInteraction
 import com.codedevtech.mycardv2.models.EmailAddress
 import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.models.SocialMediaProfile
+import com.codedevtech.mycardv2.utils.MyCardToggleGroup
+import com.codedevtech.mycardv2.utils.Utils
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
+import com.codedevtech.mycardv2.viewmodel.CardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -38,18 +41,9 @@ class CardFilterFragment : BottomSheetDialogFragment() {
 
     lateinit var binding: FragmentCardFilterBinding
 
-    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
-
-/*    override fun getTheme(): Int {
-        return R.style.Theme_MyCardStyles_Options
-    }*/
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    val viewmodel: CardViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
 
-        //setStyle(STYLE_NORMAL, R.style.ShapeAppearance_MyCardStyles_ExtraLargeComponent);
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +55,19 @@ class CardFilterFragment : BottomSheetDialogFragment() {
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
+
+        when(viewmodel.sortMode.value){
+            Utils.SORT_MODE_NAME-> binding.name.isChecked =true
+            Utils.SORT_MODE_RECENT -> binding.recent.isChecked = true
+        }
+
+        binding.list.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            when (checkedId) {
+                binding.name.id -> viewmodel.sortMode.value = Utils.SORT_MODE_NAME
+                binding.recent.id -> viewmodel.sortMode.value = Utils.SORT_MODE_RECENT
+            }
+            dismiss()
+        }
 
         //todo recycler selection binding.list.adapter = ArrayAdapter<String>(requireContext(),R.layout.filter_item,resources.getStringArray(R.array.filters))
 

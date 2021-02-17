@@ -5,5 +5,6 @@ import com.codedevtech.mycardv2.models.Resource
 
 interface UpdateImageService {
     suspend fun uploadImage(pathId: String): Resource<Uri>
+
     fun setUri(uri: Uri)
 }

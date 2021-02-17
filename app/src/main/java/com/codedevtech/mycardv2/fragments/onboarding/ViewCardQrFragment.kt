@@ -13,7 +13,7 @@ import com.codedevtech.mycardv2.databinding.FragmentCardDetailsBinding
 import com.codedevtech.mycardv2.databinding.FragmentConfirmDetailsBinding
 import com.codedevtech.mycardv2.databinding.FragmentQrBinding
 import com.codedevtech.mycardv2.event.EventObserver
-import com.codedevtech.mycardv2.models.Card
+import com.codedevtech.mycardv2.models.LiveCard
 import com.codedevtech.mycardv2.models.Name
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.tabs.TabLayoutMediator

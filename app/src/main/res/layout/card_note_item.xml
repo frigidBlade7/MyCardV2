@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.Card" />
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,7 +76,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
             android:maxLength="120"
-            android:text="@={item.note}"
+            android:text="@={item}"
             android:textAlignment="textStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/heading"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="4dp"
-            android:text="@{String.valueOf(120-item.note.length())}"
+            android:text="@{String.valueOf(120-item.length())}"
             android:textAppearance="@style/TextAppearance.MyCardStyles.NavLabel"
             app:layout_constraintEnd_toEndOf="@+id/note_text"
             app:layout_constraintTop_toTopOf="@+id/note_text" />

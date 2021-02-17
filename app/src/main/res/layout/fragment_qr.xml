@@ -76,7 +76,7 @@
                     style="@style/TextAppearance.MyCardStyles.Body.Semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{ExtensionsKt.initials(viewModel.selectedCard)}"
+                    android:text="@{ExtensionsKt.initials(viewModel.selectedCard.name)}"
                     android:textColor="@color/mc_blue"
                     app:layout_constraintBottom_toBottomOf="@+id/background"
                     app:layout_constraintEnd_toEndOf="@+id/background"

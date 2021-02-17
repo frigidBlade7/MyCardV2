@@ -24,6 +24,12 @@ class VerifyNumberFragment : Fragment() {
     lateinit var binding: FragmentVerifyNumberBinding
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+/*
+        val number = VerifyNumberFragmentArgs.fromBundle(requireArguments()).number
+        viewmodel.sendVerificationCode(number)*/
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +44,7 @@ class VerifyNumberFragment : Fragment() {
             findNavController().navigate(it)
         })
 
-        viewmodel.phoneNumber.value?.let {
+        viewmodel.phoneNumberFormatted.value?.let {
             viewmodel.sendVerificationCode(it)
         }
 

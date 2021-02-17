@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.Card"/>
+            type="com.codedevtech.mycardv2.models.LiveCard"/>
         <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
     </data>
 
@@ -52,7 +52,7 @@
                     style="@style/TextAppearance.MyCardStyles.Body.Semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{ExtensionsKt.initials(item)}"
+                    android:text="@{ExtensionsKt.initials(item.name)}"
                     android:visibility="@{item.profilePicUrl.empty?View.VISIBLE:View.GONE}"
                     android:textColor="@{ExtensionsKt.initialsColor(initials,item.position)}"
                     app:layout_constraintBottom_toBottomOf="@+id/icon"

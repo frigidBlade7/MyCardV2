@@ -39,8 +39,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="72dp"
                 android:layout_marginBottom="36dp"
-                android:text="@string/sign_up"
-                app:layout_constraintBottom_toTopOf="@+id/fullnamelayout"
+                android:text="@string/enter_your_phone_number"
+                app:layout_constraintBottom_toTopOf="@+id/phonenumberlayoutparent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,49 +48,74 @@
                 app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fullnamelayout"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/phonenumberlayoutparent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/phonenumberlayout"
+                android:background="@drawable/plate"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/skip"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/full_name"
-                    style="@style/TextAppearance.MyCardStyles.Body.Body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/full_name"
-                    android:inputType="textPersonName"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phonenumberlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintBottom_toTopOf="@+id/skip"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fullnamelayout">
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/countryCodeHolder"
+                    style="@style/Ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="16dp"
+                    app:ccp_showArrow="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/phonenumberlayout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone_number"
-                    style="@style/TextAppearance.MyCardStyles.Body.Body"
-                    android:layout_width="match_parent"
+                </com.hbb20.CountryCodePicker>
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/phone_number"
-                    android:text="@={viewModel.phoneNumber}"
-                    android:inputType="phone"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/phonenumberlayout"
+                    app:layout_constraintHorizontal_bias="0.94"
+                    app:layout_constraintStart_toStartOf="@+id/countryCodeHolder"
+                    app:layout_constraintTop_toTopOf="@+id/countryCodeHolder"
+                    app:srcCompat="@drawable/chevron" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phonenumberlayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@null"
+                    app:boxStrokeColor="@null"
+                    app:boxStrokeWidth="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/countryCodeHolder"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phone_number"
+                        style="@style/TextAppearance.MyCardStyles.Body.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/phone_number"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:text="@={viewModel.phoneNumber}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
                 android:id="@+id/skip"
@@ -101,7 +126,6 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
                 android:text="@string/sign_up"
-                android:onClick="@{()->viewModel.goToVerify()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

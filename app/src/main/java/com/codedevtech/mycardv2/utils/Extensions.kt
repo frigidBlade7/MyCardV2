@@ -1,27 +1,42 @@
 package com.codedevtech.mycardv2.utils
 
 import android.animation.ValueAnimator
+import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.MutableLiveData
 import com.codedevtech.mycardv2.R
-import com.codedevtech.mycardv2.models.Card
-import com.codedevtech.mycardv2.models.Name
-import com.codedevtech.mycardv2.models.SocialMediaProfile
+import com.codedevtech.mycardv2.models.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import kotlin.random.Random
+import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
+import com.hbb20.CountryCodePicker
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 
-fun Card?.initials():String{
+fun Name?.initials():String{
+    this?.let {
+        return "${firstName.trim().getOrNull(0)?:""}${lastName.trim().getOrNull(0)?:""}".trim()
+    }
+    return ""
+}
+
+fun LiveCard?.initials():String{
     this?.let {
         return "${name.firstName.trim().getOrNull(0)?:""}${name.lastName.trim().getOrNull(0)?:""}".trim()
     }
@@ -50,7 +65,7 @@ fun View.textColor(type: String?): Int{
     return when(type){
         this.context.getString(R.string.personal) -> ContextCompat.getColor(context, R.color.mc_purple)
         this.context.getString(R.string.mobile) -> ContextCompat.getColor(context, R.color.mc_purple)
-        this.context.getString(R.string.home) -> ContextCompat.getColor(context, R.color.mc_green)
+        this.context.getString(R.string.home) -> ContextCompat.getColor(context, R.color.mc_purple)
         this.context.getString(R.string.work) -> ContextCompat.getColor(context, R.color.mc_green)
         else -> ContextCompat.getColor(context, R.color.mc_orange)
     }
@@ -179,3 +194,36 @@ fun BottomNavigationView.show() {
         start()
     }
 }
+
+fun Query.awaitContinuous(): Flow<QuerySnapshot?> = callbackFlow {
+
+    val subscriptionCallback = addSnapshotListener { value, error ->
+        if (error!=null) {
+            cancel("error fetching live update of collection at path", error.cause)
+            return@addSnapshotListener
+        }
+        offer(value)
+    }
+
+    awaitClose { subscriptionCallback.remove() }
+}
+
+/*fun CountryCodePicker.customizeDialog(context: Context){
+    this.setDialogEventsListener(object : CountryCodePicker.DialogEventsListener {
+        override fun onCcpDialogDismiss(dialogInterface: DialogInterface?) {
+            dialogInterface?.cancel()
+        }
+        override fun onCcpDialogCancel(dialogInterface: DialogInterface?) {
+            dialogInterface?.cancel()
+        }
+        override fun onCcpDialogOpen(dialog: Dialog?) {
+            dialog?
+            val window = dialog?.window
+            //window?.setContentView(R.layout.layout_picker_dialog)
+            window?.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT)
+
+        }
+    })
+}*/

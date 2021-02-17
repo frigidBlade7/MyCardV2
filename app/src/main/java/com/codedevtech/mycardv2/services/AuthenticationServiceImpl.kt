@@ -2,12 +2,16 @@ package com.codedevtech.mycardv2.services
 
 import android.util.Log
 import com.codedevtech.mycardv2.AuthenticationCallbacks
+import com.codedevtech.mycardv2.models.Resource
+import com.codedevtech.mycardv2.models.User
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import java.util.concurrent.TimeUnit
 import com.codedevtech.mycardv2.utils.getCode
-import kotlinx.coroutines.coroutineScope
+import com.google.firebase.firestore.FirebaseFirestore
+import com.codedevtech.mycardv2.R
+
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -23,7 +27,7 @@ import javax.inject.Singleton
     private lateinit var phoneNumber: String
     private var timeoutInMillis: Long = 0
 
-    private lateinit var authCallback: AuthenticationCallbacks
+    private lateinit var authCallback: AuthenticationCallbacks<FirebaseUser>
 
     private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
         override fun onVerificationCompleted(p0: PhoneAuthCredential) {
@@ -66,8 +70,10 @@ import javax.inject.Singleton
     override suspend fun attemptAuth(phoneNumber: String, verificationCode: String) {
         try{
             val phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId,verificationCode)
-            auth.signInWithCredential(phoneAuthCredential).await()
-            authCallback.onAuthSuccess()
+            val data = auth.signInWithCredential(phoneAuthCredential).await()
+            data.user?.let {
+                authCallback.onAuthSuccess(it)
+            }
         }catch (e: Exception){
             Log.d(TAG, "attemptAuth: ${e.localizedMessage}")
             authCallback.onAuthFailure(e.getCode())
@@ -76,8 +82,10 @@ import javax.inject.Singleton
 
     override suspend fun attemptAuth(phoneAuthCredential: PhoneAuthCredential) {
         try{
-            auth.signInWithCredential(phoneAuthCredential).await()
-            authCallback.onAuthSuccess()
+            val data = auth.signInWithCredential(phoneAuthCredential).await()
+            data.user?.let {
+                authCallback.onAuthSuccess(it)
+            }
         }catch (e: Exception){
             Log.d(TAG, "attemptAuth: ${e.localizedMessage}")
             authCallback.onAuthFailure(e.getCode())
@@ -85,7 +93,7 @@ import javax.inject.Singleton
     }
 
 
-    override fun setUpAuthCallbacks(authenticationCallbacks: AuthenticationCallbacks) {
+    override fun setUpAuthCallbacks(authenticationCallbacks: AuthenticationCallbacks<FirebaseUser>) {
         this.authCallback = authenticationCallbacks
     }
 

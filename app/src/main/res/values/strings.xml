@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyCardV2</string>
+    <string name="app_name">myCrd</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="your_network_in_one_place">Your network in one place</string>
@@ -98,6 +98,13 @@
     <string name="add_a_note">Add a note</string>
     <string name="require_gallery">MyCard requires access to your gallery to upload a photo</string>
     <string name="adding_card">Adding Card</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="set_up_your_profile">Set up your profile</string>
+    <string name="letsgo">Let\'s go</string>
+    <string name="confirm_your_number">Confirm your number</string>
+    <string name="is_1_s_the_number_you_want_to_sign_up_with">Is <b>%1$s</b> the number you want to sign up with?</string>
+    <string name="go_back">Go back</string>
+    <string name="yes">Yes</string>
 
 
     <array name="phone_types">

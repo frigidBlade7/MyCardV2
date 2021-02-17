@@ -8,7 +8,7 @@
         <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
         <variable
             name="viewmodel"
-            type="com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel" />
+            type="com.codedevtech.mycardv2.viewmodel.AddCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -206,6 +206,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/add_another_field"
+                        android:visibility="gone"
                         app:icon="@drawable/add"
                         app:iconGravity="textStart"
                         app:iconPadding="8dp"

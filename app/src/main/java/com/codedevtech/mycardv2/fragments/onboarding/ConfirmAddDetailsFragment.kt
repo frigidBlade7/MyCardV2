@@ -1,7 +1,6 @@
 package com.codedevtech.mycardv2.fragments.onboarding
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,31 +9,31 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
+import com.codedevtech.mycardv2.adapter.AddedCardAdapter
 import com.codedevtech.mycardv2.adapter.CardAdapter
 import com.codedevtech.mycardv2.adapter.rv.ExtraEmailAddressAdapter
 import com.codedevtech.mycardv2.adapter.rv.ExtraPhoneNumbersAdapter
 import com.codedevtech.mycardv2.adapter.rv.SocialAdapter
 import com.codedevtech.mycardv2.databinding.FragmentAddConfirmDetailsBinding
-import com.codedevtech.mycardv2.databinding.FragmentConfirmDetailsBinding
 import com.codedevtech.mycardv2.event.EventObserver
-import com.codedevtech.mycardv2.models.Card
-import com.codedevtech.mycardv2.models.Name
+import com.codedevtech.mycardv2.viewmodel.AddCardViewModel
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
-import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ConfirmAddDetailsFragment : Fragment() {
 
     lateinit var binding : FragmentAddConfirmDetailsBinding
-    lateinit var cardAdapter: CardAdapter
+    lateinit var cardAdapter: AddedCardAdapter
     lateinit var socialAdapter: SocialAdapter
 
     lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
     lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
 
-    val addPersonalCardViewModel: AddPersonalCardViewModel by hiltNavGraphViewModels(R.id.add_card_nav)
-
+    val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav){
+        defaultViewModelProviderFactory
+    }
 
 
 
@@ -45,9 +44,9 @@ class ConfirmAddDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = FragmentAddConfirmDetailsBinding.inflate(layoutInflater, container, false)
-        binding.viewModel = addPersonalCardViewModel
+        binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
-        cardAdapter= CardAdapter()
+        cardAdapter= AddedCardAdapter()
 
         extraEmailAddressAdapter = ExtraEmailAddressAdapter()
         extraPhoneNumbersAdapter = ExtraPhoneNumbersAdapter()
@@ -64,8 +63,8 @@ class ConfirmAddDetailsFragment : Fragment() {
         binding.categories.email.list.adapter = extraEmailAddressAdapter
         binding.categories.phone.list.adapter = extraPhoneNumbersAdapter
 
-        addPersonalCardViewModel.card.observe(viewLifecycleOwner){
-            cardAdapter.submitList(listOf(it,it))
+        viewmodel.card.observe(viewLifecycleOwner){
+            cardAdapter.submitList(listOf(it))
             if(it.phoneNumbers.size>1)
                 extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
             if(it.emailAddresses.size>1)
@@ -92,7 +91,7 @@ class ConfirmAddDetailsFragment : Fragment() {
         }
 
 
-        addPersonalCardViewModel.destination.observe(viewLifecycleOwner, EventObserver {
+        viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
 /*            if(it.actionId== R.id.action_global_cardDetailsFragment){
                 requireParentFragment().findNavController().navigate(it)
             }*/
@@ -105,7 +104,7 @@ class ConfirmAddDetailsFragment : Fragment() {
 
 
 
-        addPersonalCardViewModel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
+        viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
             Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
         })
 

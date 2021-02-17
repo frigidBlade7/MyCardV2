@@ -4,6 +4,7 @@ import android.content.ComponentCallbacks2
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
@@ -20,7 +21,7 @@ import com.codedevtech.mycardv2.utils.hide
 import com.codedevtech.mycardv2.utils.show
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.firebase.auth.FirebaseAuth
-import com.scanlibrary.IScanner
+//import com.scanlibrary.IScanner
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -64,8 +65,11 @@ class MainActivity : AppCompatActivity() {
           lifecycleScope.launchWhenResumed {
                navController.addOnDestinationChangedListener { _, destination, _ ->
                    when (destination.id) {
-                       R.id.cardsFragment, R.id.meFragment ->
+                       R.id.cardsFragment, R.id.meFragment -> {
+                           bottomAppBar.visibility = View.VISIBLE
                            bottomAppBar.performShow()
+                       }
+                       //R.id.welcomeFragment-> bottomAppBar.performHide()
                        else -> bottomAppBar.performHide()
                    }
                    when(destination.id){

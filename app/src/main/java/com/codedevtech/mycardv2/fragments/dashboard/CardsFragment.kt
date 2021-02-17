@@ -6,49 +6,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
+import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
-import androidx.navigation.ui.setupWithNavController
-import androidx.paging.LoadState
-import com.codedevtech.mycardv2.MainActivity
 import com.codedevtech.mycardv2.R
-import com.codedevtech.mycardv2.adapter.rv.CardPagingAdapter
+import com.codedevtech.mycardv2.adapter.rv.AddedListCardAdapter
+import com.codedevtech.mycardv2.adapter.rv.PersonalCardListAdapter
 import com.codedevtech.mycardv2.databinding.CardsFragmentBinding
-import com.codedevtech.mycardv2.databinding.FragmentSetupAccountOnboardingBinding
-import com.codedevtech.mycardv2.databinding.FragmentSignUpBinding
-import com.codedevtech.mycardv2.databinding.FragmentSkipOnboardingBinding
-import com.codedevtech.mycardv2.event.Event
 import com.codedevtech.mycardv2.event.EventObserver
-import com.codedevtech.mycardv2.listeners.ItemInteraction
 import com.codedevtech.mycardv2.listeners.ItemViewInteraction
-import com.codedevtech.mycardv2.models.Card
+import com.codedevtech.mycardv2.models.AddedCard
+import com.codedevtech.mycardv2.models.LiveCard
 import com.codedevtech.mycardv2.models.Resource
-import com.codedevtech.mycardv2.utils.hide
-import com.codedevtech.mycardv2.utils.show
 import com.codedevtech.mycardv2.viewmodel.CardViewModel
-import com.codedevtech.mycardv2.viewmodel.DashboardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 private const val TAG = "CardsFragment"
 
 @AndroidEntryPoint
-class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
+class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
     lateinit var binding: CardsFragmentBinding
-    val pagedAdapter= CardPagingAdapter(this)
+    val cardAdapter = AddedListCardAdapter(this)
 
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
@@ -60,15 +46,6 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
         }
     }*/
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //binding.addCard.show()
-    }
 
     override fun onPause() {
         super.onPause()
@@ -93,16 +70,18 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
             mainActivity.binding.bottomNav.show()*/
         }
 
-        binding.list.adapter = pagedAdapter
+        binding.list.adapter = cardAdapter
 
-
+/*
         viewLifecycleOwner.lifecycleScope.launch {
             pagedAdapter.loadStateFlow.collectLatest {
                 binding.progressBar.isVisible = it.refresh is LoadState.Loading
                 binding.group.isVisible = it.refresh is LoadState.Error
             }
-        }
+        }*/
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -116,11 +95,18 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
             viewmodel.goToAddCard()
         }*/
 
-        binding.filter.setOnClickListener {
-            viewmodel.goToSearch()
+        binding.search.setOnClickListener {
+
+            exitTransition = MaterialElevationScale(false)
+            reenterTransition = MaterialElevationScale(true)
+
+            val extras = FragmentNavigatorExtras(binding.search to "search")
+
+            findNavController().navigate(CardsFragmentDirections.actionCardsFragmentToSearchCardsFragment(),extras)
+            //viewmodel.goToSearch()
         }
 
-        binding.search.setEndIconOnClickListener {
+        binding.sort.setOnClickListener {
             viewmodel.showFilter()
         }
 
@@ -131,13 +117,30 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
         })
 
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            cardViewmodel.cardsLiveDataPaged.collectLatest { data->
-                Log.d(TAG, "onCreateView: $data")
-                pagedAdapter.submitData(data)
+
+        cardViewmodel.cardsLiveData.observe(viewLifecycleOwner){
+            when(it){
+                is Resource.Success->{
+                    binding.empty.isVisible = it.data.isEmpty()
+                    cardAdapter.submitList(it.data)
+                    cardViewmodel.save(it.data)
+                }
+                is Resource.Error->{
+                    Toast.makeText(context,it.errorCode,Toast.LENGTH_SHORT).show()
+                    //tell user
+                }
             }
+
         }
 
+/*        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            cardViewmodel.cardsLiveData.collect {
+                it?.awaitContinuous()?.collect {
+                    Log.d(TAG, "onCreateView: ${it?.toObjects(LiveCard::class.java)}")
+                    //pagedAdapter.sub
+                }
+            }
+        }*/
 /*        binding.apply {
 
             val navController = Navigation.findNavController(requireActivity(), R.id.fragment)
@@ -157,7 +160,7 @@ class CardsFragment : Fragment(), ItemViewInteraction<Card?> {
         return binding.root
     }
 
-    override fun onItemClicked(item: Card?, view: View, position: Int) {
+    override fun onItemClicked(item: AddedCard?, view: View, position: Int) {
 
         item?.position = position
         exitTransition = MaterialElevationScale(false)

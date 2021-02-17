@@ -1,5 +1,6 @@
-package com.codedevtech.mycardv2.models
+package com.codedevtech.mycardv2.models.datasource
 
+import com.codedevtech.mycardv2.models.Resource
 import kotlinx.coroutines.flow.Flow
 
 //R is return type, T is data type
@@ -12,7 +13,4 @@ interface DataSource<T> {
     suspend fun updateData(data: T): Resource<String>
 
     fun getData(id: String): Flow<Resource<T>>
-
-    fun getList(): Flow<Resource<List<T>>>
-
 }

@@ -22,13 +22,25 @@ class WelcomeFragment : Fragment() {
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
-        if(FirebaseAuth.getInstance().currentUser!=null)
-            binding.apply {
-                //findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
+        if(findNavController().currentDestination?.id==R.id.cardsFragment){
+            return
+        }
+        FirebaseAuth.getInstance().currentUser?.let {
+            if(FirebaseAuth.getInstance().currentUser!=null){
+                it.displayName?.let {
+                    if(it.isNotEmpty())
+                        findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
+                    else
+                        findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
+                    return
+                }
+                findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
             }
+
+        }
     }
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

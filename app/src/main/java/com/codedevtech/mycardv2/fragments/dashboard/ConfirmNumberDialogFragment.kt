@@ -2,7 +2,6 @@
 package com.codedevtech.mycardv2.fragments.dashboard
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,8 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.DialogFragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.codedevtech.mycardv2.R
@@ -30,12 +30,46 @@ import com.codedevtech.mycardv2.models.SocialMediaProfile
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
-class DeleteCardFragment(context: Context) : AlertDialog(context) {
+class ConfirmNumberDialogFragment : DialogFragment() {
+
+    lateinit var binding: FragmentConfirmNumberDialogBinding
+
+    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
+
+    override fun getTheme(): Int {
+        return R.style.Theme_MyCardStyles_Dialog
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentConfirmNumberDialogBinding.inflate(layoutInflater,container, false)
+
+        binding.viewModel = viewmodel
+        binding.lifecycleOwner = viewLifecycleOwner
 
 
+        viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
+            findNavController().navigate(it)
+        })
 
+        binding.cancel.setOnClickListener {
+            dismiss()
+        }
+
+        binding.delete.setOnClickListener {
+            dismiss()
+            viewmodel.phoneNumberFormatted.value?.let {
+                viewmodel.goToVerify()
+            }
+
+        }
+
+        return binding.root
+    }
 
 }

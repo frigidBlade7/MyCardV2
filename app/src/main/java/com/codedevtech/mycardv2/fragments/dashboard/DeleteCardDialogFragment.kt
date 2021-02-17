@@ -28,6 +28,7 @@ import com.codedevtech.mycardv2.models.EmailAddress
 import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.models.SocialMediaProfile
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
+import com.codedevtech.mycardv2.viewmodel.CardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -37,6 +38,8 @@ class DeleteCardDialogFragment : DialogFragment() {
     lateinit var binding: FragmentDeleteCardDialogBinding
 
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
+
+    val cardViewModel: CardViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
     override fun getTheme(): Int {
         return R.style.Theme_MyCardStyles_Dialog
@@ -50,6 +53,14 @@ class DeleteCardDialogFragment : DialogFragment() {
         binding = FragmentDeleteCardDialogBinding.inflate(layoutInflater,container, false)
 
         binding.viewModel = viewmodel
+
+        //todo complete refactor to move selected card and selected personal card implementations
+        // to card view model and stop this copy life na wanyin
+
+
+        cardViewModel.selectedCard.value = viewmodel.selectedCard.value
+        cardViewModel.selectedPersonalCard.value = viewmodel.selectedPersonalCard.value
+
         binding.lifecycleOwner = viewLifecycleOwner
 
 
@@ -61,6 +72,10 @@ class DeleteCardDialogFragment : DialogFragment() {
             dismiss()
         }
 
+        binding.delete.setOnClickListener {
+            dismiss()
+            cardViewModel.deleteCard()
+        }
 
         return binding.root
     }
