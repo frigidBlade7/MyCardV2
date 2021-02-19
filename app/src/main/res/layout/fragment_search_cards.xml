@@ -57,11 +57,13 @@
                         android:layout_height="wrap_content"
                         app:boxBackgroundColor="?attr/colorSurface"
                         app:endIconDrawable="@drawable/cancel"
-                        app:endIconMode="custom">
+                        app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/search"
                             style="@style/TextAppearance.MyCardStyles.Body.Body"
+                            android:focusableInTouchMode="true"
+                            android:focusable="true"
                             android:layout_width="match_parent"
                             android:text="@={searchviewmodel.filterQuery}"
                             android:layout_height="wrap_content"

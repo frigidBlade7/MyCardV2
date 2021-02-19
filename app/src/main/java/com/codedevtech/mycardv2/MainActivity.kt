@@ -18,7 +18,9 @@ import com.codedevtech.mycardv2.databinding.ActivityMainBinding
 import com.codedevtech.mycardv2.fragments.dashboard.CardsFragmentDirections
 import com.codedevtech.mycardv2.fragments.onboarding.WelcomeFragmentDirections
 import com.codedevtech.mycardv2.utils.hide
+import com.codedevtech.mycardv2.utils.hideKeyboard
 import com.codedevtech.mycardv2.utils.show
+import com.codedevtech.mycardv2.utils.showKeyboard
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.firebase.auth.FirebaseAuth
 //import com.scanlibrary.IScanner
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                navController.addOnDestinationChangedListener { _, destination, _ ->
                    when (destination.id) {
                        R.id.cardsFragment, R.id.meFragment -> {
+                           hideKeyboard(binding.root)
                            bottomAppBar.visibility = View.VISIBLE
                            bottomAppBar.performShow()
                        }
@@ -75,6 +78,11 @@ class MainActivity : AppCompatActivity() {
                    when(destination.id){
                        R.id.cardsFragment -> addCard.show()
                        else -> addCard.hide()
+                   }
+                   when(destination.id){
+                       R.id.searchCardsFragment-> {
+                           showKeyboard(binding.root)
+                       }
                    }
 
                }

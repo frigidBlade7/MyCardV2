@@ -35,6 +35,7 @@ import com.codedevtech.mycardv2.fragments.onboarding.ViewPersonalCardDetailsFrag
 import com.codedevtech.mycardv2.listeners.SocialItemInteraction
 import com.codedevtech.mycardv2.models.Resource
 import com.codedevtech.mycardv2.models.SocialMediaProfile
+import com.codedevtech.mycardv2.utils.backgroundColor
 import com.codedevtech.mycardv2.viewmodel.CardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -162,8 +163,15 @@ class MeFragment : Fragment(), SocialItemInteraction {
             when(it){
                 is Resource.Success->{
                     binding.empty.isVisible = it.data.isEmpty()
-                    if(it.data.isEmpty())
-                    binding.include.parent.isVisible = it.data.isNotEmpty()
+                    if(it.data.isEmpty()) {
+                        binding.include.parent.isVisible = it.data.isNotEmpty()
+                        binding.cardCount.isVisible = false
+
+                        binding.appbar.setBackgroundColor(android.R.color.white)
+                    }else {
+                        binding.appbar.backgroundColor(R.color.mc_gray_light)
+                        binding.cardCount.isVisible = true
+                    }
                     cardAdapter.submitList(it.data)
                     binding.cardCount.text = resources.getQuantityString(R.plurals.cards, it.data.size, it.data.size);
 

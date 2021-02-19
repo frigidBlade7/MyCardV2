@@ -26,7 +26,7 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
 
 
     var card = MutableLiveData(AddedCard())
-
+    
     var name = MutableLiveData(Name())
     var socials = MutableLiveData(mutableListOf<SocialMediaProfile>(SocialMediaProfile(type= SocialMediaProfile.SocialMedia.LinkedIn),
         SocialMediaProfile(type= SocialMediaProfile.SocialMedia.Facebook),SocialMediaProfile(type= SocialMediaProfile.SocialMedia.Twitter),

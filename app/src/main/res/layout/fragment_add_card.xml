@@ -221,6 +221,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:layout_marginBottom="24dp"
+                        android:enabled="@{ExtensionsKt.isNotEmpty(viewmodel.name)}"
                         android:onClick="@{()->viewmodel.goToWorkProfile()}"
                         android:text="@string/next"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -311,6 +312,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         style="@style/TextAppearance.MyCardStyles.Body.Body"
+                        android:id="@+id/full_name_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

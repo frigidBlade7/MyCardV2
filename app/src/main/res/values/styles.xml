@@ -223,6 +223,7 @@
         <item name="boxCornerRadiusTopEnd">8dp</item>
         <item name="boxCornerRadiusTopStart">8dp</item>
         <item name="android:layout_height">48dp</item>
+        <item name="hintTextColor">@color/mc_black_40</item>
         <item name="boxBackgroundColor">@color/mc_black_5</item>
 
     </style>

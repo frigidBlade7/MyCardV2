@@ -1,6 +1,7 @@
 package com.codedevtech.mycardv2.utils
 
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
@@ -85,6 +87,10 @@ fun Name.aggregateNameToFullName(){
 
 }
 
+fun Name.isNotEmpty(): Boolean {
+    return fullName.trim().isNotEmpty() || firstName.trim().isNotEmpty() || lastName.trim().isNotEmpty() || middleName.trim().isNotEmpty()
+}
+
 //just gonna use this to trigger the livedata since it behaves a little fuzzy with lists
 fun <T> MutableLiveData<T>.notifyObserver() {
     this.value = this.value
@@ -157,6 +163,15 @@ fun BottomNavigationView.hide() {
         }
         start()
     }
+}
+
+fun Activity.hideKeyboard(view: View) {
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken, 0);
+}
+fun Activity.showKeyboard(view: View) {
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
 }
 
 fun BottomNavigationView.show() {

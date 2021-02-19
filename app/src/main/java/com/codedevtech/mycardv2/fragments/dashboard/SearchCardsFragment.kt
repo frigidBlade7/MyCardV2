@@ -35,7 +35,8 @@ import kotlinx.coroutines.launch
 
 private const val TAG = "SearchCardsFragment"
 @AndroidEntryPoint
-class SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
+class
+SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
     lateinit var binding:FragmentSearchCardsBinding
 
@@ -56,6 +57,7 @@ class SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
             setAllContainerColors(MaterialColors.getColor(requireView(),R.attr.colorSurface))
         }
 
+        binding.search.requestFocus()
 /*        viewLifecycleOwner.lifecycleScope.launch {
             searchCardViewModel.pagedAddedCardsFlow.collectLatest {
                 pagedAdapter.submitData(it)
@@ -89,10 +91,6 @@ class SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
                 binding.role.id -> searchCardViewModel.searchMode.value = Utils.FILTER_ROLE
                 binding.company.id -> searchCardViewModel.searchMode.value = Utils.FILTER_COMPANY
             }
-        }
-
-        binding.searchLayout.setEndIconOnClickListener {
-            binding.search.text?.clear()
         }
 
         binding.toolbar.setNavigationOnClickListener {

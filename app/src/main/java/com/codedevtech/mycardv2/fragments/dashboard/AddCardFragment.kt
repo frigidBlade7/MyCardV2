@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -139,6 +140,27 @@ class AddCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
             viewmodel.name.notifyObserver()
         }
 
+
+        binding.fullNameField.addTextChangedListener {
+            it?.let {
+                binding.next.isEnabled = it.toString().trim().isNotEmpty()
+            }
+        }
+        binding.firstName.addTextChangedListener {
+            it?.let {
+                binding.next.isEnabled = it.toString().trim().isNotEmpty()
+            }
+        }
+        binding.middleName.addTextChangedListener {
+            it?.let {
+                binding.next.isEnabled = it.toString().trim().isNotEmpty()
+            }
+        }
+        binding.lastName.addTextChangedListener {
+            it?.let {
+                binding.next.isEnabled = it.toString().trim().isNotEmpty()
+            }
+        }
 
         binding.addPhone.setOnClickListener {
             if(phoneNumberAdapter.currentList.none { it.number.isEmpty()}) {
