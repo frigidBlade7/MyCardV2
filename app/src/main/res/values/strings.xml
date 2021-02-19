@@ -100,7 +100,7 @@
     <string name="set_up_your_profile">Set up your profile</string>
     <string name="letsgo">Let\'s go</string>
     <string name="confirm_your_number">Confirm your number</string>
-    <string name="is_1_s_the_number_you_want_to_sign_up_with">Is <b>%1$s</b> the number you want to sign up with?</string>
+    <string name="is_1_s_the_number_you_want_to_sign_up_with">Is <b>%1$s</b> the number you want to continue with?</string>
     <string name="go_back">Go back</string>
     <string name="yes">Yes</string>
     <string name="add_personal_card">Add personal card</string>
@@ -113,6 +113,7 @@
     <string name="change_your_phone_number">Change your phone number</string>
     <string name="a_one_time_pin_will_be_sent_to_your_number_to_verify_that_you_are_requesting_for_the_change">A one-time pin will be sent to your number to verify that you are requesting for the change.</string>
     <string name="update_your_number">Update your number</string>
+    <string name="verify_your_new_number">Verify your new number</string>
 
 
     <array name="phone_types">

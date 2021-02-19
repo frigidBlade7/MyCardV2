@@ -4,9 +4,9 @@ buildscript {
     ext{
         moshi_version = '1.11.0'
 
-        kotlin_version = '1.4.21'
+        kotlin_version = '1.4.30'
         hilt_version = '2.31.2-alpha'
-        paging_version = '3.0.0-alpha13'
+        paging_version = '3.0.0-beta01'
         room_version = "2.3.0-beta01"
     }
 
@@ -23,6 +23,8 @@ buildscript {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath 'com.google.gms:google-services:4.3.5'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

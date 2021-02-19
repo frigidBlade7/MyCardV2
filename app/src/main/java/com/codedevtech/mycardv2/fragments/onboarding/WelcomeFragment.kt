@@ -63,7 +63,7 @@ class WelcomeFragment : Fragment() {
        })
 /*
        binding.title.setOnClickListener {
-           findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
+           throw RuntimeException("Test Crash"); // Force a crash
        }*/
 
        if (findNavController().currentDestination?.id!=R.id.cardsFragment)
