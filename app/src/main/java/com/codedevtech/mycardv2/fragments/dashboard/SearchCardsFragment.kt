@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.codedevtech.mycardv2.R
@@ -25,6 +26,7 @@ import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.codedevtech.mycardv2.viewmodel.SearchCardViewModel
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -121,7 +123,19 @@ class SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
     }
 
     override fun onItemClicked(item: AddedCard?, view: View, position: Int) {
-        TODO("Not yet implemented")
+        item?.position = position
+        exitTransition = MaterialElevationScale(false)
+        reenterTransition = MaterialElevationScale(true)
+
+        viewmodel.selectedCard.value = item
+
+        item?.let {
+
+            val cardDetailTransitionName = it.id
+            val extras = FragmentNavigatorExtras(view to cardDetailTransitionName)
+            val directions = SearchCardsFragmentDirections.actionSearchCardsFragmentToViewAddedCardDetailsFragment(it)
+            findNavController().navigate(directions, extras)
+        }
     }
 
 

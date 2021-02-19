@@ -239,7 +239,11 @@
     <fragment
         android:id="@+id/searchCardsFragment"
         android:name="com.codedevtech.mycardv2.fragments.dashboard.SearchCardsFragment"
-        tools:layout="@layout/fragment_search_cards" />
+        tools:layout="@layout/fragment_search_cards" >
+        <action
+            android:id="@+id/action_searchCardsFragment_to_viewAddedCardDetailsFragment"
+            app:destination="@id/viewAddedCardDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/viewAddedCardDetailsFragment"
