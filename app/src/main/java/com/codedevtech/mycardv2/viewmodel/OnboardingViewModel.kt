@@ -2,18 +2,14 @@ package com.codedevtech.mycardv2.viewmodel
 
 import android.net.Uri
 import android.telephony.PhoneNumberUtils
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.ActionOnlyNavDirections
 import com.codedevtech.mycardv2.AuthenticationCallbacks
 import com.codedevtech.mycardv2.R
+import com.codedevtech.mycardv2.di.AuthService
 import com.codedevtech.mycardv2.services.AuthenticationService
 import com.codedevtech.mycardv2.event.Event
-import com.codedevtech.mycardv2.fragments.dashboard.CardOptionsFragmentDirections
-import com.codedevtech.mycardv2.fragments.dashboard.CardsFragmentDirections
-import com.codedevtech.mycardv2.fragments.dashboard.ConfirmNumberDialogFragment
-import com.codedevtech.mycardv2.fragments.dashboard.ConfirmNumberDialogFragmentDirections
+import com.codedevtech.mycardv2.fragments.dashboard.*
 import com.codedevtech.mycardv2.fragments.onboarding.*
 import com.codedevtech.mycardv2.models.*
 import com.codedevtech.mycardv2.models.datasource.AddedCardDataSource
@@ -25,14 +21,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle,
                                               private val uploadService: UpdateImageService,
                                               private val auth: FirebaseAuth,
-                                              private val authenticationService: AuthenticationService,
+                                              @AuthService private val authenticationService: AuthenticationService,
                                               private val userDataSourceImpl: FirebaseUserDataSourceImpl
 ) : BaseViewModel() {
 
@@ -134,6 +132,11 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
         _destination.value = Event(CardsFragmentDirections.actionCardsFragmentToAddCardNav())
     }
 
+    fun getUser(): LiveData<Resource<User>> {
+        return userDataSourceImpl.getData(""/*for future use with multi logins*/).asLiveData()
+
+    }
+
 /*    fun deleteCard(){
         selectedCard.value?.let {
             viewModelScope.launch {
@@ -183,9 +186,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
     }
 
-    fun resendCode(){
-        authenticationService.resendVerificationCode()
-    }
+
 
     fun sendVerificationCode(phoneNumber: String){
         authenticationService.setUpAuthCallbacks(authCallbacks)
@@ -206,7 +207,9 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
         _destination.value = Event(action)
     }
 
-
+    fun resendCode(){
+        authenticationService.resendVerificationCode()
+    }
 
     fun attemptAuth(phoneNumber: String){
         viewModelScope.launch {
@@ -221,12 +224,29 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
         _destination.value = Event(CardOptionsFragmentDirections.actionGlobalCardOptionsFragment())
     }
 
+    fun showPersonalCardOptions() {
+        _destination.value = Event(PersonalCardOptionsFragmentDirections.actionGlobalPersonalCardOptionsFragment())
+    }
+
     fun confirmCardDeletion() {
-        _destination.value = Event(ActionOnlyNavDirections(R.id.deleteCardDialogFragment))
+        _destination.value = Event(DeleteCardDialogFragmentDirections.actionGlobalDeleteCardDialogFragment())
+    }
+
+    fun confirmPersonalCardDeletion() {
+        _destination.value = Event(DeletePersonalCardDialogFragmentDirections.actionGlobalDeletePersonalCardDialogFragment())
     }
 
     fun showShare() {
         //TODO("Not yet implemented")
+    }
+
+    fun goToSettings() {
+        _destination.value = Event(MeFragmentDirections.actionMeFragmentToSettingsNav())
+    }
+
+
+    fun goToAddPersonalCard() {
+        _destination.value = Event(MeFragmentDirections.actionMeFragmentToAddPersonalCardNav())
     }
 
     fun showCardQr() {
@@ -263,8 +283,6 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
                 uploadService.setUri(it)
                 when(val uploadData = uploadService.uploadImage("profiles/${auth.currentUser?.uid}")){
                     is Resource.Success->{
-                        //todo success upload _snackbarInt.postValue(Event(uploadData.errorCode))
-
                         when (val profileData = userDataSourceImpl.updateImage(uploadData.data)){
                             is Resource.Error ->{
                                 _snackbarInt.postValue(Event(profileData.errorCode))

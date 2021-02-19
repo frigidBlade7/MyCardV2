@@ -106,11 +106,6 @@ class ConfirmAddPersonalDetailsFragment : Fragment() {
         })
 
 
-        binding.categories.note.role.setOnClickListener {
-            it.isVisible = false
-            binding.categories.note.groupNote.isVisible = true
-        }
-
         binding.toolbar.setNavigationOnClickListener{
             findNavController().popBackStack()
         }

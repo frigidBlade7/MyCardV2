@@ -51,17 +51,26 @@ class DeleteCardDialogFragment : DialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDeleteCardDialogBinding.inflate(layoutInflater,container, false)
-
         binding.viewModel = viewmodel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         //todo complete refactor to move selected card and selected personal card implementations
         // to card view model and stop this copy life na wanyin
 
 
         cardViewModel.selectedCard.value = viewmodel.selectedCard.value
-        cardViewModel.selectedPersonalCard.value = viewmodel.selectedPersonalCard.value
 
-        binding.lifecycleOwner = viewLifecycleOwner
+        cardViewModel.destination.observe(viewLifecycleOwner, EventObserver {
+/*            if(it.actionId==R.id.cardsFragment)
+                findNavController().navigateUp()
+            else*/
+
+            findNavController().navigateUp()
+
+            dismiss()
+
+        })
+
 
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
@@ -73,8 +82,8 @@ class DeleteCardDialogFragment : DialogFragment() {
         }
 
         binding.delete.setOnClickListener {
-            dismiss()
             cardViewModel.deleteCard()
+
         }
 
         return binding.root

@@ -5,15 +5,22 @@ import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.di.PersonalCardDataSource
 import com.codedevtech.mycardv2.models.*
 import com.codedevtech.mycardv2.models.datasource.LiveCardDataSource
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 
+private const val TAG = "PersonalCardsRepository"
+
 class PersonalCardsRepository @Inject constructor(val firebaseLiveCardDataSource: LiveCardDataSource/*, val firestoreCardPagingSource: FirestoreCardPagingSource*/) {
 
-    val allCards = firebaseLiveCardDataSource.getList().catch { exception ->
-        Log.d(TAG, "error: ${exception.localizedMessage}")
-        emit(Resource.Error(R.string.failed))
+    fun getPersonalCards(owner: String): Flow<Resource<List<LiveCard>>> {
+        return firebaseLiveCardDataSource.getList(owner).catch { exception ->
+            Log.d(TAG, "error: ${exception.localizedMessage}")
+            emit(Resource.Error(R.string.failed))
+        }
     }
+}
+
 
 /*    val allCardsPaged = Pager(PagingConfig(10)){
         firestoreCardPagingSource
@@ -32,9 +39,3 @@ class PersonalCardsRepository @Inject constructor(val firebaseLiveCardDataSource
             firebaseCardDataSource.addData(it)
         }
     } */
-
-    companion object {
-        private const val TAG = "CardsRepository"
-    }
-
-}

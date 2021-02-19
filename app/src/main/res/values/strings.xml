@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">myCrd</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="your_network_in_one_place">Your network in one place</string>
     <string name="a_quick_taste_of_what_s_in_store_for_you">A quick taste of what’s in store for you.</string>
     <string name="set_up_your_personal_card">Set up your personal card</string>
@@ -105,6 +103,16 @@
     <string name="is_1_s_the_number_you_want_to_sign_up_with">Is <b>%1$s</b> the number you want to sign up with?</string>
     <string name="go_back">Go back</string>
     <string name="yes">Yes</string>
+    <string name="add_personal_card">Add personal card</string>
+    <string name="settings">Settings</string>
+    <string name="create_one">Create one</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="log_out">Log out</string>
+    <string name="update_your_display_name">Update your display name</string>
+    <string name="save">Save</string>
+    <string name="change_your_phone_number">Change your phone number</string>
+    <string name="a_one_time_pin_will_be_sent_to_your_number_to_verify_that_you_are_requesting_for_the_change">A one-time pin will be sent to your number to verify that you are requesting for the change.</string>
+    <string name="update_your_number">Update your number</string>
 
 
     <array name="phone_types">
@@ -114,6 +122,13 @@
         <item>@string/other</item>
 
     </array>
+
+    <plurals name="cards">
+        <item quantity="one">%d card</item>
+        <item quantity="zero">No cards yet</item>
+        <item quantity="other">%d cards</item>
+    </plurals>
+
 
     <array name="email_types">
         <item>@string/personal</item>

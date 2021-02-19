@@ -53,19 +53,13 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         Log.d("TAG", "onPause: ")
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        enterTransition = MaterialFadeThrough()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         postponeEnterTransition()
         view.doOnPreDraw {
             startPostponedEnterTransition()
-/*            //todo fix up
+/*
             val mainActivity = requireActivity() as MainActivity
             mainActivity.binding.bottomNav.show()*/
         }
@@ -90,6 +84,8 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         // Inflate the layout for this fragment
         binding = CardsFragmentBinding.inflate(layoutInflater,container, false)
 
+
+        enterTransition = MaterialFadeThrough()
 
 /*        binding.addCard.setOnClickListener {
             viewmodel.goToAddCard()

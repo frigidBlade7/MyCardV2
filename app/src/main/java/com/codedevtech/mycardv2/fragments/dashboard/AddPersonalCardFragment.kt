@@ -38,6 +38,8 @@ import com.codedevtech.mycardv2.viewmodel.AddCardViewModel
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
@@ -56,28 +58,16 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
     lateinit var phoneTypes: DropDownAdapter
     lateinit var emailTypes: DropDownAdapter
 
-    val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav){
+    val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav){
         defaultViewModelProviderFactory
     }
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val mainActivity = requireActivity() as MainActivity
-        enterTransition = MaterialContainerTransform().apply {
-            // Manually add the Views to be shared since this is not a standard Fragment to
-            // Fragment shared element transition.
-            startView = mainActivity.binding.addCard
-            endView = binding.layout
-/*
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-*/
-            scrimColor = Color.TRANSPARENT
-            containerColor = MaterialColors.getColor(view,R.attr.colorSurface)
-            startContainerColor = MaterialColors.getColor(view,R.attr.colorPrimary)
-            endContainerColor = MaterialColors.getColor(view,R.attr.colorSurface)
-        }
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

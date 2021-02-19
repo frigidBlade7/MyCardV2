@@ -5,10 +5,7 @@ import com.codedevtech.mycardv2.db.dao.AddedCardDao
 import com.codedevtech.mycardv2.models.*
 import com.codedevtech.mycardv2.models.datasource.*
 import com.codedevtech.mycardv2.models.datasource.AddedCardDataSource
-import com.codedevtech.mycardv2.services.AuthenticationServiceImpl
-import com.codedevtech.mycardv2.services.AuthenticationService
-import com.codedevtech.mycardv2.services.UpdateImageService
-import com.codedevtech.mycardv2.services.FirebaseUpdateImageServiceImpl
+import com.codedevtech.mycardv2.services.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -24,8 +21,16 @@ import dagger.hilt.android.scopes.ViewModelScoped
 object ViewModelModule {
     @Provides
     @ViewModelScoped
+    @AuthService
     fun providesAuthenticationService(auth: FirebaseAuth): AuthenticationService{
         return AuthenticationServiceImpl(auth)
+    }
+
+    @Provides
+    @ViewModelScoped
+    @UpdateService
+    fun providesUpdateNumberService(auth: FirebaseAuth): AuthenticationService{
+        return UpdatePhoneNumberServiceImpl(auth)
     }
 
     @Provides
@@ -54,11 +59,6 @@ object ViewModelModule {
         return FirebaseUpdateImageServiceImpl(fs)
     }
 
-    @Provides
-    @ViewModelScoped
-    fun providesAddedCardDao(appDb: AppDb): AddedCardDao{
-        return appDb.addedCardsDao()
-    }
 }
 
 

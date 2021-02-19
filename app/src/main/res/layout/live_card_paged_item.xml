@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="item"
+            type="com.codedevtech.mycardv2.models.AddedCard"/>
+        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/icon"
+                    android:layout_width="40dp"
+                    imageUrl="@{item.profilePicUrl}"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="12dp"
+                    app:layout_constraintBottom_toTopOf="@+id/name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/CircularImageView"
+                    app:backgroundColor="@{ExtensionsKt.backgroundColor(icon,item.position)}"/>
+
+                <TextView
+                    android:id="@+id/initials"
+                    style="@style/TextAppearance.MyCardStyles.Body.Semibold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{ExtensionsKt.initials(item.name)}"
+                    android:visibility="@{item.profilePicUrl.empty?View.VISIBLE:View.GONE}"
+                    android:textColor="@{ExtensionsKt.initialsColor(initials,item.position)}"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon"
+                    app:layout_constraintEnd_toEndOf="@+id/icon"
+                    app:layout_constraintStart_toStartOf="@+id/icon"
+                    app:layout_constraintTop_toTopOf="@+id/icon"
+                    tools:text="NA" />
+
+                <TextView
+                    android:id="@+id/name"
+                    style="@style/TextAppearance.MyCardStyles.Body.Semibold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{item.name.fullName}"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toTopOf="@+id/role"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/icon"
+                    tools:text="Nate Att" />
+
+                <TextView
+                    android:id="@+id/role"
+                    style="@style/TextAppearance.MyCardStyles.Subtitle.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="26dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/mc_black_60"
+                    android:text="@{item.businessInfo.role}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/name"
+                    tools:text="Senior Android Dev" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

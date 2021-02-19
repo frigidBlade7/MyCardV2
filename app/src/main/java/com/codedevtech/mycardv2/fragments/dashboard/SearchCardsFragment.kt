@@ -25,6 +25,7 @@ import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.codedevtech.mycardv2.viewmodel.SearchCardViewModel
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -41,6 +42,7 @@ class SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
     val searchCardViewModel: SearchCardViewModel by viewModels()
 
     val pagedAdapter= CardPagingAdapter(this)
+
 
 
 

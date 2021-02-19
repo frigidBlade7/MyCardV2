@@ -92,6 +92,18 @@ import javax.inject.Singleton
         }
     }
 
+/*    suspend fun updateCredential(phoneAuthCredential: PhoneAuthCredential) {
+        try{
+            val data = auth.signInWithCredential(phoneAuthCredential).await()
+            data.user?.let {
+                authCallback.onAuthSuccess(it)
+            }
+        }catch (e: Exception){
+            Log.d(TAG, "attemptAuth: ${e.localizedMessage}")
+            authCallback.onAuthFailure(e.getCode())
+        }
+    }*/
+
 
     override fun setUpAuthCallbacks(authenticationCallbacks: AuthenticationCallbacks<FirebaseUser>) {
         this.authCallback = authenticationCallbacks

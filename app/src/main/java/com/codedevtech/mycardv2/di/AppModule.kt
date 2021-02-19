@@ -5,6 +5,8 @@ import com.codedevtech.mycardv2.converters.EmailAddressConverter
 import com.codedevtech.mycardv2.converters.PhoneNumberConverter
 import com.codedevtech.mycardv2.converters.SocialMediaProfileConverter
 import com.codedevtech.mycardv2.db.AppDb
+import com.codedevtech.mycardv2.db.dao.AddedCardDao
+import com.codedevtech.mycardv2.db.dao.LiveCardDao
 import com.codedevtech.mycardv2.services.AuthenticationServiceImpl
 import com.codedevtech.mycardv2.services.AuthenticationService
 import com.google.firebase.auth.FirebaseAuth
@@ -15,6 +17,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -54,6 +57,18 @@ object AppModule {
         return AppDb.getDatabase(context, socialMediaProfileConverter, phoneNumberConverter, emailAddressConverter)
     }
 
+
+    @Provides
+    @Singleton
+    fun providesLiveCardDao(appDb: AppDb): LiveCardDao{
+        return appDb.liveCardsDao()
+    }
+
+    @Provides
+    @Singleton
+    fun providesAddedCardDao(appDb: AppDb): AddedCardDao {
+        return appDb.addedCardsDao()
+    }
 
 /*    @Provides
     @Singleton

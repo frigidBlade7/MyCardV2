@@ -25,7 +25,7 @@ class WelcomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        if(findNavController().currentDestination?.id==R.id.cardsFragment){
+/*        if(findNavController().currentDestination?.id==R.id.cardsFragment){
             return
         }
         FirebaseAuth.getInstance().currentUser?.let {
@@ -40,7 +40,7 @@ class WelcomeFragment : Fragment() {
                 findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
             }
 
-        }
+        }*/
     }
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,6 +66,19 @@ class WelcomeFragment : Fragment() {
            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
        }*/
 
+       if (findNavController().currentDestination?.id!=R.id.cardsFragment)
+           FirebaseAuth.getInstance().currentUser?.let {
+               if(FirebaseAuth.getInstance().currentUser!=null){
+                   it.displayName?.let { name->
+                       if(name.isNotEmpty())
+                           findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
+                       else
+                           findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
+                   }
+                   //findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
+               }
+
+           }
 
       return binding.root
   }

@@ -28,6 +28,7 @@ import com.codedevtech.mycardv2.models.EmailAddress
 import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.models.SocialMediaProfile
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
+import com.codedevtech.mycardv2.viewmodel.CardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -40,6 +41,7 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
     lateinit var binding: FragmentCardOptionsBinding
 
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
+    val cardViewmodel: CardViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
 /*    override fun getTheme(): Int {
         return R.style.Theme_MyCardStyles_Options
@@ -64,6 +66,10 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
 
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
+            findNavController().navigate(it)
+        })
+
+        cardViewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
         })
 

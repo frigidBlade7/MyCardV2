@@ -15,10 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView
 import com.codedevtech.mycardv2.R
-import com.codedevtech.mycardv2.databinding.FragmentSetupAccountOnboardingBinding
-import com.codedevtech.mycardv2.databinding.FragmentSignUpBinding
-import com.codedevtech.mycardv2.databinding.FragmentSkipOnboardingBinding
-import com.codedevtech.mycardv2.databinding.FragmentUpdateAccountBinding
+import com.codedevtech.mycardv2.databinding.*
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.utils.Utils
 import com.codedevtech.mycardv2.viewmodel.AddCardViewModel
@@ -30,7 +27,7 @@ import pub.devrel.easypermissions.EasyPermissions
 @AndroidEntryPoint
 class CompleteProfileFragment : Fragment() {
 
-    lateinit var binding: FragmentUpdateAccountBinding
+    lateinit var binding: FragmentCompleteProfileBinding
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
     override fun onCreateView(
@@ -38,7 +35,7 @@ class CompleteProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentUpdateAccountBinding.inflate(layoutInflater,container, false)
+        binding = FragmentCompleteProfileBinding.inflate(layoutInflater,container, false)
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 

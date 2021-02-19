@@ -8,13 +8,14 @@
         <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
         <variable
             name="viewmodel"
-            type="com.codedevtech.mycardv2.viewmodel.AddCardViewModel" />
+            type="com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:transitionName="add_card"
         android:background="?attr/colorSurface"
         android:animateLayoutChanges="true">
 

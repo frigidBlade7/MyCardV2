@@ -125,7 +125,6 @@ class ViewAddedCardDetailsFragment : Fragment() {
         socialAdapter = SocialAdapter(null)
         binding.include.socialMedia.socialItems.adapter = socialAdapter
 
-
         onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
         })

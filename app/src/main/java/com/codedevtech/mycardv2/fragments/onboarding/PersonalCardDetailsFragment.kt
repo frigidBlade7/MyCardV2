@@ -132,11 +132,9 @@ class PersonalCardDetailsFragment : Fragment() {
 
 
 
-        binding.include.note.role.text = onboardingViewModel.selectedCard.value?.note
-        
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
-                R.id.options-> onboardingViewModel.showCardOptions()
+                R.id.options-> onboardingViewModel.showPersonalCardOptions()
                 R.id.share-> onboardingViewModel.showShare()
             }
 

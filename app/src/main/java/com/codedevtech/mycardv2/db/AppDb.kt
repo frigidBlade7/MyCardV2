@@ -15,7 +15,7 @@ import com.codedevtech.mycardv2.models.AddedCard
 import com.codedevtech.mycardv2.models.LiveCard
 import javax.inject.Inject
 
-@Database(entities = [LiveCard::class, AddedCard::class], version = 1, exportSchema = false)
+@Database(entities = [LiveCard::class, AddedCard::class], version = 2, exportSchema = false)
 
 @TypeConverters(SocialMediaProfileConverter::class, PhoneNumberConverter::class, EmailAddressConverter::class, TimestampConverter::class )
 abstract class AppDb : RoomDatabase() {

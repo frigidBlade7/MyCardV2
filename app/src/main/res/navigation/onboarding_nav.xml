@@ -161,7 +161,7 @@
             android:id="@+id/action_global_cardPersonalDetailsFragment"
             app:destination="@id/cardPersonalDetailsFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/cardsFragment"
+            app:popUpTo="@id/meFragment"
             app:popUpToInclusive="false" />
     </navigation>
     <navigation
@@ -208,13 +208,15 @@
         <action
             android:id="@+id/action_cardOptionsFragment_to_viewCardQrFragment"
             app:destination="@id/viewCardQrFragment" />
-        <action
-            android:id="@+id/action_cardOptionsFragment_to_deleteCardDialogFragment"
-            app:destination="@id/deleteCardDialogFragment" />
     </dialog>
     <dialog
         android:id="@+id/deleteCardDialogFragment"
         android:name="com.codedevtech.mycardv2.fragments.dashboard.DeleteCardDialogFragment"
+        tools:layout="@layout/fragment_delete_card_dialog" />
+
+    <dialog
+        android:id="@+id/deletePersonalCardDialogFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.DeletePersonalCardDialogFragment"
         tools:layout="@layout/fragment_delete_card_dialog" />
 
     <dialog
@@ -281,14 +283,20 @@
         android:name="com.codedevtech.mycardv2.fragments.dashboard.MeFragment"
         android:label="@string/me" >
         <action
-            android:id="@+id/action_meFragment_to_add_personal_card_nav2"
+            android:id="@+id/action_meFragment_to_add_personal_card_nav"
             app:destination="@id/add_personal_card_nav" />
+        <action
+            android:id="@+id/action_meFragment_to_viewPersonalCardDetailsFragment"
+            app:destination="@id/viewPersonalCardDetailsFragment" />
+        <action
+            android:id="@+id/action_meFragment_to_settingsNav"
+            app:destination="@id/settings_nav" />
     </fragment>
     <action android:id="@+id/action_global_cardOptionsFragment" app:destination="@id/cardOptionsFragment" />
     <fragment
         android:id="@+id/setupProfileFragment"
         android:name="com.codedevtech.mycardv2.fragments.onboarding.CompleteProfileFragment"
-        tools:layout="@layout/fragment_update_account" >
+        tools:layout="@layout/fragment_complete_profile" >
         <action
             android:id="@+id/action_setupProfileFragment_to_cardsFragment"
             app:destination="@id/cardsFragment"
@@ -297,6 +305,90 @@
     </fragment>
     <action
         android:id="@+id/action_global_cardsFragment"
-        app:destination="@id/cardsFragment" />
+        app:destination="@id/cardsFragment"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true" />
+    <dialog
+        android:id="@+id/personalCardOptionsFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.PersonalCardOptionsFragment"
+        tools:layout="@layout/fragment_personal_card_options" >
+        <action
+            android:id="@+id/action_personalCardOptionsFragment_to_viewCardQrFragment"
+            app:destination="@id/viewCardQrFragment" />
+    </dialog>
+    <action android:id="@+id/action_global_personalCardOptionsFragment" app:destination="@id/personalCardOptionsFragment" />
+    <fragment
+        android:id="@+id/viewPersonalCardDetailsFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.ViewPersonalCardDetailsFragment"
+        tools:layout="@layout/fragment_personal_card_details" />
+    <action
+        android:id="@+id/action_global_meFragment"
+        app:destination="@id/meFragment"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true" />
+    <action android:id="@+id/action_global_deleteCardDialogFragment" app:destination="@id/deleteCardDialogFragment" />
+    <action android:id="@+id/action_global_deletePersonalCardDialogFragment" app:destination="@id/deletePersonalCardDialogFragment" />
+    <navigation android:id="@+id/settings_nav"
+        app:startDestination="@id/settingsFragment">
+        <fragment
+            android:id="@+id/settingsFragment"
+            android:name="com.codedevtech.mycardv2.fragments.dashboard.SettingsFragment"
+            tools:layout="@layout/fragment_settings" >
+            <action
+                android:id="@+id/action_settingsFragment_to_updateDisplayNameFragment"
+                app:destination="@id/updateDisplayNameFragment" />
+            <action
+                android:id="@+id/action_settingsFragment_to_confirmNumberResetFragment"
+                app:destination="@id/confirmNumberResetFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateDisplayNameFragment"
+            android:name="com.codedevtech.mycardv2.fragments.dashboard.UpdateDisplayNameFragment"
+            tools:layout="@layout/fragment_update_name"/>
+        <fragment
+            android:id="@+id/verifyCurrentNumberFragment"
+            android:name="com.codedevtech.mycardv2.fragments.onboarding.VerifyCurrentNumberFragment"
+            tools:layout="@layout/fragment_verify_current_number" >
+            <action
+                android:id="@+id/action_verifyCurrentNumberFragment_to_updateNumberFragment"
+                app:destination="@id/updateNumberFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/confirmNumberResetFragment"
+            android:name="com.codedevtech.mycardv2.fragments.dashboard.ConfirmNumberResetFragment"
+            tools:layout="@layout/fragment_confirm_number_reset">
+            <action
+                android:id="@+id/action_confirmNumberResetFragment_to_verifyCurrentNumberFragment"
+                app:destination="@id/verifyCurrentNumberFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateNumberFragment"
+            android:name="com.codedevtech.mycardv2.fragments.onboarding.UpdateNumberFragment"
+            tools:layout="@layout/fragment_update_number" >
+            <action
+                android:id="@+id/action_updateNumberFragment_to_verifyNewNumberFragment"
+                app:destination="@id/verifyNewNumberFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/verifyNewNumberFragment"
+            android:name="com.codedevtech.mycardv2.fragments.onboarding.VerifyNewNumberFragment"
+            tools:layout="@layout/fragment_verify_new_number" >
+            <action
+                android:id="@+id/action_verifyNewNumberFragment_to_settingsFragment"
+                app:destination="@id/settingsFragment"
+                app:launchSingleTop="true"
+                app:popUpTo="@id/cardsFragment"
+                app:popUpToInclusive="true" />
+            <argument
+                android:name="newPhoneNumber"
+                app:argType="string" />
+        </fragment>
+
+    </navigation>
+    <action
+        android:id="@+id/action_global_welcomeFragment"
+        app:destination="@id/welcomeFragment"
+        app:popUpTo="@id/welcomeFragment"
+        app:popUpToInclusive="true" />
 
 </navigation>

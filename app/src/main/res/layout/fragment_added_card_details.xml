@@ -59,8 +59,12 @@
 
                 <include
                     android:id="@+id/include"
+                    layout="@layout/added_card_details"
                     app:item="@{onboardingViewModel.selectedCard}"
-                    layout="@layout/added_card_details"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

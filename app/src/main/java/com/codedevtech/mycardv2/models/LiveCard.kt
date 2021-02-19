@@ -22,7 +22,6 @@ data class LiveCard(@DocumentId
                     var phoneNumbers: List<PhoneNumber> = listOf(),
                     var socialMediaProfiles: List<SocialMediaProfile> = listOf(),
                     @Embedded var businessInfo: BusinessInfo = BusinessInfo(),
-                    var note: String? ="",
                     @Embedded var name: Name = Name(),
                     var createdAt:Timestamp = Timestamp.now(),
                     var updatedAt:Timestamp = Timestamp.now()):Parcelable {

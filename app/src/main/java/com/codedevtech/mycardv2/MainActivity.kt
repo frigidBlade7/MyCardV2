@@ -84,9 +84,11 @@ class MainActivity : AppCompatActivity() {
    }
 
     override fun onBackPressed() {
-        if(navController.currentDestination?.id==R.id.cardsFragment) {
-            finish()
-            return
+        when(navController.currentDestination?.id){
+            R.id.cardsFragment, R.id.welcomeFragment -> {
+                finish()
+                return
+            }
         }
         super.onBackPressed()
     }

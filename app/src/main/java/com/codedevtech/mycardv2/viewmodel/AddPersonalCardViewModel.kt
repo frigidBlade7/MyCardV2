@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: PersonalCardsRepository, val uploadService: UpdateImageService): BaseViewModel() {
-    // TODO: Implement the ViewModel
+
     var isNameExpanded =  MutableLiveData<Boolean>(false)
     var profileImageUri = MutableLiveData<Uri>()
     var businessImageUri = MutableLiveData<Uri>()
@@ -85,7 +85,6 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
 
     fun addCard(){
 
-        //todo make this an observable return type
        viewModelScope.launch {
            card.value?.let {
                when(val data = personalCardsRepository.firebaseLiveCardDataSource.addData(it)){

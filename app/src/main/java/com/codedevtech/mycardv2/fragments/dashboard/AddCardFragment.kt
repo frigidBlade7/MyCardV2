@@ -48,7 +48,7 @@ private const val TAG = "AddPersonalCardFragment"
 class AddCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
     EmailItemInteraction, SocialItemInteraction {
 
-    lateinit var binding: FragmentAddPersonalCardBinding
+    lateinit var binding: FragmentAddCardBinding
     lateinit var phoneNumberAdapter: PhoneNumberAdapter
     lateinit var emailAdapter: EmailAdapter
     lateinit var socialAdapter: SocialAdapter
@@ -84,7 +84,7 @@ class AddCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentAddPersonalCardBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAddCardBinding.inflate(layoutInflater,container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner

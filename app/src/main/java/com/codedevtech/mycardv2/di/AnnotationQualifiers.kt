@@ -9,3 +9,12 @@ import javax.inject.Qualifier
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class PersonalCardDataSource
+
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class AuthService
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class UpdateService

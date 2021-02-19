@@ -35,4 +35,8 @@ interface LiveCardDao {
 
     @Query("SELECT * FROM livecard WHERE livecard MATCH (:filterQuery)")
     fun filterByAny(filterQuery: String): Flow<List<LiveCard>>
+
+
+    @Query("DELETE FROM livecard")
+    suspend fun deleteAll()
 }

@@ -78,10 +78,10 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
         awaitClose { subscriptionCallback.remove() }
     }
 
-    fun getList(): Flow<Resource<List<LiveCard>>> = callbackFlow {
+    fun getList(owner: String): Flow<Resource<List<LiveCard>>> = callbackFlow {
 
         offer(Resource.Loading)
-        val subscriptionCallback = collectionReference.orderBy("createdAt",Query.Direction.DESCENDING).addSnapshotListener { value, error ->
+        val subscriptionCallback = collectionReference.whereEqualTo("owner",owner).orderBy("createdAt",Query.Direction.DESCENDING).addSnapshotListener { value, error ->
             value?.let {
                 //todo is this necessary if(!it.isEmpty)
                 try {
