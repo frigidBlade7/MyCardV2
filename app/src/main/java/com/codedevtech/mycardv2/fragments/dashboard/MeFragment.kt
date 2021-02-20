@@ -85,18 +85,20 @@ class MeFragment : Fragment(), SocialItemInteraction {
             recyclerView.setPadding(48,recyclerView.paddingTop,48, recyclerView.bottom)
 
         }
+
+
         binding.include.pager.adapter = cardAdapter
         binding.include.email.list.adapter = extraEmailAddressAdapter
         binding.include.phone.list.adapter = extraPhoneNumbersAdapter
         binding.include.socialMedia.socialItems.adapter = socialAdapter
-
+        binding.include.socialMedia.socialItems.setHasFixedSize(true)
 
         cardViewModel.selectedPersonalCard.observe(viewLifecycleOwner){
             if(it.phoneNumbers.size>1)
                 extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
             if(it.emailAddresses.size>1)
                 extraEmailAddressAdapter.submitList(it.emailAddresses.drop(1))
-            socialAdapter.submitList(it.socialMediaProfiles)
+            socialAdapter.submitList(it.socialMediaProfiles.toList())
 
         }
 
@@ -107,7 +109,8 @@ class MeFragment : Fragment(), SocialItemInteraction {
                     Glide.with(this).asBitmap().load(it.data.profileUrl).transform(
                         CenterCrop(),
                         CircleCrop()
-                    ).thumbnail(0.1f).into(binding.profileIcon)
+                    ).placeholder(R.drawable.user_default).error(R.drawable
+                        .user_default).thumbnail(0.1f).into(binding.profileIcon)
                 }
             }
         }
@@ -145,6 +148,10 @@ class MeFragment : Fragment(), SocialItemInteraction {
                         binding.include.phone.list.visibility = View.GONE
                 }
 
+                if(cardAdapter.currentList.isEmpty())
+                    binding.include.socialMedia.socialItems.visibility = View.GONE
+                else
+                    binding.include.socialMedia.socialItems.visibility = View.VISIBLE
             }
         })
 

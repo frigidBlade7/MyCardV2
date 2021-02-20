@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:paddingBottom="56dp"
+        android:nestedScrollingEnabled="false"
         android:id="@+id/parent"
         android:layout_height="match_parent">
 
@@ -169,9 +170,11 @@
         <include
             android:id="@+id/social_media"
             layout="@layout/card_social_media_item"
-            android:visibility="@{item.socialMediaProfiles.empty?View.GONE: View.VISIBLE}"
+            android:nestedScrollingEnabled="false"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:visibility="@{item.socialMediaProfiles.empty?View.GONE: View.VISIBLE}" />
 
     </LinearLayout>
 </layout>

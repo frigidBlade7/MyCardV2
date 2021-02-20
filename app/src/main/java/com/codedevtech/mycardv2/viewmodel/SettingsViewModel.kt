@@ -7,6 +7,7 @@ import androidx.navigation.ActionOnlyNavDirections
 import com.codedevtech.mycardv2.AuthenticationCallbacks
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.SettingsNavDirections
+import com.codedevtech.mycardv2.db.AppDb
 import com.codedevtech.mycardv2.di.AuthService
 import com.codedevtech.mycardv2.services.AuthenticationService
 import com.codedevtech.mycardv2.event.Event
@@ -22,7 +23,9 @@ import com.codedevtech.mycardv2.utils.notifyObserver
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,7 +36,7 @@ class SettingsViewModel @Inject constructor(
     private val uploadService: UpdateImageService,
     private val auth: FirebaseAuth,
     @AuthService private val authenticationService: AuthenticationService,
-    private val userDataSourceImpl: FirebaseUserDataSourceImpl
+    private val userDataSourceImpl: FirebaseUserDataSourceImpl, val appDb: AppDb, val db: FirebaseFirestore
 ) : BaseViewModel() {
 
     var profileImageUri = MutableLiveData<Uri>()
@@ -125,8 +128,13 @@ class SettingsViewModel @Inject constructor(
 
     fun logout(){
         auth.addAuthStateListener {
-            if (it.currentUser == null)
+            if (it.currentUser == null) {
                 _destination.value = Event(SettingsNavDirections.actionGlobalWelcomeFragment())
+                viewModelScope.launch(Dispatchers.IO) {
+                    appDb.clearAllTables()
+                    db.clearPersistence()
+                }
+            }
 
         }
         auth.signOut()

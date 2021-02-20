@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.codedevtech.mycardv2.adapter.diffutils.SocialDiffCallback
 import com.codedevtech.mycardv2.databinding.EmailItemBinding
 import com.codedevtech.mycardv2.databinding.PhoneItemBinding
 import com.codedevtech.mycardv2.databinding.SocialItemBinding
@@ -19,7 +20,9 @@ import com.codedevtech.mycardv2.models.SocialMediaProfile
 import com.codedevtech.mycardv2.viewholders.BaseViewHolder
 import com.squareup.moshi.JsonClass
 
-class SocialAdapter (val itemInteraction: SocialItemInteraction?): ListAdapter<SocialMediaProfile, BaseViewHolder>(DiffCallback()) {
+class SocialAdapter (val itemInteraction: SocialItemInteraction?): ListAdapter<SocialMediaProfile, BaseViewHolder>(
+    SocialDiffCallback()
+) {
 
     lateinit var binding: SocialItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -27,6 +30,7 @@ class SocialAdapter (val itemInteraction: SocialItemInteraction?): ListAdapter<S
         binding = SocialItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         if (itemInteraction==null)
             binding.edit.visibility = View.GONE
+
         val baseViewHolder = BaseViewHolder(binding)
 
         binding.title.setOnClickListener{
@@ -41,15 +45,6 @@ class SocialAdapter (val itemInteraction: SocialItemInteraction?): ListAdapter<S
     }
 
 
-    private class DiffCallback : DiffUtil.ItemCallback<SocialMediaProfile>() {
-        override fun areItemsTheSame(oldItem: SocialMediaProfile, newItem: SocialMediaProfile): Boolean {
-            return oldItem.usernameOrUrl == newItem.usernameOrUrl
-        }
-
-        override fun areContentsTheSame(oldItem: SocialMediaProfile, newItem: SocialMediaProfile): Boolean {
-            return oldItem == newItem
-        }
-    }
 
 
 }
