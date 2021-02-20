@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/forward"
+        app:srcCompat="@drawable/forward"
         app:fabSize="normal"
         android:layout_marginBottom="72dp"
         android:text="@string/scan"/>

@@ -114,6 +114,7 @@
     <string name="a_one_time_pin_will_be_sent_to_your_number_to_verify_that_you_are_requesting_for_the_change">A one-time pin will be sent to your number to verify that you are requesting for the change.</string>
     <string name="update_your_number">Update your number</string>
     <string name="verify_your_new_number">Verify your new number</string>
+    <string name="fab">fab</string>
 
 
     <array name="phone_types">

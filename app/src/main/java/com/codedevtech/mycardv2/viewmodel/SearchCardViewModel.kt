@@ -32,10 +32,13 @@ class SearchCardViewModel @Inject constructor(val addedCardsRepository: AddedCar
                 addedCardsRepository.addedCardDao.filterByName("%${it.second}%")
             }.flow.cachedIn(viewModelScope).asLiveData()
             Utils.FILTER_ALL -> Pager(PagingConfig(10)) {
-                addedCardsRepository.addedCardDao.filterByAny("*${it.second}*")
+                if(it.second.isNullOrEmpty())
+                    addedCardsRepository.addedCardDao.filterByNone()
+                else
+                    addedCardsRepository.addedCardDao.filterByAny("*${it.second}*")
             }.flow.cachedIn(viewModelScope).asLiveData()
             else -> Pager(PagingConfig(10)){
-                addedCardsRepository.addedCardDao.filterByAny("%${it.second}%") }.flow.cachedIn(viewModelScope).asLiveData()
+                addedCardsRepository.addedCardDao.filterByAny("*${it.second}*") }.flow.cachedIn(viewModelScope).asLiveData()
         }
     }
 

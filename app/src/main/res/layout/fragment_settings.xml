@@ -126,7 +126,7 @@
                     android:layout_height="96dp"
                     imageUrl="@{viewmodel.user.profileUrl}"
                     android:layout_marginTop="40dp"
-                    android:src="@drawable/user_default"
+                    app:srcCompat="@drawable/user_default"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -140,7 +140,7 @@
                     android:layout_marginTop="60dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:src="@drawable/camera_icon"
+                    app:srcCompat="@drawable/camera_icon"
                     app:fabSize="mini"
                     app:layout_constraintStart_toStartOf="@+id/profile_icon"
                     app:layout_constraintTop_toTopOf="@+id/profile_icon" />

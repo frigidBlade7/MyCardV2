@@ -306,7 +306,7 @@
     </style>-->
 
 
-    <style name="Theme.MyCardStyles.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+    <style name="Theme.MyCardStyles.Dialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="cornerFamily">rounded</item>
         <item name="dialogCornerRadius">8dp</item>
     </style>

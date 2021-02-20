@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:onClick="@{()->viewModel.goToConfirm()}"
-                android:src="@drawable/shutter"
+                app:srcCompat="@drawable/shutter"
                 app:layout_constraintBottom_toTopOf="@+id/manual"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="83dp"
-                android:src="@drawable/top_left_viewfinder"
+                app:srcCompat="@drawable/top_left_viewfinder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-                android:src="@drawable/top_right_viewfinder"
+                app:srcCompat="@drawable/top_right_viewfinder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="144dp"
-                android:src="@drawable/bottom_left_viewfinder"
+                app:srcCompat="@drawable/bottom_left_viewfinder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
@@ -132,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-                android:src="@drawable/bottom_right_viewfinder"
+                app:srcCompat="@drawable/bottom_right_viewfinder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView5" />
         </androidx.constraintlayout.widget.ConstraintLayout>

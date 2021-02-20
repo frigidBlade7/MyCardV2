@@ -27,9 +27,6 @@ interface AddedCardDao {
     @Query("SELECT * FROM addedcard WHERE fullName LIKE (:filterQuery) ORDER BY fullName ASC")
     fun filterByName(filterQuery: String): PagingSource<Int,AddedCard>
 
-    @Query("SELECT * FROM addedcard WHERE fullName LIKE (:filterQuery) ORDER BY fullName ASC")
-    fun filterByNameToo(filterQuery: String): LiveData<List<AddedCard>>
-
 
     @Query("SELECT * FROM addedcard WHERE companyName LIKE (:filterQuery) ORDER BY companyName ASC")
     fun filterByCompany(filterQuery: String): PagingSource<Int,AddedCard>
@@ -39,8 +36,11 @@ interface AddedCardDao {
     fun filterByRole(filterQuery: String): PagingSource<Int,AddedCard>
 
 
-    @Query("SELECT * FROM addedcard WHERE addedcard MATCH (:filterQuery)")
+    @Query(" SELECT * FROM addedcard WHERE addedcard MATCH (:filterQuery) ")
     fun filterByAny(filterQuery: String): PagingSource<Int,AddedCard>
+
+    @Query(" SELECT * FROM addedcard")
+    fun filterByNone(): PagingSource<Int,AddedCard>
 
     @Query("DELETE FROM addedcard")
     suspend fun deleteAll()

@@ -17,7 +17,8 @@ import com.google.android.material.imageview.ShapeableImageView
     @BindingAdapter("imageUrl")
     fun setImageUrl(imageView: ImageView, imageUrl: String?){
         if(!imageUrl.isNullOrEmpty())
-            Glide.with(imageView.context).asBitmap().load(imageUrl).transform(CenterCrop(),CircleCrop()).thumbnail(0.1f).into(imageView)
+            Glide.with(imageView.context).asBitmap().load(imageUrl)
+                .placeholder(R.drawable.user_default).transform(CenterCrop(),CircleCrop()).thumbnail(0.1f).into(imageView)
     }
 
     @BindingAdapter("imageUrlResource")

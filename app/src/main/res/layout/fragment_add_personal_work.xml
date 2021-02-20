@@ -144,7 +144,7 @@
                     android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:src="@drawable/camera_icon"
+                    app:srcCompat="@drawable/camera_icon"
                     android:visibility="gone"
                     app:fabSize="mini"
                     app:layout_constraintBottom_toBottomOf="@+id/company_logo"

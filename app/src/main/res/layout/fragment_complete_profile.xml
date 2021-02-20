@@ -39,7 +39,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginTop="28dp"
-                android:src="@drawable/user_default"
+                app:srcCompat="@drawable/user_default"
                 app:layout_constraintBottom_toTopOf="@+id/fullnamelayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -57,7 +57,7 @@
                 android:layout_marginTop="60dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/camera_icon"
+                app:srcCompat="@drawable/camera_icon"
                 app:fabSize="mini"
                 app:layout_constraintStart_toStartOf="@+id/profile_icon"
                 app:layout_constraintTop_toTopOf="@+id/profile_icon" />

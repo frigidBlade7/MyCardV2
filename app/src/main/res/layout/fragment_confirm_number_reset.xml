@@ -95,11 +95,12 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{()->viewModel.updateProfileNumber()}"
-                android:src="@drawable/forward"
+                app:srcCompat="@drawable/forward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/fab" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
