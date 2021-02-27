@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/cardDetailsFragment"
         android:name="com.codedevtech.mycardv2.fragments.onboarding.CardDetailsFragment"
-        tools:layout="@layout/fragment_card_details" >
+        tools:layout="@layout/fragment_added_card_details" >
         <argument
             android:name="card"
             app:argType="com.codedevtech.mycardv2.models.AddedCard"

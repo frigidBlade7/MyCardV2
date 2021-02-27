@@ -231,9 +231,9 @@
         <include
             android:id="@+id/note"
             layout="@layout/card_note_item"
-            app:item="@{item.note}"
-            android:visibility="@{item.note.empty?View.GONE: View.VISIBLE}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="@{item.note.empty?View.GONE: View.VISIBLE}"
+            app:item="@{item.note}" />
     </LinearLayout>
 </layout>

@@ -61,7 +61,7 @@
 
                     <include
                         android:id="@+id/categories"
-                        app:item="@{viewModel.card}"
+                        app:item="@{viewModel}"
                         layout="@layout/added_cards_confirm_categories" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

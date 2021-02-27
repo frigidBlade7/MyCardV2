@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.AddedCard" />
+            type="com.codedevtech.mycardv2.viewmodel.AddCardViewModel" />
     </data>
 
     <LinearLayout
@@ -63,7 +63,7 @@
 
         <include
             android:id="@+id/name"
-            app:name="@{item.name}"
+            app:name="@{item.card.name}"
             layout="@layout/card_name_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -75,10 +75,10 @@
 
         <include
             android:id="@+id/phone"
-            app:item="@{item.phoneNumbers.empty?null:item.phoneNumbers.get(0)}"
-            app:size="@{item.phoneNumbers.size()}"
+            app:item="@{item.card.phoneNumbers.empty?null:item.card.phoneNumbers.get(0)}"
+            app:size="@{item.card.phoneNumbers.size()}"
             layout="@layout/card_phone_item"
-            android:visibility="@{item.phoneNumbers.empty?View.GONE: View.VISIBLE}"
+            android:visibility="@{item.card.phoneNumbers.empty?View.GONE: View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -86,29 +86,29 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:visibility="@{item.phoneNumbers.empty?View.GONE: View.VISIBLE}"
+            android:visibility="@{item.card.phoneNumbers.empty?View.GONE: View.VISIBLE}"
             android:background="@drawable/part_divider" />
 
         <include
             android:id="@+id/email"
-            app:item="@{item.emailAddresses.empty?null:item.emailAddresses.get(0)}"
-            app:size="@{item.emailAddresses.size()}"
+            app:item="@{item.card.emailAddresses.empty?null:item.card.emailAddresses.get(0)}"
+            app:size="@{item.card.emailAddresses.size()}"
             layout="@layout/card_email_item"
-            android:visibility="@{item.emailAddresses.empty?View.GONE: View.VISIBLE}"
+            android:visibility="@{item.card.emailAddresses.empty?View.GONE: View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
-            android:visibility="@{item.emailAddresses.empty?View.GONE: View.VISIBLE}"
+            android:visibility="@{item.card.emailAddresses.empty?View.GONE: View.VISIBLE}"
             android:layout_height="0.5dp"
             android:background="@drawable/part_divider" />
 
         <include
             android:id="@+id/work"
-            app:workInfo="@{item.businessInfo}"
-            android:visibility="@{item.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
+            app:workInfo="@{item.card.businessInfo}"
+            android:visibility="@{item.card.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
             layout="@layout/card_work_info_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -116,14 +116,14 @@
         <View
             android:id="@+id/view3"
             android:layout_width="match_parent"
-            android:visibility="@{item.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
+            android:visibility="@{item.card.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
             android:layout_height="0.5dp"
             android:background="@drawable/part_divider" />
 
         <include
             android:id="@+id/work_location"
-            app:location="@{item.businessInfo.companyAddress}"
-            android:visibility="@{item.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
+            app:location="@{item.card.businessInfo.companyAddress}"
+            android:visibility="@{item.card.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
             layout="@layout/card_work_location_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -131,14 +131,14 @@
         <View
             android:id="@+id/view4"
             android:layout_width="match_parent"
-            android:visibility="@{item.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
+            android:visibility="@{item.card.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
             android:layout_height="0.5dp"
             android:background="@drawable/part_divider" />
 
         <include
             android:id="@+id/social_media"
             layout="@layout/card_social_media_item"
-            android:visibility="@{item.socialMediaProfiles.empty?View.GONE: View.VISIBLE}"
+            android:visibility="@{item.card.socialMediaProfiles.empty?View.GONE: View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -147,12 +147,12 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@drawable/part_divider"
-            android:visibility="@{item.socialMediaProfiles.empty?View.GONE: View.VISIBLE}" />
+            android:visibility="@{item.card.socialMediaProfiles.empty?View.GONE: View.VISIBLE}" />
 
         <include
             android:id="@+id/note"
-            layout="@layout/card_note_item"
-            app:item="@{item.note}"
+            layout="@layout/card_note_item_editable"
+            app:viewModel="@{item}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

@@ -36,6 +36,7 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
     var emailAddresses = MutableLiveData(mutableListOf(EmailAddress()))
 
     var businessInfo = MutableLiveData(BusinessInfo())
+    var note = MutableLiveData("")
 
     fun goToSocialProfile(){
         _destination.postValue(Event(AddCardFragmentDirections.actionAddCardFragmentToAddSocialsFragment()))
@@ -65,6 +66,8 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
     }
 
     fun goToCard(){
+        card.value?.note = note.value
+        card.notifyObserver()
         addCard()
         //_destination.value = Event(AddCardNavDirections.actionGlobalCardDetailsFragment())
     }
