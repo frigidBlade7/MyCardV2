@@ -15,8 +15,8 @@ android {
         applicationId "com.codedevtech.mycardv2"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 10
-        versionName "1.0.6"
+        versionCode 11
+        versionName "1.0.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -53,6 +53,7 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
     //implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

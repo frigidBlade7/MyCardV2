@@ -17,7 +17,7 @@ class PersonalCardsRepository @Inject constructor(val firebaseLiveCardDataSource
         return firebaseLiveCardDataSource.getList(owner).catch { exception ->
             Log.d(TAG, "error: ${exception.localizedMessage}")
             emit(Resource.Error(R.string.failed))
-        }
+        }//todo add a catch for others
     }
 }
 

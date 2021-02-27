@@ -4,6 +4,8 @@ package com.codedevtech.mycardv2.fragments.dashboard
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -66,18 +68,13 @@ class AddPersonalWorkFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         // handle result of pick image chooser
-        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val imageUri = CropImage.getPickImageResultUri(requireContext(), data)
+        if (requestCode == Utils.REQUEST_IMAGE_GET && resultCode == Activity.RESULT_OK) {
+            val imageUri: Bitmap? = data?.getParcelableExtra("data")
 
-            // For API >= 23 we need to check specifically that we have permissions to read external storage.
-            if (CropImage.isReadExternalStoragePermissionsRequired(requireContext(), imageUri)) {
-                // request permissions and handle the result in onRequestPermissionsResult()
-                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE)
-            } else {
-                // no permissions required or already granted, can start crop image activity
-                CropImage.activity(imageUri)
-                    .start(requireContext(), this)
-            }
+            val fullPhotoUri: Uri? = data?.data
+            CropImage.activity(fullPhotoUri)
+                .start(requireContext(), this)
+
         }
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -103,9 +100,12 @@ class AddPersonalWorkFragment : Fragment() {
     @AfterPermissionGranted(Utils.REQUEST_PHOTO)
     private fun callGallery() {
         if (EasyPermissions.hasPermissions(requireContext(), Utils.STORAGE_PERMISSION)) {
-            CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .start(requireContext(), this)
+            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+                type = "image/*"
+            }
+            if (activity?.packageManager?.let { intent.resolveActivity(it) } != null) {
+                startActivityForResult(intent, Utils.REQUEST_IMAGE_GET)
+            }
         } else {
             // Do not have permissions, request them now
             EasyPermissions.requestPermissions(this, getString(R.string.require_gallery),

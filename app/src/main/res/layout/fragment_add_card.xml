@@ -317,7 +317,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:hint="@string/full_name"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapWords"
                         android:maxLines="1"
                         android:text="@={viewmodel.name.fullName}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -365,7 +365,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/prefix"
-                            android:inputType="textPersonName"
+                            android:inputType="textPersonName|textCapWords"
                             android:maxLines="1"
                             android:text="@={viewmodel.name.prefix}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -387,7 +387,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/first_name"
-                            android:inputType="textPersonName"
+                            android:inputType="textPersonName|textCapWords"
                             android:maxLines="1"
                             android:text="@={viewmodel.name.firstName}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -409,7 +409,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/middle_name"
-                            android:inputType="textPersonName"
+                            android:inputType="textPersonName|textCapWords"
                             android:maxLines="1"
                             android:text="@={viewmodel.name.middleName}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -430,7 +430,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/last_name"
-                            android:inputType="textPersonName"
+                            android:inputType="textPersonName|textCapWords"
                             android:maxLines="1"
                             android:text="@={viewmodel.name.lastName}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -451,7 +451,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/suffix"
-                            android:inputType="textPersonName"
+                            android:inputType="textPersonName|textCapWords"
                             android:maxLines="1"
                             android:text="@={viewmodel.name.suffix}" />
                     </com.google.android.material.textfield.TextInputLayout>

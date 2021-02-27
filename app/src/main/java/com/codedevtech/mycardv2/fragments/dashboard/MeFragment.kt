@@ -68,6 +68,11 @@ class MeFragment : Fragment(), SocialItemInteraction {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        cardAdapter.notifyDataSetChanged()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

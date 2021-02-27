@@ -24,6 +24,7 @@ class VerifyCurrentNumberFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewmodel.smsCode.value=""
 /*
         val number = VerifyNumberFragmentArgs.fromBundle(requireArguments()).number
         viewmodel.sendVerificationCode(number)*/

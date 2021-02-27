@@ -199,7 +199,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="@={viewmodel.businessInfo.role}"
                         android:hint="@string/role_or_job_title"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapWords"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -219,7 +219,7 @@
                         android:layout_gravity="center_vertical"
                         android:hint="@string/address"
                         android:text="@={viewmodel.businessInfo.companyAddress}"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapWords"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -239,7 +239,7 @@
                         android:layout_gravity="center_vertical"
                         android:hint="@string/company_name"
                         android:text="@={viewmodel.businessInfo.companyName}"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapWords"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 

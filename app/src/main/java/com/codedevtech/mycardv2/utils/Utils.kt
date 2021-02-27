@@ -14,6 +14,7 @@ class Utils {
         const val FILTER_ROLE= "ROLE"
         const val FILTER_NAME= "NAME"
         const val REQUEST_PHOTO: Int = 77
+        const val REQUEST_IMAGE_GET: Int = 65
         const val PAGE_SIZE: Long = 3
         const val RC_CAMERA = 59
         const val IMAGE_FILE_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
