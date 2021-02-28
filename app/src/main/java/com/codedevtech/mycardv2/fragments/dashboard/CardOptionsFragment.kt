@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -64,6 +65,7 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.editNote.isVisible = CardOptionsFragmentArgs.fromBundle(requireArguments()).isEdit
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
@@ -78,6 +80,10 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
             viewmodel.confirmCardDeletion()
         }
 
+        binding.edit.setOnClickListener {
+            dismiss()
+            viewmodel.editCard()
+        }
         binding.view.setOnClickListener {
             dismiss()
             viewmodel.showCardQr()

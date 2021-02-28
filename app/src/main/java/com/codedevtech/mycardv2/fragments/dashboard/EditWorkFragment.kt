@@ -28,7 +28,7 @@ import pub.devrel.easypermissions.EasyPermissions
 
 @AndroidEntryPoint
 
-class AddWorkFragment : Fragment() {
+class EditWorkFragment : Fragment() {
 
     lateinit var binding: FragmentAddWorkBinding
     val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav){
@@ -60,14 +60,6 @@ class AddWorkFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        viewmodel.isEditFlow.observe(viewLifecycleOwner){
-            if(it) {
-                binding.button.text = resources.getText(R.string.save)
-                binding.button.setOnClickListener {
-                    viewmodel.updateCard()
-                }
-            }
-        }
 
         binding.updateIcon.setOnClickListener {
             callGallery()

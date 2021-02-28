@@ -17,21 +17,41 @@
 
         <TextView
             android:id="@+id/edit"
-            android:layout_marginTop="32dp"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
             android:layout_width="0dp"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:clickable="true"
+            android:drawablePadding="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:focusable="true"
+            android:padding="16dp"
             android:text="@string/edit_card"
             app:drawableStartCompat="@drawable/edit"
-            android:padding="16dp"
-            android:drawablePadding="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/add"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            app:layout_constraintBottom_toTopOf="@+id/edit_note"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/edit_note"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawablePadding="16dp"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:padding="16dp"
+            android:text="@string/edit_note"
+            app:drawableStartCompat="@drawable/notes"
+            app:layout_constraintBottom_toTopOf="@+id/add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
@@ -43,13 +63,14 @@
             android:drawablePadding="16dp"
             android:focusable="true"
             android:padding="16dp"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/add_to_collection"
             android:visibility="gone"
             app:drawableStartCompat="@drawable/add_to_collection"
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit"
+            app:layout_constraintTop_toBottomOf="@+id/edit_note"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
@@ -59,6 +80,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:drawablePadding="16dp"
+            android:background="?attr/selectableItemBackground"
             android:focusable="true"
             android:padding="16dp"
             android:text="@string/view_card_qr"
@@ -77,6 +99,7 @@
             android:clickable="true"
             android:drawablePadding="16dp"
             android:focusable="true"
+            android:background="?attr/selectableItemBackground"
             android:padding="16dp"
             android:text="@string/export_to_contacts"
             android:visibility="gone"
@@ -88,20 +111,21 @@
 
         <TextView
             android:id="@+id/delete"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/delete_card"
-            android:padding="16dp"
             android:clickable="true"
-            android:focusable="true"
-            app:drawableTint="@color/mc_red"
-            android:textColor="@color/mc_red"
             android:drawablePadding="16dp"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:focusable="true"
+            android:padding="16dp"
+            android:text="@string/delete_card"
+            android:background="?attr/selectableItemBackground"
+            android:textColor="@color/mc_red"
+            app:drawableStartCompat="@drawable/delete"
+            app:drawableTint="@color/mc_red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/export"
-            app:drawableStartCompat="@drawable/delete" />
+            app:layout_constraintTop_toBottomOf="@+id/export" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

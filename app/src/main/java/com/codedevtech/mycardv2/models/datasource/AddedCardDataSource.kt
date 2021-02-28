@@ -4,6 +4,7 @@ import android.util.Log
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.models.AddedCard
 import com.codedevtech.mycardv2.models.Resource
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.channels.awaitClose
@@ -37,7 +38,16 @@ abstract class AddedCardDataSource : DataSource<AddedCard> {
     }
 
     override suspend fun updateData(data: AddedCard): Resource<String> {
-        TODO("Not yet implemented, dont forget to handle timestamp")
+        return try {
+            Log.d(TAG, "updateData: ${data.id}")
+            data.updatedAt = Timestamp.now()
+
+            val result = collectionReference.document(data.id).set(data).await()
+            Resource.Success(data.id)
+        }catch (e:Exception){
+            Log.d(TAG, "error: ${e.localizedMessage}")
+            Resource.Error(R.string.failed)
+        }
     }
 
     suspend fun updateCardProfilePhoto(url: String, cardId: String): Resource<Int> {

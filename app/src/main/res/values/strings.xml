@@ -116,6 +116,7 @@
     <string name="verify_your_new_number">Verify your new number</string>
     <string name="fab">fab</string>
     <string name="your_personal_cards_to_distribute">Your personal cards to distribute</string>
+    <string name="edit_note">Edit note</string>
 
 
     <array name="phone_types">

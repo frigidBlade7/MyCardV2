@@ -200,8 +200,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
         binding.include.editCard.setOnClickListener {
             onboardingViewModel.selectedPersonalCard.value = cardViewModel.selectedPersonalCard.value
 
-
-            findNavController().navigate(MeFragmentDirections.actionMeFragmentToViewPersonalCardDetailsFragment())
+            findNavController().navigate(MeFragmentDirections.actionMeFragmentToAddPersonalCardNav(isEdit = true, onboardingViewModel.selectedPersonalCard.value))
         }
 
         binding.toolbar.setOnMenuItemClickListener {

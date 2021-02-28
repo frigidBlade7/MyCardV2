@@ -137,7 +137,7 @@
 
         <include
             android:id="@+id/social_media"
-            layout="@layout/card_social_media_item"
+            layout="@layout/card_social_media_item_flexible"
             android:visibility="@{item.card.socialMediaProfiles.empty?View.GONE: View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

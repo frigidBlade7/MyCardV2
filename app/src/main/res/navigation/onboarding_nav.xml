@@ -127,6 +127,16 @@
     </fragment>
     <navigation android:id="@+id/add_personal_card_nav"
         app:startDestination="@id/addPersonalCardFragment">
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="existingCard"
+            app:argType="com.codedevtech.mycardv2.models.LiveCard"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
         <dialog
             android:id="@+id/addPersonalSocialsFragment"
             android:name="com.codedevtech.mycardv2.fragments.dashboard.AddPersonalSocialsFragment"
@@ -135,6 +145,15 @@
             android:id="@+id/addPersonalCardFragment"
             android:name="com.codedevtech.mycardv2.fragments.dashboard.AddPersonalCardFragment"
             tools:layout="@layout/fragment_add_personal_card">
+            <argument
+                android:name="isEdit"
+                app:argType="boolean"
+                android:defaultValue="false" />
+            <argument
+                android:name="existingCard"
+                app:argType="com.codedevtech.mycardv2.models.LiveCard"
+                app:nullable="true"
+                android:defaultValue="@null" />
             <action
                 android:id="@+id/action_addPersonalCardFragment_to_addPersonalSocialsFragment"
                 app:destination="@id/addPersonalSocialsFragment" />
@@ -167,6 +186,15 @@
     <navigation
         android:id="@+id/add_card_nav"
         app:startDestination="@id/addCardFragment">
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="existingCard"
+            app:argType="com.codedevtech.mycardv2.models.AddedCard"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <dialog
             android:id="@+id/addSocialsFragment"
             android:name="com.codedevtech.mycardv2.fragments.dashboard.AddSocialsFragment"
@@ -181,6 +209,15 @@
             <action
                 android:id="@+id/action_addCardFragment_to_addWorkFragment"
                 app:destination="@id/addWorkFragment" />
+            <argument
+                android:name="isEdit"
+                app:argType="boolean"
+                android:defaultValue="false" />
+            <argument
+                android:name="existingCard"
+                app:argType="com.codedevtech.mycardv2.models.AddedCard"
+                app:nullable="true"
+                android:defaultValue="@null" />
         </fragment>
         <fragment
             android:id="@+id/addWorkFragment"
@@ -208,6 +245,13 @@
         <action
             android:id="@+id/action_cardOptionsFragment_to_viewCardQrFragment"
             app:destination="@id/viewCardQrFragment" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_cardOptionsFragment_to_add_card_nav"
+            app:destination="@id/add_card_nav" />
     </dialog>
     <dialog
         android:id="@+id/deleteCardDialogFragment"

@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -65,24 +66,53 @@ class AddCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         defaultViewModelProviderFactory
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        var isedit = AddCardFragmentArgs.fromBundle(requireArguments()).isEdit
+        viewmodel.isEditFlow.value = isedit
+        if(isedit) {
+            viewmodel.card.value?.id = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.id!!
+            viewmodel.name.value = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.name
+            viewmodel.businessInfo.value = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.businessInfo
+            viewmodel.phoneNumbers.value = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.phoneNumbers?.toMutableList()
+            viewmodel.emailAddresses.value = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.emailAddresses?.toMutableList()
+            viewmodel.card.value?.createdAt = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.createdAt!!
+
+            viewmodel.card.value?.profilePicUrl =  AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.profilePicUrl!!
+
+            AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.socialMediaProfiles?.let {
+                for(item in it){
+                    viewmodel.socials.value?.set(it.indexOf(item), item)
+                }
+            }
+            viewmodel.note.value = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.note
+        }
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val mainActivity = requireActivity() as MainActivity
-        enterTransition = MaterialContainerTransform().apply {
-            // Manually add the Views to be shared since this is not a standard Fragment to
-            // Fragment shared element transition.
-            startView = mainActivity.binding.addCard
-            endView = binding.layout
+
+        viewmodel.isEditFlow.observe(viewLifecycleOwner) {
+            if(it){
+                enterTransition = MaterialContainerTransform().apply {
+                    // Manually add the Views to be shared since this is not a standard Fragment to
+                    // Fragment shared element transition.
+                    startView = mainActivity.binding.addCard
+                    endView = binding.layout
 /*
             duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
 */
-            scrimColor = Color.TRANSPARENT
-            containerColor = MaterialColors.getColor(view,R.attr.colorSurface)
-            startContainerColor = MaterialColors.getColor(view,R.attr.colorPrimary)
-            endContainerColor = MaterialColors.getColor(view,R.attr.colorSurface)
+                    scrimColor = Color.TRANSPARENT
+                    containerColor = MaterialColors.getColor(view,R.attr.colorSurface)
+                    startContainerColor = MaterialColors.getColor(view,R.attr.colorPrimary)
+                    endContainerColor = MaterialColors.getColor(view,R.attr.colorSurface)
+                }
+            }
         }
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

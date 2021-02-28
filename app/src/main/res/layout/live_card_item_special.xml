@@ -68,7 +68,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@{item.name.fullName}"
+                    android:text="@{item.businessInfo.companyName}"
                     android:textAlignment="textStart"
                     app:layout_constraintBottom_toTopOf="@+id/role"
                     app:layout_constraintEnd_toStartOf="@+id/icon"

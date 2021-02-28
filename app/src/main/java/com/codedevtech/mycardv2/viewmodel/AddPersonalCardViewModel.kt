@@ -3,6 +3,7 @@ package com.codedevtech.mycardv2.viewmodel
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.codedevtech.mycardv2.AddCardNavDirections
 import com.codedevtech.mycardv2.AddPersonalCardNavDirections
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.event.Event
@@ -26,6 +27,7 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
     var businessImageUri = MutableLiveData<Uri>()
 
 
+    var isEditFlow = MutableLiveData(false)
     var card = MutableLiveData(LiveCard())
 
     var name = MutableLiveData(Name())
@@ -82,6 +84,31 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
         card.notifyObserver()
     }
 
+    fun updateCard(){
+        card.notifyObserver()
+        viewModelScope.launch {
+            card.value?.let {
+                when(val data = personalCardsRepository.firebaseLiveCardDataSource.updateData(it)){
+                    is Resource.Success->{
+                        //todo hide loader
+                        _snackbarInt.postValue(Event(R.string.success))
+                        _destination.postValue(Event(AddPersonalCardNavDirections.actionGlobalCardPersonalDetailsFragment(card.value)))
+
+                    }
+                    is Resource.Error ->{
+                        //todo hide loader
+                        _snackbarInt.postValue(Event(data.errorCode))
+
+                    }
+
+                    is Resource.Loading->{
+                        //todo show loader
+                        _snackbarInt.postValue(Event(R.string.adding_card))
+                    }
+                }
+            }
+        }
+    }
 
     fun addCard(){
 

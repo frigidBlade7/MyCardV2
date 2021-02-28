@@ -56,6 +56,16 @@ class AddPersonalWorkFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        viewmodel.isEditFlow.observe(viewLifecycleOwner){
+            if(it) {
+                binding.button.text = resources.getText(R.string.save)
+                binding.button.setOnClickListener {
+                    viewmodel.updateCard()
+                }
+            }
+        }
+
+
 
         binding.updateIcon.setOnClickListener {
             callGallery()

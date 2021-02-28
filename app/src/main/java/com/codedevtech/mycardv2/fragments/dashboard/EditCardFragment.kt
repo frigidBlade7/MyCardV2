@@ -2,6 +2,7 @@
 package com.codedevtech.mycardv2.fragments.dashboard
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
@@ -13,11 +14,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.bumptech.glide.util.Util
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView
 import com.codedevtech.mycardv2.MainActivity
@@ -42,8 +43,6 @@ import com.codedevtech.mycardv2.viewmodel.AddCardViewModel
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
-import com.google.android.material.transition.MaterialFadeThrough
-import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
@@ -51,10 +50,10 @@ import pub.devrel.easypermissions.EasyPermissions
 private const val TAG = "AddPersonalCardFragment"
 
 @AndroidEntryPoint
-class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
+class EditCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
     EmailItemInteraction, SocialItemInteraction {
 
-    lateinit var binding: FragmentAddPersonalCardBinding
+    lateinit var binding: FragmentAddCardBinding
     lateinit var phoneNumberAdapter: PhoneNumberAdapter
     lateinit var emailAdapter: EmailAdapter
     lateinit var socialAdapter: SocialAdapter
@@ -62,69 +61,39 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
     lateinit var phoneTypes: DropDownAdapter
     lateinit var emailTypes: DropDownAdapter
 
-    val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav){
+    val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav){
         defaultViewModelProviderFactory
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        var isedit = AddPersonalCardFragmentArgs.fromBundle(requireArguments()).isEdit
-        viewmodel.isEditFlow.value = isedit
-        if(isedit) {
-            viewmodel.card.value?.id = AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.id!!
-            viewmodel.name.value = AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.name
-            viewmodel.businessInfo.value = AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.businessInfo
-            viewmodel.phoneNumbers.value = AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.phoneNumbers?.toMutableList()
-            viewmodel.emailAddresses.value = AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.emailAddresses?.toMutableList()
-            viewmodel.card.value?.createdAt = AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.createdAt!!
-            viewmodel.profileImageUri.value =  AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.profilePicUrl?.toUri()
-            //viewmodel.updateProfile(AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.profilePicUrl?.toUri())
-
-            AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.socialMediaProfiles?.let {
-                for(item in it){
-                    viewmodel.socials.value?.set(it.indexOf(item), item)
-                }
-            }
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+
+        val mainActivity = requireActivity() as MainActivity
+        enterTransition = MaterialContainerTransform().apply {
+            // Manually add the Views to be shared since this is not a standard Fragment to
+            // Fragment shared element transition.
+            startView = mainActivity.binding.addCard
+            endView = binding.layout
+/*
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+*/
+            scrimColor = Color.TRANSPARENT
+            containerColor = MaterialColors.getColor(view,R.attr.colorSurface)
+            startContainerColor = MaterialColors.getColor(view,R.attr.colorPrimary)
+            endContainerColor = MaterialColors.getColor(view,R.attr.colorSurface)
+        }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentAddPersonalCardBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAddCardBinding.inflate(layoutInflater,container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
-
-        binding.fullNameField.addTextChangedListener {
-            it?.let {
-                binding.next.isEnabled = it.toString().trim().isNotEmpty()
-            }
-        }
-        binding.firstName.addTextChangedListener {
-            it?.let {
-                binding.next.isEnabled = it.toString().trim().isNotEmpty()
-            }
-        }
-        binding.middleName.addTextChangedListener {
-            it?.let {
-                binding.next.isEnabled = it.toString().trim().isNotEmpty()
-            }
-        }
-        binding.lastName.addTextChangedListener {
-            it?.let {
-                binding.next.isEnabled = it.toString().trim().isNotEmpty()
-            }
-        }
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
@@ -175,6 +144,27 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
             viewmodel.name.notifyObserver()
         }
 
+
+        binding.fullNameField.addTextChangedListener {
+            it?.let {
+                binding.next.isEnabled = it.toString().trim().isNotEmpty()
+            }
+        }
+        binding.firstName.addTextChangedListener {
+            it?.let {
+                binding.next.isEnabled = it.toString().trim().isNotEmpty()
+            }
+        }
+        binding.middleName.addTextChangedListener {
+            it?.let {
+                binding.next.isEnabled = it.toString().trim().isNotEmpty()
+            }
+        }
+        binding.lastName.addTextChangedListener {
+            it?.let {
+                binding.next.isEnabled = it.toString().trim().isNotEmpty()
+            }
+        }
 
         binding.addPhone.setOnClickListener {
             if(phoneNumberAdapter.currentList.none { it.number.isEmpty()}) {
@@ -240,6 +230,7 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
 
     }
+
     @AfterPermissionGranted(Utils.REQUEST_PHOTO)
     private fun callGallery() {
         if (EasyPermissions.hasPermissions(requireContext(), Utils.STORAGE_PERMISSION)) {

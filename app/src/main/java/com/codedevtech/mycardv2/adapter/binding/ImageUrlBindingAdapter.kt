@@ -1,6 +1,7 @@
 package com.codedevtech.mycardv2.adapter.binding
 
 import android.graphics.drawable.Drawable
+import android.text.method.TextKeyListener.clear
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
@@ -20,6 +21,8 @@ import com.google.android.material.imageview.ShapeableImageView
             Glide.with(imageView.context).asBitmap().load(imageUrl)
                 .placeholder(R.drawable.user_default).error(R.drawable
                     .user_default).transform(CenterCrop(),CircleCrop()).thumbnail(0.1f).into(imageView)
+        else
+            Glide.with(imageView.context).clear(imageView)
     }
 
     @BindingAdapter("imageUrlResource")

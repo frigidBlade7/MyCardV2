@@ -56,9 +56,12 @@ class MainActivity : AppCompatActivity() {
 
            addCard.setOnClickListener {
 
-               currentNavigationFragment?.apply {
-                   exitTransition = MaterialElevationScale(false)
-                   reenterTransition = MaterialElevationScale(true)
+               when(navController.currentDestination?.id) {
+                   R.id.viewPersonalCardDetailsFragment, R.id.viewAddedCardDetailsFragment ->
+                   currentNavigationFragment?.apply {
+                       exitTransition = MaterialElevationScale(false)
+                       reenterTransition = MaterialElevationScale(true)
+                   }
                }
 
                navController.navigate(CardsFragmentDirections.actionCardsFragmentToAddCardNav())

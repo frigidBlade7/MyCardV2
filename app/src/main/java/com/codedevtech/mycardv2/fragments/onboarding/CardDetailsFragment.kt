@@ -134,12 +134,24 @@ class CardDetailsFragment : Fragment() {
 
 
 
-        binding.include.note.role.text = onboardingViewModel.selectedCard.value?.note
-        
+        onboardingViewModel.selectedCard.value?.note?.let {
+            if(it.isNotEmpty()) {
+                binding.include.note.role.text = it
+            }
+            else
+                binding.include.note.role.setOnClickListener {
+                    //todo show modal
+                }
+        }
+
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
-                R.id.options-> onboardingViewModel.showCardOptions()
-                R.id.share-> onboardingViewModel.showShare()
+                R.id.options -> {
+                    onboardingViewModel.selectedCard.value?.note?.let {
+                        onboardingViewModel.showCardOptions(it.isNotEmpty())
+                    }
+                }
+                R.id.share -> onboardingViewModel.showShare()
             }
 
             return@setOnMenuItemClickListener true

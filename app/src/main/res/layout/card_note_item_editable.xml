@@ -60,7 +60,7 @@
             android:focusable="true"
             android:text="@string/add_a_note"
             android:textAlignment="textStart"
-            android:textColor="@color/mc_purple"
+            android:textColor="@{viewModel.note.empty?@color/mc_purple:@color/mc_black}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"

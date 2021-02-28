@@ -220,8 +220,8 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
     }
 
-    fun showCardOptions() {
-        _destination.value = Event(CardOptionsFragmentDirections.actionGlobalCardOptionsFragment())
+    fun showCardOptions(isEdit: Boolean) {
+        _destination.value = Event(CardOptionsFragmentDirections.actionGlobalCardOptionsFragment(isEdit))
     }
 
     fun showPersonalCardOptions() {
@@ -298,6 +298,10 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
             }
 
         }
+    }
+
+    fun editCard() {
+        _destination.value = Event(CardOptionsFragmentDirections.actionCardOptionsFragmentToAddCardNav(isEdit = true, existingCard = selectedCard.value))
     }
 
     /*fun createFile(outputDirectory: File): File {
