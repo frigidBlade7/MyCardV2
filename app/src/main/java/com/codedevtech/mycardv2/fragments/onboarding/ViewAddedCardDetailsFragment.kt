@@ -150,7 +150,9 @@ class ViewAddedCardDetailsFragment : Fragment() {
                         onboardingViewModel.showCardOptions(it.isNotEmpty())
                     }
                 }
+/*
                 R.id.share-> onboardingViewModel.showShare()
+*/
             }
 
             return@setOnMenuItemClickListener true

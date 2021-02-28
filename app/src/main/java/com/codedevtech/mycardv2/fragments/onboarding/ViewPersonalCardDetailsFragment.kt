@@ -139,7 +139,9 @@ class ViewPersonalCardDetailsFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.options-> onboardingViewModel.showPersonalCardOptions()
+/*
                 R.id.share-> onboardingViewModel.showShare()
+*/
             }
 
             return@setOnMenuItemClickListener true
