@@ -67,7 +67,7 @@ class DeletePersonalCardDialogFragment : DialogFragment() {
         })
 
         cardViewModel.destination.observe(viewLifecycleOwner, EventObserver {
-            findNavController().navigateUp()
+            //findNavController().navigateUp()
             dismiss()
         })
 
@@ -76,6 +76,7 @@ class DeletePersonalCardDialogFragment : DialogFragment() {
         }
 
         binding.delete.setOnClickListener {
+            dismiss()
             cardViewModel.deletePersonalCard()
         }
 

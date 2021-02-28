@@ -99,11 +99,13 @@ class MeFragment : Fragment(), SocialItemInteraction {
         binding.include.socialMedia.socialItems.setHasFixedSize(true)
 
         cardViewModel.selectedPersonalCard.observe(viewLifecycleOwner){
-            if(it.phoneNumbers.size>1)
-                extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
-            if(it.emailAddresses.size>1)
-                extraEmailAddressAdapter.submitList(it.emailAddresses.drop(1))
-            socialAdapter.submitList(it.socialMediaProfiles.toList())
+            it?.let {
+                if (it.phoneNumbers.size > 1)
+                    extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
+                if (it.emailAddresses.size > 1)
+                    extraEmailAddressAdapter.submitList(it.emailAddresses.drop(1))
+                socialAdapter.submitList(it.socialMediaProfiles.toList())
+            }
 
         }
 
@@ -199,8 +201,12 @@ class MeFragment : Fragment(), SocialItemInteraction {
 
         binding.include.editCard.setOnClickListener {
             onboardingViewModel.selectedPersonalCard.value = cardViewModel.selectedPersonalCard.value
-
             findNavController().navigate(MeFragmentDirections.actionMeFragmentToAddPersonalCardNav(isEdit = true, onboardingViewModel.selectedPersonalCard.value))
+        }
+
+        binding.include.deleteCard.setOnClickListener {
+            onboardingViewModel.selectedPersonalCard.value = cardViewModel.selectedPersonalCard.value
+            findNavController().navigate(MeFragmentDirections.actionGlobalDeletePersonalCardDialogFragment())
         }
 
         binding.toolbar.setOnMenuItemClickListener {

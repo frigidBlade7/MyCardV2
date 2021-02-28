@@ -96,7 +96,7 @@ class AddCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         val mainActivity = requireActivity() as MainActivity
 
         viewmodel.isEditFlow.observe(viewLifecycleOwner) {
-            if(it){
+            if(!it){
                 enterTransition = MaterialContainerTransform().apply {
                     // Manually add the Views to be shared since this is not a standard Fragment to
                     // Fragment shared element transition.

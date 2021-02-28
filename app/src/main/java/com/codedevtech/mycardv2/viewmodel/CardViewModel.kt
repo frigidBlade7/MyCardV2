@@ -68,12 +68,11 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
     }
 
     fun deletePersonalCard(){
-
         selectedPersonalCard.value?.let {
             viewModelScope.launch {
                 when(val deleteData = personalCardDataSource.removeData(it)){
                     is Resource.Success->{
-                        _destination.value = (Event(MeFragmentDirections.actionGlobalMeFragment()))
+                        //_destination.postValue(Event(MeFragmentDirections.actionGlobalMeFragment()))
                     }
                     is Resource.Error-> _snackbarInt.postValue(Event(deleteData.errorCode))
                 }
