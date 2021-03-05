@@ -92,6 +92,7 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
                when(val data = addedCardsRepository.firebaseAddedCardDataSource.addData(it)){
                    is Resource.Success->{
                        //todo hide loader
+                       card.value?.id = data.data
                        _snackbarInt.postValue(Event(R.string.success))
                        _destination.postValue(Event(AddCardNavDirections.actionGlobalCardDetailsFragment(card.value)))
 
@@ -115,12 +116,26 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
     }
 
     fun updateCard(){
+
+        card.value?.businessInfo = businessInfo.value!!
+        card.value?.name = name.value!!
+        card.value?.socialMediaProfiles = socials.value?.filter { it.usernameOrUrl.isNotEmpty() }!!
+
+        card.value?.emailAddresses = emailAddresses.value?.filter { it.address.isNotEmpty() }!!
+        card.value?.phoneNumbers = phoneNumbers.value?.filter { it.number.isNotEmpty() }!!
+        if(isNameExpanded.value!!)
+            card.value?.name?.aggregateNameToFullName()
+        else
+            card.value?.name?.segregateFullName()
+
+
         card.notifyObserver()
         viewModelScope.launch {
             card.value?.let {
                 when(val data = addedCardsRepository.firebaseAddedCardDataSource.updateData(it)){
                     is Resource.Success->{
                         //todo hide loader
+                        card.value?.id = data.data
                         _snackbarInt.postValue(Event(R.string.success))
                         _destination.postValue(Event(AddCardNavDirections.actionGlobalCardDetailsFragment(card.value)))
 

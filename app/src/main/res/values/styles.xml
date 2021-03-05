@@ -12,6 +12,7 @@
         <item name="textInputStyle">@style/Widget.MyCardStyles.TextInputLayout</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="bottomSheetStyle">@style/Theme.MyCardStyles.DialogFragment</item>
         <item name="colorPrimary">@color/mc_purple</item>
         <item name="chipStyle">@style/ShapeAppearanceOverlay.MyCardStyles.Chip</item>
         <item name="colorPrimaryDark">@color/mc_purple</item>
@@ -266,6 +267,11 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
 ]
+    </style>
+
+    <style name="Theme.MyCardStyles.DialogFragment" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
     <style name="ShapeAppearance.MyCardStyles.ExtraLargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">

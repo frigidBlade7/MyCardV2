@@ -55,6 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:ellipsize="marquee"
             android:text="@{workInfo.companyName}"
             android:textAlignment="textStart"
             app:layout_constraintBottom_toTopOf="@+id/type"

@@ -85,12 +85,26 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
     }
 
     fun updateCard(){
+        card.value?.businessInfo = businessInfo.value!!
+        card.value?.name = name.value!!
+        card.value?.socialMediaProfiles = socials.value?.filter { it.usernameOrUrl.isNotEmpty() }!!
+
+        card.value?.emailAddresses = emailAddresses.value?.filter { it.address.isNotEmpty() }!!
+        card.value?.phoneNumbers = phoneNumbers.value?.filter { it.number.isNotEmpty() }!!
+        if(isNameExpanded.value!!)
+            card.value?.name?.aggregateNameToFullName()
+        else
+            card.value?.name?.segregateFullName()
+
+
         card.notifyObserver()
         viewModelScope.launch {
             card.value?.let {
                 when(val data = personalCardsRepository.firebaseLiveCardDataSource.updateData(it)){
                     is Resource.Success->{
                         //todo hide loader
+                        card.value?.id = data.data
+
                         _snackbarInt.postValue(Event(R.string.success))
                         _destination.postValue(Event(AddPersonalCardNavDirections.actionGlobalCardPersonalDetailsFragment(card.value)))
 
@@ -117,6 +131,8 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
                when(val data = personalCardsRepository.firebaseLiveCardDataSource.addData(it)){
                    is Resource.Success->{
                        //todo hide loader
+                       card.value?.id = data.data
+
                        _snackbarInt.postValue(Event(R.string.success))
                        _destination.postValue(Event(AddPersonalCardNavDirections.actionGlobalCardPersonalDetailsFragment(card.value)))
 

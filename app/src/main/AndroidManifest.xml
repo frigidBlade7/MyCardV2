@@ -18,11 +18,11 @@
             <action android:name="android.intent.action.GET_CONTENT" />
         </intent>
     </queries>
-    <uses-feature
+<!--    <uses-feature
         android:name="android.hardware.camera2"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" />-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 

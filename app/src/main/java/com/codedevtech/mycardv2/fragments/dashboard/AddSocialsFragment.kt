@@ -12,6 +12,7 @@ import com.codedevtech.mycardv2.databinding.*
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.viewmodel.AddCardViewModel
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +31,8 @@ class AddSocialsFragment : BottomSheetDialogFragment(){
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
 
         dialog.behavior.skipCollapsed = true
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
 
         return dialog
     }

@@ -206,6 +206,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/add_another_field"
+                        android:visibility="gone"
                         app:icon="@drawable/add"
                         app:iconGravity="textStart"
                         app:iconPadding="8dp"

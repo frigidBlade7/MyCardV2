@@ -71,14 +71,18 @@ class AddCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         var isedit = AddCardFragmentArgs.fromBundle(requireArguments()).isEdit
         viewmodel.isEditFlow.value = isedit
         if(isedit) {
-            viewmodel.card.value?.id = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.id!!
-            viewmodel.name.value = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.name
-            viewmodel.businessInfo.value = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.businessInfo
-            viewmodel.phoneNumbers.value = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.phoneNumbers?.toMutableList()
-            viewmodel.emailAddresses.value = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.emailAddresses?.toMutableList()
-            viewmodel.card.value?.createdAt = AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.createdAt!!
 
-            viewmodel.card.value?.profilePicUrl =  AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.profilePicUrl!!
+            AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.let {
+                viewmodel.card.value?.id = it.id
+                viewmodel.name.value = it.name
+                viewmodel.businessInfo.value = it.businessInfo
+                viewmodel.phoneNumbers.value = it.phoneNumbers.toMutableList()
+                viewmodel.emailAddresses.value = it.emailAddresses.toMutableList()
+                viewmodel.card.value?.createdAt = it.createdAt
+
+                viewmodel.card.value?.profilePicUrl =  it.profilePicUrl
+
+            }
 
             AddCardFragmentArgs.fromBundle(requireArguments()).existingCard?.socialMediaProfiles?.let {
                 for(item in it){
@@ -178,21 +182,25 @@ class AddCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         binding.fullNameField.addTextChangedListener {
             it?.let {
                 binding.next.isEnabled = it.toString().trim().isNotEmpty()
+                viewmodel.name.value?.segregateFullName()
             }
         }
         binding.firstName.addTextChangedListener {
             it?.let {
                 binding.next.isEnabled = it.toString().trim().isNotEmpty()
+                viewmodel.name.value?.aggregateNameToFullName()
             }
         }
         binding.middleName.addTextChangedListener {
             it?.let {
                 binding.next.isEnabled = it.toString().trim().isNotEmpty()
+                viewmodel.name.value?.aggregateNameToFullName()
             }
         }
         binding.lastName.addTextChangedListener {
             it?.let {
                 binding.next.isEnabled = it.toString().trim().isNotEmpty()
+                viewmodel.name.value?.aggregateNameToFullName()
             }
         }
 
@@ -279,7 +287,7 @@ class AddCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
     }
 
     override fun onItemClicked(item: PhoneNumber) {
-        viewmodel.phoneNumbers.value?.add(item)
+        viewmodel.phoneNumbers.value?.remove(item)
         viewmodel.phoneNumbers.notifyObserver()
     }
 
