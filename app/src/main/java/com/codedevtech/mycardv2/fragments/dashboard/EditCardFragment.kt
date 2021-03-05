@@ -148,21 +148,29 @@ class EditCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         binding.fullNameField.addTextChangedListener {
             it?.let {
                 binding.next.isEnabled = it.toString().trim().isNotEmpty()
+                viewmodel.name.value?.segregateFullName()
+
             }
         }
         binding.firstName.addTextChangedListener {
             it?.let {
                 binding.next.isEnabled = it.toString().trim().isNotEmpty()
+                viewmodel.name.value?.aggregateNameToFullName()
+
             }
         }
         binding.middleName.addTextChangedListener {
             it?.let {
                 binding.next.isEnabled = it.toString().trim().isNotEmpty()
+                viewmodel.name.value?.aggregateNameToFullName()
+
             }
         }
         binding.lastName.addTextChangedListener {
             it?.let {
                 binding.next.isEnabled = it.toString().trim().isNotEmpty()
+                viewmodel.name.value?.aggregateNameToFullName()
+
             }
         }
 
