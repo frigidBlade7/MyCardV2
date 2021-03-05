@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 /.idea/
+/app/release/app-release.aab
+/app/src/release/google-services.json
+/mycardv2_key
+/private_key.pepk
