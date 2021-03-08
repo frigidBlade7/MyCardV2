@@ -1,10 +1,13 @@
 package com.codedevtech.mycardv2.utils
 
 import android.Manifest
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 
 class Utils {
 
     companion object {
+        val PENDING_URI_LIST= stringSetPreferencesKey("PENDING_URI_LIST")
         const val SORT_MODE_NAME= "NAME"
         const val SORT_MODE_RECENT= "RECENT"
 

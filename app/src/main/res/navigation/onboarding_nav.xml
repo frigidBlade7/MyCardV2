@@ -438,5 +438,16 @@
         app:destination="@id/welcomeFragment"
         app:popUpTo="@id/welcomeFragment"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.AddNoteFragment"
+        tools:layout="@layout/fragment_add_note" />
+    <action android:id="@+id/action_global_addNoteFragment" app:destination="@id/addNoteFragment" />
+
+    <fragment
+        android:id="@+id/updateNoteFragment"
+        android:name="com.codedevtech.mycardv2.fragments.onboarding.UpdateNoteFragment"
+        tools:layout="@layout/fragment_update_note" />
+    <action android:id="@+id/action_global_updateNoteFragment" app:destination="@id/updateNoteFragment"/>
 
 </navigation>

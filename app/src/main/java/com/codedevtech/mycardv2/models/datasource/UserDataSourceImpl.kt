@@ -3,20 +3,13 @@ package com.codedevtech.mycardv2.models.datasource
 import android.net.Uri
 import android.util.Log
 import com.codedevtech.mycardv2.R
-import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.models.Resource
 import com.codedevtech.mycardv2.models.User
-import com.codedevtech.mycardv2.services.FirebaseUpdateImageServiceImpl
-import com.codedevtech.mycardv2.services.UpdateImageService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
 
 private const val TAG = "UserDataSourceImpl"
 
@@ -24,7 +17,7 @@ abstract class UserDataSourceImpl: DataSource<User> {
 
     abstract var auth: FirebaseAuth
 
-    override suspend fun addData(data: User): Resource<String> {
+    override suspend fun addData(data: User): Resource<String?> {
         return try {
             val profile = userProfileChangeRequest {
                 displayName = data.name

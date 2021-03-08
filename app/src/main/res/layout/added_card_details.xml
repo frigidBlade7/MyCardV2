@@ -230,6 +230,9 @@
 
         <include
             android:id="@+id/note"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             layout="@layout/card_note_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

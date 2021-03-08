@@ -1,6 +1,7 @@
 package com.codedevtech.mycardv2.viewmodel
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.codedevtech.mycardv2.AddCardNavDirections
@@ -92,12 +93,16 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
                when(val data = addedCardsRepository.firebaseAddedCardDataSource.addData(it)){
                    is Resource.Success->{
                        //todo hide loader
-                       card.value?.id = data.data
+
                        _snackbarInt.postValue(Event(R.string.success))
                        _destination.postValue(Event(AddCardNavDirections.actionGlobalCardDetailsFragment(card.value)))
 
+                       data.data?.let {
+                           card.value?.id = it
+                           updateProfileImage(it)
+                       }
                        //updateBusinessLogo(data.data)
-                       updateProfileImage(data.data)
+
                    }
                    is Resource.Error ->{
                        //todo hide loader
@@ -135,7 +140,10 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
                 when(val data = addedCardsRepository.firebaseAddedCardDataSource.updateData(it)){
                     is Resource.Success->{
                         //todo hide loader
-                        card.value?.id = data.data
+                        data.data.let {
+                            card.value?.id = it
+                            updateProfileImage(it)
+                        }
                         _snackbarInt.postValue(Event(R.string.success))
                         _destination.postValue(Event(AddCardNavDirections.actionGlobalCardDetailsFragment(card.value)))
 
@@ -169,7 +177,8 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
                             }
 
                     }
-                    is Resource.Error->{
+                    is Resource.Error -> {
+                        Log.d(Companion.TAG, "updateProfileImage: ${uploadData.errorCode}")
                         _snackbarInt.postValue(Event(uploadData.errorCode))
 
                     }
@@ -203,4 +212,7 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
 
         }
     }*/
+    companion object {
+        private const val TAG = "AddCardViewModel"
+    }
 }

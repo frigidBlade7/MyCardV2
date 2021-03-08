@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 //R is return type, T is data type
 interface DataSource<T> {
 
-    suspend fun addData(data: T): Resource<String>
+    suspend fun addData(data: T): Resource<String?>
 
     suspend fun removeData(data: T): Resource<String>
 

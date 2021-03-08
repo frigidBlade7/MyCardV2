@@ -151,6 +151,9 @@
 
         <include
             android:id="@+id/note"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             layout="@layout/card_note_item_editable"
             app:viewModel="@{item}"
             android:layout_width="match_parent"

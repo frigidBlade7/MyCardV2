@@ -111,6 +111,11 @@ fun Name.segregateFullName(){
             middleName = list.getOrNull(1) ?:""
             lastName = list.getOrNull(2) ?:""
         }
+        else->{
+            firstName = list.getOrNull(0)?:""
+            lastName = list.getOrNull(list.size-1)?:""
+            middleName = list.drop(1).dropLast(1).joinToString (separator = " ")
+        }
     }
 }
 

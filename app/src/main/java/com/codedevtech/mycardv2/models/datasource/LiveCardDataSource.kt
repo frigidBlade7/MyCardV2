@@ -17,9 +17,10 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
     abstract var collectionReference: CollectionReference
 
 
-    override suspend fun addData(data: LiveCard): Resource<String> {
+    override suspend fun addData(data: LiveCard): Resource<String?> {
         return try {
-            val result = collectionReference.add(data).await()
+            val result = collectionReference.document()
+            result.set(data)
             Resource.Success(result.id)
         }catch (e:Exception){
             Log.d(TAG, "error: ${e.localizedMessage}")
@@ -27,9 +28,9 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
         }
     }
 
-    override suspend fun removeData(data: LiveCard) : Resource<String> {
+    override suspend fun removeData(data: LiveCard): Resource<String> {
         return try {
-            val result = collectionReference.document(data.id).delete().await()
+            val result = collectionReference.document(data.id).delete()//.await()
             Resource.Success(data.id)
         }catch (e:Exception){
             Log.d(TAG, "error: ${e.localizedMessage}")
@@ -41,7 +42,7 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
         return try {
             Log.d(TAG, "updateData: ${data.id}")
             data.updatedAt = Timestamp.now()
-            val result = collectionReference.document(data.id).set(data).await()
+            val result = collectionReference.document(data.id).set(data)//.await()
             Resource.Success(data.id)
         }catch (e:Exception){
             Log.d(TAG, "error: ${e.localizedMessage}")
@@ -50,7 +51,7 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
 
     suspend fun updateCardProfilePhoto(url: String, cardId: String): Resource<Int> {
         return try {
-            collectionReference.document(cardId).update("profilePicUrl",url).await()
+            collectionReference.document(cardId).update("profilePicUrl",url)//.await()
             Resource.Success(R.string.success)
         }catch (e:Exception){
             Log.d(TAG, "error: ${e.localizedMessage}")

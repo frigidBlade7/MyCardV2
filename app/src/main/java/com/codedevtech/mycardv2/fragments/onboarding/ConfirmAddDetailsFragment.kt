@@ -109,9 +109,10 @@ class ConfirmAddDetailsFragment : Fragment() {
         })
 
 
-        binding.categories.note.role.setOnClickListener {
-            it.isVisible = false
-            binding.categories.note.groupNote.isVisible = true
+        binding.categories.note.cardView.setOnClickListener {
+            //it.isVisible = false
+            //binding.categories.note.groupNote.isVisible = true
+            findNavController().navigate(ConfirmAddDetailsFragmentDirections.actionGlobalAddNoteFragment())
         }
 
         binding.toolbar.setNavigationOnClickListener{

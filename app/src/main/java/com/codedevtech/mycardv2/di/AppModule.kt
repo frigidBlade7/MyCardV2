@@ -1,14 +1,17 @@
 package com.codedevtech.mycardv2.di
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.codedevtech.mycardv2.converters.EmailAddressConverter
 import com.codedevtech.mycardv2.converters.PhoneNumberConverter
 import com.codedevtech.mycardv2.converters.SocialMediaProfileConverter
 import com.codedevtech.mycardv2.db.AppDb
 import com.codedevtech.mycardv2.db.dao.AddedCardDao
 import com.codedevtech.mycardv2.db.dao.LiveCardDao
-import com.codedevtech.mycardv2.services.AuthenticationServiceImpl
-import com.codedevtech.mycardv2.services.AuthenticationService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -25,6 +28,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 
 object AppModule {
+    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
     @Provides
     @Singleton
@@ -57,6 +61,18 @@ object AppModule {
         return AppDb.getDatabase(context, socialMediaProfileConverter, phoneNumberConverter, emailAddressConverter)
     }
 
+    @Provides
+    @Singleton
+    fun providesDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
+        return context.dataStore
+    }
+
+    @Provides
+    @Singleton
+    fun providesNetworkInfo(@ApplicationContext context: Context): ConnectivityManager{
+        return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    }
 
     @Provides
     @Singleton

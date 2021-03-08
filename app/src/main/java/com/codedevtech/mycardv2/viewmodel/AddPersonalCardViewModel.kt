@@ -3,7 +3,6 @@ package com.codedevtech.mycardv2.viewmodel
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.codedevtech.mycardv2.AddCardNavDirections
 import com.codedevtech.mycardv2.AddPersonalCardNavDirections
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.event.Event
@@ -131,13 +130,17 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
                when(val data = personalCardsRepository.firebaseLiveCardDataSource.addData(it)){
                    is Resource.Success->{
                        //todo hide loader
-                       card.value?.id = data.data
+                       //card.value?.id = data.data!!
 
                        _snackbarInt.postValue(Event(R.string.success))
                        _destination.postValue(Event(AddPersonalCardNavDirections.actionGlobalCardPersonalDetailsFragment(card.value)))
 
-                       updateBusinessLogo(data.data)
-                       updateProfileImage(data.data)
+                       //updateBusinessLogo(data.data)
+                       //updateProfileImage(data.data)
+                       data.data?.let {
+                           card.value?.id = it
+                           updateProfileImage(it)
+                       }
                    }
                    is Resource.Error ->{
                        //todo hide loader

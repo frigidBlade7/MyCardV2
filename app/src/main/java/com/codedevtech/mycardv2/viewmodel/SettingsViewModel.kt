@@ -1,11 +1,9 @@
 package com.codedevtech.mycardv2.viewmodel
 
 import android.net.Uri
-import android.telephony.PhoneNumberUtils
 import androidx.lifecycle.*
 import androidx.navigation.ActionOnlyNavDirections
 import com.codedevtech.mycardv2.AuthenticationCallbacks
-import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.SettingsNavDirections
 import com.codedevtech.mycardv2.db.AppDb
 import com.codedevtech.mycardv2.di.AuthService
@@ -14,8 +12,6 @@ import com.codedevtech.mycardv2.event.Event
 import com.codedevtech.mycardv2.fragments.dashboard.*
 import com.codedevtech.mycardv2.fragments.onboarding.*
 import com.codedevtech.mycardv2.models.*
-import com.codedevtech.mycardv2.models.datasource.AddedCardDataSource
-import com.codedevtech.mycardv2.models.datasource.FirebaseAddedCardDataSourceImpl
 import com.codedevtech.mycardv2.models.datasource.FirebaseUserDataSourceImpl
 import com.codedevtech.mycardv2.services.UpdateImageService
 import com.codedevtech.mycardv2.utils.Utils
@@ -26,10 +22,8 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(

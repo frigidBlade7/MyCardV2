@@ -80,6 +80,7 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
                 viewmodel.emailAddresses.value = it.emailAddresses.toMutableList()
                 viewmodel.card.value?.createdAt = it.createdAt
                 viewmodel.profileImageUri.value =  it.profilePicUrl.toUri()
+
                 //viewmodel.updateProfile(it.profilePicUrl?.toUri())
 
             }

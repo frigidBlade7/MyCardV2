@@ -1,9 +1,12 @@
 package com.codedevtech.mycardv2.models.datasource
 
+import android.net.ConnectivityManager
 import android.util.Log
 import com.codedevtech.mycardv2.R
+import com.codedevtech.mycardv2.di.HasNetwork
 import com.codedevtech.mycardv2.models.AddedCard
 import com.codedevtech.mycardv2.models.Resource
+import com.codedevtech.mycardv2.utils.getCode
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Query
@@ -11,25 +14,66 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
 abstract class AddedCardDataSource : DataSource<AddedCard> {
 
     abstract var collectionReference: CollectionReference
+    //todo review1 abstract var cm: ConnectivityManager
 
 
-    override suspend fun addData(data: AddedCard): Resource<String> {
+
+    override suspend fun addData(data: AddedCard): Resource<String?> {
         return try {
-            val result = collectionReference.add(data).await()
+            val result = collectionReference.document()
+            result.set(data)
             Resource.Success(result.id)
-        }catch (e:Exception){
+        } catch (e: Exception) {
             Log.d(TAG, "error: ${e.localizedMessage}")
+            Log.d(TAG, "errorcode: ${e.getCode()}")
+
+            Log.d(TAG, "e: $e.")
             Resource.Error(R.string.failed)
         }
+
+        /* todo review1 this
+            val isOnline = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            cm.getNetworkCapabilities(cm.activeNetwork) != null
+
+        }else{
+            cm.activeNetworkInfo !=null
+        }
+
+        if(isOnline) {
+            return try {
+                val result = collectionReference.document()
+                result.set(data)
+                Resource.Success(result.id)
+            } catch (e: Exception) {
+                Log.d(TAG, "error: ${e.localizedMessage}")
+                Log.d(TAG, "errorcode: ${e.getCode()}")
+
+                Log.d(TAG, "e: $e.")
+                Resource.Error(R.string.failed)
+            }
+        }
+        else{
+            return try {
+                val result = collectionReference.add(data)
+                Resource.Success(null)
+            } catch (e: Exception) {
+                Log.d(TAG, "error: ${e.localizedMessage}")
+                Log.d(TAG, "errorcode: ${e.getCode()}")
+
+                Log.d(TAG, "e: $e.")
+                Resource.Error(R.string.failed)
+            }
+        }*/
     }
 
-    override suspend fun removeData(data: AddedCard) : Resource<String> {
+    override suspend fun removeData(data: AddedCard): Resource<String> {
         return try {
-            val result = collectionReference.document(data.id).delete().await()
+            val result = collectionReference.document(data.id).delete()//.await()
             Resource.Success(data.id)
         }catch (e:Exception){
             Log.d(TAG, "error: ${e.localizedMessage}")
@@ -42,7 +86,7 @@ abstract class AddedCardDataSource : DataSource<AddedCard> {
             Log.d(TAG, "updateData: ${data.id}")
             data.updatedAt = Timestamp.now()
 
-            val result = collectionReference.document(data.id).set(data).await()
+            val result = collectionReference.document(data.id).set(data)//.await()
             Resource.Success(data.id)
         }catch (e:Exception){
             Log.d(TAG, "error: ${e.localizedMessage}")

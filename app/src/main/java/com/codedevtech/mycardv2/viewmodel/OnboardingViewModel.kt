@@ -4,6 +4,7 @@ import android.net.Uri
 import android.telephony.PhoneNumberUtils
 import androidx.lifecycle.*
 import androidx.navigation.ActionOnlyNavDirections
+import com.codedevtech.mycardv2.AddCardNavDirections
 import com.codedevtech.mycardv2.AuthenticationCallbacks
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.di.AuthService
@@ -12,24 +13,23 @@ import com.codedevtech.mycardv2.event.Event
 import com.codedevtech.mycardv2.fragments.dashboard.*
 import com.codedevtech.mycardv2.fragments.onboarding.*
 import com.codedevtech.mycardv2.models.*
-import com.codedevtech.mycardv2.models.datasource.AddedCardDataSource
-import com.codedevtech.mycardv2.models.datasource.FirebaseAddedCardDataSourceImpl
 import com.codedevtech.mycardv2.models.datasource.FirebaseUserDataSourceImpl
+import com.codedevtech.mycardv2.repositories.AddedCardsRepository
 import com.codedevtech.mycardv2.services.UpdateImageService
 import com.codedevtech.mycardv2.utils.Utils
+import com.codedevtech.mycardv2.utils.notifyObserver
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle,
                                               private val uploadService: UpdateImageService,
                                               private val auth: FirebaseAuth,
+                                              val addedCardsRepository: AddedCardsRepository,
                                               @AuthService private val authenticationService: AuthenticationService,
                                               private val userDataSourceImpl: FirebaseUserDataSourceImpl
 ) : BaseViewModel() {
@@ -112,6 +112,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
     }
 
+
     fun goToConfirm(){
         val action = CaptureCardFragmentDirections.actionCaptureCardFragmentToConfirmDetailsFragment()
         _destination.value = Event(action)
@@ -135,6 +136,30 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     fun getUser(): LiveData<Resource<User>> {
         return userDataSourceImpl.getData(""/*for future use with multi logins*/).asLiveData()
 
+    }
+
+    fun updateNote(){
+        selectedCard.notifyObserver()
+        viewModelScope.launch {
+            selectedCard.value?.let {
+                when(val data = addedCardsRepository.firebaseAddedCardDataSource.updateData(it)){
+                    is Resource.Success->{
+                        //todo hide loader
+                        _snackbarInt.postValue(Event(R.string.success))
+                    }
+                    is Resource.Error ->{
+                        //todo hide loader
+                        _snackbarInt.postValue(Event(data.errorCode))
+
+                    }
+
+                    is Resource.Loading->{
+                        //todo show loader
+                        _snackbarInt.postValue(Event(R.string.adding_card))
+                    }
+                }
+            }
+        }
     }
 
 /*    fun deleteCard(){

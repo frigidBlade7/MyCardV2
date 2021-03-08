@@ -18,3 +18,7 @@ import javax.inject.Qualifier
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class UpdateService
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class HasNetwork

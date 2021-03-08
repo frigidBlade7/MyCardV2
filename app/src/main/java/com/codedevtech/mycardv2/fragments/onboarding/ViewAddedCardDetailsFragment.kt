@@ -143,6 +143,12 @@ class ViewAddedCardDetailsFragment : Fragment() {
                 }
         }
 
+        binding.include.note.cardView.setOnClickListener {
+            //it.isVisible = false
+            //binding.categories.note.groupNote.isVisible = true
+            findNavController().navigate(ViewAddedCardDetailsFragmentDirections.actionGlobalUpdateNoteFragment())
+        }
+
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.options-> {

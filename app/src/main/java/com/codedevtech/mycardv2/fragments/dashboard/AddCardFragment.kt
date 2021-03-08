@@ -79,8 +79,8 @@ class AddCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
                 viewmodel.phoneNumbers.value = it.phoneNumbers.toMutableList()
                 viewmodel.emailAddresses.value = it.emailAddresses.toMutableList()
                 viewmodel.card.value?.createdAt = it.createdAt
-
                 viewmodel.card.value?.profilePicUrl =  it.profilePicUrl
+                viewmodel.card.value?.note =  it.note
 
             }
 

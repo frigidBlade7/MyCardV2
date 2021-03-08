@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:elevation="0dp"
+            app:menu="@menu/note_menu"
+            app:title="@string/note"
+            app:layout_collapseMode="pin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/back" />
+
+        <TextView
+            android:id="@+id/role"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:focusable="true"
+            android:text="@{viewModel.selectedCard.note.empty?@string/add_a_note:viewModel.selectedCard.note}"
+            android:textAlignment="textStart"
+            android:textColor="@{viewModel.selectedCard.note.empty?@color/mc_purple:@color/mc_black}"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:text="Senior Android Dev" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/note_text"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="@null"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:inputType="textCapSentences"
+            android:maxLength="120"
+            android:hint="@string/type_something"
+            android:text="@={viewModel.selectedCard.note}"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Senior Android Dev" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="4dp"
+            android:text="@{String.valueOf(120-viewModel.selectedCard.note.length())}"
+            android:textAppearance="@style/TextAppearance.MyCardStyles.NavLabel"
+            app:layout_constraintEnd_toEndOf="@+id/note_text"
+            app:layout_constraintTop_toTopOf="@+id/note_text" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="note_text,count" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

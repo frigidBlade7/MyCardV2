@@ -1,8 +1,8 @@
 package com.codedevtech.mycardv2.di
 
-import com.codedevtech.mycardv2.db.AppDb
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.codedevtech.mycardv2.db.dao.AddedCardDao
-import com.codedevtech.mycardv2.models.*
 import com.codedevtech.mycardv2.models.datasource.*
 import com.codedevtech.mycardv2.models.datasource.AddedCardDataSource
 import com.codedevtech.mycardv2.services.*
@@ -55,8 +55,8 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun providesUpdateImageService(fs: FirebaseStorage): UpdateImageService{
-        return FirebaseUpdateImageServiceImpl(fs)
+    fun providesUpdateImageService(fs: FirebaseStorage, datastore: DataStore<Preferences>): UpdateImageService{
+        return FirebaseUpdateImageServiceImpl(fs,datastore)
     }
 
 }
