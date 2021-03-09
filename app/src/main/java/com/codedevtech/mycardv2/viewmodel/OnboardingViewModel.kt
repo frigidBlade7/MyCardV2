@@ -31,7 +31,6 @@ import javax.inject.Inject
 class OnboardingViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle,
                                               private val uploadService: UpdateImageService,
                                               private val auth: FirebaseAuth,
-                                              val addedCardsRepository: AddedCardsRepository,
                                               @AuthService private val authenticationService: AuthenticationService,
                                               private val userDataSourceImpl: FirebaseUserDataSourceImpl
 ) : BaseViewModel() {
@@ -140,7 +139,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
     }
 
-    fun updateNote(){
+/*    fun updateNote(){
         selectedCard.notifyObserver()
         viewModelScope.launch {
             selectedCard.value?.let {
@@ -162,7 +161,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
                 }
             }
         }
-    }
+    }*/
 
 /*    fun deleteCard(){
         selectedCard.value?.let {

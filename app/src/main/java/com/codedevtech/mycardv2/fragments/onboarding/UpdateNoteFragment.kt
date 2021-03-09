@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import com.codedevtech.mycardv2.R
@@ -14,13 +15,16 @@ import com.codedevtech.mycardv2.databinding.FragmentUpdateNoteBinding
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.utils.hideKeyboard
 import com.codedevtech.mycardv2.utils.showKeyboard
+import com.codedevtech.mycardv2.viewmodel.AddCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UpdateNoteFragment : Fragment() {
 
     lateinit var binding : FragmentUpdateNoteBinding
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
-
+    val cardViewModel: AddCardViewModel by viewModels()
 
 
 
@@ -54,7 +58,8 @@ class UpdateNoteFragment : Fragment() {
                     //onboardingViewModel.selectedCard.value?.note = binding.noteText.text.toString()
                     //onboardingViewModel.selectedCard.notifyObserver()
                     goToEditState()
-                    onboardingViewModel.updateNote()
+                    cardViewModel.card = onboardingViewModel.selectedCard
+                    cardViewModel.updateNote()
                 }
                 R.id.edit -> {
 
@@ -68,6 +73,15 @@ class UpdateNoteFragment : Fragment() {
 
         onboardingViewModel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
             Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        })
+
+        cardViewModel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
+            Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        })
+
+        cardViewModel.destination.observe(viewLifecycleOwner,EventObserver{
+            if(it.actionId==0)
+                findNavController().popBackStack()
         })
 
 

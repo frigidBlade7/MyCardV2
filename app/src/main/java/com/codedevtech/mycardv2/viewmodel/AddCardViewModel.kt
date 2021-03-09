@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.ActionOnlyNavDirections
 import com.codedevtech.mycardv2.AddCardNavDirections
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.event.Event
@@ -118,6 +119,31 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
            }
        }
 
+    }
+
+    fun updateNote(){
+        card.notifyObserver()
+        viewModelScope.launch {
+            card.value?.let {
+                when(val data = addedCardsRepository.firebaseAddedCardDataSource.updateData(it)){
+                    is Resource.Success->{
+                        //todo hide loader
+                        _destination.postValue(Event(ActionOnlyNavDirections(0)))
+                        _snackbarInt.postValue(Event(R.string.success))
+                    }
+                    is Resource.Error ->{
+                        //todo hide loader
+                        _snackbarInt.postValue(Event(data.errorCode))
+
+                    }
+
+                    is Resource.Loading->{
+                        //todo show loader
+                        _snackbarInt.postValue(Event(R.string.adding_card))
+                    }
+                }
+            }
+        }
     }
 
     fun updateCard(){

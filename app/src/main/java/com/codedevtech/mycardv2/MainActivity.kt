@@ -38,7 +38,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+/*        val deferringInsetsListener = RootViewDeferringInsetsCallback(
+            persistentInsetTypes = WindowInsets.Type.systemBars(),
+            deferredInsetTypes = WindowInsets.Type.ime()
+        )
+        // RootViewDeferringInsetsCallback is both an WindowInsetsAnimation.Callback and an
+        // OnApplyWindowInsetsListener, so needs to be set as so.
+        binding.root.setWindowInsetsAnimationCallback(deferringInsetsListener)
+        binding.root.setOnApplyWindowInsetsListener(deferringInsetsListener)
 
+        binding.bottomNav.setWindowInsetsAnimationCallback(
+            TranslateDeferringInsetsAnimationCallback(
+                view = binding.conversationRecyclerview,
+                persistentInsetTypes = WindowInsets.Type.systemBars(),
+                deferredInsetTypes = WindowInsets.Type.ime()
+            )
+        )*/
 
        binding.apply {
            navController = Navigation.findNavController(this@MainActivity, R.id.fragment)
@@ -86,6 +101,8 @@ class MainActivity : AppCompatActivity() {
        }
 
    }
+
+
 
     override fun onBackPressed() {
         when(navController.currentDestination?.id){
