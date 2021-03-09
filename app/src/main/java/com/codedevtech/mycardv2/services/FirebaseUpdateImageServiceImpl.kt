@@ -3,7 +3,6 @@ package com.codedevtech.mycardv2.services
 import android.net.Uri
 import android.util.Log
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.codedevtech.mycardv2.R
@@ -13,7 +12,6 @@ import com.codedevtech.mycardv2.utils.getCode
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import javax.inject.Inject
 
 private const val TAG = "FirebaseUpdateImageServ"

@@ -13,7 +13,6 @@ import com.codedevtech.mycardv2.db.dao.AddedCardDao
 import com.codedevtech.mycardv2.db.dao.LiveCardDao
 import com.codedevtech.mycardv2.models.AddedCard
 import com.codedevtech.mycardv2.models.LiveCard
-import javax.inject.Inject
 
 @Database(entities = [LiveCard::class, AddedCard::class], version = 2, exportSchema = false)
 

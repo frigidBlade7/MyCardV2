@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import com.codedevtech.mycardv2.event.Event
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 open class BaseViewModel : ViewModel() {
 

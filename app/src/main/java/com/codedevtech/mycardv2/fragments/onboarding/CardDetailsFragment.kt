@@ -1,35 +1,19 @@
 package com.codedevtech.mycardv2.fragments.onboarding
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckedTextView
-import android.widget.ToggleButton
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.AddedCardAdapter
-import com.codedevtech.mycardv2.adapter.CardAdapter
 import com.codedevtech.mycardv2.adapter.rv.*
 import com.codedevtech.mycardv2.databinding.FragmentAddedCardDetailsBinding
-import com.codedevtech.mycardv2.databinding.FragmentCardDetailsBinding
-import com.codedevtech.mycardv2.databinding.FragmentConfirmDetailsBinding
 import com.codedevtech.mycardv2.event.EventObserver
-import com.codedevtech.mycardv2.models.LiveCard
-import com.codedevtech.mycardv2.models.Name
-import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.card.MaterialCardView.OnCheckedChangeListener
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "CardDetailsFragment"

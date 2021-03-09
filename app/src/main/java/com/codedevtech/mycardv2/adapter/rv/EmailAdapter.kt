@@ -4,18 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.codedevtech.mycardv2.adapter.diffutils.EmailAddressDiffCallback
 import com.codedevtech.mycardv2.databinding.EmailItemBinding
-import com.codedevtech.mycardv2.databinding.PhoneItemBinding
-import com.codedevtech.mycardv2.fragments.dashboard.AddPersonalCardFragment
 import com.codedevtech.mycardv2.listeners.EmailItemInteraction
-import com.codedevtech.mycardv2.listeners.ItemInteraction
 import com.codedevtech.mycardv2.models.EmailAddress
-import com.codedevtech.mycardv2.models.PhoneNumber
 import com.codedevtech.mycardv2.viewholders.BaseViewHolder
-import com.squareup.moshi.JsonClass
 
 class EmailAdapter (val itemInteraction: EmailItemInteraction, val arrayAdapter: ArrayAdapter<String>): ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
 

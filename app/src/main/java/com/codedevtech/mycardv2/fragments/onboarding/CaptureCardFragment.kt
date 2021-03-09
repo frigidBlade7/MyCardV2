@@ -1,9 +1,10 @@
 package com.codedevtech.mycardv2.fragments.onboarding
 
+/*import com.scanlibrary.ScanActivity
+import com.scanlibrary.ScanConstants*/
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.ImageFormat
 import android.hardware.camera2.*
@@ -30,8 +31,6 @@ import com.codedevtech.mycardv2.utils.Utils
 import com.codedevtech.mycardv2.utils.getPreviewOutputSize
 import com.codedevtech.mycardv2.viewmodel.CaptureCardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
-/*import com.scanlibrary.ScanActivity
-import com.scanlibrary.ScanConstants*/
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

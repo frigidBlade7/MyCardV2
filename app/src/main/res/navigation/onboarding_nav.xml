@@ -303,7 +303,7 @@
         android:id="@+id/cardsFragment"
         android:name="com.codedevtech.mycardv2.fragments.dashboard.CardsFragment"
         tools:layout="@layout/cards_fragment"
-        android:label="@string/cards" >
+        android:label="@string/my_network" >
         <action
             android:id="@+id/action_cardsFragment_to_viewCardDetailsFragment"
             app:destination="@id/viewAddedCardDetailsFragment"

@@ -1,18 +1,14 @@
 package com.codedevtech.mycardv2.fragments.dashboard
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
-import androidx.databinding.adapters.ImageViewBindingAdapter
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -20,18 +16,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.codedevtech.mycardv2.R
-import com.codedevtech.mycardv2.adapter.AddedCardAdapter
-import com.codedevtech.mycardv2.adapter.PersonalCardAdapter
 import com.codedevtech.mycardv2.adapter.PersonalCardSpecialAdapter
 import com.codedevtech.mycardv2.adapter.rv.ExtraEmailAddressAdapter
 import com.codedevtech.mycardv2.adapter.rv.ExtraPhoneNumbersAdapter
 import com.codedevtech.mycardv2.adapter.rv.SocialAdapter
-import com.codedevtech.mycardv2.databinding.FragmentSetupAccountOnboardingBinding
-import com.codedevtech.mycardv2.databinding.FragmentSignUpBinding
-import com.codedevtech.mycardv2.databinding.FragmentSkipOnboardingBinding
 import com.codedevtech.mycardv2.databinding.MeFragmentBinding
 import com.codedevtech.mycardv2.event.EventObserver
-import com.codedevtech.mycardv2.fragments.onboarding.ViewPersonalCardDetailsFragmentDirections
 import com.codedevtech.mycardv2.listeners.SocialItemInteraction
 import com.codedevtech.mycardv2.models.Resource
 import com.codedevtech.mycardv2.models.SocialMediaProfile
@@ -39,7 +29,6 @@ import com.codedevtech.mycardv2.utils.backgroundColor
 import com.codedevtech.mycardv2.viewmodel.CardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint

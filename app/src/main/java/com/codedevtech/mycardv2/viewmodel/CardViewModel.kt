@@ -1,13 +1,11 @@
 package com.codedevtech.mycardv2.viewmodel
 
-import androidx.datastore.core.DataStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.codedevtech.mycardv2.db.dao.AddedCardDao
 import com.codedevtech.mycardv2.db.dao.LiveCardDao
-import com.codedevtech.mycardv2.di.AppModule.dataStore
 import com.codedevtech.mycardv2.event.Event
 import com.codedevtech.mycardv2.fragments.dashboard.CardsFragmentDirections
 import com.codedevtech.mycardv2.models.AddedCard
@@ -21,10 +19,7 @@ import com.codedevtech.mycardv2.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import java.util.prefs.Preferences
 import javax.inject.Inject
 
 @HiltViewModel

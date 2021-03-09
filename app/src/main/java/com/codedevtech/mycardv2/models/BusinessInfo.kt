@@ -1,7 +1,6 @@
 package com.codedevtech.mycardv2.models
 
 import android.os.Parcelable
-import androidx.room.Entity
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

@@ -34,7 +34,7 @@
                 app:elevation="0dp"
                 app:titleMarginStart="24dp"
                 android:paddingStart="0dp"
-                app:title="@string/cards"
+                app:title="@string/my_network"
                 app:layout_constraintBottom_toTopOf="@+id/search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

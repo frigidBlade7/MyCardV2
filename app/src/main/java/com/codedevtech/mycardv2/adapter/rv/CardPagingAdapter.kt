@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.codedevtech.mycardv2.adapter.diffutils.AddedCardDiffUtil
-import com.codedevtech.mycardv2.adapter.diffutils.PersonalCardDiffUtil
 import com.codedevtech.mycardv2.databinding.AddedCardListItemBinding
 import com.codedevtech.mycardv2.listeners.ItemViewInteraction
 import com.codedevtech.mycardv2.models.AddedCard

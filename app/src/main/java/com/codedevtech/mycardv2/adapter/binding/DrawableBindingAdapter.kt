@@ -1,16 +1,13 @@
 package com.codedevtech.mycardv2.adapter.binding
 
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.models.SocialMediaProfile
-import com.google.android.material.imageview.ShapeableImageView
 
 
-    @BindingAdapter("socialMediaDrawableResource")
+@BindingAdapter("socialMediaDrawableResource")
     fun setSocialMediaDrawableResource(imageView: ImageView, socialMedia: SocialMediaProfile.SocialMedia){
 
         when(socialMedia){

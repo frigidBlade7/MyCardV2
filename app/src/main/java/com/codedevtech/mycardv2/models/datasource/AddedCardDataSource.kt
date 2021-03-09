@@ -1,9 +1,7 @@
 package com.codedevtech.mycardv2.models.datasource
 
-import android.net.ConnectivityManager
 import android.util.Log
 import com.codedevtech.mycardv2.R
-import com.codedevtech.mycardv2.di.HasNetwork
 import com.codedevtech.mycardv2.models.AddedCard
 import com.codedevtech.mycardv2.models.Resource
 import com.codedevtech.mycardv2.utils.getCode
@@ -14,7 +12,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
 
 abstract class AddedCardDataSource : DataSource<AddedCard> {
 

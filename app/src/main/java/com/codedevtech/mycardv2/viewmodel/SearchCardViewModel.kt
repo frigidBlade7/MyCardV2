@@ -1,16 +1,12 @@
 package com.codedevtech.mycardv2.viewmodel
 
 import androidx.lifecycle.*
-import androidx.paging.*
-import com.codedevtech.mycardv2.models.AddedCard
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.codedevtech.mycardv2.repositories.AddedCardsRepository
-import com.codedevtech.mycardv2.repositories.PersonalCardsRepository
 import com.codedevtech.mycardv2.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.switchMap
 import javax.inject.Inject
 
 @HiltViewModel

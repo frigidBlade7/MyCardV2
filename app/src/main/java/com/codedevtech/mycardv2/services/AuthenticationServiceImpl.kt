@@ -2,18 +2,15 @@ package com.codedevtech.mycardv2.services
 
 import android.util.Log
 import com.codedevtech.mycardv2.AuthenticationCallbacks
-import com.codedevtech.mycardv2.models.Resource
-import com.codedevtech.mycardv2.models.User
+import com.codedevtech.mycardv2.utils.getCode
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.*
-import java.util.concurrent.TimeUnit
-import com.codedevtech.mycardv2.utils.getCode
-import com.google.firebase.firestore.FirebaseFirestore
-import com.codedevtech.mycardv2.R
-
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 

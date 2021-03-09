@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
-import com.codedevtech.mycardv2.databinding.*
+import com.codedevtech.mycardv2.databinding.FragmentAddPersonalSocialsBinding
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog

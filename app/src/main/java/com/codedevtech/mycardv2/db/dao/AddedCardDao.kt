@@ -1,10 +1,8 @@
 package com.codedevtech.mycardv2.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.codedevtech.mycardv2.models.AddedCard
-import com.codedevtech.mycardv2.models.LiveCard
 import kotlinx.coroutines.flow.Flow
 
 @Dao

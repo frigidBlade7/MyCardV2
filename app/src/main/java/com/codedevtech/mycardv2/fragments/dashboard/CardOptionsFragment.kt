@@ -8,15 +8,13 @@ import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import com.codedevtech.mycardv2.R
-import com.codedevtech.mycardv2.databinding.*
+import com.codedevtech.mycardv2.databinding.FragmentCardOptionsBinding
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.models.EmailAddress
 import com.codedevtech.mycardv2.models.PhoneNumber
-import com.codedevtech.mycardv2.utils.fullname
 import com.codedevtech.mycardv2.viewmodel.CardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

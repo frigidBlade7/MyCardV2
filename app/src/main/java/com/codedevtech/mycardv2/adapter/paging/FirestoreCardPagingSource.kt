@@ -5,12 +5,11 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.codedevtech.mycardv2.models.LiveCard
 import com.codedevtech.mycardv2.utils.Utils
-import com.codedevtech.mycardv2.utils.awaitContinuous
-import com.google.firebase.firestore.*
-import kotlinx.coroutines.flow.Flow
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import javax.inject.Inject
 
 

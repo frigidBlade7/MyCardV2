@@ -118,6 +118,8 @@
     <string name="your_personal_cards_to_distribute">Your personal cards to distribute</string>
     <string name="edit_note">Edit note</string>
     <string name="type_something">Type something</string>
+    <string name="add_card">add card</string>
+    <string name="my_network">My Network</string>
 
 
     <array name="phone_types">

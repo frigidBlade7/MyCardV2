@@ -1,25 +1,21 @@
 package com.codedevtech.mycardv2.fragments.onboarding
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.AddedCardAdapter
-import com.codedevtech.mycardv2.adapter.CardAdapter
 import com.codedevtech.mycardv2.adapter.rv.ExtraEmailAddressAdapter
 import com.codedevtech.mycardv2.adapter.rv.ExtraPhoneNumbersAdapter
 import com.codedevtech.mycardv2.adapter.rv.SocialAdapter
 import com.codedevtech.mycardv2.databinding.FragmentAddConfirmDetailsBinding
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.viewmodel.AddCardViewModel
-import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ConfirmAddDetailsFragment : Fragment() {

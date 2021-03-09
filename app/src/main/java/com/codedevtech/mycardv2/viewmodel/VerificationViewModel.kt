@@ -1,11 +1,12 @@
 package com.codedevtech.mycardv2.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.codedevtech.mycardv2.AuthenticationCallbacks
 import com.codedevtech.mycardv2.di.UpdateService
-import com.codedevtech.mycardv2.services.AuthenticationService
 import com.codedevtech.mycardv2.event.Event
-import com.codedevtech.mycardv2.fragments.onboarding.*
+import com.codedevtech.mycardv2.fragments.onboarding.VerifyNewNumberFragmentDirections
+import com.codedevtech.mycardv2.services.AuthenticationService
 import com.codedevtech.mycardv2.utils.Utils
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential

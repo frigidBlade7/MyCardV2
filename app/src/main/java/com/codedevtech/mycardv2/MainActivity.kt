@@ -1,33 +1,19 @@
 package com.codedevtech.mycardv2
 
-import android.content.ComponentCallbacks2
-import android.content.Context
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+//import com.scanlibrary.IScanner
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.doOnAttach
-import androidx.core.view.doOnLayout
-import androidx.core.view.doOnPreDraw
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.codedevtech.mycardv2.databinding.ActivityMainBinding
 import com.codedevtech.mycardv2.fragments.dashboard.CardsFragmentDirections
-import com.codedevtech.mycardv2.fragments.onboarding.WelcomeFragmentDirections
-import com.codedevtech.mycardv2.utils.hide
 import com.codedevtech.mycardv2.utils.hideKeyboard
-import com.codedevtech.mycardv2.utils.show
 import com.codedevtech.mycardv2.utils.showKeyboard
 import com.google.android.material.transition.MaterialElevationScale
-import com.google.firebase.auth.FirebaseAuth
-//import com.scanlibrary.IScanner
 import dagger.hilt.android.AndroidEntryPoint
 
 

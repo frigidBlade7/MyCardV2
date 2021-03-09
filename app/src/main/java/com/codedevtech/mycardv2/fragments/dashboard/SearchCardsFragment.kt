@@ -4,11 +4,11 @@ package com.codedevtech.mycardv2.fragments.dashboard
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,7 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.rv.CardPagingAdapter
-import com.codedevtech.mycardv2.databinding.*
+import com.codedevtech.mycardv2.databinding.FragmentSearchCardsBinding
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.listeners.ItemViewInteraction
 import com.codedevtech.mycardv2.models.AddedCard
@@ -27,9 +27,7 @@ import com.codedevtech.mycardv2.viewmodel.SearchCardViewModel
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialElevationScale
-import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

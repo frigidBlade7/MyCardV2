@@ -1,41 +1,29 @@
 package com.codedevtech.mycardv2.fragments.dashboard
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.preferencesDataStore
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.rv.AddedListCardAdapter
-import com.codedevtech.mycardv2.adapter.rv.PersonalCardListAdapter
 import com.codedevtech.mycardv2.databinding.CardsFragmentBinding
-import com.codedevtech.mycardv2.di.AppModule.dataStore
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.listeners.ItemViewInteraction
 import com.codedevtech.mycardv2.models.AddedCard
-import com.codedevtech.mycardv2.models.LiveCard
 import com.codedevtech.mycardv2.models.Resource
-import com.codedevtech.mycardv2.utils.Utils
 import com.codedevtech.mycardv2.viewmodel.CardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 private const val TAG = "CardsFragment"
 

@@ -1,12 +1,11 @@
 package com.codedevtech.mycardv2.fragments.onboarding
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import com.codedevtech.mycardv2.R
@@ -14,7 +13,6 @@ import com.codedevtech.mycardv2.adapter.CardAdapter
 import com.codedevtech.mycardv2.adapter.rv.ExtraEmailAddressAdapter
 import com.codedevtech.mycardv2.adapter.rv.ExtraPhoneNumbersAdapter
 import com.codedevtech.mycardv2.adapter.rv.SocialAdapter
-import com.codedevtech.mycardv2.databinding.FragmentAddConfirmDetailsBinding
 import com.codedevtech.mycardv2.databinding.FragmentAddPersonalConfirmDetailsBinding
 import com.codedevtech.mycardv2.event.EventObserver
 import com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel

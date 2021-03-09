@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.codedevtech.mycardv2.adapter.diffutils.AddedCardDiffUtil
-import com.codedevtech.mycardv2.adapter.diffutils.PersonalCardDiffUtil
 import com.codedevtech.mycardv2.databinding.AddedCardListItemBinding
-import com.codedevtech.mycardv2.databinding.CardListItemBinding
 import com.codedevtech.mycardv2.listeners.ItemViewInteraction
 import com.codedevtech.mycardv2.models.AddedCard
 import com.codedevtech.mycardv2.viewholders.BaseViewHolder
