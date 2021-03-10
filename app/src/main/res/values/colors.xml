@@ -17,6 +17,18 @@
     <color name="mc_green">#1AB759</color>
     <color name="mc_orange">#F6A609</color>
 
+
+    <color name="mc_brown">#AE391F</color>
+    <color name="mc_wine">#470031</color>
+    <color name="mc_navy">#0433BF</color>
+    <color name="mc_teal">#012E40</color>
+
+    <color name="mc_brown_30">#4DAE391F</color>
+    <color name="mc_wine_30">#4D470031</color>
+    <color name="mc_navy_30">#4D0433BF</color>
+    <color name="mc_teal_30">#4D012E40</color>
+
+
     <color name="mc_red_gradient">#9c0078</color>
     <color name="mc_black_60">#99000000</color>
     <color name="mc_black">#000000</color>

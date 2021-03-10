@@ -41,19 +41,27 @@ fun LiveCard?.initials():String{
 }
 
 fun View.backgroundColor(colorCode: Int): Int{
-    return when(colorCode%3){
+    return when(colorCode%7){
         0 -> ContextCompat.getColor(context, R.color.mc_purple_10)
         1 -> ContextCompat.getColor(context, R.color.mc_blue_20)
         2-> ContextCompat.getColor(context, R.color.mc_orange_30)
+        3 -> ContextCompat.getColor(context, R.color.mc_brown)
+        4 -> ContextCompat.getColor(context, R.color.mc_teal)
+        5-> ContextCompat.getColor(context, R.color.mc_wine)
+        6-> ContextCompat.getColor(context, R.color.mc_navy)
         else -> ContextCompat.getColor(context, R.color.mc_gray_light)
     }
 }
 
 fun View.initialsColor(colorCode: Int): Int{
-    return when(colorCode%3){
+    return when(colorCode%7){
         0 -> ContextCompat.getColor(context, R.color.mc_purple)
         1 -> ContextCompat.getColor(context, R.color.mc_blue)
         2-> ContextCompat.getColor(context, R.color.mc_orange)
+        3 -> ContextCompat.getColor(context, R.color.mc_brown_30)
+        4 -> ContextCompat.getColor(context, R.color.mc_teal_30)
+        5-> ContextCompat.getColor(context, R.color.mc_wine_30)
+        6-> ContextCompat.getColor(context, R.color.mc_navy_30)
         else -> ContextCompat.getColor(context, android.R.color.darker_gray)
     }
 }
