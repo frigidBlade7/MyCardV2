@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.work.WorkManager
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.adapter.AddedCardAdapter
 import com.codedevtech.mycardv2.adapter.rv.ExtraEmailAddressAdapter
@@ -68,6 +69,8 @@ class ConfirmAddDetailsFragment : Fragment() {
             socialAdapter.submitList(it.socialMediaProfiles)
 
         }
+
+
 
         binding.categories.email.chevron.setOnClickListener {
             it.isSelected = !it.isSelected

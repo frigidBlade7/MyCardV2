@@ -9,6 +9,8 @@ class Utils {
         val PENDING_URI_LIST= stringSetPreferencesKey("PENDING_URI_LIST")
         const val SORT_MODE_NAME= "NAME"
         const val SORT_MODE_RECENT= "RECENT"
+        const val PATH_ID= "pathId"
+        const val PHOTO_URI= "photoUri"
 
 
         const val FILTER_ALL= "ALL"

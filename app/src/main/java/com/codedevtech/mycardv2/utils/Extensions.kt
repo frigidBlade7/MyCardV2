@@ -3,6 +3,7 @@ package com.codedevtech.mycardv2.utils
 import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import android.view.View
@@ -20,10 +21,12 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import java.io.ByteArrayOutputStream
 
 
 fun Name?.initials():String{
@@ -45,10 +48,10 @@ fun View.backgroundColor(colorCode: Int): Int{
         0 -> ContextCompat.getColor(context, R.color.mc_purple_10)
         1 -> ContextCompat.getColor(context, R.color.mc_blue_20)
         2-> ContextCompat.getColor(context, R.color.mc_orange_30)
-        3 -> ContextCompat.getColor(context, R.color.mc_brown)
-        4 -> ContextCompat.getColor(context, R.color.mc_teal)
-        5-> ContextCompat.getColor(context, R.color.mc_wine)
-        6-> ContextCompat.getColor(context, R.color.mc_navy)
+        3 -> ContextCompat.getColor(context, R.color.mc_brown_30)
+        4 -> ContextCompat.getColor(context, R.color.mc_teal_30)
+        5-> ContextCompat.getColor(context, R.color.mc_wine_30)
+        6-> ContextCompat.getColor(context, R.color.mc_navy_30)
         else -> ContextCompat.getColor(context, R.color.mc_gray_light)
     }
 }
@@ -58,10 +61,10 @@ fun View.initialsColor(colorCode: Int): Int{
         0 -> ContextCompat.getColor(context, R.color.mc_purple)
         1 -> ContextCompat.getColor(context, R.color.mc_blue)
         2-> ContextCompat.getColor(context, R.color.mc_orange)
-        3 -> ContextCompat.getColor(context, R.color.mc_brown_30)
-        4 -> ContextCompat.getColor(context, R.color.mc_teal_30)
-        5-> ContextCompat.getColor(context, R.color.mc_wine_30)
-        6-> ContextCompat.getColor(context, R.color.mc_navy_30)
+        3 -> ContextCompat.getColor(context, R.color.mc_brown)
+        4 -> ContextCompat.getColor(context, R.color.mc_teal)
+        5-> ContextCompat.getColor(context, R.color.mc_wine)
+        6-> ContextCompat.getColor(context, R.color.mc_navy)
         else -> ContextCompat.getColor(context, android.R.color.darker_gray)
     }
 }
@@ -78,6 +81,9 @@ fun View.textColor(type: String?): Int{
 
 fun List<SocialMediaProfile>.hasAtLeastOne(): Boolean{
     return this.any { it.usernameOrUrl.isNotEmpty() }
+}
+fun List<SocialMediaProfile>.hasAll(): Boolean{
+    return this.all { it.usernameOrUrl.isNotEmpty() }
 }
 
 fun Name.aggregateNameToFullName(){
@@ -175,9 +181,9 @@ fun BottomNavigationView.hide() {
 
 fun Activity.hideKeyboard(view: View) {
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(view.windowToken, 0);
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
-fun Activity.showKeyboard(view: View) {
+fun Activity.showKeyboard(/*view: View*/) {
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
 }
@@ -218,6 +224,13 @@ fun BottomNavigationView.show() {
     }
 }
 
+fun Bitmap.toByteArray(): ByteArray {
+
+    val baos = ByteArrayOutputStream()
+    this.compress(Bitmap.CompressFormat.JPEG, 100, baos )
+    return baos.toByteArray()
+}
+@OptIn(ExperimentalCoroutinesApi::class)
 fun Query.awaitContinuous(): Flow<QuerySnapshot?> = callbackFlow {
 
     val subscriptionCallback = addSnapshotListener { value, error ->

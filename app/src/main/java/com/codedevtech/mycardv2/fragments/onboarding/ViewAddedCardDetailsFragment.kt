@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.view.drawToBitmap
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
@@ -13,6 +16,7 @@ import com.codedevtech.mycardv2.adapter.AddedCardAdapter
 import com.codedevtech.mycardv2.adapter.rv.*
 import com.codedevtech.mycardv2.databinding.FragmentAddedCardDetailsBinding
 import com.codedevtech.mycardv2.event.EventObserver
+import com.codedevtech.mycardv2.utils.toByteArray
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayoutMediator
@@ -40,13 +44,6 @@ class ViewAddedCardDetailsFragment : Fragment() {
 */
 
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -138,6 +135,8 @@ class ViewAddedCardDetailsFragment : Fragment() {
             when(it.itemId){
                 R.id.options-> {
                     onboardingViewModel.selectedCard.value?.note?.let {
+                        //onboardingViewModel.tempCardByteArray = binding.include.pager[0].findViewById<ImageView>(R.id.icon).drawToBitmap().toByteArray()
+                        //onboardingViewModel.setUpImageBytearray()
                         onboardingViewModel.showCardOptions(it.isNotEmpty())
                     }
                 }

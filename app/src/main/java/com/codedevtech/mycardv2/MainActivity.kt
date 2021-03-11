@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                    }
                    when(destination.id){
                        R.id.searchCardsFragment-> {
-                           showKeyboard(binding.root)
+                           showKeyboard(/*binding.root*/)
                        }
                    }
 

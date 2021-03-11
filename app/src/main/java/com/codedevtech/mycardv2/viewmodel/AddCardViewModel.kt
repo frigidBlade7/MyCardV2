@@ -1,10 +1,13 @@
 package com.codedevtech.mycardv2.viewmodel
 
+import android.content.Context
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.ActionOnlyNavDirections
+import androidx.work.*
 import com.codedevtech.mycardv2.AddCardNavDirections
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.event.Event
@@ -13,20 +16,28 @@ import com.codedevtech.mycardv2.fragments.dashboard.AddWorkFragmentDirections
 import com.codedevtech.mycardv2.models.*
 import com.codedevtech.mycardv2.repositories.AddedCardsRepository
 import com.codedevtech.mycardv2.services.UpdateImageService
+import com.codedevtech.mycardv2.utils.Utils
 import com.codedevtech.mycardv2.utils.aggregateNameToFullName
 import com.codedevtech.mycardv2.utils.notifyObserver
 import com.codedevtech.mycardv2.utils.segregateFullName
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsRepository, val uploadService: UpdateImageService): BaseViewModel() {
+class AddCardViewModel @Inject constructor(@ApplicationContext val applicationContext: Context, val addedCardsRepository: AddedCardsRepository, val uploadService: UpdateImageService): BaseViewModel() {
 
     var isNameExpanded =  MutableLiveData<Boolean>(false)
     var profileImageUri = MutableLiveData<Uri>()
 
     var isEditFlow = MutableLiveData(false)
+
+/*    val _uploadWork = MutableLiveData<Event<OneTimeWorkRequest>>()
+
+    val uploadWork: LiveData<Event<OneTimeWorkRequest>>
+        get() = _uploadWork*/
+
 
     var card = MutableLiveData(AddedCard())
     
@@ -96,7 +107,8 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
                        //todo hide loader
 
                        _snackbarInt.postValue(Event(R.string.success))
-                       _destination.postValue(Event(AddCardNavDirections.actionGlobalCardDetailsFragment(card.value)))
+                       _destination.postValue(Event(AddCardNavDirections.actionGlobalCardsFragment()))
+
 
                        data.data?.let {
                            card.value?.id = it
@@ -192,7 +204,25 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
     private fun updateProfileImage(cardId: String) {
         profileImageUri.value?.let { uri->
 
-            viewModelScope.launch {
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+
+            val myUploadWork = OneTimeWorkRequestBuilder<FirebaseFirestoreUploadWorker>()
+                .setInputData(workDataOf(
+                    Utils.PATH_ID to "profiles/$cardId",
+                    Utils.PHOTO_URI to uri.toString()
+                ))
+                .setConstraints(constraints)
+                .addTag(cardId)
+                .build()
+
+
+            WorkManager.getInstance(applicationContext).enqueue(myUploadWork)
+            //_uploadWork.postValue(Event(myUploadWork))
+
+
+            /*viewModelScope.launch {
                 uploadService.setUri(uri)
                 when(val uploadData = uploadService.uploadImage("profiles/$cardId")){
                     is Resource.Success->{
@@ -210,6 +240,9 @@ class AddCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsR
                     }
                 }
             }
+*/
+
+
 
         }
     }

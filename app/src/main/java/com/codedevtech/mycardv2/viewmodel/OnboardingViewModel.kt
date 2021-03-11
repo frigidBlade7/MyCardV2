@@ -10,10 +10,7 @@ import com.codedevtech.mycardv2.di.AuthService
 import com.codedevtech.mycardv2.event.Event
 import com.codedevtech.mycardv2.fragments.dashboard.*
 import com.codedevtech.mycardv2.fragments.onboarding.*
-import com.codedevtech.mycardv2.models.AddedCard
-import com.codedevtech.mycardv2.models.LiveCard
-import com.codedevtech.mycardv2.models.Resource
-import com.codedevtech.mycardv2.models.User
+import com.codedevtech.mycardv2.models.*
 import com.codedevtech.mycardv2.models.datasource.FirebaseUserDataSourceImpl
 import com.codedevtech.mycardv2.repositories.AddedCardsRepository
 import com.codedevtech.mycardv2.services.AuthenticationService
@@ -24,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,6 +29,7 @@ import javax.inject.Inject
 class OnboardingViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle,
                                               private val uploadService: UpdateImageService,
                                               private val auth: FirebaseAuth,
+                                              val imageByteArray: ImageByteArray,
                                               @AuthService private val authenticationService: AuthenticationService,
                                               private val userDataSourceImpl: FirebaseUserDataSourceImpl
 ) : BaseViewModel() {
@@ -41,6 +40,8 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     var selectedCard = MutableLiveData<AddedCard>()
     var selectedPersonalCard = MutableLiveData<LiveCard>()
     var position = MutableLiveData<Int>()
+
+    var tempCardByteArray: ByteArray? = null
 
     //private val authenticationService: AuthenticationService = AuthenticationServiceImpl(auth)
 
@@ -328,6 +329,12 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
     fun editCard() {
         _destination.value = Event(CardOptionsFragmentDirections.actionCardOptionsFragmentToAddCardNav(isEdit = true, existingCard = selectedCard.value))
+    }
+
+    fun storeTempCardByteArray() {
+        viewModelScope.launch (Dispatchers.IO){
+            tempCardByteArray= imageByteArray.getArray(selectedCard.value?.profilePicUrl)
+        }
     }
 
     /*fun createFile(outputDirectory: File): File {

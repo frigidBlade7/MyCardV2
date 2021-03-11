@@ -3,6 +3,7 @@ package com.codedevtech.mycardv2.viewmodel
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.codedevtech.mycardv2.AddCardNavDirections
 import com.codedevtech.mycardv2.AddPersonalCardNavDirections
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.event.Event
@@ -133,7 +134,7 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
                        //card.value?.id = data.data!!
 
                        _snackbarInt.postValue(Event(R.string.success))
-                       _destination.postValue(Event(AddPersonalCardNavDirections.actionGlobalCardPersonalDetailsFragment(card.value)))
+                       _destination.postValue(Event(AddCardNavDirections.actionGlobalMeFragment()))
 
                        //updateBusinessLogo(data.data)
                        //updateProfileImage(data.data)

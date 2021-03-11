@@ -98,7 +98,7 @@ class UpdateNoteFragment : Fragment() {
         binding.groupNote.isVisible = true
         binding.role.isVisible = false
         binding.noteText.requestFocus()
-        activity?.showKeyboard(binding.root)
+        activity?.showKeyboard(/*binding.root*/)
     }
 
     private fun goToEditState() {

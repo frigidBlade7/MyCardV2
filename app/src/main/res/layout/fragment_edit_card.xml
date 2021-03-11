@@ -262,6 +262,7 @@
                         android:focusable="true"
                         android:onClick="@{()->viewmodel.goToSocialProfile()}"
                         android:text="@{ExtensionsKt.hasAtLeastOne(viewmodel.socials)? @string/add_another_profile:@string/add_a_profile}"
+                        android:visibility="@{ExtensionsKt.hasAll(viewmodel.socials)?View.GONE: View.VISIBLE}"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimary"
                         app:layout_constraintStart_toStartOf="parent"

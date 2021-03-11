@@ -244,9 +244,13 @@
     </style>
 
 
-    <style name="CircularImageView">
+    <style name="CircularImageView" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="background">?attr/colorSurface</item>
+        <item name="background">@null</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:background">@null</item>
+        <item name="android:backgroundTint">@null</item>
+        <item name="backgroundColor">@null</item>
         <item name="alpha">0.2</item>
         <item name="cornerSize">50%</item>
     </style>

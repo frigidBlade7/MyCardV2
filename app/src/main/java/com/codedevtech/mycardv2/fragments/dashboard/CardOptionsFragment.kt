@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.databinding.FragmentCardOptionsBinding
 import com.codedevtech.mycardv2.event.EventObserver
@@ -19,6 +21,8 @@ import com.codedevtech.mycardv2.viewmodel.CardViewModel
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -35,6 +39,8 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        viewmodel.storeTempCardByteArray()
 
         //setStyle(STYLE_NORMAL, R.style.ShapeAppearance_MyCardStyles_ExtraLargeComponent);
 
@@ -82,12 +88,21 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
                 card?.phoneNumbers?.filter { it.type== PhoneNumber.PhoneNumberType.Mobile || it.type== PhoneNumber.PhoneNumberType.Home}?.let {
                     for(item in it) {
                         val row = ContentValues()
-                        row.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                        row.put(
+                            ContactsContract.Data.MIMETYPE,
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
+                        )
                         row.put(ContactsContract.CommonDataKinds.Phone.NUMBER, item.number)
                         if(item.type== PhoneNumber.PhoneNumberType.Mobile )
-                            row.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+                            row.put(
+                                ContactsContract.CommonDataKinds.Phone.TYPE,
+                                ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
+                            )
                         else if(item.type== PhoneNumber.PhoneNumberType.Home)
-                            row.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
+                            row.put(
+                                ContactsContract.CommonDataKinds.Phone.TYPE,
+                                ContactsContract.CommonDataKinds.Phone.TYPE_HOME
+                            )
 
                         data.add(row)
                     }
@@ -97,9 +112,15 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
                 card?.phoneNumbers?.filter { it.type== PhoneNumber.PhoneNumberType.Work}?.let {
                     for(item in it) {
                         val row = ContentValues()
-                        row.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                        row.put(
+                            ContactsContract.Data.MIMETYPE,
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
+                        )
                         row.put(ContactsContract.CommonDataKinds.Phone.NUMBER, item.number)
-                        row.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK)
+                        row.put(
+                            ContactsContract.CommonDataKinds.Phone.TYPE,
+                            ContactsContract.CommonDataKinds.Phone.TYPE_WORK
+                        )
                         data.add(row)
                     }
                 }
@@ -107,9 +128,15 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
                 card?.phoneNumbers?.filter { it.type== PhoneNumber.PhoneNumberType.Other}?.let {
                     for(item in it) {
                         val row = ContentValues()
-                        row.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                        row.put(
+                            ContactsContract.Data.MIMETYPE,
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
+                        )
                         row.put(ContactsContract.CommonDataKinds.Phone.NUMBER, item.number)
-                        row.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_OTHER)
+                        row.put(
+                            ContactsContract.CommonDataKinds.Phone.TYPE,
+                            ContactsContract.CommonDataKinds.Phone.TYPE_OTHER
+                        )
                         data.add(row)
                     }
                 }
@@ -118,9 +145,15 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
                 card?.emailAddresses?.filter { it.type== EmailAddress.EmailType.Personal}?.let {
                     for(item in it) {
                         val row = ContentValues()
-                        row.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                        row.put(
+                            ContactsContract.Data.MIMETYPE,
+                            ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE
+                        )
                         row.put(ContactsContract.CommonDataKinds.Email.ADDRESS, item.address)
-                        row.put(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_HOME)
+                        row.put(
+                            ContactsContract.CommonDataKinds.Email.TYPE,
+                            ContactsContract.CommonDataKinds.Email.TYPE_HOME
+                        )
                         data.add(row)
                     }
                 }
@@ -128,9 +161,15 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
                 card?.emailAddresses?.filter { it.type== EmailAddress.EmailType.Work}?.let {
                     for(item in it) {
                         val row = ContentValues()
-                        row.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                        row.put(
+                            ContactsContract.Data.MIMETYPE,
+                            ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE
+                        )
                         row.put(ContactsContract.CommonDataKinds.Email.ADDRESS, item.address)
-                        row.put(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
+                        row.put(
+                            ContactsContract.CommonDataKinds.Email.TYPE,
+                            ContactsContract.CommonDataKinds.Email.TYPE_WORK
+                        )
                         data.add(row)
                     }
                 }
@@ -138,9 +177,15 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
                 card?.emailAddresses?.filter { it.type== EmailAddress.EmailType.Other}?.let {
                     for(item in it) {
                         val row = ContentValues()
-                        row.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                        row.put(
+                            ContactsContract.Data.MIMETYPE,
+                            ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE
+                        )
                         row.put(ContactsContract.CommonDataKinds.Email.ADDRESS, item.address)
-                        row.put(ContactsContract.CommonDataKinds.Email.TYPE, ContactsContract.CommonDataKinds.Email.TYPE_OTHER)
+                        row.put(
+                            ContactsContract.CommonDataKinds.Email.TYPE,
+                            ContactsContract.CommonDataKinds.Email.TYPE_OTHER
+                        )
                         data.add(row)
                     }
                 }
@@ -239,28 +284,66 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
 
 
                     val nameRow = ContentValues()
-                    nameRow.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                    nameRow.put(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME, it.lastName)
+                    nameRow.put(
+                        ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
+                    )
+                    nameRow.put(
+                        ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME,
+                        it.lastName
+                    )
                     data.add(nameRow)
 
-                    nameRow.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                    nameRow.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, it.firstName)
+                    nameRow.put(
+                        ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
+                    )
+                    nameRow.put(
+                        ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,
+                        it.firstName
+                    )
                     data.add(nameRow)
 
-                    nameRow.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                    nameRow.put(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME, it.middleName)
+                    nameRow.put(
+                        ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
+                    )
+                    nameRow.put(
+                        ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME,
+                        it.middleName
+                    )
                     data.add(nameRow)
 
-                    nameRow.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                    nameRow.put(
+                        ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
+                    )
                     nameRow.put(ContactsContract.CommonDataKinds.StructuredName.PREFIX, it.prefix)
                     data.add(nameRow)
 
-                    nameRow.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                    nameRow.put(
+                        ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
+                    )
                     nameRow.put(ContactsContract.CommonDataKinds.StructuredName.SUFFIX, it.suffix)
                     data.add(nameRow)
 
                 }
 
+                card?.profilePicUrl?.let {
+
+                    val photoRow = ContentValues()
+
+                    photoRow.put(
+                        ContactsContract.Contacts.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE
+                    )
+                    photoRow.put(
+                        ContactsContract.CommonDataKinds.Photo.PHOTO, viewmodel.tempCardByteArray
+                    )
+                    data.add(photoRow)
+
+                }
                 putParcelableArrayListExtra(ContactsContract.Intents.Insert.DATA, data)
 
                 card?.businessInfo?.let {
@@ -271,6 +354,7 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
                 card?.note?.let {
                     putExtra(ContactsContract.Intents.Insert.NOTES, it)
                 }
+
 
                 putExtra("finishActivityOnSaveCompleted", true)
             }
@@ -283,6 +367,12 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
             viewmodel.showCardQr()
         }
         return binding.root
+    }
+
+    override fun onDestroy() {
+        viewmodel.tempCardByteArray = null
+        super.onDestroy()
+
     }
 
 }

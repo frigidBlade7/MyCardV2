@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
 import com.codedevtech.mycardv2.db.dao.AddedCardDao
 import com.codedevtech.mycardv2.db.dao.LiveCardDao
 import com.codedevtech.mycardv2.event.Event
@@ -36,6 +37,7 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
 
     var selectedCard = MutableLiveData<AddedCard>()
     var selectedPersonalCard = MutableLiveData<LiveCard>()
+
 
     val cardsLiveData = Transformations.switchMap(sortMode) {
         return@switchMap when(it){
@@ -98,7 +100,8 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
             liveCardDao.addAllCards(data)
         }
     }
-        //val cardsPagedDataFlow = cardsRepository.allCardsPaged.flow.cachedIn(viewModelScope)
+
+    //val cardsPagedDataFlow = cardsRepository.allCardsPaged.flow.cachedIn(viewModelScope)
 
         //val cardsLiveDataFlow = cardsRepository.currentPage
 
