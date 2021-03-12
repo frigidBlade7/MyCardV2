@@ -12,7 +12,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.codedevtech.mycardv2"
+        applicationId "com.spaceandjonin.mycrd"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 16

@@ -5,10 +5,10 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.EmailAddress" />
+            type="com.spaceandjonin.mycrd.models.EmailAddress" />
 
     </data>
 

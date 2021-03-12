@@ -7,7 +7,7 @@
         <import type="android.net.Uri"/>
         <variable
             name="viewModel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
 
     </data>
 

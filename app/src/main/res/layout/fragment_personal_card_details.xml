@@ -6,7 +6,7 @@
     <data>
         <variable
             name="onboardingViewModel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
 <!--
         <variable
             name="viewModel"

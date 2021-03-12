@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.codedevtech.mycardv2.viewmodel.AddCardViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.AddCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

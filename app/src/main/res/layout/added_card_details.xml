@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.AddedCard" />
+            type="com.spaceandjonin.mycrd.models.AddedCard" />
     </data>
 
     <LinearLayout

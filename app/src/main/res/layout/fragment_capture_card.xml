@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:foreground="@android:color/transparent" />
 
-            <com.codedevtech.mycardv2.utils.AutoFitSurfaceView
+            <com.spaceandjonin.mycrd.utils.AutoFitSurfaceView
                 android:id="@+id/view_finder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

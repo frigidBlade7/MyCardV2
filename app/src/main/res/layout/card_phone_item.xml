@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.PhoneNumber" />
+            type="com.spaceandjonin.mycrd.models.PhoneNumber" />
 
         <variable
             name="size"
@@ -55,7 +55,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/phone" />
 
-        <com.codedevtech.mycardv2.view.ToggleImageButton
+        <com.spaceandjonin.mycrd.view.ToggleImageButton
             android:id="@+id/chevron"
             android:layout_width="24dp"
             android:layout_height="wrap_content"

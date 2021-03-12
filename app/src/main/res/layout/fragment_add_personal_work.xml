@@ -4,10 +4,10 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
         <variable
             name="viewmodel"
-            type="com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
