@@ -3,6 +3,7 @@ package com.codedevtech.mycardv2.viewmodel
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.work.*
 import com.codedevtech.mycardv2.AddCardNavDirections
 import com.codedevtech.mycardv2.AddPersonalCardNavDirections
 import com.codedevtech.mycardv2.R
@@ -12,6 +13,7 @@ import com.codedevtech.mycardv2.fragments.dashboard.AddPersonalWorkFragmentDirec
 import com.codedevtech.mycardv2.models.*
 import com.codedevtech.mycardv2.repositories.PersonalCardsRepository
 import com.codedevtech.mycardv2.services.UpdateImageService
+import com.codedevtech.mycardv2.utils.Utils
 import com.codedevtech.mycardv2.utils.aggregateNameToFullName
 import com.codedevtech.mycardv2.utils.notifyObserver
 import com.codedevtech.mycardv2.utils.segregateFullName
@@ -20,7 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: PersonalCardsRepository, val uploadService: UpdateImageService): BaseViewModel() {
+class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: PersonalCardsRepository, val workManager: WorkManager, val uploadService: UpdateImageService): BaseViewModel() {
 
     var isNameExpanded =  MutableLiveData<Boolean>(false)
     var profileImageUri = MutableLiveData<Uri>()
@@ -162,7 +164,26 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
     private fun updateProfileImage(cardId: String) {
         profileImageUri.value?.let { uri->
 
-            viewModelScope.launch {
+
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+
+            val myUploadWork = OneTimeWorkRequestBuilder<FirebaseFirestoreUploadWorkerLiveCards>()
+                .setInputData(
+                    workDataOf(
+                    Utils.PATH_ID to cardId,
+                    Utils.PHOTO_URI to uri.toString()
+                )
+                )
+                .setConstraints(constraints)
+                .addTag(cardId)
+                .build()
+
+
+            workManager.enqueue(myUploadWork)
+
+/*            viewModelScope.launch {
                 uploadService.setUri(uri)
                 when(val uploadData = uploadService.uploadImage("images/profiles/$cardId")){
                     is Resource.Success->{
@@ -179,7 +200,7 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
 
                     }
                 }
-            }
+            }*/
 
         }
     }
@@ -187,7 +208,24 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
     private fun updateBusinessLogo(cardId: String) {
         businessImageUri.value?.let { uri->
 
-            viewModelScope.launch {
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+
+            val myUploadWork = OneTimeWorkRequestBuilder<FirebaseFirestoreUploadWorkerBusinessImage>()
+                .setInputData(
+                    workDataOf(
+                        Utils.PATH_ID to cardId,
+                        Utils.PHOTO_URI to uri.toString()
+                    )
+                )
+                .setConstraints(constraints)
+                .addTag(cardId)
+                .build()
+
+
+            workManager.enqueue(myUploadWork)
+/*            viewModelScope.launch {
                 uploadService.setUri(uri)
                 when(val uploadData = uploadService.uploadImage("images/companyLogos/$cardId")){
                     is Resource.Success->{
@@ -204,7 +242,7 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
 
                     }
                 }
-            }
+            }*/
 
         }
     }

@@ -120,6 +120,10 @@
     <string name="type_something">Type something</string>
     <string name="add_card">add card</string>
     <string name="my_network">My Network</string>
+    <string name="okay">Okay</string>
+    <string name="no_email_specified_for_this_card_add_and_try_again">No email address added for this card. Add one and try again</string>
+    <string name="no_phone_specified_for_this_card_add_and_try_again">No phone number added for this card. Add one and try again</string>
+    <string name="no_location_specified_for_this_card_add_and_try_again">No work location added for this card. Add one and try again</string>
 
 
     <array name="phone_types">

@@ -16,6 +16,7 @@ import com.codedevtech.mycardv2.adapter.AddedCardAdapter
 import com.codedevtech.mycardv2.adapter.rv.*
 import com.codedevtech.mycardv2.databinding.FragmentAddedCardDetailsBinding
 import com.codedevtech.mycardv2.event.EventObserver
+import com.codedevtech.mycardv2.fragments.dashboard.AlertDialogFragmentDirections
 import com.codedevtech.mycardv2.utils.toByteArray
 import com.codedevtech.mycardv2.viewmodel.OnboardingViewModel
 import com.google.android.material.color.MaterialColors
@@ -129,6 +130,63 @@ class ViewAddedCardDetailsFragment : Fragment() {
             //it.isVisible = false
             //binding.categories.note.groupNote.isVisible = true
             findNavController().navigate(ViewAddedCardDetailsFragmentDirections.actionGlobalUpdateNoteFragment())
+        }
+
+        binding.include.makeCall.setOnClickListener {
+            onboardingViewModel.selectedCard.value?.phoneNumbers?.let {
+
+                if(it.isEmpty()) {
+                    val destination = AlertDialogFragmentDirections.actionGlobalAlertDialogFragment(
+                        R.string.no_phone_specified_for_this_card_add_and_try_again,
+                        R.drawable.phone_icon)
+                    findNavController().navigate(destination)
+
+                } else if(it.size==1){
+
+                }else {
+
+                }
+            }
+        }
+
+        binding.include.sendMail.setOnClickListener {
+            onboardingViewModel.selectedCard.value?.emailAddresses?.let {
+
+                if(it.isEmpty()) {
+
+                    val destination = AlertDialogFragmentDirections.actionGlobalAlertDialogFragment(
+                        R.string.no_email_specified_for_this_card_add_and_try_again,
+                        R.drawable.mail_icon
+                    )
+                    findNavController().navigate(destination)
+
+
+                } else if(it.size==1){
+
+                }
+
+                else {
+
+                }
+            }
+        }
+
+        binding.include.showLocation.setOnClickListener {
+            onboardingViewModel.selectedCard.value?.businessInfo?.companyAddress?.let {
+
+                if(it.isEmpty()) {
+
+                    val destination = AlertDialogFragmentDirections.actionGlobalAlertDialogFragment(
+                        R.string.no_location_specified_for_this_card_add_and_try_again,
+                        R.drawable.location_icon
+                    )
+                    findNavController().navigate(destination)
+
+
+                } else {
+
+                }
+            }
         }
 
         binding.toolbar.setOnMenuItemClickListener {

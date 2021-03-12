@@ -1,7 +1,5 @@
 package com.codedevtech.mycardv2.di
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import com.codedevtech.mycardv2.db.dao.AddedCardDao
 import com.codedevtech.mycardv2.models.datasource.*
 import com.codedevtech.mycardv2.models.datasource.AddedCardDataSource
@@ -35,9 +33,9 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun providesAddedCardDataSource(db: FirebaseFirestore, auth: FirebaseAuth, addedCardDao: AddedCardDao): AddedCardDataSource {
+    fun providesAddedCardDataSource(db: FirebaseFirestore, auth: FirebaseAuth): AddedCardDataSource {
         return FirebaseAddedCardDataSourceImpl(db.collection("users")
-            .document(auth.currentUser!!.uid).collection("addedCards"),addedCardDao)
+            .document(auth.currentUser!!.uid).collection("addedCards"))
     }
 
     @Provides
@@ -55,8 +53,8 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun providesUpdateImageService(fs: FirebaseStorage, datastore: DataStore<Preferences>): UpdateImageService{
-        return FirebaseUpdateImageServiceImpl(fs,datastore)
+    fun providesUpdateImageService(fs: FirebaseStorage): UpdateImageService{
+        return FirebaseUpdateImageServiceImpl(fs)
     }
 
 }

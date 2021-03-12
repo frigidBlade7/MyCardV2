@@ -24,28 +24,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorSurface"
-                style="@style/TextAppearance.MyCardStyles.Headline1"
-                android:minHeight="?attr/actionBarSize"
-                app:elevation="0dp"
-                app:titleMarginStart="24dp"
-                android:paddingStart="0dp"
-                app:title="@string/my_network"
-                app:layout_constraintBottom_toTopOf="@+id/search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/search_bar"
                 android:clickable="true"
@@ -54,7 +38,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/list"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -96,14 +80,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
-                android:transitionGroup="true"
-                android:paddingBottom="80dp"
                 android:clipToPadding="false"
+                android:paddingBottom="80dp"
+                android:transitionGroup="true"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search"
                 tools:itemCount="4"

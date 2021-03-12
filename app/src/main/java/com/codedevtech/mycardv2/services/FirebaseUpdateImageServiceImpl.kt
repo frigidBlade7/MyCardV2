@@ -2,9 +2,6 @@ package com.codedevtech.mycardv2.services
 
 import android.net.Uri
 import android.util.Log
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
 import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.models.Resource
 import com.codedevtech.mycardv2.utils.Utils
@@ -17,7 +14,7 @@ import javax.inject.Inject
 private const val TAG = "FirebaseUpdateImageServ"
 
 
-class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseStorage, val dataStore: DataStore<Preferences>): UpdateImageService {
+class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseStorage): UpdateImageService {
 
 
     val reference = storage.reference.child("images")
@@ -53,12 +50,6 @@ class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseSt
             Log.d(TAG, "uploadImage: ${e.localizedMessage}")
             Log.d(TAG, "uploadImage: ${e.getCode()}")
             //todo save session url
-            dataStore.edit { settings->
-                val currentPendingSet = settings[Utils.PENDING_URI_LIST]
-                val list = currentPendingSet?.toMutableList()
-                list?.add(sessionUri.toString())
-                settings[Utils.PENDING_URI_LIST] = list?.toSet().orEmpty()
-            }
             Resource.Error(R.string.failed)
         }
     }

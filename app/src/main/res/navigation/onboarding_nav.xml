@@ -450,4 +450,17 @@
         tools:layout="@layout/fragment_update_note" />
     <action android:id="@+id/action_global_updateNoteFragment" app:destination="@id/updateNoteFragment"/>
 
+    <dialog
+        android:id="@+id/alertDialogFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.AlertDialogFragment"
+        tools:layout="@layout/fragment_alert_dialog">
+        <argument
+            android:name="messageId"
+            app:argType="reference" />
+        <argument
+            android:name="drawableId"
+            app:argType="reference" />
+    </dialog>
+    <action android:id="@+id/action_global_alertDialogFragment" app:destination="@id/alertDialogFragment" />
+
 </navigation>

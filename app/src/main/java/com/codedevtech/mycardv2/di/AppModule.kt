@@ -2,9 +2,7 @@ package com.codedevtech.mycardv2.di
 
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
+import androidx.work.WorkManager
 import com.codedevtech.mycardv2.converters.EmailAddressConverter
 import com.codedevtech.mycardv2.converters.PhoneNumberConverter
 import com.codedevtech.mycardv2.converters.SocialMediaProfileConverter
@@ -26,7 +24,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 
 object AppModule {
-    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
     @Provides
     @Singleton
@@ -61,12 +58,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
-        return context.dataStore
-    }
-
-    @Provides
-    @Singleton
     fun providesNetworkInfo(@ApplicationContext context: Context): ConnectivityManager{
         return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -84,11 +75,11 @@ object AppModule {
         return appDb.addedCardsDao()
     }
 
-/*    @Provides
+    @Provides
     @Singleton
-    fun providesAuthenticationService(auth: FirebaseAuth): AuthenticationService{
-        return AuthenticationServiceImpl(auth)
-    }*/
+    fun providesWorkManager(@ApplicationContext applicationContext: Context): WorkManager{
+        return WorkManager.getInstance(applicationContext)
+    }
 
 }
 

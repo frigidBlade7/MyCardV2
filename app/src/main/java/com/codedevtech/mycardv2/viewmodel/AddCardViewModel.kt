@@ -1,5 +1,6 @@
 package com.codedevtech.mycardv2.viewmodel
 
+import android.app.Application
 import android.content.Context
 import android.net.Uri
 import android.util.Log
@@ -26,7 +27,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddCardViewModel @Inject constructor(@ApplicationContext val applicationContext: Context, val addedCardsRepository: AddedCardsRepository, val uploadService: UpdateImageService): BaseViewModel() {
+class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCardsRepository, val workManager: WorkManager): BaseViewModel() {
 
     var isNameExpanded =  MutableLiveData<Boolean>(false)
     var profileImageUri = MutableLiveData<Uri>()
@@ -210,7 +211,7 @@ class AddCardViewModel @Inject constructor(@ApplicationContext val applicationCo
 
             val myUploadWork = OneTimeWorkRequestBuilder<FirebaseFirestoreUploadWorker>()
                 .setInputData(workDataOf(
-                    Utils.PATH_ID to "profiles/$cardId",
+                    Utils.PATH_ID to cardId,
                     Utils.PHOTO_URI to uri.toString()
                 ))
                 .setConstraints(constraints)
@@ -218,7 +219,7 @@ class AddCardViewModel @Inject constructor(@ApplicationContext val applicationCo
                 .build()
 
 
-            WorkManager.getInstance(applicationContext).enqueue(myUploadWork)
+            workManager.enqueue(myUploadWork)
             //_uploadWork.postValue(Event(myUploadWork))
 
 

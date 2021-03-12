@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.codedevtech.mycardv2.databinding.ActivityMainBinding
 import com.codedevtech.mycardv2.fragments.dashboard.CardsFragmentDirections
@@ -59,6 +60,12 @@ class MainActivity : AppCompatActivity() {
            navController = Navigation.findNavController(this@MainActivity, R.id.fragment)
            bottomNav.setupWithNavController(navController)
 
+           bottomNav.setOnNavigationItemSelectedListener {
+               if (it.itemId != bottomNav.selectedItemId)
+                   NavigationUI.onNavDestinationSelected(it, navController)
+               true
+
+           }
            addCard.setOnClickListener {
 
                when(navController.currentDestination?.id) {

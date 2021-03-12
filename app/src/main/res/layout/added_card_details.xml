@@ -68,16 +68,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/make_call"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/send_mail"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/send_mail"
-                app:srcCompat="@drawable/phone" />
-
             <TextView
                 android:id="@+id/textView8"
                 style="@style/TextAppearance.MyCardStyles.Label"
@@ -115,7 +105,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/show_location" />
 
             <ImageView
+                android:id="@+id/make_call"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/send_mail"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/send_mail"
+                app:srcCompat="@drawable/phone" />
+
+            <ImageView
                 android:id="@+id/send_mail"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="31dp"
@@ -131,6 +133,7 @@
                 android:id="@+id/show_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/send_mail"

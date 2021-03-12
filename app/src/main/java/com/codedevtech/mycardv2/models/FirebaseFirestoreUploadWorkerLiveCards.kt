@@ -13,6 +13,7 @@ import com.codedevtech.mycardv2.R
 import com.codedevtech.mycardv2.db.dao.AddedCardDao
 import com.codedevtech.mycardv2.models.datasource.AddedCardDataSource
 import com.codedevtech.mycardv2.models.datasource.FirebaseAddedCardDataSourceImpl
+import com.codedevtech.mycardv2.models.datasource.FirebaseLiveCardDataSourceImpl
 import com.codedevtech.mycardv2.repositories.AddedCardsRepository
 import com.codedevtech.mycardv2.utils.Utils
 
@@ -28,7 +29,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 //@HiltWorker
-class FirebaseFirestoreUploadWorker @AssistedInject constructor(/*@Assisted*/ appContext: Context,
+class FirebaseFirestoreUploadWorkerLiveCards @AssistedInject constructor(/*@Assisted*/ appContext: Context,
                                                                 /*@Assisted */workerParams: WorkerParameters
 ):
     CoroutineWorker(appContext, workerParams) {
@@ -64,8 +65,8 @@ class FirebaseFirestoreUploadWorker @AssistedInject constructor(/*@Assisted*/ ap
 
             }.await()
 
-            FirebaseAddedCardDataSourceImpl(FirebaseFirestore.getInstance().collection("users")
-                .document(FirebaseAuth.getInstance().currentUser!!.uid).collection("addedCards")).updateCardProfilePhoto(uri.toString(),cardId)
+            FirebaseLiveCardDataSourceImpl(FirebaseFirestore.getInstance().collection("personalCards"))
+                .updateCardProfilePhoto(uri.toString(),cardId)
 
             Resource.Success(uri)
 
