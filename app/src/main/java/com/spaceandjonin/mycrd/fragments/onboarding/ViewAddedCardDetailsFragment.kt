@@ -1,6 +1,9 @@
 package com.spaceandjonin.mycrd.fragments.onboarding
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -138,9 +141,15 @@ class ViewAddedCardDetailsFragment : Fragment() {
                     findNavController().navigate(destination)
 
                 } else if(it.size==1){
-
+                    Uri.parse("tel:${it[0].number}")?.let { number ->
+                        try {
+                            startActivity(Intent(Intent.ACTION_DIAL, number))
+                        } catch (e: ActivityNotFoundException) {
+                            // Define what your app should do if no activity can handle the intent.
+                        }
+                    }
                 }else {
-
+                    findNavController().navigate(ViewAddedCardDetailsFragmentDirections.actionGlobalSelectPhoneNumberFragment())
                 }
             }
         }
@@ -157,11 +166,21 @@ class ViewAddedCardDetailsFragment : Fragment() {
                     findNavController().navigate(destination)
 
 
-                } else if(it.size==1){
+                } else if(it.size==1) {
+                            try {
+                                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                                    data = Uri.parse("mailto:${it[0].address}") // only email apps should handle this
+                                    putExtra(Intent.EXTRA_EMAIL, it[0].address)
+                                }
+                                startActivity(intent)
+                            } catch (e: ActivityNotFoundException) {
+                                // Define what your app should do if no activity can handle the intent.
+                            }
 
                 }
 
                 else {
+                    findNavController().navigate(ViewAddedCardDetailsFragmentDirections.actionGlobalSelectEmailFragment())
 
                 }
             }
@@ -180,7 +199,15 @@ class ViewAddedCardDetailsFragment : Fragment() {
 
 
                 } else {
-
+                    Uri.parse(
+                        "geo:0,0?q=$it"
+                    )?.let { location ->
+                        try {
+                            startActivity(Intent(Intent.ACTION_VIEW, location))
+                        } catch (e: ActivityNotFoundException) {
+                            // Define what your app should do if no activity can handle the intent.
+                        }
+                    }
                 }
             }
         }

@@ -82,7 +82,6 @@ class MeFragment : Fragment(), SocialItemInteraction {
         binding.include.pager.adapter = cardAdapter
         binding.include.email.list.adapter = extraEmailAddressAdapter
         binding.include.phone.list.adapter = extraPhoneNumbersAdapter
-        binding.include.socialMedia.socialItems.adapter = socialAdapter
         binding.include.socialMedia.socialItems.setHasFixedSize(true)
 
         cardViewModel.selectedPersonalCard.observe(viewLifecycleOwner){
@@ -92,6 +91,8 @@ class MeFragment : Fragment(), SocialItemInteraction {
                 if (it.emailAddresses.size > 1)
                     extraEmailAddressAdapter.submitList(it.emailAddresses.drop(1))
                 socialAdapter.submitList(it.socialMediaProfiles.toList())
+                binding.include.socialMedia.socialItems.adapter = socialAdapter
+
             }
 
         }

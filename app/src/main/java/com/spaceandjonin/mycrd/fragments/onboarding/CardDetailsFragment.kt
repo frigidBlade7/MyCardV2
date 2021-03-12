@@ -1,5 +1,8 @@
 package com.spaceandjonin.mycrd.fragments.onboarding
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -98,7 +101,16 @@ class CardDetailsFragment : Fragment() {
                         R.drawable.phone_icon)
                     findNavController().navigate(destination)
 
-                } else {
+                } else if(it.size==1){
+                    Uri.parse("tel:${it[0].number}")?.let { number ->
+                        try {
+                            startActivity(Intent(Intent.ACTION_DIAL, number))
+                        } catch (e: ActivityNotFoundException) {
+                            // Define what your app should do if no activity can handle the intent.
+                        }
+                    }
+                }else {
+                    findNavController().navigate(CardDetailsFragmentDirections.actionGlobalSelectPhoneNumberFragment())
 
                 }
             }
@@ -116,7 +128,22 @@ class CardDetailsFragment : Fragment() {
                     findNavController().navigate(destination)
 
 
-                } else {
+                } else if(it.size==1) {
+                    try {
+                        val intent = Intent(Intent.ACTION_SENDTO).apply {
+                            data = Uri.parse("mailto:${it[0].address}") // only email apps should handle this
+                            putExtra(Intent.EXTRA_EMAIL, it[0].address)
+                        }
+                        startActivity(intent)
+                    } catch (e: ActivityNotFoundException) {
+                        // Define what your app should do if no activity can handle the intent.
+                    }
+
+                }
+
+                else {
+                    findNavController().navigate(CardDetailsFragmentDirections.actionGlobalSelectEmailFragment())
+
 
                 }
             }
@@ -135,7 +162,15 @@ class CardDetailsFragment : Fragment() {
 
 
                 } else {
-
+                    Uri.parse(
+                        "geo:0,0?q=$it"
+                    )?.let { location ->
+                        try {
+                            startActivity(Intent(Intent.ACTION_VIEW, location))
+                        } catch (e: ActivityNotFoundException) {
+                            // Define what your app should do if no activity can handle the intent.
+                        }
+                    }
                 }
             }
         }

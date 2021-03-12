@@ -462,5 +462,13 @@
             app:argType="reference" />
     </dialog>
     <action android:id="@+id/action_global_alertDialogFragment" app:destination="@id/alertDialogFragment" />
+    <dialog
+        android:id="@+id/selectEmailFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.SelectEmailFragment"
+        tools:layout="@layout/fragment_select_email" />
+    <dialog
+        android:id="@+id/selectPhoneNumberFragment"
+        android:name="com.codedevtech.mycardv2.fragments.dashboard.SelectPhoneNumberFragment"
+        tools:layout="@layout/fragment_select_phone_number" /><action android:id="@+id/action_global_selectPhoneNumberFragment" app:destination="@id/selectPhoneNumberFragment"/><action android:id="@+id/action_global_selectEmailFragment" app:destination="@id/selectEmailFragment"/>
 
 </navigation>
