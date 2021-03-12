@@ -5,10 +5,10 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
         <variable
             name="viewmodel"
-            type="com.spaceandjonin.mycrd.viewmodel.AddCardViewModel" />
+            type="com.codedevtech.mycardv2.viewmodel.AddCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -324,7 +324,7 @@
                         android:text="@={viewmodel.name.fullName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.spaceandjonin.mycrd.view.ToggleImageButton
+                <com.codedevtech.mycardv2.view.ToggleImageButton
                     android:id="@+id/full_name_chevron"
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"

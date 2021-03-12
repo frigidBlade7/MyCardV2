@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/scanFragment"
         tools:layout="@layout/scan_fragment_layout"
-        android:name="com.spaceandjonin.mycrd.fragments.ScanFragment"
+        android:name="com.codedevtech.mycardv2.fragments.ScanFragment"
         android:label="ScanFragment" />
 </navigation>

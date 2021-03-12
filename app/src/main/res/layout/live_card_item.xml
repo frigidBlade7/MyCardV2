@@ -7,8 +7,8 @@
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="com.spaceandjonin.mycrd.models.LiveCard"/>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+            type="com.codedevtech.mycardv2.models.LiveCard"/>
+        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

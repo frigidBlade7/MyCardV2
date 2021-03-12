@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
 
         <variable
             name="viewModel"
-            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
+            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

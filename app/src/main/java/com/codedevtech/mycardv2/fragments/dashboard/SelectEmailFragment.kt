@@ -86,10 +86,10 @@ class SelectEmailFragment : BottomSheetDialogFragment(), ItemInteraction<EmailAd
                 putExtra(Intent.EXTRA_EMAIL, item.address)
             }
             startActivity(intent)
+
         } catch (e: ActivityNotFoundException) {
             // Define what your app should do if no activity can handle the intent.
         }
-
         dismiss()
     }
 

@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="com.spaceandjonin.mycrd.models.LiveCard" />
+            type="com.codedevtech.mycardv2.models.LiveCard" />
     </data>
 
     <LinearLayout

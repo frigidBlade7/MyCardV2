@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
         <variable
             name="name"
-            type="com.spaceandjonin.mycrd.models.Name" />
+            type="com.codedevtech.mycardv2.models.Name" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

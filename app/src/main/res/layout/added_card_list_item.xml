@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
         <import type="android.view.View"/>
 
         <variable
             name="item"
-            type="com.spaceandjonin.mycrd.models.AddedCard" />
+            type="com.codedevtech.mycardv2.models.AddedCard" />
         <variable
             name="position"
             type="Integer" />

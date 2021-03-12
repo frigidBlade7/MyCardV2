@@ -6,7 +6,7 @@
     <data>
         <variable
             name="workInfo"
-            type="com.spaceandjonin.mycrd.models.BusinessInfo" />
+            type="com.codedevtech.mycardv2.models.BusinessInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
