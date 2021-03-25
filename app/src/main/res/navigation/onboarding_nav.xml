@@ -409,6 +409,9 @@
             <action
                 android:id="@+id/action_settingsFragment_to_confirmNumberResetFragment"
                 app:destination="@id/confirmNumberResetFragment" />
+            <action
+                android:id="@+id/action_settingsFragment_to_profilePhotoActionsFragment"
+                app:destination="@id/profilePhotoActionsFragment" />
         </fragment>
         <fragment
             android:id="@+id/updateDisplayNameFragment"
@@ -452,6 +455,10 @@
                 android:name="newPhoneNumber"
                 app:argType="string" />
         </fragment>
+        <dialog
+            android:id="@+id/profilePhotoActionsFragment"
+            android:name="com.spaceandjonin.mycrd.fragments.dashboard.ProfilePhotoActionsFragment"
+            tools:layout="@layout/fragment_profile_photo_actions" />
 
     </navigation>
     <action

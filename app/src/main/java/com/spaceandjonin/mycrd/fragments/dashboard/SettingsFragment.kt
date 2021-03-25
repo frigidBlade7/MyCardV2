@@ -37,7 +37,6 @@ class SettingsFragment : Fragment() {
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
@@ -61,10 +60,10 @@ class SettingsFragment : Fragment() {
                 findNavController().navigate(it)
         })
 
-
+/*
         binding.updateIcon.setOnClickListener {
             callGallery()
-        }
+        }*/
 
 
         binding.toolbar.setNavigationOnClickListener {
@@ -82,57 +81,6 @@ class SettingsFragment : Fragment() {
 
         return binding.root
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        // handle result of pick image chooser
-        if (requestCode == Utils.REQUEST_IMAGE_GET && resultCode == Activity.RESULT_OK) {
-            val imageUri: Bitmap? = data?.getParcelableExtra("data")
-
-            val fullPhotoUri: Uri? = data?.data
-            CropImage.activity(fullPhotoUri)
-                .setAspectRatio(1,1)
-                .start(requireContext(), this)
-
-        }
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            val result = CropImage.getActivityResult(data)
-            if (resultCode == Activity.RESULT_OK) {
-                viewmodel.profileImageUri.value = result?.uri
-                viewmodel.updateProfile()
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Toast.makeText(context, result?.error?.message, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-
-    }
-    @AfterPermissionGranted(Utils.REQUEST_PHOTO)
-    private fun callGallery() {
-        if (EasyPermissions.hasPermissions(requireContext(), Utils.STORAGE_PERMISSION)) {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "image/*"
-            }
-            if (activity?.packageManager?.let { intent.resolveActivity(it) } != null) {
-                startActivityForResult(intent, Utils.REQUEST_IMAGE_GET)
-            }
-        } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.require_gallery),
-                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION)
-        }
-
-    }
-
 
 
 }

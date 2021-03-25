@@ -1,6 +1,7 @@
 package com.spaceandjonin.mycrd.viewmodel
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
@@ -25,20 +26,27 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.spaceandjonin.mycrd.R
+import com.spaceandjonin.mycrd.di.ImageFile
+import com.spaceandjonin.mycrd.fragments.dashboard.AddCardFragmentDirections
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val uploadService: UpdateImageService,
     private val auth: FirebaseAuth,
+    @ImageFile val imageFile: File?,
     @AuthService private val authenticationService: AuthenticationService,
     private val userDataSourceImpl: FirebaseUserDataSourceImpl, val appDb: AppDb, val db: FirebaseFirestore
 ) : BaseViewModel() {
 
-    var profileImageUri = MutableLiveData<Uri>()
+    var profileImageUri = MutableLiveData<Uri>(Uri.EMPTY)
     var user = MutableLiveData(User(auth.uid!!))
     var isVerifyButtonEnabled = MutableLiveData(true)
     var isResendButtonEnabled = MutableLiveData(true)
@@ -61,6 +69,8 @@ class SettingsViewModel @Inject constructor(
 
         }
 
+
+
         override fun onAuthCredentialSent(phoneAuthCredential: PhoneAuthCredential) {
             viewModelScope.launch {
                 authenticationService.attemptAuth(phoneAuthCredential)
@@ -77,6 +87,11 @@ class SettingsViewModel @Inject constructor(
 
         }
 
+    }
+
+    fun showPhotoOptions(){
+        val action = SettingsFragmentDirections.actionSettingsFragmentToProfilePhotoActionsFragment()
+        _destination.value = Event(action)
     }
 
     fun resendCode(){
@@ -162,6 +177,48 @@ class SettingsViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun removePhoto() {
+        profileImageUri.value = Uri.EMPTY
+
+        viewModelScope.launch {
+
+            profileImageUri.value?.let {
+                when(val data = userDataSourceImpl.updateImage(it)){
+                    is Resource.Success -> {
+                        //todo hide loader
+                            try {
+                                FirebaseStorage.getInstance().reference.child("images")
+                                    .child("profiles/${auth.currentUser?.uid}").delete().await()
+
+
+                                user.value?.profileUrl = ""
+                                user.notifyObserver()
+                                _snackbarInt.postValue(Event(R.string.success))
+                            } catch (e: Exception) {
+                                Log.d(Companion.TAG, "removePhoto: ${e.localizedMessage}")
+                            }
+
+                    }
+                    is Resource.Error ->{
+                        //todo hide loader
+                        _snackbarInt.postValue(Event(data.errorCode))
+
+                    }
+
+                    is Resource.Loading->{
+                        //todo show loader
+                        _snackbarInt.postValue(Event(R.string.adding_card))
+                    }
+                }
+            }
+            //onsuccess
+        }
+    }
+
+    companion object {
+        private const val TAG = "SettingsViewModel"
     }
 
 }
