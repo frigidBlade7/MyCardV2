@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="work_info"
-            type="com.codedevtech.mycardv2.models.BusinessInfo" />
+            name="workInfo"
+            type="com.spaceandjonin.mycrd.models.BusinessInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +19,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
+            app:contentPadding="8dp"
+            app:srcCompat="@drawable/office"
+            app:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"
@@ -52,6 +55,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:ellipsize="marquee"
+            android:text="@{workInfo.companyName}"
             android:textAlignment="textStart"
             app:layout_constraintBottom_toTopOf="@+id/type"
             app:layout_constraintEnd_toEndOf="@+id/heading"
@@ -68,6 +73,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:textAlignment="textStart"
+            android:text="@{workInfo.role}"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/role"
@@ -76,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@+id/role"
             tools:text="Nate Att" />
 
-        <ImageView
+<!--        <ImageView
             android:id="@+id/imageView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,6 +91,6 @@
             app:layout_constraintStart_toStartOf="@+id/background"
             app:layout_constraintTop_toTopOf="@+id/background"
             app:srcCompat="@drawable/office"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

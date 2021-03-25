@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,17 +17,18 @@
 
         <TextView
             android:id="@+id/edit"
-            android:layout_marginTop="32dp"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
             android:layout_width="0dp"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:drawablePadding="16dp"
+            android:focusable="true"
+            android:padding="16dp"
             android:text="@string/edit_card"
             app:drawableStartCompat="@drawable/edit"
-            android:padding="16dp"
-            android:drawablePadding="16dp"
             app:layout_constraintBottom_toTopOf="@+id/add"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,15 +37,17 @@
 
         <TextView
             android:id="@+id/add"
-            android:layout_width="0dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_height="wrap_content"
             style="@style/TextAppearance.MyCardStyles.Body.Body"
-            android:text="@string/add_to_collection"
-            android:padding="16dp"
-            app:drawableStartCompat="@drawable/add_to_collection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
             android:drawablePadding="16dp"
+            android:focusable="true"
+            android:padding="16dp"
+            android:text="@string/add_to_collection"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/add_to_collection"
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,14 +56,16 @@
 
         <TextView
             android:id="@+id/view"
-            android:layout_width="0dp"
-            android:clickable="true"
-            android:focusable="true"
             style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/view_card_qr"
-            android:padding="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
             android:drawablePadding="16dp"
+            android:focusable="true"
+            android:padding="16dp"
+            android:text="@string/view_card_qr"
+            android:visibility="gone"
             app:drawableStartCompat="@drawable/scan_card_qr"
             app:layout_constraintBottom_toTopOf="@+id/export"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,15 +74,17 @@
 
         <TextView
             android:id="@+id/export"
-            android:clickable="true"
-            android:focusable="true"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/export_to_contacts"
-            app:drawableStartCompat="@drawable/contacts"
-            android:padding="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
             android:drawablePadding="16dp"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:focusable="true"
+            android:padding="16dp"
+            android:text="@string/export_to_contacts"
+            android:visibility="visible"
+            app:drawableStartCompat="@drawable/contacts"
             app:layout_constraintBottom_toTopOf="@+id/delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,20 +92,21 @@
 
         <TextView
             android:id="@+id/delete"
+            style="@style/TextAppearance.MyCardStyles.Body.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/delete_card"
-            android:padding="16dp"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true"
-            android:focusable="true"
-            android:drawableTint="@color/mc_red"
-            android:textColor="@color/mc_red"
             android:drawablePadding="16dp"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            android:focusable="true"
+            android:padding="16dp"
+            android:text="@string/delete_card"
+            android:textColor="@color/mc_red"
+            app:drawableStartCompat="@drawable/delete"
+            app:drawableTint="@color/mc_red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/export"
-            app:drawableStartCompat="@drawable/delete" />
+            app:layout_constraintTop_toBottomOf="@+id/export" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

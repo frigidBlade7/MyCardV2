@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="56dp"
-                android:src="@drawable/onboarding_illustration_1"
+                app:srcCompat="@drawable/onboarding_illustration_1"
                 app:layout_constraintBottom_toTopOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -58,7 +58,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{()->viewModel.goToSkip()}"
-                android:src="@drawable/forward"
+                app:srcCompat="@drawable/forward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title" />

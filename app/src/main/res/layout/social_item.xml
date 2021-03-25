@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.SocialMediaProfile" />
+            type="com.spaceandjonin.mycrd.models.SocialMediaProfile" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="4dp"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_marginBottom="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/icon"
-            socialMediaDrawableResource="@{item.socialMedia}"
+            socialMediaDrawableResource="@{item.type}"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="16dp"
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@{item.socialMedia.toString()}"
+            android:text="@{item.usernameOrUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/edit"
             app:layout_constraintHorizontal_bias="0.5"
@@ -45,13 +46,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:rotation="270"
             app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/title"
             app:layout_constraintTop_toTopOf="@+id/title"
-            app:srcCompat="@drawable/drop" />
+            app:srcCompat="@drawable/next" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

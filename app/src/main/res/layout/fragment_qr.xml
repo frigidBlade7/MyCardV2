@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
 
         <variable
             name="viewModel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,7 +76,7 @@
                     style="@style/TextAppearance.MyCardStyles.Body.Semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{ExtensionsKt.initials(viewModel.selectedCard)}"
+                    android:text="@{ExtensionsKt.initials(viewModel.selectedCard.name)}"
                     android:textColor="@color/mc_blue"
                     app:layout_constraintBottom_toBottomOf="@+id/background"
                     app:layout_constraintEnd_toEndOf="@+id/background"
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="@{ExtensionsKt.fullname(viewModel.selectedCard)}"
+                    android:text="@{ExtensionsKt.fullname(viewModel.selectedCard.name)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/background" />
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="38dp"
-                    android:text="@{ExtensionsKt.fullname(viewModel.selectedCard)}"
+                    android:text="@{ExtensionsKt.fullname(viewModel.selectedCard.name)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="item"
+            type="com.spaceandjonin.mycrd.viewmodel.AddCardViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="56dp"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:layout_anchor="@+id/top"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pager"
+                app:tabBackground="@drawable/indicator_selector"
+                app:tabIndicator="@null">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/name"
+            app:name="@{item.card.name}"
+            layout="@layout/card_name_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/phone"
+            app:item="@{item.card.phoneNumbers.empty?null:item.card.phoneNumbers.get(0)}"
+            app:size="@{item.card.phoneNumbers.size()}"
+            layout="@layout/card_phone_item"
+            android:visibility="@{item.card.phoneNumbers.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:visibility="@{item.card.phoneNumbers.empty?View.GONE: View.VISIBLE}"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/email"
+            app:item="@{item.card.emailAddresses.empty?null:item.card.emailAddresses.get(0)}"
+            app:size="@{item.card.emailAddresses.size()}"
+            layout="@layout/card_email_item"
+            android:visibility="@{item.card.emailAddresses.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:visibility="@{item.card.emailAddresses.empty?View.GONE: View.VISIBLE}"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/work"
+            app:workInfo="@{item.card.businessInfo}"
+            android:visibility="@{item.card.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
+            layout="@layout/card_work_info_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:visibility="@{item.card.businessInfo.companyName.empty?View.GONE: View.VISIBLE}"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/work_location"
+            app:location="@{item.card.businessInfo.companyAddress}"
+            android:visibility="@{item.card.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
+            layout="@layout/card_work_location_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:visibility="@{item.card.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider" />
+
+        <include
+            android:id="@+id/social_media"
+            layout="@layout/card_social_media_item_flexible"
+            android:visibility="@{item.card.socialMediaProfiles.empty?View.GONE: View.VISIBLE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider"
+            android:visibility="@{item.card.socialMediaProfiles.empty?View.GONE: View.VISIBLE}" />
+
+        <include
+            android:id="@+id/note"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            layout="@layout/card_note_item_editable"
+            app:viewModel="@{item}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>

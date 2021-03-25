@@ -3,12 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="social"
-            type="com.codedevtech.mycardv2.models.SocialMediaProfile" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -31,20 +25,24 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/social_media" />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/social_items"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="24dp"
             android:layout_marginBottom="16dp"
-            android:divider="@null"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:nestedScrollingEnabled="false"
             android:textAlignment="textStart"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/heading"
+            tools:itemCount="4"
             tools:listitem="@layout/social_media_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

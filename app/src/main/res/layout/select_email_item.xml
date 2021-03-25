@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.spaceandjonin.mycrd.converters.EmailTypeConverter"/>
+        <variable
+            name="item"
+            type="com.spaceandjonin.mycrd.models.EmailAddress" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        style="@style/TextAppearance.MyCardStyles.Body.Body"
+        android:text="@{item.address}"
+        android:drawablePadding="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingEnd="24dp"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall">
+
+    </TextView>
+</layout>

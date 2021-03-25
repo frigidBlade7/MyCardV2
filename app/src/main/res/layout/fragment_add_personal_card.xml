@@ -5,16 +5,19 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
         <variable
             name="viewmodel"
-            type="com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:animateLayoutChanges="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:transitionName="add_card"
+        android:background="?attr/colorSurface"
+        android:animateLayoutChanges="true">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -82,14 +85,15 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/profile_icon"
-                    app:shapeAppearanceOverlay="@style/CircularImageView"
+                    imageDisplayUrl="@{viewmodel.card.profilePicUrl}"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="28dp"
-                    android:src="@drawable/user_default"
+                    app:srcCompat="@drawable/user_default"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title" />
+                    app:layout_constraintTop_toBottomOf="@+id/title"
+                    app:shapeAppearanceOverlay="@style/CircularImageView" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/update_icon"
@@ -98,8 +102,9 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="60dp"
                     android:clickable="true"
+                    android:onClick="@{()->viewmodel.showPhotoOptions()}"
                     android:focusable="true"
-                    android:src="@drawable/camera_icon"
+                    app:srcCompat="@drawable/camera_icon"
                     app:fabSize="mini"
                     app:layout_constraintStart_toStartOf="@+id/profile_icon"
                     app:layout_constraintTop_toTopOf="@+id/profile_icon" />
@@ -151,14 +156,14 @@
                         android:layout_marginTop="16dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:src="@drawable/add"
+                        app:srcCompat="@drawable/add"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/first" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/phoneItems"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -203,6 +208,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/add_another_field"
+                        android:visibility="gone"
                         app:icon="@drawable/add"
                         app:iconGravity="textStart"
                         app:iconPadding="8dp"
@@ -217,9 +223,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
-                        android:onClick="@{()->viewmodel.goToWorkProfile()}"
                         android:layout_marginBottom="24dp"
+                        android:onClick="@{()->viewmodel.goToWorkProfile()}"
                         android:text="@string/next"
+                        android:enabled="@{ExtensionsKt.isNotEmpty(viewmodel.name)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -255,8 +262,9 @@
                         android:layout_marginTop="16dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:text="@{ExtensionsKt.hasAtLeastOne(viewmodel.socials)? @string/add_another_profile:@string/add_a_profile}"
                         android:onClick="@{()->viewmodel.goToSocialProfile()}"
+                        android:text="@{ExtensionsKt.hasAtLeastOne(viewmodel.socials)? @string/add_another_profile:@string/add_a_profile}"
+                        android:visibility="@{ExtensionsKt.hasAll(viewmodel.socials)?View.GONE: View.VISIBLE}"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimary"
                         app:layout_constraintStart_toStartOf="parent"
@@ -267,14 +275,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:src="@drawable/add"
+                        app:srcCompat="@drawable/add"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/second" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/email_items"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -307,16 +315,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView6">
 
                     <com.google.android.material.textfield.TextInputEditText
+
+                        android:id="@+id/full_name_field"
                         style="@style/TextAppearance.MyCardStyles.Body.Body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:hint="@string/full_name"
-                        android:inputType="textPersonName"
-                        android:maxLines="1" />
+                        android:inputType="textPersonName|textCapWords"
+                        android:maxLines="1"
+                        android:text="@={viewmodel.name.fullName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageButton
+                <com.spaceandjonin.mycrd.view.ToggleImageButton
                     android:id="@+id/full_name_chevron"
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"
@@ -325,18 +336,18 @@
                     android:background="?attr/colorSurface"
                     android:clickable="true"
                     android:focusable="true"
-                    android:src="@drawable/chevron"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/full_name_layout"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:srcCompat="@drawable/chevron" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/name_expanded_layout"
                     android:layout_width="0dp"
-                    android:animateLayoutChanges="true"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="32dp"
+                    android:animateLayoutChanges="true"
                     android:visibility="@{viewmodel.isNameExpanded? View.VISIBLE: View.GONE }"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -359,8 +370,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/prefix"
-                            android:inputType="textPersonName"
-                            android:maxLines="1" />
+                            android:inputType="textPersonName|textCapWords"
+                            android:maxLines="1"
+                            android:text="@={viewmodel.name.prefix}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -380,8 +392,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/first_name"
-                            android:inputType="textPersonName"
-                            android:maxLines="1" />
+                            android:inputType="textPersonName|textCapWords"
+                            android:maxLines="1"
+                            android:text="@={viewmodel.name.firstName}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -401,8 +414,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/middle_name"
-                            android:inputType="textPersonName"
-                            android:maxLines="1" />
+                            android:inputType="textPersonName|textCapWords"
+                            android:maxLines="1"
+                            android:text="@={viewmodel.name.middleName}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -421,8 +435,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/last_name"
-                            android:inputType="textPersonName"
-                            android:maxLines="1" />
+                            android:inputType="textPersonName|textCapWords"
+                            android:maxLines="1"
+                            android:text="@={viewmodel.name.lastName}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -441,8 +456,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/suffix"
-                            android:inputType="textPersonName"
-                            android:maxLines="1" />
+                            android:inputType="textPersonName|textCapWords"
+                            android:maxLines="1"
+                            android:text="@={viewmodel.name.suffix}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
