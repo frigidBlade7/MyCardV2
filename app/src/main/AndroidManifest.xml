@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.codedevtech.mycardv2">
+    package="com.spaceandjonin.mycrd">
+
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18"/>
     <queries>
         <!-- Browser -->
         <intent>
@@ -20,9 +25,9 @@
     </queries>
 <!--    <uses-feature
         android:name="android.hardware.camera2"
-        android:required="false" />
+        android:required="false" />-->
 
-    <uses-permission android:name="android.permission.CAMERA" />-->
+    <uses-permission android:name="android.permission.CAMERA" />
 <!--
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 -->
@@ -30,7 +35,7 @@
 
 
     <application
-        android:name=".MyCardApplication"
+        android:name="com.spaceandjonin.mycrd.MyCardApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,25 +43,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.spaceandjonin.mycrd.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/CropTheme" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.spaceandjonin.mycrd.MainActivity"
             android:theme="@style/SplashTheme">
+            <nav-graph android:value="@navigation/onboarding_nav"/>
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- Register as a system camera app -->
+<!--            &lt;!&ndash; Register as a system camera app &ndash;&gt;
             <intent-filter>
                 <action android:name="android.media.action.IMAGE_CAPTURE" />
                 <action android:name="android.media.action.STILL_IMAGE_CAMERA" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
     </application>
 

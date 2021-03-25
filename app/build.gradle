@@ -12,12 +12,19 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.codedevtech.mycardv2"
+        applicationId "com.spaceandjonin.mycrd"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 17
-        versionName "1.0.13"
+        versionCode 24
+        versionName "1.0.14"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOptions {
+        //checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 
     kotlinOptions {
@@ -26,7 +33,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

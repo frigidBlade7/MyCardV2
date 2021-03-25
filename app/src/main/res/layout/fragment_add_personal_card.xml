@@ -5,10 +5,10 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
         <variable
             name="viewmodel"
-            type="com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,7 +85,7 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/profile_icon"
-                    imageUrl="@{viewmodel.card.profilePicUrl}"
+                    imageDisplayUrl="@{viewmodel.card.profilePicUrl}"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="28dp"
@@ -102,6 +102,7 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="60dp"
                     android:clickable="true"
+                    android:onClick="@{()->viewmodel.showPhotoOptions()}"
                     android:focusable="true"
                     app:srcCompat="@drawable/camera_icon"
                     app:fabSize="mini"
@@ -326,7 +327,7 @@
                         android:text="@={viewmodel.name.fullName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.codedevtech.mycardv2.view.ToggleImageButton
+                <com.spaceandjonin.mycrd.view.ToggleImageButton
                     android:id="@+id/full_name_chevron"
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"

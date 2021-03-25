@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
 
 
 
         <variable
             name="searchviewmodel"
-            type="com.codedevtech.mycardv2.viewmodel.SearchCardViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.SearchCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

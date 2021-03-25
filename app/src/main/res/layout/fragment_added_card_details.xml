@@ -6,11 +6,11 @@
     <data>
         <variable
             name="onboardingViewModel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
 <!--
         <variable
             name="viewModel"
-            type="com.codedevtech.mycardv2.viewmodel.AddPersonalCardViewModel" />-->
+            type="spaceandjoninin.mycrd.viewmodel.AddPersonalCardViewModel" />-->
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

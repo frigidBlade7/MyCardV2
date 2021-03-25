@@ -4,10 +4,10 @@
 
     <data>
 
-        <import type="com.codedevtech.mycardv2.converters.EmailTypeConverter"/>
+        <import type="com.spaceandjonin.mycrd.converters.EmailTypeConverter"/>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.EmailAddress" />
+            type="com.spaceandjonin.mycrd.models.EmailAddress" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.codedevtech.mycardv2.utils.ExtensionsKt"/>
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
         <import type="android.view.View"/>
         <variable
             name="item"
-            type="com.codedevtech.mycardv2.models.PhoneNumber" />
+            type="com.spaceandjonin.mycrd.models.PhoneNumber" />
 
     </data>
 
@@ -21,7 +21,7 @@
             style="@style/TextAppearance.MyCardStyles.Body.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{item.number}"
+            android:text="@{item.number.trim()}"
             android:textAlignment="textStart"
             app:layout_constraintBottom_toTopOf="@+id/type"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:shortcutId="addCardFragment"
+        android:shortcutShortLabel="@string/add_a_card"
+        android:icon="@drawable/my_network">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="mycrd://spaceandjonin.com/mycrd/addCard" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:shortcutId="addPersonalCardFragment"
+        android:shortcutShortLabel="@string/add_a_personal_card"
+        android:icon="@drawable/user">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="mycrd://spaceandjonin.com/mycrd/addPersonalCard" />
+    </shortcut>
+</shortcuts>

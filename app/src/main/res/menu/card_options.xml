@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/edit"
+        app:showAsAction="withText"
+        android:icon="@drawable/edit"
+        android:title="@string/edit" />
+
+    <item
+        android:id="@+id/export"
+        app:showAsAction="withText"
+        android:icon="@drawable/export"
+        android:title="@string/export_to_contacts" />
+
+
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/delete"
+        app:showAsAction="withText"
+        android:iconTint="@color/mc_red"
+        android:title="@string/delete_card" />
+</menu>

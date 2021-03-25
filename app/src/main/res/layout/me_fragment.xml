@@ -7,11 +7,11 @@
 
         <variable
             name="cardViewModel"
-            type="com.codedevtech.mycardv2.viewmodel.CardViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.CardViewModel" />
 
         <variable
             name="onboardingViewModel"
-            type="com.codedevtech.mycardv2.viewmodel.OnboardingViewModel" />
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
 
     </data>
 

@@ -15,7 +15,7 @@
     <string name="use_new_credentials">Use new credentials</string>
     <string name="use_my_card_information">Use my card information</string>
     <string name="sign_up">Sign up</string>
-    <string name="camera_rationale">"We need access to your camera to spy on you lol jk or am i? "</string>
+    <string name="camera_rationale">"We need access to your camera to take photos"</string>
     <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="note">Note</string>
@@ -94,7 +94,8 @@
     <string name="failed">operation failed</string>
     <string name="success">Operation successful</string>
     <string name="add_a_note">Add a note</string>
-    <string name="require_gallery">MyCard requires access to your gallery to upload a photo</string>
+    <string name="require_gallery">myCrd requires access to your gallery to upload a photo</string>
+    <string name="require_camera">myCrd requires access to your camera to upload a photo</string>
     <string name="adding_card">Adding Card</string>
     <string name="enter_your_phone_number">Enter your phone number</string>
     <string name="set_up_your_profile">Set up your profile</string>
@@ -104,6 +105,8 @@
     <string name="go_back">Go back</string>
     <string name="yes">Yes</string>
     <string name="add_personal_card">Add personal card</string>
+    <string name="add_a_personal_card">Add a personal card</string>
+    <string name="add_a_card">Add a card</string>
     <string name="settings">Settings</string>
     <string name="create_one">Create one</string>
     <string name="mobile_number">Mobile number</string>
@@ -126,6 +129,10 @@
     <string name="no_location_specified_for_this_card_add_and_try_again">No work location added for this card. Add one and try again</string>
     <string name="select_email_address">Select email address</string>
     <string name="select_phone_number">Select phone number</string>
+    <string name="update_photo">Update photo</string>
+    <string name="take_photo">Take photo</string>
+    <string name="upload_photo">Upload photo</string>
+    <string name="remove_photo">Remove photo</string>
 
 
     <array name="phone_types">
