@@ -202,6 +202,8 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
     }
 
     fun updateNote(){
+        card.value?.note = note.value
+
         card.notifyObserver()
         viewModelScope.launch {
             card.value?.let {

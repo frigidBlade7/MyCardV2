@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -151,6 +153,18 @@ fun <T> MutableLiveData<T>.notifyObserver() {
 }
 
 
+fun <T : Parcelable> deepClone(objectToClone: T): T? {
+    var parcel: Parcel? = null
+    return try {
+        parcel = Parcel.obtain()
+        parcel.writeParcelable(objectToClone, 0)
+        parcel.setDataPosition(0)
+        parcel.readParcelable(objectToClone::class.java.classLoader)
+    } finally {
+        //it is important to recyle parcel and free up resources once done.
+        parcel?.recycle()
+    }
+}
 
 fun Name?.fullname():String{
     this?.let {

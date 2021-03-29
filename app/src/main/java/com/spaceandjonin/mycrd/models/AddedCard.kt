@@ -29,9 +29,9 @@ data class AddedCard(@DocumentId
                      var updatedAt:Timestamp = Timestamp.now()):Parcelable {
 
 
-
-
     @get:Exclude
     var position= 1
 }
+
+
 

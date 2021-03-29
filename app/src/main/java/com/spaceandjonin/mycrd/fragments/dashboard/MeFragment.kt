@@ -191,7 +191,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
 
         binding.include.editCard.setOnClickListener {
             onboardingViewModel.selectedPersonalCard.value = cardViewModel.selectedPersonalCard.value
-            findNavController().navigate(MeFragmentDirections.actionMeFragmentToAddPersonalCardNav(isEdit = true, onboardingViewModel.selectedPersonalCard.value))
+            findNavController().navigate(MeFragmentDirections.actionMeFragmentToAddPersonalCardNav(isEdit = true, onboardingViewModel.selectedPersonalCard.value?.copy()))
         }
 
         binding.include.deleteCard.setOnClickListener {
