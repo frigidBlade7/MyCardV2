@@ -11,6 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:fillViewport="true"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true">
 
@@ -25,13 +26,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_chainStyle="packed"
             app:srcCompat="@drawable/handle" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/scroll_height"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
+            android:fillViewport="true"
             android:paddingBottom="128dp"
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toTopOf="@+id/button"
@@ -53,7 +56,7 @@
                     app:layout_constraintGuide_end="24dp" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
+                    android:id="@+id/guidelin"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"

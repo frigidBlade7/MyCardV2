@@ -4,5 +4,5 @@
     <dimen name="polygonViewStrokeWidth">2dp</dimen>
     <dimen name="polygonViewCircleWidth">32dp</dimen>
     <dimen name="peek_height">592dp</dimen>
-    <dimen name="scroll_height">442dp</dimen>
+    <dimen name="scroll_height">542dp</dimen>
 </resources>
