@@ -336,6 +336,12 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
         }
     }
 
+    fun storePersonalTempCardByteArray() {
+        viewModelScope.launch (Dispatchers.IO){
+            tempCardByteArray= imageByteArray.getArray(selectedPersonalCard.value?.profilePicUrl)
+        }
+    }
+
     /*fun createFile(outputDirectory: File): File {
         return File(outputDirectory, SimpleDateFormat(Utils.IMAGE_FILE_FORMAT, Locale.ENGLISH)
             .format(System.currentTimeMillis()) + Utils.PHOTO_EXTENSION)

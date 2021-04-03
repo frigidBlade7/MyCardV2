@@ -60,6 +60,11 @@ class PersonalCardOptionsFragment : BottomSheetDialogFragment() {
             viewmodel.confirmPersonalCardDeletion()
         }
 
+        binding.edit.setOnClickListener {
+            dismiss()
+            findNavController().navigate(PersonalCardOptionsFragmentDirections.actionGlobalAddPersonalCardNav(isEdit = true, viewmodel.selectedPersonalCard.value?.copy()))
+        }
+
         binding.view.setOnClickListener {
             dismiss()
             viewmodel.showCardQr()

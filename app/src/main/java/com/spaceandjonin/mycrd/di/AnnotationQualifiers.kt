@@ -23,6 +23,10 @@ import javax.inject.Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class ImageFile
 
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class VcfFile
+
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class HasNetwork

@@ -19,8 +19,20 @@
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:transitionName="@{onboardingViewModel.selectedPersonalCard.id}"
         tools:context=".fragments.onboarding.WelcomeFragment">
+
+        <TextView
+            android:id="@+id/error"
+            style="@style/TextAppearance.MyCardStyles.Error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="80dp"
+            android:text="@string/share_card_error"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -114,6 +126,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
