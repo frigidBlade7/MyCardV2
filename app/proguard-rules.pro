@@ -21,3 +21,8 @@
 #-renamesourcefileattribute SourceFile
 
 #-keepnames class androidx.navigation.fragment.NavHostFragment
+-keep,includedescriptorclasses class ezvcard.Ezvcard { *; }
+-keep enum ezvcard.VCardVersion { *; }
+
+-dontwarn ezvcard.io.json.**
+-dontwarn freemarker.**
