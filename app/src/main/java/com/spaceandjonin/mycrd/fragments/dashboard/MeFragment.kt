@@ -234,7 +234,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
             //onboardingViewModel._errorString.value = Event(getString(R.string.share_card_error))
 
             val file: File? = try {
-                cardViewModel.createVcf()
+                cardViewModel.createVcf(onboardingViewModel.selectedPersonalCard.value?.name?.fullName)
             }catch (e: Exception){
                 onboardingViewModel._errorString.value = Event(getString(R.string.share_card_error))
                 null

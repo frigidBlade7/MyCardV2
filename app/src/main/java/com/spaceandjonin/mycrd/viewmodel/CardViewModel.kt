@@ -106,13 +106,8 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
         }
     }
 
-    fun createVcf(): File?{
-            val timeStamp: String =
-                SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-            return File.createTempFile(
-                "MYCRD_CONTACT_${timeStamp}",
-                ".vcf", storageDir
-            )
+    fun createVcf(name: String?): File?{
+            return File(storageDir,"$name.vcf")
     }
     //val cardsPagedDataFlow = cardsRepository.allCardsPaged.flow.cachedIn(viewModelScope)
 
