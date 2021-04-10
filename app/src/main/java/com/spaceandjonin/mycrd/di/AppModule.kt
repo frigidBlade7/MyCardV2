@@ -12,6 +12,10 @@ import com.spaceandjonin.mycrd.db.dao.LiveCardDao
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.mlkit.vision.text.TextRecognition
+import com.spaceandjonin.mycrd.models.LiveCard
+import com.spaceandjonin.mycrd.services.PhysicalCardProcessService
+import com.spaceandjonin.mycrd.services.PhysicalCardProcessServiceImpl
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -81,6 +85,12 @@ object AppModule {
         return WorkManager.getInstance(applicationContext)
     }
 
+
+    @Provides
+    @Singleton
+    fun providesImageProcessor(): PhysicalCardProcessService<LiveCard?> {
+        return PhysicalCardProcessServiceImpl(TextRecognition.getClient())
+    }
 }
 
 

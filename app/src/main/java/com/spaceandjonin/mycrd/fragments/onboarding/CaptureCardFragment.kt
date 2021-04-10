@@ -5,6 +5,8 @@ import com.scanlibrary.ScanConstants*/
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.ImageFormat
 import android.hardware.camera2.*
@@ -231,17 +233,19 @@ class CaptureCardFragment : Fragment() {
                     val output = saveResult(result)
                     Log.d(TAG, "Image saved: ${output.absolutePath}")
                     viewModel.filePath = output.absolutePath
-
-                    //val intent = Intent(context, ScanActivity::class.java)
-
 /*
+                    val intent = Intent(context, ScanActivity::class.java)
+
                     val inputBuffer = viewModel.loadInputBuffer()
                     val bitmap = viewModel.decodeBitmap(inputBuffer, 0, inputBuffer.size)
-*/
 
-                    //intent.putExtra(ScanConstants.SELECTED_BITMAP, output.absolutePath)
-                    //startActivity(intent)
-                    viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToConfirmDetailsFragment()))
+                    intent.putExtra(ScanConstants.SELECTED_BITMAP, output.absolutePath)
+                    startActivity(intent)
+                    //val bitmap = BitmapFactory.decodeFile(output.absolutePath)*/
+
+                    val bitmap = BitmapFactory.decodeFile(output.absolutePath)
+                    viewModel.processPhysicalCard(bitmap)
+                    viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
 
                     // Display the photo taken to user
                     lifecycleScope.launch(Dispatchers.Main) {

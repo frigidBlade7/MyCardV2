@@ -1,5 +1,6 @@
 package com.spaceandjonin.mycrd.viewmodel
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.telephony.PhoneNumberUtils
 import androidx.lifecycle.*
@@ -19,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.spaceandjonin.mycrd.AddCardNavDirections
+import com.spaceandjonin.mycrd.services.PhysicalCardProcessService
+import com.spaceandjonin.mycrd.services.PhysicalCardProcessServiceImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +32,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
                                               private val uploadService: UpdateImageService,
                                               private val auth: FirebaseAuth,
                                               val imageByteArray: ImageByteArray,
+                                              val processServiceImpl: PhysicalCardProcessService<LiveCard?> ,
                                               @AuthService private val authenticationService: AuthenticationService,
                                               private val userDataSourceImpl: FirebaseUserDataSourceImpl
 ) : BaseViewModel() {
@@ -102,8 +106,8 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun goToSkip(){
-        val action = //WelcomeFragmentDirections.actionWelcomeFragmentToSkipOnboardingFragment()
-            WelcomeFragmentDirections.actionWelcomeFragmentToSignUpFragment()
+        val action = WelcomeFragmentDirections.actionWelcomeFragmentToSkipOnboardingFragment()
+            //WelcomeFragmentDirections.actionWelcomeFragmentToSignUpFragment()
         _destination.value = Event(action)
     }
 
@@ -339,6 +343,12 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     fun storePersonalTempCardByteArray() {
         viewModelScope.launch (Dispatchers.IO){
             tempCardByteArray= imageByteArray.getArray(selectedPersonalCard.value?.profilePicUrl)
+        }
+    }
+
+    fun processPhysicalCard(bitmap: Bitmap?) {
+        viewModelScope.launch {
+            processServiceImpl.processPhysicalCardImage(bitmap)
         }
     }
 

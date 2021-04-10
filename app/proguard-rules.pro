@@ -23,6 +23,8 @@
 #-keepnames class androidx.navigation.fragment.NavHostFragment
 -keep,includedescriptorclasses class ezvcard.Ezvcard { *; }
 -keep enum ezvcard.VCardVersion { *; }
-
+-keepclasseswithmembernames class com.google.mlkit.nl.languageid.internal.LanguageIdentificationJni {
+  native <methods>;
+}
 -dontwarn ezvcard.io.json.**
 -dontwarn freemarker.**

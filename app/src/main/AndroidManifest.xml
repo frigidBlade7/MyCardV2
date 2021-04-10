@@ -43,6 +43,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.spaceandjonin.mycrd.fileprovider"

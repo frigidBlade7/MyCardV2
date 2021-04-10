@@ -135,6 +135,8 @@
     <string name="remove_photo">Remove photo</string>
     <string name="share_as_vcard">Share as vcard</string>
     <string name="share_card_error">Sorry! Your card couldn’t be shared</string>
+    <string name="could_not_process_image">Could not process image</string>
+    <string name="could_not_process_text">Could not process text</string>
 
 
     <array name="phone_types">
