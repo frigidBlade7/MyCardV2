@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewmodel"
+            type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.MyCardStyles.Body.Semibold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/add_a_card"
+            app:layout_constraintBottom_toTopOf="@+id/scan_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/scan_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toTopOf="@+id/textView16"
+            app:layout_constraintEnd_toStartOf="@+id/enter_manually"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:srcCompat="@drawable/scan_physical_card" />
+
+        <ImageView
+            android:id="@+id/enter_manually"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/scan_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/scan_card"
+            app:layout_constraintTop_toTopOf="@+id/scan_card"
+            app:srcCompat="@drawable/add_card_manually" />
+
+        <TextView
+            android:id="@+id/textView16"
+            style="@style/TextAppearance.MyCardStyles.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/scan_physical_card"
+            android:textAlignment="center"
+            android:textColor="@color/mc_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/scan_card"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/scan_card"
+            app:layout_constraintTop_toBottomOf="@+id/scan_card" />
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/TextAppearance.MyCardStyles.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/add_card_manually"
+            android:textAlignment="center"
+            android:textColor="@color/mc_black"
+            app:layout_constraintEnd_toEndOf="@+id/enter_manually"
+            app:layout_constraintStart_toStartOf="@+id/enter_manually"
+            app:layout_constraintTop_toBottomOf="@+id/enter_manually" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

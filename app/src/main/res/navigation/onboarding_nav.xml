@@ -498,5 +498,65 @@
         android:id="@+id/selectPhoneNumberFragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.SelectPhoneNumberFragment"
         tools:layout="@layout/fragment_select_phone_number" /><action android:id="@+id/action_global_selectPhoneNumberFragment" app:destination="@id/selectPhoneNumberFragment"/><action android:id="@+id/action_global_selectEmailFragment" app:destination="@id/selectEmailFragment"/><action android:id="@+id/action_global_add_card_nav" app:destination="@id/add_card_nav"/><action android:id="@+id/action_global_add_personal_card_nav" app:destination="@id/add_personal_card_nav"/>
+    <dialog
+        android:id="@+id/addCardOptionsFragment"
+        android:name="com.spaceandjonin.mycrd.fragments.dashboard.AddCardOptionsFragment"
+        tools:layout="@layout/fragment_add_card_options"
+        android:label="AddCardOptionsFragment" />
+    <action android:id="@+id/action_global_addCardOptionsFragment" app:destination="@id/addCardOptionsFragment" />
+    <navigation android:id="@+id/scan_nav"
+        app:startDestination="@id/takeCardPictureFragment">
+        <fragment
+            android:id="@+id/takeCardPictureFragment"
+            tools:layout="@layout/fragment_take_card_picture"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.TakeCardPictureFragment"
+            android:label="TakeCardPictureFragment" >
+            <action
+                android:id="@+id/action_takeCardPictureFragment_to_confirmTextRecognitionFragment"
+                app:destination="@id/confirmTextRecognitionFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/confirmTextRecognitionFragment"
+            tools:layout="@layout/fragment_confirm_text_recognition"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.ConfirmTextRecognitionFragment"
+            android:label="ConfirmTextRecognitionFragment" >
+            <argument
+                android:name="uriString"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="null" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_confirmAddPersonalDetailsFragment"
+            app:destination="@id/confirmAddPersonalDetailsFragment" />
+    </navigation>
+    <!--<navigation
+        android:id="@+id/scan_nav_create_account"
+        app:startDestination="@id/takeCardPictureFragment">
+        <fragment
+            android:id="@+id/takeCardPictureFragment"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.TakeCardPictureFragment"
+            android:label="TakeCardPictureFragment"
+            tools:layout="@layout/fragment_take_card_picture">
+            <action
+                android:id="@+id/action_takeCardPictureFragment_to_confirmTextRecognitionFragment"
+                app:destination="@id/confirmTextRecognitionFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/confirmTextRecognitionFragment"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.ConfirmTextRecognitionFragment"
+            android:label="ConfirmTextRecognitionFragment"
+            tools:layout="@layout/fragment_confirm_text_recognition">
+            <argument
+                android:name="uriString"
+                android:defaultValue="null"
+                app:argType="string"
+                app:nullable="true" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_confirmAddPersonalDetailsFragment"
+            app:destination="@id/confirmAddPersonalDetailsFragment" />
+    </navigation>-->
+    <action android:id="@+id/action_global_scan_nav" app:destination="@id/scan_nav"/>
 
 </navigation>

@@ -47,6 +47,7 @@ fun Name?.initials():String{
     return ""
 }
 
+
 fun LiveCard?.initials():String{
     this?.let {
         return "${name.firstName.trim().getOrNull(0)?:""}${name.lastName.trim().getOrNull(0)?:""}".trim()

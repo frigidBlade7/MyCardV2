@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.spaceandjonin.mycrd">
 
 
@@ -31,7 +32,6 @@
 <!--
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
     <application
@@ -52,15 +52,21 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.spaceandjonin.mycrd.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths"
+                tools:replace="android:resource"/>
         </provider>
 
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/CropTheme" />
+
+        <activity
+            android:name=".fragments.scan.CustomCropImageActivity" />
+
 
         <activity
             android:name="com.spaceandjonin.mycrd.MainActivity"

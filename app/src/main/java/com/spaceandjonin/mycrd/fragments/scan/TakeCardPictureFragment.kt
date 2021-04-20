@@ -1,4 +1,4 @@
-package com.spaceandjonin.mycrd.fragments.onboarding
+package com.spaceandjonin.mycrd.fragments.scan
 
 /*import com.scanlibrary.ScanActivity
 import com.scanlibrary.ScanConstants*/
@@ -34,6 +34,7 @@ import androidx.navigation.fragment.findNavController
 import com.canhub.cropper.CropImage
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.databinding.FragmentCaptureCardBinding
+import com.spaceandjonin.mycrd.databinding.FragmentTakeCardPictureBinding
 import com.spaceandjonin.mycrd.event.Event
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.utils.AutoFitSurfaceView
@@ -55,14 +56,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.TimeoutException
+import kotlin.Exception
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 @AndroidEntryPoint
-class CaptureCardFragment : Fragment() {
+class TakeCardPictureFragment : Fragment() {
 
-    lateinit var binding: FragmentCaptureCardBinding
+    lateinit var binding: FragmentTakeCardPictureBinding
 
     /** Detects, characterizes, and connects to a CameraDevice (used for all camera operations) */
     private val cameraManager: CameraManager by lazy {
@@ -135,7 +137,7 @@ class CaptureCardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentCaptureCardBinding.inflate(layoutInflater, container, false)
+        binding = FragmentTakeCardPictureBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewModel
 
         overlay = binding.overlay
@@ -148,23 +150,19 @@ class CaptureCardFragment : Fragment() {
         })
 
         binding.importCard.setOnClickListener {
-           viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
+            //viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
             callGallery()
         }
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         viewFinder = binding.viewFinder
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.manual.setOnApplyWindowInsetsListener { v, insets ->
-            v.translationX = (-insets.systemWindowInsetRight).toFloat()
-            v.translationY = (-insets.systemWindowInsetBottom).toFloat()
-            insets.consumeSystemWindowInsets()
-        }
-
 
         binding.viewFinder.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceDestroyed(holder: SurfaceHolder) = Unit
@@ -221,7 +219,10 @@ class CaptureCardFragment : Fragment() {
         val targets = listOf(viewFinder.holder.surface, imageReader.surface)
 
         // Start a capture session using our open camera and list of Surfaces where frames will go
+
+        try{
         session = createCaptureSession(camera, targets, cameraHandler)
+
 
         val captureRequest = camera.createCaptureRequest(
             CameraDevice.TEMPLATE_PREVIEW
@@ -230,7 +231,9 @@ class CaptureCardFragment : Fragment() {
         // This will keep sending the capture request as frequently as possible until the
         // session is torn down or session.stopRepeating() is called
         session.setRepeatingRequest(captureRequest.build(), null, cameraHandler)
-
+        }catch (e: Exception){
+            Log.d(TAG, "initializeCamera: ${e.localizedMessage}")
+        }
         // Listen to the capture button
         binding.capture.setOnClickListener {
 
@@ -246,10 +249,14 @@ class CaptureCardFragment : Fragment() {
                     val output = saveResult(result)
                     Log.d(TAG, "Image saved: ${output.absolutePath}")
                     viewModel.filePath = output.absolutePath
-                    viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true)))
+                    //viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true)))
+
+/*                    CropImage.activity(Uri.fromFile(output))
+                        .start(requireContext(), this@TakeCardPictureFragment)*/
 
                     CropImage.activity(Uri.fromFile(output))
-                        .start(requireContext(), this@CaptureCardFragment)
+                            .start(requireContext(), this@TakeCardPictureFragment,CustomCropImageActivity::class.java)
+                    //CustomCropImageActivity.start(requireActivity(),Uri.fromFile(output))
                     //viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
 
                     /*val intent = Intent(context, ScanActivity::class.java)
@@ -588,8 +595,8 @@ class CaptureCardFragment : Fragment() {
 
             val fullPhotoUri: Uri? = data?.data
             CropImage.activity(fullPhotoUri)
-                .start(requireContext(), this)
-            //viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
+                .start(requireContext(), this,CustomCropImageActivity::class.java)
+            //CustomCropImageActivity.start(requireActivity(),fullPhotoUri)
 
         }
 
@@ -598,7 +605,7 @@ class CaptureCardFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
 
                 Log.d(TAG, "onActivityResult: ${result?.getBitmap(requireContext())}")
-                viewModel.processPhysicalCard(result?.getBitmap(requireContext()))
+                viewModel._destination.postValue(Event(TakeCardPictureFragmentDirections.actionTakeCardPictureFragmentToConfirmTextRecognitionFragment(result?.uri.toString())))
 
                 //findNavController().popBackStack()
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

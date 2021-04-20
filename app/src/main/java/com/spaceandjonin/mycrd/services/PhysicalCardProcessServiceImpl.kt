@@ -14,13 +14,14 @@ import javax.inject.Inject
 
 class PhysicalCardProcessServiceImpl @Inject constructor(val textRecognizer: TextRecognizer) : PhysicalCardProcessService<LiveCard?> {
 
-    override suspend fun processPhysicalCardImage(bitmap: Bitmap?): Resource<LiveCard?> {
+    override suspend fun processPhysicalCardImage(bitmap: Bitmap?): Resource<List<Text.Element>?> {
         bitmap?.let {
 
             val image = InputImage.fromBitmap(it, 0)
             return try {
 
-                processText(textRecognizer.process(image).await())
+                return processText(textRecognizer.process(image).await())
+                //return Resource.Success(LiveCard())
 
             }catch (e: Exception){
                 e.printStackTrace()
@@ -31,22 +32,29 @@ class PhysicalCardProcessServiceImpl @Inject constructor(val textRecognizer: Tex
     }
 
 
-    fun processText(text: Text):Resource<LiveCard?>{
+    fun processText(text: Text):Resource<List<Text.Element>?>{
+        Log.d(TAG, "processText: hi")
+
+        val allElements = mutableListOf<Text.Element>()
         val blocks = text.textBlocks
-        if (blocks.size==0)
-            return Resource.Success(LiveCard())
+        if (blocks.size==0) {
+            Log.d(TAG, "processText: natin")
+        }
 
         for (block in blocks) {
+            Log.d(TAG, "processText: ${block.text}")
             val lines = block.lines
             for (line in lines){
                 val elements = line.elements
                 for (element in elements) {
-                    Log.d(Companion.TAG, "processedText: ${element.text}")
-                    return Resource.Success(LiveCard())
+                    allElements.add(element)
+                    Log.d(TAG, "processedText: ${element.text}")
                 }
             }
+            //return Resource.Success(LiveCard())
         }
-        return Resource.Error(R.string.could_not_process_text)
+
+        return Resource.Success(allElements)
     }
 
     companion object {

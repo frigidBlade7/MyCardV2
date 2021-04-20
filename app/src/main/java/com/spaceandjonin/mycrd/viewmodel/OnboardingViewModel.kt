@@ -19,9 +19,11 @@ import com.spaceandjonin.mycrd.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
+import com.google.mlkit.vision.text.Text
 import com.spaceandjonin.mycrd.AddCardNavDirections
 import com.spaceandjonin.mycrd.services.PhysicalCardProcessService
 import com.spaceandjonin.mycrd.services.PhysicalCardProcessServiceImpl
+import com.spaceandjonin.mycrd.utils.notifyObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,6 +47,8 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     var position = MutableLiveData<Int>()
 
     var tempCardByteArray: ByteArray? = null
+
+    var elementListLiveData = MutableLiveData<List<Text.Element>>(mutableListOf())
 
     //private val authenticationService: AuthenticationService = AuthenticationServiceImpl(auth)
 
@@ -112,7 +116,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun goToScan(){
-        val action = SkipOnboardingFragmentDirections.actionSkipOnboardingFragmentToCaptureCardFragment()
+        val action = SkipOnboardingFragmentDirections.actionGlobalScanNav()
         _destination.value = Event(action)
 
     }
@@ -135,7 +139,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun goToAddCard(){
-        _destination.value = Event(CardsFragmentDirections.actionCardsFragmentToAddCardNav())
+        _destination.value = Event(CardsFragmentDirections.actionGlobalAddCardNav())
     }
 
     fun getUser(): LiveData<Resource<User>> {
@@ -262,6 +266,14 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
         _destination.value = Event(DeleteCardDialogFragmentDirections.actionGlobalDeleteCardDialogFragment())
     }
 
+    fun goToScanCard() {
+        _destination.value = Event(CardsFragmentDirections.actionGlobalScanNav())
+    }
+
+    fun goToEnterManually() {
+        _destination.value = Event(CardsFragmentDirections.actionCardsFragmentToAddCardNav())
+    }
+
     fun confirmPersonalCardDeletion() {
         _destination.value = Event(DeletePersonalCardDialogFragmentDirections.actionGlobalDeletePersonalCardDialogFragment())
     }
@@ -348,7 +360,14 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
     fun processPhysicalCard(bitmap: Bitmap?) {
         viewModelScope.launch {
-            processServiceImpl.processPhysicalCardImage(bitmap)
+           when (val data = processServiceImpl.processPhysicalCardImage(bitmap)){
+               is Resource.Success -> {
+                   data.data?.let {
+                       elementListLiveData.value = it.toMutableList()
+                       elementListLiveData.notifyObserver()
+                   }
+               }
+           }
         }
     }
 

@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
 /*        val deferringInsetsListener = RootViewDeferringInsetsCallback(
             persistentInsetTypes = WindowInsets.Type.systemBars(),
             deferredInsetTypes = WindowInsets.Type.ime()
@@ -78,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                    }
                }
 
-               navController.navigate(CardsFragmentDirections.actionCardsFragmentToAddCardNav())
+               navController.navigate(CardsFragmentDirections.actionGlobalAddCardOptionsFragment())
            }
            // Hide bottom nav on screens which don't require it
           lifecycleScope.launchWhenResumed {

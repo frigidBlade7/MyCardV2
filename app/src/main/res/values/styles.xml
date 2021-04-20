@@ -34,6 +34,11 @@
 
     </style>
 
+    <style name="Widget.MyCard.Toolbar.Light" parent="Widget.MyCard.Toolbar">
+        <item name="navigationIconTint">@android:color/white</item>
+
+    </style>
+
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splashscreen</item>
         <item name="android:windowFullscreen">true</item>
@@ -271,6 +276,7 @@
         <item name="alpha">0.2</item>
         <item name="cornerSize">50%</item>
     </style>
+
 
     <style name="RoundedRectangleImageView">
         <item name="cornerFamily">rounded</item>

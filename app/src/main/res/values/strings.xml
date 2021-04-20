@@ -137,6 +137,11 @@
     <string name="share_card_error">Sorry! Your card couldn’t be shared</string>
     <string name="could_not_process_image">Could not process image</string>
     <string name="could_not_process_text">Could not process text</string>
+    <string name="take_a_photo_of_the_card">Take a photo of the card</string>
+    <string name="scan_physical_card">Scan physical\ncard</string>
+    <string name="add_card_manually">Add card\nmanually</string>
+    <string name="crop_the_photo_to_card_edges">Crop the photo to card edges</string>
+    <string name="rotation_value">Click to change rotation: %1$s</string>
 
 
     <array name="phone_types">
