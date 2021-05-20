@@ -327,12 +327,18 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun editCard() {
-        _destination.value = Event(AddCardNavDirections.actionGlobalAddCardNav(isEdit = true, existingCard = selectedCard.value))
+        _destination.value = Event(AddCardNavDirections.actionGlobalAddCardNav(isEdit = true, existingCard = selectedCard.value?.copy()))
     }
 
     fun storeTempCardByteArray() {
         viewModelScope.launch (Dispatchers.IO){
             tempCardByteArray= imageByteArray.getArray(selectedCard.value?.profilePicUrl)
+        }
+    }
+
+    fun storePersonalTempCardByteArray() {
+        viewModelScope.launch (Dispatchers.IO){
+            tempCardByteArray= imageByteArray.getArray(selectedPersonalCard.value?.profilePicUrl)
         }
     }
 

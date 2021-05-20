@@ -67,8 +67,8 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         if(isedit) {
             AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.let{
                 viewmodel.card.value?.id = it.id
-                viewmodel.name.value = it.name
-                viewmodel.businessInfo.value = it.businessInfo
+                viewmodel.name.value = it.name.copy()
+                viewmodel.businessInfo.value = it.businessInfo.copy()
                 viewmodel.phoneNumbers.value = it.phoneNumbers.toMutableList()
                 viewmodel.emailAddresses.value = it.emailAddresses.toMutableList()
                 viewmodel.card.value?.createdAt = it.createdAt

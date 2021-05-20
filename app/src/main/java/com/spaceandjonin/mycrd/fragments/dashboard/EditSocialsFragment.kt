@@ -13,12 +13,13 @@ import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.viewmodel.AddCardViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.spaceandjonin.mycrd.databinding.FragmentEditSocialsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditSocialsFragment : BottomSheetDialogFragment(){
 
-    lateinit var binding: FragmentAddSocialsBinding
+    lateinit var binding: FragmentEditSocialsBinding
 
     val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav){
         defaultViewModelProviderFactory
@@ -29,6 +30,7 @@ class EditSocialsFragment : BottomSheetDialogFragment(){
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
 
         dialog.behavior.skipCollapsed = true
+        dialog.behavior.setPeekHeight(resources.displayMetrics.heightPixels,true)
 
         return dialog
     }
@@ -38,7 +40,7 @@ class EditSocialsFragment : BottomSheetDialogFragment(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentAddSocialsBinding.inflate(layoutInflater,container, false)
+        binding = FragmentEditSocialsBinding.inflate(layoutInflater,container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner

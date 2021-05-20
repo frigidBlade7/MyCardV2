@@ -11,5 +11,4 @@ data class Name(var firstName: String = "", var lastName: String = "",    var pr
                 var fullName: String="",
                 var suffix: String? = ""
 ):Parcelable {
-
 }

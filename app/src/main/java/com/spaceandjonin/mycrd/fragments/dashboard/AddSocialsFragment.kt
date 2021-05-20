@@ -30,7 +30,8 @@ class AddSocialsFragment : BottomSheetDialogFragment(){
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
 
         dialog.behavior.skipCollapsed = true
-        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        //dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        dialog.behavior.setPeekHeight(resources.displayMetrics.heightPixels,true)
 
 
         return dialog

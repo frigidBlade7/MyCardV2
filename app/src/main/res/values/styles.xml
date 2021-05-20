@@ -121,6 +121,16 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="TextAppearance.MyCardStyles.Error" parent="TextAppearance.MyCardStyles.Label">
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:background">@drawable/error_background</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="cornerRadius">4dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
 
     <style name="TextAppearance.MyCardStyles.Body.Semibold" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/inter_semibold</item>
@@ -180,6 +190,12 @@
         <item name="android:insetRight">0dp</item>
         <item name="android:insetBottom">0dp</item>
     </style>
+
+    <style name="Widget.MyCardStyles.Button.OutlinedButton.Icon" parent="Widget.MyCardStyles.Button.OutlinedButton">
+        <item name="cornerSize">50%</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
     <style name="Widget.MyCardStyles.Button.RoundedButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:paddingTop">12dp</item>
         <item name="android:paddingBottom">12dp</item>
@@ -271,7 +287,6 @@
     <style name="ShapeAppearance.MyCardStyles.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
-]
     </style>
 
     <style name="Theme.MyCardStyles.DialogFragment" parent="Theme.MaterialComponents.Light.BottomSheetDialog">

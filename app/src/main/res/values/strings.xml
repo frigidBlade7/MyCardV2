@@ -133,6 +133,8 @@
     <string name="take_photo">Take photo</string>
     <string name="upload_photo">Upload photo</string>
     <string name="remove_photo">Remove photo</string>
+    <string name="share_as_vcard">Share as vcard</string>
+    <string name="share_card_error">Sorry! Your card couldn’t be shared</string>
 
 
     <array name="phone_types">

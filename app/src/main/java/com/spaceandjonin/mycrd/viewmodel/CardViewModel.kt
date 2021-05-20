@@ -17,9 +17,14 @@ import com.spaceandjonin.mycrd.repositories.AddedCardsRepository
 import com.spaceandjonin.mycrd.repositories.PersonalCardsRepository
 import com.spaceandjonin.mycrd.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
+import com.spaceandjonin.mycrd.di.VcfFile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,6 +32,7 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
                                         personalCardsRepository: PersonalCardsRepository,
                                         val addedCardDataSourceImpl: AddedCardDataSource,
                                         val auth: FirebaseAuth,
+                                        val storageDir: File?,
                                         val personalCardDataSource: LiveCardDataSource,
                                         val addedCardDao: AddedCardDao,
                                         val liveCardDao: LiveCardDao): BaseViewModel() {
@@ -100,6 +106,9 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
         }
     }
 
+    fun createVcf(name: String?): File?{
+            return File(storageDir,"$name.vcf")
+    }
     //val cardsPagedDataFlow = cardsRepository.allCardsPaged.flow.cachedIn(viewModelScope)
 
         //val cardsLiveDataFlow = cardsRepository.currentPage

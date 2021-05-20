@@ -111,7 +111,7 @@
             android:id="@+id/remove_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewmodel.profileImageUri.toString().empty?View.GONE: View.VISIBLE}"
+            android:visibility="@{viewmodel.user.profileUrl.empty?View.GONE: View.VISIBLE}"
             app:constraint_referenced_ids="textView18,remove_photo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

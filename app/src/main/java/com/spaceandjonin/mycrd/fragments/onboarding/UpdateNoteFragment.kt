@@ -35,8 +35,11 @@ class UpdateNoteFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = FragmentUpdateNoteBinding.inflate(layoutInflater, container, false)
-        binding.viewModel = onboardingViewModel
+        binding.cardViewModel = cardViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        cardViewModel.card.value = onboardingViewModel.selectedCard.value?.copy()
+        cardViewModel.note.value = onboardingViewModel.selectedCard.value?.note
 
         onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
@@ -51,6 +54,7 @@ class UpdateNoteFragment : Fragment() {
             }
         }
 
+
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.save -> {
@@ -58,7 +62,6 @@ class UpdateNoteFragment : Fragment() {
                     //onboardingViewModel.selectedCard.value?.note = binding.noteText.text.toString()
                     //onboardingViewModel.selectedCard.notifyObserver()
                     goToEditState()
-                    cardViewModel.card = onboardingViewModel.selectedCard
                     cardViewModel.updateNote()
                 }
                 R.id.edit -> {
@@ -80,8 +83,11 @@ class UpdateNoteFragment : Fragment() {
         })
 
         cardViewModel.destination.observe(viewLifecycleOwner,EventObserver{
-            if(it.actionId==0)
+            if(it.actionId==0) {
+                //success
+                onboardingViewModel.selectedCard.value = cardViewModel.card.value?.copy()
                 findNavController().popBackStack()
+            }
         })
 
 

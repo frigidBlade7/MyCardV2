@@ -52,7 +52,7 @@ class SettingsViewModel @Inject constructor(
     var isResendButtonEnabled = MutableLiveData(true)
     var smsCode = MutableLiveData<String>()
 
-    fun getUser(): LiveData<Resource<User>> {
+    fun getLoggedInUser(): LiveData<Resource<User>> {
         return userDataSourceImpl.getData(""/*for future use with multi logins*/).asLiveData()
     }
 
