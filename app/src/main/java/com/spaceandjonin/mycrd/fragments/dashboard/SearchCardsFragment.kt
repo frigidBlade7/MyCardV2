@@ -1,11 +1,8 @@
 
 package com.spaceandjonin.mycrd.fragments.dashboard
 
-import android.content.ContentValues
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +16,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialElevationScale
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.adapter.rv.CardPagingAdapter
 import com.spaceandjonin.mycrd.databinding.FragmentSearchCardsBinding
@@ -28,11 +28,6 @@ import com.spaceandjonin.mycrd.models.AddedCard
 import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import com.spaceandjonin.mycrd.viewmodel.SearchCardViewModel
-import com.google.android.material.color.MaterialColors
-import com.google.android.material.transition.MaterialContainerTransform
-import com.google.android.material.transition.MaterialElevationScale
-import com.spaceandjonin.mycrd.models.EmailAddress
-import com.spaceandjonin.mycrd.models.PhoneNumber
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

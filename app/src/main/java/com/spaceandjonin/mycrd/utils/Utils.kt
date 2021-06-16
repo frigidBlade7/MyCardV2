@@ -1,10 +1,13 @@
 package com.spaceandjonin.mycrd.utils
 
 import android.Manifest
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 
 class Utils {
 
     companion object {
+        const val PREFS= "SETTINGS_PREFERENCES"
         const val SORT_MODE_NAME= "NAME"
         const val SORT_MODE_RECENT= "RECENT"
         const val PATH_ID= "pathId"
@@ -26,6 +29,9 @@ class Utils {
         const val STORAGE_PERMISSION = Manifest.permission.READ_EXTERNAL_STORAGE
         const val CAMERA_PERMISSION = Manifest.permission.CAMERA
 
+        const val LABELLED = "LABELLED"
+        const val UNLABELLED = "UNLABELLED"
+
         /** Milliseconds used for UI animations */
         const val ANIMATION_FAST_MILLIS = 50L
         const val ANIMATION_SLOW_MILLIS = 100L
@@ -33,6 +39,12 @@ class Utils {
 
         const val TIMEOUT: Long = 60000
 
+        const val SCAN_TYPE_LIVE= "LIVE_CARD"
+        const val SCAN_TYPE_ADDED= "ADDED_CARD"
+        val NEW_USER_LIVE_CARD= stringPreferencesKey("NEW_USER_LIVE_CARD")
+
+        val LIVE_CARD_SCAN_ALERT= booleanPreferencesKey("LIVE_CARD_SCAN_ALERT")
+        val ADDED_CARD_SCAN_ALERT= booleanPreferencesKey("ADDED_CARD_SCAN_ALERT")
         val PREFIXES = listOf("mad","mr", "ms", "mrs", "dr", "adm", "capt", "chief", "cmdr", "col", "gov", "hon", "maj", "msgt", "prof", "rev")
 
         val SUFFIXES = listOf("phd",
@@ -54,4 +66,6 @@ class Utils {
             "jnr")
 
     }
+
+
 }

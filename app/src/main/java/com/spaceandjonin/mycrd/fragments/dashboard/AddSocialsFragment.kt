@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.databinding.FragmentAddSocialsBinding
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.viewmodel.AddCardViewModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,20 +1,14 @@
 package com.spaceandjonin.mycrd.fragments.scan
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.View
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageActivity
-import com.canhub.cropper.CropImageOptions
-import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.databinding.ActivityCustomCropImageBinding
 
 class CustomCropImageActivity: CropImageActivity(), CustomCropContract.View {

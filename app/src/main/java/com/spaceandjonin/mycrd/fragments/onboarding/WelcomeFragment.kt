@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.databinding.FragmentWelcomeBinding
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

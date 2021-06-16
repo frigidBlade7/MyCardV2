@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.databinding.FragmentCardFilterBinding
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.utils.Utils
-import com.spaceandjonin.mycrd.viewmodel.CardViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.spaceandjonin.mycrd.viewmodel.FilterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

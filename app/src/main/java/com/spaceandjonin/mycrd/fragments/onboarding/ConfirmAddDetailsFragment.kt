@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.google.android.material.tabs.TabLayoutMediator
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.adapter.AddedCardAdapter
 import com.spaceandjonin.mycrd.adapter.rv.ExtraEmailAddressAdapter
@@ -16,7 +17,6 @@ import com.spaceandjonin.mycrd.adapter.rv.SocialAdapter
 import com.spaceandjonin.mycrd.databinding.FragmentAddConfirmDetailsBinding
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.viewmodel.AddCardViewModel
-import com.google.android.material.tabs.TabLayoutMediator
 
 class ConfirmAddDetailsFragment : Fragment() {
 

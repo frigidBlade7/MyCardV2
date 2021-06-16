@@ -3,7 +3,6 @@
     <string name="your_network_in_one_place">Your network in one place</string>
     <string name="a_quick_taste_of_what_s_in_store_for_you">A quick taste of what’s in store for you.</string>
     <string name="set_up_your_personal_card">Set up your personal card</string>
-    <string name="skip_for_now">Skip for now</string>
     <string name="capture_your_physical_card">Capture your physical card</string>
     <string name="add_manually">Add manually</string>
     <string name="import_card">Import card</string>
@@ -14,7 +13,6 @@
     <string name="create_card">Create card</string>
     <string name="use_new_credentials">Use new credentials</string>
     <string name="use_my_card_information">Use my card information</string>
-    <string name="sign_up">Sign up</string>
     <string name="camera_rationale">"We need access to your camera to take photos"</string>
     <string name="email">Email</string>
     <string name="name">Name</string>
@@ -29,11 +27,9 @@
     <string name="enter_the_one_time_pin_that_was_sent_to_your_number">Enter the one-time pin that was sent to your number %1$s</string>
     <string name="verify">Verify</string>
     <string name="resend_code">Resend code</string>
-    <string name="cards">Cards</string>
     <string name="me">Me</string>
     <string name="let_s_get_something_going_here">Let\'s get something going here</string>
     <string name="start_adding_some_cards">Start adding some cards</string>
-    <string name="_1_d_of_2_d">%1$s of %2$s</string>
     <string name="personal_info">Personal Info</string>
     <string name="prefix">Prefix</string>
     <string name="first_name">First name</string>
@@ -41,9 +37,7 @@
     <string name="last_name">Last name</string>
     <string name="suffix">Suffix</string>
     <string name="home">Home</string>
-    <string name="fax">Fax</string>
     <string name="mobile">Mobile</string>
-    <string name="pager">Pager</string>
     <string name="other">Other</string>
     <string name="personal">Personal</string>
     <string name="add_a_profile">Add a profile</string>
@@ -88,7 +82,6 @@
     <string name="too_many_tries">Too many attempts. Please try again in a few minutes</string>
     <string name="default_error">Something went wrong</string>
     <string name="enter_valid_number">Enter a valid mobile phone number</string>
-    <string name="invalid_code">Invalid code</string>
     <string name="card_not_found">Card not found</string>
     <string name="cards_not_found">No cards found</string>
     <string name="failed">operation failed</string>
@@ -99,7 +92,6 @@
     <string name="adding_card">Adding Card</string>
     <string name="enter_your_phone_number">Enter your phone number</string>
     <string name="set_up_your_profile">Set up your profile</string>
-    <string name="letsgo">Let\'s go</string>
     <string name="confirm_your_number">Confirm your number</string>
     <string name="is_1_s_the_number_you_want_to_sign_up_with">Is <b>%1$s</b> the number you want to continue with?</string>
     <string name="go_back">Go back</string>
@@ -119,7 +111,6 @@
     <string name="verify_your_new_number">Verify your new number</string>
     <string name="fab">fab</string>
     <string name="your_personal_cards_to_distribute">Your personal cards to distribute</string>
-    <string name="edit_note">Edit note</string>
     <string name="type_something">Type something</string>
     <string name="add_card">add card</string>
     <string name="my_network">My Network</string>
@@ -136,12 +127,32 @@
     <string name="share_as_vcard">Share as vcard</string>
     <string name="share_card_error">Sorry! Your card couldn’t be shared</string>
     <string name="could_not_process_image">Could not process image</string>
-    <string name="could_not_process_text">Could not process text</string>
     <string name="take_a_photo_of_the_card">Take a photo of the card</string>
     <string name="scan_physical_card">Scan physical\ncard</string>
     <string name="add_card_manually">Add card\nmanually</string>
     <string name="crop_the_photo_to_card_edges">Crop the photo to card edges</string>
-    <string name="rotation_value">Click to change rotation: %1$s</string>
+    <string name="add_label">Add label</string>
+    <string name="website">Website</string>
+    <string name="labelled">Labelled</string>
+    <string name="unlabelled">Unlabelled</string>
+    <string name="add_detail">Add detail</string>
+    <string name="you_haven_t_assigned_a_label_to_any_detail_yet_labelled_details_will_show_here">You haven’t assigned a label to any detail yet. Labelled details will show here.</string>
+    <string name="there_are_no_details_to_assign_labels_to">There are no details to assign labels to.</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="assign_a_label">Assign a label</string>
+    <string name="email_address">Email address</string>
+    <string name="role">Role</string>
+    <string name="change_label">Change label</string>
+    <string name="remove_label">Remove label</string>
+    <string name="type_here">Type here</string>
+    <string name="edit_detail">Edit detail</string>
+    <string name="label_with_type">%1$s • %2$s</string>
+    <string name="i_ll_do_this_later">I\'ll do this later</string>
+    <string name="label_details">Label Details</string>
+    <string name="copy">Copy</string>
+    <string name="assign_label">Assign label</string>
+    <string name="okay_got_it">Okay, got it</string>
+    <string name="hold_card_close_to_phone_s_camera_to_improve_scan_accuracy">Hold card close to phone’s camera to improve scan accuracy</string>
 
 
     <array name="phone_types">
@@ -166,9 +177,4 @@
 
     </array>
 
-    <array name="filters">
-        <item>@string/recently_added</item>
-        <item>@string/name</item>
-
-    </array>
 </resources>

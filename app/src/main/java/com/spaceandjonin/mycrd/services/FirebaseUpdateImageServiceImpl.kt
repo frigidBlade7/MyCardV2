@@ -2,11 +2,11 @@ package com.spaceandjonin.mycrd.services
 
 import android.net.Uri
 import android.util.Log
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.models.Resource
 import com.spaceandjonin.mycrd.utils.getCode
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.UploadTask
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

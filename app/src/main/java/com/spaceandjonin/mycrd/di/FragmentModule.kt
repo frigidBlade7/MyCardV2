@@ -9,7 +9,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.FragmentScoped
-import dagger.hilt.android.scopes.ViewModelScoped
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*

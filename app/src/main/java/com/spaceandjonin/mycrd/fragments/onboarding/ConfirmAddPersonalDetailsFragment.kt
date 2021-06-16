@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayoutMediator
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.adapter.CardAdapter
 import com.spaceandjonin.mycrd.adapter.rv.ExtraEmailAddressAdapter
@@ -16,7 +17,6 @@ import com.spaceandjonin.mycrd.adapter.rv.SocialAdapter
 import com.spaceandjonin.mycrd.databinding.FragmentAddPersonalConfirmDetailsBinding
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel
-import com.google.android.material.tabs.TabLayoutMediator
 
 class ConfirmAddPersonalDetailsFragment : Fragment() {
 

@@ -4,7 +4,7 @@ import androidx.databinding.InverseMethod
 import com.spaceandjonin.mycrd.models.EmailAddress
 import com.spaceandjonin.mycrd.models.PhoneNumber
 
-object PhoneTypeConverter {
+object PhoneTypeBindingConverter {
 
     fun phoneTypeToString(phoneNumberType: PhoneNumber.PhoneNumberType):String{
         return phoneNumberType.toString()
@@ -17,7 +17,7 @@ object PhoneTypeConverter {
 
 }
 
-object EmailTypeConverter {
+object EmailTypeBindingConverter {
 
     fun emailTypeToString(emailType: EmailAddress.EmailType):String{
         return emailType.toString()

@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.adapter.rv.SelectEmailAdapter
 import com.spaceandjonin.mycrd.databinding.FragmentSelectEmailBinding
@@ -17,8 +19,6 @@ import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.listeners.ItemInteraction
 import com.spaceandjonin.mycrd.models.EmailAddress
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

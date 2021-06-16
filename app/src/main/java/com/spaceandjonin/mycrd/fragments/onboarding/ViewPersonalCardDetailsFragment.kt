@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.transition.MaterialContainerTransform
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.adapter.PersonalCardAdapter
 import com.spaceandjonin.mycrd.adapter.rv.*
 import com.spaceandjonin.mycrd.databinding.FragmentPersonalCardDetailsBinding
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
-import com.google.android.material.color.MaterialColors
-import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "CardDetailsFragment"

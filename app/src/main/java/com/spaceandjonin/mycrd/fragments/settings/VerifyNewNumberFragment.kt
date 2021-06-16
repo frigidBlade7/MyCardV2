@@ -1,4 +1,4 @@
-package com.spaceandjonin.mycrd.fragments.onboarding
+package com.spaceandjonin.mycrd.fragments.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +22,9 @@ class VerifyNewNumberFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewmodel.updateNumberService.setActivity(requireActivity())
+
         val number = VerifyNewNumberFragmentArgs.fromBundle(requireArguments()).newPhoneNumber
         viewmodel.newPhoneNumber.value = (number)
         viewmodel.sendVerificationCode(number)

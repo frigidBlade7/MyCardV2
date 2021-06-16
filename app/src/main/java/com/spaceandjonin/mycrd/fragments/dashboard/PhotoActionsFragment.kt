@@ -3,7 +3,6 @@ package com.spaceandjonin.mycrd.fragments.dashboard
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,16 +15,13 @@ import androidx.core.content.FileProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.canhub.cropper.CropImage
-import com.canhub.cropper.CropImageActivity
-import com.spaceandjonin.mycrd.R
-import com.spaceandjonin.mycrd.databinding.FragmentAddSocialsBinding
-import com.spaceandjonin.mycrd.event.EventObserver
-import com.spaceandjonin.mycrd.viewmodel.AddCardViewModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.databinding.FragmentPhotoActionsBinding
+import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.utils.Utils
+import com.spaceandjonin.mycrd.viewmodel.AddCardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
