@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:text="@string/name"
-                    android:textAllCaps="true"
+
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toBottomOf="@+id/profile_icon" />
 
@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="19dp"
                         android:text="@string/phone"
-                        android:textAllCaps="true"
+
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/first" />
 
@@ -239,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="19dp"
                         android:text="@string/email"
-                        android:textAllCaps="true"
+
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/second" />
 
@@ -250,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="19dp"
                         android:text="@string/social_media"
-                        android:textAllCaps="true"
+
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/third" />
 

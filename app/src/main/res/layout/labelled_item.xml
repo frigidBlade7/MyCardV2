@@ -36,7 +36,6 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
-            app:contentPadding="8dp"
             app:layout_constraintEnd_toStartOf="@+id/heading"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +52,7 @@
             android:layout_marginEnd="24dp"
             android:text="@{item.parentLabel.empty?item.label:item.parentLabel}"
             android:textAlignment="textStart"
-            android:textAllCaps="true"
+
             app:layout_constraintBottom_toTopOf="@+id/role"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
