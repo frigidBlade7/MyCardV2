@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="location"
+            name="website"
             type="String" />
 
     </data>
@@ -18,14 +18,14 @@
             android:id="@+id/background"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:srcCompat="@drawable/location_label"
+            app:srcCompat="@drawable/website_label"
             android:layout_marginStart="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/heading"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/heading"
@@ -35,7 +35,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/work_location"
+            android:text="@string/website"
             android:textAlignment="textStart"
             android:textAllCaps="true"
             app:layout_constraintBottom_toTopOf="@+id/role"
@@ -43,7 +43,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/background"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/work_location" />
+            tools:text="@string/website" />
 
         <TextView
             android:id="@+id/role"
@@ -54,7 +54,7 @@
             android:layout_marginBottom="16dp"
             android:ellipsize="marquee"
             android:textAlignment="textStart"
-            android:text="@{location}"
+            android:text="@{website}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"

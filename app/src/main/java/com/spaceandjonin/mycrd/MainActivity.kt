@@ -7,15 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.transition.MaterialElevationScale
 import com.spaceandjonin.mycrd.databinding.ActivityMainBinding
 import com.spaceandjonin.mycrd.fragments.dashboard.CardsFragmentDirections
 import com.spaceandjonin.mycrd.utils.hideKeyboard
 import com.spaceandjonin.mycrd.utils.showKeyboard
-import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -98,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                        else -> addCard.hide()
                    }
                    when(destination.id){
-                       R.id.viewAddedCardDetailsFragment,R.id.confirmAddDetailsFragment,R.id.cardDetailsFragment -> hideKeyboard(binding.root)
+                       R.id.viewAddedCardDetailsFragment,R.id.confirmAddDetailsFragment,R.id.cardDetailsFragment, R.id.reviewScannedDetailsFragment -> hideKeyboard(binding.root)
                    }
                    when(destination.id){
                        R.id.searchCardsFragment-> {

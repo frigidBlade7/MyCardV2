@@ -19,17 +19,13 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
-            app:contentPadding="8dp"
-            app:srcCompat="@drawable/office"
-            app:tint="@android:color/white"
+            app:srcCompat="@drawable/company_name_label"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/heading"
-            app:layout_constraintVertical_bias="0.0"
-            app:shapeAppearanceOverlay="@style/CircularImageView"
-            android:background="@color/mc_black_40" />
+            app:layout_constraintVertical_bias="0.0"/>
 
         <TextView
             android:id="@+id/heading"
@@ -51,7 +47,7 @@
 
         <TextView
             android:id="@+id/role"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            style="@style/TextAppearance.MyCardStyles.Body.Regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -67,7 +63,7 @@
 
         <TextView
             android:id="@+id/type"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            style="@style/TextAppearance.MyCardStyles.Body.Regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

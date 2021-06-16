@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Parcel
 import android.os.Parcelable
@@ -22,22 +21,15 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.models.*
 import ezvcard.VCard
-import ezvcard.parameter.AddressType
 import ezvcard.parameter.EmailType
-import ezvcard.parameter.ImageType
 import ezvcard.parameter.TelephoneType
-import ezvcard.property.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import java.io.ByteArrayOutputStream
+import ezvcard.property.Email
+import ezvcard.property.Role
+import ezvcard.property.StructuredName
+import ezvcard.property.Telephone
 
 
 fun Name?.initials():String{
@@ -105,7 +97,7 @@ fun List<SocialMediaProfile>.hasAll(): Boolean{
 }
 
 fun Name.aggregateNameToFullName(){
-    fullName = "$prefix $firstName $middleName $lastName $suffix".trim().replace(
+    this.fullName = "$prefix $firstName $middleName $lastName $suffix".trim().replace(
         "\\s+".toRegex(),
         " "
     )
@@ -135,7 +127,7 @@ fun Name.segregateFullName(){
     prefix = getPrefix()
     suffix = getSuffix()
 
-    Log.d("TAG", "segregateFullName: ${list.size}")
+    //Log.d("TAG", "segregateFullName: ${list.size}")
     when (list.size){
         1 -> firstName = list.getOrNull(0) ?: ""
         2 -> {
@@ -282,13 +274,14 @@ fun BottomNavigationView.show() {
     }
 }
 
+/*
 fun Bitmap.toByteArray(): ByteArray {
 
     val baos = ByteArrayOutputStream()
     this.compress(Bitmap.CompressFormat.JPEG, 100, baos)
     return baos.toByteArray()
-}
-@OptIn(ExperimentalCoroutinesApi::class)
+}*/
+/*@OptIn(ExperimentalCoroutinesApi::class)
 fun Query.awaitContinuous(): Flow<QuerySnapshot?> = callbackFlow {
 
     val subscriptionCallback = addSnapshotListener { value, error ->
@@ -300,7 +293,7 @@ fun Query.awaitContinuous(): Flow<QuerySnapshot?> = callbackFlow {
     }
 
     awaitClose { subscriptionCallback.remove() }
-}
+}*/
 fun LiveCard.exportVCard(byteArray: ByteArray?):VCard{
 
     val card = this
@@ -616,6 +609,7 @@ fun AddedCard.exportContactIntent(byteArray: ByteArray?):Intent{
         card?.businessInfo?.let {
             putExtra(ContactsContract.Intents.Insert.COMPANY, it.companyName)
             putExtra(ContactsContract.Intents.Insert.JOB_TITLE, it.role)
+            //todo add website putExtra(ContactsContract.Intents.Insert.??, it.website)
         }
 
         card?.note?.let {
@@ -625,7 +619,6 @@ fun AddedCard.exportContactIntent(byteArray: ByteArray?):Intent{
 
         putExtra("finishActivityOnSaveCompleted", true)
     }
-
 
 }
 /*fun CountryCodePicker.customizeDialog(context: Context){

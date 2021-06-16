@@ -27,7 +27,7 @@
             android:padding="16dp"
             android:drawablePadding="16dp"
             app:layout_constraintBottom_toTopOf="@+id/add"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            style="@style/TextAppearance.MyCardStyles.Body.Regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/add"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            style="@style/TextAppearance.MyCardStyles.Body.Regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -54,7 +54,7 @@
 
         <TextView
             android:id="@+id/view"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            style="@style/TextAppearance.MyCardStyles.Body.Regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -71,7 +71,7 @@
 
         <TextView
             android:id="@+id/export"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            style="@style/TextAppearance.MyCardStyles.Body.Regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -97,7 +97,7 @@
             app:drawableTint="@color/mc_red"
             android:textColor="@color/mc_red"
             android:drawablePadding="16dp"
-            style="@style/TextAppearance.MyCardStyles.Body.Body"
+            style="@style/TextAppearance.MyCardStyles.Body.Regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

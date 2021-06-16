@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.spaceandjonin.mycrd.converters.EmailTypeConverter"/>
+        <import type="com.spaceandjonin.mycrd.converters.EmailTypeBindingConverter"/>
         <variable
             name="item"
             type="com.spaceandjonin.mycrd.models.PhoneNumber" />
@@ -17,7 +17,7 @@
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:gravity="center_vertical"
         android:background="?attr/selectableItemBackground"
-        style="@style/TextAppearance.MyCardStyles.Body.Body"
+        style="@style/TextAppearance.MyCardStyles.Body.Regular"
         android:text="@{item.number.trim()}"
         android:drawablePadding="16dp"
         android:paddingTop="8dp"

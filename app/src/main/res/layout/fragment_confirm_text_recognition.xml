@@ -36,6 +36,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/crop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            app:backgroundTint="@color/mc_black"
+
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="@+id/confirm_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/confirm_button"
+            app:srcCompat="@drawable/crop" />
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -60,7 +74,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/forward" />
 
-        <ImageView
+<!--        <ImageView
             android:id="@+id/preview"
             app:shapeAppearanceOverlay="@style/RoundedRectangleImageView"
             android:layout_width="48dp"
@@ -89,6 +103,6 @@
             app:layout_constraintStart_toEndOf="@+id/preview"
             app:layout_constraintTop_toTopOf="@+id/confirm_button"
             app:shapeAppearanceOverlay="@style/RoundedRectangleImageView"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

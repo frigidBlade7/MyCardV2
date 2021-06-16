@@ -93,7 +93,7 @@ class ToggleImageButton : AppCompatImageButton, Checkable {
         }
 
         companion object {
-            val CREATOR: Parcelable.Creator<SavedState> =
+            @JvmField val CREATOR: Parcelable.Creator<SavedState> =
                 object : Parcelable.ClassLoaderCreator<SavedState> {
                     override fun createFromParcel(`in`: Parcel, loader: ClassLoader): SavedState {
                         return SavedState(`in`, loader)

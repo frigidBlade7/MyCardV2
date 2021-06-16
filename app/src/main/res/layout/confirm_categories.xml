@@ -129,6 +129,20 @@
             app:location="@{item.businessInfo.companyAddress}" />
 
         <View
+            android:id="@+id/view8"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider"
+            android:visibility="@{item.businessInfo.website.empty?View.GONE: View.VISIBLE}" />
+
+        <include
+            android:id="@+id/website"
+            layout="@layout/card_website_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{item.businessInfo.website.empty?View.GONE: View.VISIBLE}"
+            app:website="@{item.businessInfo.website}" />
+        <View
             android:id="@+id/view4"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"

@@ -83,7 +83,7 @@
 
                     <TextView
                         android:id="@+id/phone"
-                        style="@style/TextAppearance.MyCardStyles.Body.Body"
+                        style="@style/TextAppearance.MyCardStyles.Body.Regular"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -182,7 +182,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginBottom="8dp"
                         android:text="@{viewmodel.user.name}"
-                        style="@style/TextAppearance.MyCardStyles.Body.Body"
+                        style="@style/TextAppearance.MyCardStyles.Body.Regular"
                         app:drawableEndCompat="@drawable/next"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

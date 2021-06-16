@@ -180,7 +180,7 @@
                     android:background="@color/mc_black_10"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toBottomOf="@+id/role_layout" />
+                    app:layout_constraintTop_toBottomOf="@+id/site_layout" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/role_layout"
@@ -192,14 +192,34 @@
                     app:layout_constraintTop_toBottomOf="@+id/company_layout">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextAppearance.MyCardStyles.Body.Body"
+                        style="@style/TextAppearance.MyCardStyles.Body.Regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@={viewmodel.businessInfo.role}"
                         android:hint="@string/role_or_job_title"
                         android:inputType="textPersonName|textCapWords"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:text="@={viewmodel.businessInfo.role}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/site_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/role_layout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextAppearance.MyCardStyles.Body.Regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:hint="@string/website"
+                        android:inputType="textWebEditText"
+                        android:maxLines="1"
+                        android:text="@={viewmodel.businessInfo.website}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -212,7 +232,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView7">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextAppearance.MyCardStyles.Body.Body"
+                        style="@style/TextAppearance.MyCardStyles.Body.Regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -232,7 +252,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView6">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextAppearance.MyCardStyles.Body.Body"
+                        style="@style/TextAppearance.MyCardStyles.Body.Regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

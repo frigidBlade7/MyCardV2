@@ -46,9 +46,9 @@ class CompleteProfileFragment : Fragment() {
             callGallery()
         }
 
-        binding.toolbar.setNavigationOnClickListener{
+/*        binding.toolbar.setNavigationOnClickListener{
             findNavController().popBackStack()
-        }
+        }*/
 
         viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
             Toast.makeText(context,it,Toast.LENGTH_SHORT).show()

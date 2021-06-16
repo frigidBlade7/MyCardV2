@@ -59,7 +59,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/full_name"
-                    style="@style/TextAppearance.MyCardStyles.Body.Body"
+                    style="@style/TextAppearance.MyCardStyles.Body.Regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/full_name"

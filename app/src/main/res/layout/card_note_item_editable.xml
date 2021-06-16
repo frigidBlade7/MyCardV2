@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.spaceandjonin.mycrd.viewmodel.AddCardViewModel" />
+            name="item"
+            type="String" />
     </data>
 
 
@@ -61,16 +61,16 @@
 
             <TextView
                 android:id="@+id/role"
-                style="@style/TextAppearance.MyCardStyles.Body.Body"
+                style="@style/TextAppearance.MyCardStyles.Body.Regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:focusable="true"
                 android:maxLines="2"
                 android:ellipsize="marquee"
-                android:text="@{viewModel.note.empty?@string/add_a_note:viewModel.note}"
+                android:text="@{item.empty?@string/add_a_note:item}"
                 android:textAlignment="textStart"
-                android:textColor="@{viewModel.note.empty?@color/mc_purple:@color/mc_black}"
+                android:textColor="@{item.empty?@color/mc_purple:@color/mc_black}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/heading"
                 app:layout_constraintHorizontal_bias="0.5"

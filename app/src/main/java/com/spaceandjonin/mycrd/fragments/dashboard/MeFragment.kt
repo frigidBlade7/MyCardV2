@@ -3,16 +3,12 @@ package com.spaceandjonin.mycrd.fragments.dashboard
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.provider.ContactsContract
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -25,7 +21,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
@@ -40,16 +35,12 @@ import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.listeners.SocialItemInteraction
 import com.spaceandjonin.mycrd.models.Resource
 import com.spaceandjonin.mycrd.models.SocialMediaProfile
-import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.utils.backgroundColor
 import com.spaceandjonin.mycrd.utils.exportVCard
 import com.spaceandjonin.mycrd.viewmodel.CardViewModel
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ezvcard.Ezvcard
-import ezvcard.VCard
-import ezvcard.VCardVersion
-import ezvcard.property.StructuredName
 import java.io.File
 
 
@@ -137,8 +128,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
                         CenterCrop(),
                         CircleCrop()
                     ).placeholder(R.drawable.user_default).error(
-                        R.drawable
-                            .user_default
+                        R.drawable.user_default
                     ).thumbnail(0.1f).into(binding.profileIcon)
                 }
             }
@@ -202,10 +192,10 @@ class MeFragment : Fragment(), SocialItemInteraction {
                 is Resource.Success -> {
                     binding.empty.isVisible = it.data.isEmpty()
                     if (it.data.isEmpty()) {
-                        binding.include.parent.isVisible = it.data.isNotEmpty()
+                        binding.full.isVisible = it.data.isNotEmpty()
                         binding.cardCount.isVisible = false
 
-                        binding.appbar.setBackgroundColor(android.R.color.white)
+                        binding.appbar.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
                     } else {
                         binding.appbar.backgroundColor(R.color.mc_gray_light)
                         binding.cardCount.isVisible = true
@@ -265,6 +255,10 @@ class MeFragment : Fragment(), SocialItemInteraction {
             findNavController().navigate(MeFragmentDirections.actionGlobalDeletePersonalCardDialogFragment())*/
         }
 
+        binding.createOne.setOnClickListener {
+            findNavController().navigate(MeFragmentDirections.actionGlobalAddPersonalCardOptionsFragment())
+        }
+
         binding.toolbar.setOnMenuItemClickListener {
 
             exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
@@ -274,8 +268,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
 
             when(it.itemId){
                 R.id.add_personal_card -> {
-                    //findNavController().navigate(MeFragmentDirections.actionMeFragmentToAddPersonalCardNav(),extras)
-                    onboardingViewModel.goToAddPersonalCard()
+                    findNavController().navigate(MeFragmentDirections.actionGlobalAddPersonalCardOptionsFragment())
                 }
                 R.id.settings -> onboardingViewModel.goToSettings()
             }

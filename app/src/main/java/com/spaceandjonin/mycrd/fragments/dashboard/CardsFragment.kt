@@ -1,16 +1,11 @@
 package com.spaceandjonin.mycrd.fragments.dashboard
 
-import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.view.menu.MenuBuilder
-import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.GravityCompat
 import androidx.core.view.doOnPreDraw
@@ -28,8 +23,6 @@ import com.spaceandjonin.mycrd.databinding.CardsFragmentBinding
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.listeners.ItemViewInteraction
 import com.spaceandjonin.mycrd.models.AddedCard
-import com.spaceandjonin.mycrd.models.EmailAddress
-import com.spaceandjonin.mycrd.models.PhoneNumber
 import com.spaceandjonin.mycrd.models.Resource
 import com.spaceandjonin.mycrd.utils.exportContactIntent
 import com.spaceandjonin.mycrd.viewmodel.CardViewModel
@@ -193,7 +186,8 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         item?.let {
 
             val cardDetailTransitionName = it.id
-            val extras = FragmentNavigatorExtras(view to cardDetailTransitionName)
+            val extras = FragmentNavigatorExtras(view to cardDetailTransitionName)/*,
+                view.findViewById<ShapeableImageView>(R.id.icon) to cardDetailTransitionName+"icon"*/
             val directions = CardsFragmentDirections.actionCardsFragmentToViewCardDetailsFragment(it)
             findNavController().navigate(directions, extras)
         }

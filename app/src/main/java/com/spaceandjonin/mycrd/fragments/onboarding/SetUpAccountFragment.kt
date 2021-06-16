@@ -19,13 +19,15 @@ class SetUpAccountFragment : Fragment() {
 
     lateinit var binding: FragmentSetupAccountOnboardingBinding
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSetupAccountOnboardingBinding.inflate(layoutInflater,container, false)
-        binding.viewModel = viewmodel
+
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
@@ -36,6 +38,20 @@ class SetUpAccountFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+/*        binding.useCard.addOnCheckedChangeListener { button, isChecked ->
+            //Toast.makeText(context,isChecked.toString(),Toast.LENGTH_SHORT).show()
+
+            if(isChecked){
+
+            }
+            else{
+
+            }
+        }*/
+
+        binding.skip.setOnClickListener {
+            viewmodel.goToSignUp(binding.useCard.isChecked)
+        }
 
         binding.useCard.isChecked = true
         return binding.root

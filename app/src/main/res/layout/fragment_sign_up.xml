@@ -106,7 +106,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phone_number"
-                        style="@style/TextAppearance.MyCardStyles.Body.Body"
+                        style="@style/TextAppearance.MyCardStyles.Body.Regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/phone_number"

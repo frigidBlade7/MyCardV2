@@ -2,21 +2,21 @@ package com.spaceandjonin.mycrd.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.spaceandjonin.mycrd.AuthenticationCallbacks
-import com.spaceandjonin.mycrd.di.UpdateService
-import com.spaceandjonin.mycrd.event.Event
-import com.spaceandjonin.mycrd.fragments.onboarding.VerifyNewNumberFragmentDirections
-import com.spaceandjonin.mycrd.services.AuthenticationService
-import com.spaceandjonin.mycrd.utils.Utils
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
+import com.spaceandjonin.mycrd.di.UpdateService
+import com.spaceandjonin.mycrd.event.Event
+import com.spaceandjonin.mycrd.fragments.settings.VerifyNewNumberFragmentDirections
+import com.spaceandjonin.mycrd.listeners.AuthenticationCallbacks
+import com.spaceandjonin.mycrd.services.AuthenticationService
+import com.spaceandjonin.mycrd.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class VerificationViewModel @Inject constructor(
-    @UpdateService private val updateNumberService: AuthenticationService,
+    @UpdateService val updateNumberService: AuthenticationService,
 ) : BaseViewModel() {
 
     var isVerifyButtonEnabled = MutableLiveData<Boolean>(true)

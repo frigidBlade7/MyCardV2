@@ -314,7 +314,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView6">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        style="@style/TextAppearance.MyCardStyles.Body.Body"
+                        style="@style/TextAppearance.MyCardStyles.Body.Regular"
                         android:id="@+id/full_name_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -364,7 +364,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/prefix"
-                            style="@style/TextAppearance.MyCardStyles.Body.Body"
+                            style="@style/TextAppearance.MyCardStyles.Body.Regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/prefix"
@@ -386,7 +386,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/first_name"
-                            style="@style/TextAppearance.MyCardStyles.Body.Body"
+                            style="@style/TextAppearance.MyCardStyles.Body.Regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/first_name"
@@ -408,7 +408,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/middle_name"
-                            style="@style/TextAppearance.MyCardStyles.Body.Body"
+                            style="@style/TextAppearance.MyCardStyles.Body.Regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/middle_name"
@@ -429,7 +429,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/last_name"
-                            style="@style/TextAppearance.MyCardStyles.Body.Body"
+                            style="@style/TextAppearance.MyCardStyles.Body.Regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/last_name"
@@ -450,7 +450,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/suffix"
-                            style="@style/TextAppearance.MyCardStyles.Body.Body"
+                            style="@style/TextAppearance.MyCardStyles.Body.Regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/suffix"

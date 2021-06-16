@@ -30,8 +30,9 @@ class SignUpFragment : Fragment() {
         binding.countryCodeHolder.registerCarrierNumberEditText(binding.phoneNumber)
 
         binding.skip.setOnClickListener {
-            viewmodel.phoneNumberFormatted.value = binding.countryCodeHolder.fullNumberWithPlus
-            viewmodel.goToConfirmNumber(binding.countryCodeHolder.fullNumberWithPlus)
+            val formattedNumber =  binding.countryCodeHolder.fullNumberWithPlus
+            viewmodel.phoneNumberFormatted.value = formattedNumber
+            viewmodel.goToConfirmNumber(formattedNumber)
         }
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
@@ -40,6 +41,7 @@ class SignUpFragment : Fragment() {
 
 
         binding.toolbar.setNavigationOnClickListener{
+            viewmodel.resetLiveDataParams()
             findNavController().popBackStack()
         }
 

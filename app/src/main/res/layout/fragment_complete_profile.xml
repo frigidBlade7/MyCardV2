@@ -21,17 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="@drawable/back_on_surface" />
-
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profile_icon"
@@ -68,6 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="56dp"
                 android:layout_marginEnd="72dp"
                 android:layout_marginBottom="26dp"
                 android:text="@string/set_up_your_profile"
@@ -75,7 +65,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintVertical_chainStyle="packed" />
 
@@ -95,7 +85,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/full_name"
-                    style="@style/TextAppearance.MyCardStyles.Body.Body"
+                    style="@style/TextAppearance.MyCardStyles.Body.Regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/full_name"
@@ -114,7 +104,7 @@
                 android:layout_marginBottom="24dp"
                 android:enabled="@{!viewModel.name.empty}"
                 android:onClick="@{()->viewModel.completeProfile()}"
-                android:text="@string/letsgo"
+                android:text="@string/done"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

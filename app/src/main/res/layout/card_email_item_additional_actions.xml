@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
         <import type="android.view.View"/>
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
         <variable
             name="item"
-            type="com.spaceandjonin.mycrd.models.PhoneNumber" />
+            type="com.spaceandjonin.mycrd.models.EmailAddress" />
 
     </data>
 
@@ -16,12 +16,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <include
+            android:id="@+id/actions"
+            layout="@layout/labelled_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/type"
+            app:layout_constraintTop_toBottomOf="@+id/type" />
+
         <TextView
             android:id="@+id/role"
             style="@style/TextAppearance.MyCardStyles.Body.Regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{item.number.trim()}"
+            android:layout_marginTop="8dp"
+            android:text="@{item.address}"
             android:textAlignment="textStart"
             app:layout_constraintBottom_toTopOf="@+id/type"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,12 +47,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
             android:text="@{item.type.toString()}"
             android:textAlignment="textStart"
-            android:textColor="@{ExtensionsKt.textColor(type,item.type.toString())}"
             android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@{ExtensionsKt.textColor(type,item.type.toString())}"
+            app:layout_constraintBottom_toTopOf="@+id/actions"
             app:layout_constraintEnd_toEndOf="@+id/role"
             app:layout_constraintStart_toStartOf="@+id/role"
             app:layout_constraintTop_toBottomOf="@+id/role"

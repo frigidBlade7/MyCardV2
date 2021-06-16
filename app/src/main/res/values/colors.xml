@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
 
     <color name="mc_blue">#16B1F3</color>
     <color name="mc_blue_20">#d0effd</color>
@@ -13,7 +11,6 @@
     <color name="mc_purple">#5513C1</color>
     <color name="mc_red">#E33A3A</color>
     <color name="mc_gray_light">#F5F5F5</color>
-    <color name="mc_yellow">#F6A609</color>
     <color name="mc_green">#1AB759</color>
     <color name="mc_orange">#F6A609</color>
 
@@ -29,13 +26,11 @@
     <color name="mc_teal_30">#4D012E40</color>
 
 
-    <color name="mc_red_gradient">#9c0078</color>
     <color name="mc_black_60">#99000000</color>
     <color name="mc_black">#000000</color>
     <color name="mc_black_40">#aaaaaa</color>
     <color name="mc_black_5">#1A000000</color>
     <color name="mc_purple_10">#1A5513C1</color>
-    <color name="polygonViewCircleBackground">#90e5f8ff</color>
     <color name="mc_black_10">#1A000000</color>
 
 </resources>

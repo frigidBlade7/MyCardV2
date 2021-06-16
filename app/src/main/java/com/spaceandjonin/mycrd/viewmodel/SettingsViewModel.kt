@@ -4,32 +4,30 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.ActionOnlyNavDirections
-import com.spaceandjonin.mycrd.AuthenticationCallbacks
-import com.spaceandjonin.mycrd.SettingsNavDirections
-import com.spaceandjonin.mycrd.db.AppDb
-import com.spaceandjonin.mycrd.di.AuthService
-import com.spaceandjonin.mycrd.event.Event
-import com.spaceandjonin.mycrd.fragments.dashboard.ConfirmNumberResetFragmentDirections
-import com.spaceandjonin.mycrd.fragments.dashboard.SettingsFragmentDirections
-import com.spaceandjonin.mycrd.fragments.onboarding.VerifyCurrentNumberFragmentDirections
-import com.spaceandjonin.mycrd.models.Resource
-import com.spaceandjonin.mycrd.models.User
-import com.spaceandjonin.mycrd.models.datasource.FirebaseUserDataSourceImpl
-import com.spaceandjonin.mycrd.services.AuthenticationService
-import com.spaceandjonin.mycrd.services.UpdateImageService
-import com.spaceandjonin.mycrd.utils.Utils
-import com.spaceandjonin.mycrd.utils.notifyObserver
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.spaceandjonin.mycrd.R
+import com.spaceandjonin.mycrd.SettingsNavDirections
+import com.spaceandjonin.mycrd.db.AppDb
+import com.spaceandjonin.mycrd.di.AuthService
 import com.spaceandjonin.mycrd.di.ImageFile
-import com.spaceandjonin.mycrd.fragments.dashboard.AddCardFragmentDirections
+import com.spaceandjonin.mycrd.event.Event
+import com.spaceandjonin.mycrd.fragments.settings.ConfirmNumberResetFragmentDirections
+import com.spaceandjonin.mycrd.fragments.settings.SettingsFragmentDirections
+import com.spaceandjonin.mycrd.fragments.settings.VerifyCurrentNumberFragmentDirections
+import com.spaceandjonin.mycrd.listeners.AuthenticationCallbacks
+import com.spaceandjonin.mycrd.models.Resource
+import com.spaceandjonin.mycrd.models.User
+import com.spaceandjonin.mycrd.repositories.UserRepository
+import com.spaceandjonin.mycrd.services.AuthenticationService
+import com.spaceandjonin.mycrd.services.UpdateImageService
+import com.spaceandjonin.mycrd.utils.Utils
+import com.spaceandjonin.mycrd.utils.notifyObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,8 +40,8 @@ class SettingsViewModel @Inject constructor(
     private val uploadService: UpdateImageService,
     private val auth: FirebaseAuth,
     @ImageFile val imageFile: File?,
-    @AuthService private val authenticationService: AuthenticationService,
-    private val userDataSourceImpl: FirebaseUserDataSourceImpl, val appDb: AppDb, val db: FirebaseFirestore
+    @AuthService val authenticationService: AuthenticationService,
+    private val userRepository: UserRepository, val appDb: AppDb, val db: FirebaseFirestore
 ) : BaseViewModel() {
 
     var profileImageUri = MutableLiveData<Uri>(Uri.EMPTY)
@@ -52,8 +50,8 @@ class SettingsViewModel @Inject constructor(
     var isResendButtonEnabled = MutableLiveData(true)
     var smsCode = MutableLiveData<String>()
 
-    fun getUser(): LiveData<Resource<User>> {
-        return userDataSourceImpl.getData(""/*for future use with multi logins*/).asLiveData()
+    fun getLoggedInUser(): LiveData<Resource<User>> {
+        return userRepository.getLoggedInUser()
     }
 
     var authCallbacks = object : AuthenticationCallbacks<FirebaseUser>(){
@@ -119,7 +117,7 @@ class SettingsViewModel @Inject constructor(
                 uploadService.setUri(it)
                 when(val uploadData = uploadService.uploadImage("profiles/${auth.currentUser?.uid}")){
                     is Resource.Success->{
-                        when (val profileData = userDataSourceImpl.updateImage(uploadData.data)){
+                        when (val profileData = userRepository.userDataSourceImpl.updateImage(uploadData.data)){
                             is Resource.Error ->{
                                 _snackbarInt.postValue(Event(profileData.errorCode))
                             }
@@ -166,7 +164,7 @@ class SettingsViewModel @Inject constructor(
 
     fun updateProfileName(){
         viewModelScope.launch {
-            when(val profileData = userDataSourceImpl.updateData(user.value!!)){
+            when(val profileData = userRepository.userDataSourceImpl.updateData(user.value!!)){
                 is Resource.Error ->{
                     _snackbarInt.postValue(Event(profileData.errorCode))
                 }
@@ -185,7 +183,7 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
 
             profileImageUri.value?.let {
-                when(val data = userDataSourceImpl.updateImage(it)){
+                when(val data = userRepository.userDataSourceImpl.updateImage(it)){
                     is Resource.Success -> {
                         //todo hide loader
                             try {

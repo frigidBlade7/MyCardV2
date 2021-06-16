@@ -61,7 +61,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/search"
-                            style="@style/TextAppearance.MyCardStyles.Body.Body"
+                            style="@style/TextAppearance.MyCardStyles.Body.Regular"
                             android:focusableInTouchMode="true"
                             android:focusable="true"
                             android:layout_width="match_parent"

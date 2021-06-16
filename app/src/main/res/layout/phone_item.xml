@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.spaceandjonin.mycrd.converters.PhoneTypeConverter"/>
+        <import type="com.spaceandjonin.mycrd.converters.PhoneTypeBindingConverter"/>
 
         <variable
             name="item"
@@ -29,7 +29,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/number"
-                style="@style/TextAppearance.MyCardStyles.Body.Body"
+                style="@style/TextAppearance.MyCardStyles.Body.Regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_number"
@@ -56,8 +56,8 @@
                 android:editable="false"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="@={PhoneTypeConverter.INSTANCE.phoneTypeToString(item.type)}"
-                style="@style/TextAppearance.MyCardStyles.Body.Body"
+                android:text="@={PhoneTypeBindingConverter.INSTANCE.phoneTypeToString(item.type)}"
+                style="@style/TextAppearance.MyCardStyles.Body.Regular"
                 android:layout_width="108dp"
                 android:layout_height="wrap_content" />
 

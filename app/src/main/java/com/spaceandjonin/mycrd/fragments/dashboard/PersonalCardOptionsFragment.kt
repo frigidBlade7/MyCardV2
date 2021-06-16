@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.databinding.FragmentPersonalCardOptionsBinding
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.viewmodel.CardViewModel
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -62,7 +62,7 @@ class PersonalCardOptionsFragment : BottomSheetDialogFragment() {
 
         binding.edit.setOnClickListener {
             dismiss()
-            findNavController().navigate(PersonalCardOptionsFragmentDirections.actionGlobalAddPersonalCardNav(isEdit = true, viewmodel.selectedPersonalCard.value?.copy()))
+            findNavController().navigate(PersonalCardOptionsFragmentDirections.actionGlobalAddPersonalCardNav(isEdit = true, viewmodel.selectedPersonalCard.value))
         }
 
         binding.view.setOnClickListener {

@@ -1,4 +1,4 @@
-package com.spaceandjonin.mycrd.fragments.onboarding
+package com.spaceandjonin.mycrd.fragments.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,24 +9,26 @@ import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import com.spaceandjonin.mycrd.R
-import com.spaceandjonin.mycrd.databinding.FragmentVerifyCurrentNumberBinding
+import com.spaceandjonin.mycrd.databinding.FragmentVerifyNumberBinding
 import com.spaceandjonin.mycrd.event.EventObserver
-import com.spaceandjonin.mycrd.viewmodel.SettingsViewModel
+import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class VerifyCurrentNumberFragment : Fragment() {
+class VerifyNumberFragment : Fragment() {
 
-    lateinit var binding: FragmentVerifyCurrentNumberBinding
-    val viewmodel: SettingsViewModel by hiltNavGraphViewModels(R.id.settings_nav)
+    lateinit var binding: FragmentVerifyNumberBinding
+    val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewmodel.smsCode.value=""
-/*
-        val number = VerifyNumberFragmentArgs.fromBundle(requireArguments()).number
-        viewmodel.sendVerificationCode(number)*/
+
+        viewmodel.authenticationService.setActivity(requireActivity())
+
+        viewmodel.phoneNumberFormatted.value = VerifyNumberFragmentArgs.fromBundle(requireArguments()).number
+
     }
 
     override fun onCreateView(
@@ -34,7 +36,7 @@ class VerifyCurrentNumberFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentVerifyCurrentNumberBinding.inflate(layoutInflater,container, false)
+        binding = FragmentVerifyNumberBinding.inflate(layoutInflater,container, false)
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -42,7 +44,8 @@ class VerifyCurrentNumberFragment : Fragment() {
             findNavController().navigate(it)
         })
 
-        viewmodel.user.value?.phoneNumber?.let {
+
+        viewmodel.phoneNumberFormatted.value?.let {
             viewmodel.sendVerificationCode(it)
         }
 

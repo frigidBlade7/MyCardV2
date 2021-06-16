@@ -7,8 +7,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.spaceandjonin.mycrd.R
-import com.spaceandjonin.mycrd.models.Resource
-import com.spaceandjonin.mycrd.models.User
 
 
 @BindingAdapter("imageUrl")
@@ -16,7 +14,7 @@ import com.spaceandjonin.mycrd.models.User
         if(!imageUrl.isNullOrEmpty())
             Glide.with(imageView.context).asBitmap().load(imageUrl)
                 /*.placeholder(R.drawable.user_default)*/.error(R.drawable
-                    .user_default).diskCacheStrategy(DiskCacheStrategy.DATA).transform(CenterCrop(),CircleCrop()).thumbnail(0.1f).into(imageView)
+                    .user_default).diskCacheStrategy(DiskCacheStrategy.DATA)/*.transform(CenterCrop(),CircleCrop())*/.thumbnail(0.1f).into(imageView)
         else
             Glide.with(imageView.context).clear(imageView)
     }
