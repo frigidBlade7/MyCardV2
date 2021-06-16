@@ -3,29 +3,34 @@ package com.spaceandjonin.mycrd.viewmodel
 import android.graphics.Bitmap
 import android.net.Uri
 import android.telephony.PhoneNumberUtils
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.*
 import androidx.navigation.ActionOnlyNavDirections
-import com.spaceandjonin.mycrd.AuthenticationCallbacks
-import com.spaceandjonin.mycrd.R
-import com.spaceandjonin.mycrd.di.AuthService
-import com.spaceandjonin.mycrd.event.Event
-import com.spaceandjonin.mycrd.fragments.dashboard.*
-import com.spaceandjonin.mycrd.fragments.onboarding.*
-import com.spaceandjonin.mycrd.models.*
-import com.spaceandjonin.mycrd.models.datasource.FirebaseUserDataSourceImpl
-import com.spaceandjonin.mycrd.services.AuthenticationService
-import com.spaceandjonin.mycrd.services.UpdateImageService
-import com.spaceandjonin.mycrd.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.mlkit.vision.text.Text
 import com.spaceandjonin.mycrd.AddCardNavDirections
+import com.spaceandjonin.mycrd.R
+import com.spaceandjonin.mycrd.di.AuthService
+import com.spaceandjonin.mycrd.event.Event
+import com.spaceandjonin.mycrd.fragments.dashboard.*
+import com.spaceandjonin.mycrd.fragments.onboarding.*
+import com.spaceandjonin.mycrd.fragments.settings.VerifyNumberFragmentDirections
+import com.spaceandjonin.mycrd.listeners.AuthenticationCallbacks
+import com.spaceandjonin.mycrd.models.*
+import com.spaceandjonin.mycrd.repositories.PersonalCardsRepository
+import com.spaceandjonin.mycrd.repositories.UserRepository
+import com.spaceandjonin.mycrd.services.AuthenticationService
 import com.spaceandjonin.mycrd.services.PhysicalCardProcessService
-import com.spaceandjonin.mycrd.services.PhysicalCardProcessServiceImpl
+import com.spaceandjonin.mycrd.services.UpdateImageService
+import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.utils.notifyObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,9 +39,11 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
                                               private val uploadService: UpdateImageService,
                                               private val auth: FirebaseAuth,
                                               val imageByteArray: ImageByteArray,
-                                              val processServiceImpl: PhysicalCardProcessService<LiveCard?> ,
-                                              @AuthService private val authenticationService: AuthenticationService,
-                                              private val userDataSourceImpl: FirebaseUserDataSourceImpl
+                                              val processServiceImpl: PhysicalCardProcessService<LiveCard?>,
+                                              val userRepository: UserRepository,
+                                              val liveCardDataStore: DataStore<Preferences>,
+                                              val personalCardsRepository: PersonalCardsRepository,
+                                              @AuthService val authenticationService: AuthenticationService,
 ) : BaseViewModel() {
 
     lateinit var filePath: String
@@ -48,18 +55,17 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
     var tempCardByteArray: ByteArray? = null
 
-    var elementListLiveData = MutableLiveData<List<Text.Element>>(mutableListOf())
+    var elementListLiveData = MutableLiveData<List<Text.Line>>(mutableListOf())
 
     //private val authenticationService: AuthenticationService = AuthenticationServiceImpl(auth)
 
-    var phoneNumber = MutableLiveData<String>()
+    var phoneNumber = MutableLiveData<String>("")
     var phoneNumberFormatted = MutableLiveData<String>()
     var name = MutableLiveData<String>("")
 
     var isVerifyButtonEnabled = MutableLiveData<Boolean>(true)
     var isResendButtonEnabled = MutableLiveData<Boolean>(true)
     var smsCode = MutableLiveData<String>()
-
 
     var authCallbacks = object : AuthenticationCallbacks<FirebaseUser>(){
         override fun onCodeSent() {
@@ -110,21 +116,20 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun goToSkip(){
-        val action = WelcomeFragmentDirections.actionWelcomeFragmentToSkipOnboardingFragment()
+        val action = WelcomeFragmentDirections.actionWelcomeFragmentToSignUpFragment()
             //WelcomeFragmentDirections.actionWelcomeFragmentToSignUpFragment()
         _destination.value = Event(action)
     }
 
     fun goToScan(){
-        val action = SkipOnboardingFragmentDirections.actionGlobalScanNav()
+        val action = SkipOnboardingFragmentDirections.actionGlobalAddPersonalCardOptionsFragment()
         _destination.value = Event(action)
-
     }
 
 
     fun goToConfirm(){
-        val action = CaptureCardFragmentDirections.actionCaptureCardFragmentToConfirmDetailsFragment()
-        _destination.value = Event(action)
+        //val action = CaptureCardFragmentDirections.actionCaptureCardFragmentToConfirmDetailsFragment()
+       // _destination.value = Event(action)
     }
 
     fun goToSetup(){
@@ -134,7 +139,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun skipToSignUp(){
-        val action = SkipOnboardingFragmentDirections.actionSkipOnboardingFragmentToSignUpFragment()
+        val action = SkipOnboardingFragmentDirections.actionSkipOnboardingFragmentToSetupProfileFragment()
         _destination.value = Event(action)
     }
 
@@ -143,8 +148,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun getUser(): LiveData<Resource<User>> {
-        return userDataSourceImpl.getData(""/*for future use with multi logins*/).asLiveData()
-
+        return userRepository.userDataSourceImpl.getData(null).asLiveData()
     }
 
 /*    fun updateNote(){
@@ -186,11 +190,23 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
     }*/
     fun goToAddCardFromCapture(){
-        _destination.value = Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav())
+        //_destination.value = Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav())
     }
 
-    fun goToSignUp(){
+    fun goToSignUp(useCard: Boolean){
         val action = SetUpAccountFragmentDirections.actionSetUpAccountFragmentToSignUpFragment()
+        if(useCard){
+            viewModelScope.launch(Dispatchers.IO) {
+                userRepository.cardJsonFlow.collect {
+                    it?.let {
+                        phoneNumber.postValue(it.phoneNumbers.firstOrNull()?.number ?:"")
+                        name.postValue(it.name.fullName)
+                    }
+                }
+            }
+        }else
+            resetLiveDataParams()
+
         _destination.value = Event(action)
     }
 
@@ -203,7 +219,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
         }
 */
 
-        val action = ConfirmNumberDialogFragmentDirections.actionConfirmNumberFragmentToVerifyNumberFragment()
+        val action = ConfirmNumberDialogFragmentDirections.actionConfirmNumberFragmentToVerifyNumberFragment(phoneNumberFormatted.value)
         _destination.value = Event(action)
 
     }
@@ -233,11 +249,11 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
     fun goToDashboardAfterSetup(){
         val action = CompleteProfileFragmentDirections.actionSetupProfileFragmentToCardsFragment()
-        _destination.value = Event(action)
+        _destination.postValue(Event(action))
     }
 
     fun goToCompleteSetup(){
-        val action = VerifyNumberFragmentDirections.actionVerifyNumberFragmentToSetupProfileFragment()
+        val action = VerifyNumberFragmentDirections.actionVerifyNumberFragmentToSkipOnboardingFragment()
         _destination.value = Event(action)
     }
 
@@ -266,8 +282,8 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
         _destination.value = Event(DeleteCardDialogFragmentDirections.actionGlobalDeleteCardDialogFragment())
     }
 
-    fun goToScanCard() {
-        _destination.value = Event(CardsFragmentDirections.actionGlobalScanNav())
+    fun goToScanCard(scanType: String) {
+        _destination.value = Event(CardsFragmentDirections.actionGlobalScanNav(scanType))
     }
 
     fun goToEnterManually() {
@@ -288,7 +304,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
 
 
     fun goToAddPersonalCard() {
-        _destination.value = Event(MeFragmentDirections.actionMeFragmentToAddPersonalCardNav())
+        _destination.value = Event(MeFragmentDirections.actionGlobalAddPersonalCardNav())
     }
 
     fun showCardQr() {
@@ -307,9 +323,38 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     fun completeProfile(){
         val user = User(auth.currentUser?.uid!!,auth.currentUser?.phoneNumber,name.value)
         viewModelScope.launch {
-            when(val userData = userDataSourceImpl.addData(user)){
-                is Resource.Success ->{
-                    goToDashboardAfterSetup()
+            when(val userData = userRepository.userDataSourceImpl.addData(user)){
+                is Resource.Success -> {
+                    userRepository.cardJsonFlow.collect {
+                        it?.let {
+                            val liveCard = LiveCard(it)
+                            liveCard.owner= user.uid
+                            when(val data = personalCardsRepository.firebaseLiveCardDataSource.addData(liveCard)){
+                                is Resource.Success->{
+                                    //todo hide loader
+                                    //card.value?.id = data.data!!
+                                    _snackbarInt.postValue(Event(R.string.success))
+                                    liveCardDataStore.edit { mutablePrefs->
+                                            mutablePrefs.remove(Utils.NEW_USER_LIVE_CARD)
+                                    }
+                                    //goToDashboardAfterSetup()
+                                }
+                                is Resource.Error ->{
+                                    //todo hide loader
+                                    _snackbarInt.postValue(Event(data.errorCode))
+
+                                }
+
+                                is Resource.Loading->{
+                                    //todo show loader
+                                    _snackbarInt.postValue(Event(R.string.adding_card))
+                                }
+                            }
+                        }
+                        resetLiveDataParams()
+                        goToDashboardAfterSetup()
+                    }
+
                 }
                 is Resource.Error ->{
                     _snackbarInt.postValue(Event(userData.errorCode))
@@ -325,7 +370,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
                 uploadService.setUri(it)
                 when(val uploadData = uploadService.uploadImage("profiles/${auth.currentUser?.uid}")){
                     is Resource.Success->{
-                        when (val profileData = userDataSourceImpl.updateImage(uploadData.data)){
+                        when (val profileData = userRepository.userDataSourceImpl.updateImage(uploadData.data)){
                             is Resource.Error ->{
                                 _snackbarInt.postValue(Event(profileData.errorCode))
                             }
@@ -343,7 +388,7 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
     }
 
     fun editCard() {
-        _destination.value = Event(AddCardNavDirections.actionGlobalAddCardNav(isEdit = true, existingCard = selectedCard.value?.copy()))
+        _destination.value = Event(AddCardNavDirections.actionGlobalAddCardNav(isEdit = true, existingCard = selectedCard.value))
     }
 
     fun storeTempCardByteArray() {
@@ -369,6 +414,11 @@ class OnboardingViewModel @Inject constructor(private val savedStateHandle: Save
                }
            }
         }
+    }
+
+    fun resetLiveDataParams() {
+        phoneNumber.value = ""
+        name.value = ""
     }
 
     /*fun createFile(outputDirectory: File): File {

@@ -129,6 +129,21 @@
             android:layout_height="wrap_content" />
 
         <View
+            android:id="@+id/view8"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider"
+            android:visibility="@{item.card.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}" />
+
+        <include
+            android:id="@+id/website"
+            layout="@layout/card_website_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{item.card.businessInfo.website.empty?View.GONE: View.VISIBLE}"
+            app:website="@{item.card.businessInfo.website}" />
+
+        <View
             android:id="@+id/view4"
             android:layout_width="match_parent"
             android:visibility="@{item.card.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
@@ -155,7 +170,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             layout="@layout/card_note_item_editable"
-            app:viewModel="@{item}"
+            app:item="@{item.note}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

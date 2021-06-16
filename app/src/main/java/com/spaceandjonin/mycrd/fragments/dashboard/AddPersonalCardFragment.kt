@@ -3,7 +3,6 @@ package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -11,13 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.canhub.cropper.CropImage
+import com.google.android.material.transition.MaterialSharedAxis
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.adapter.DropDownAdapter
 import com.spaceandjonin.mycrd.adapter.rv.EmailAdapter
@@ -36,7 +35,6 @@ import com.spaceandjonin.mycrd.utils.aggregateNameToFullName
 import com.spaceandjonin.mycrd.utils.notifyObserver
 import com.spaceandjonin.mycrd.utils.segregateFullName
 import com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel
-import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions

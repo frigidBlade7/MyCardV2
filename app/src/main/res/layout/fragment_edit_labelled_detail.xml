@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.spaceandjonin.mycrd.utils.Utils"/>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/detail"
+            style="@style/TextAppearance.MyCardStyles.Body.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@null"
+            android:hint="@string/type_here"
+            android:imeOptions="actionDone"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:text="@={viewModel.selectedDetail}"
+            app:layout_constraintBottom_toTopOf="@+id/create"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <View
+            android:id="@+id/view9"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/full_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/label"
+            style="@style/Widget.MyCardStyles.Button.RoundedButton.Dense"
+            android:layout_width="wrap_content"
+            android:drawablePadding="0dp"
+            android:onClick="@{()->viewModel.showLabelsFromEditDetail()}"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.MyCardStyles.Label"
+            android:textColor="@android:color/black"
+            android:visibility="@{viewModel.selectedLabel==Utils.UNLABELLED?View.GONE:View.VISIBLE}"
+            android:text="@{viewModel.selectedLabel==Utils.UNLABELLED?@string/unlabelled:viewModel.selectedLabel}"
+            app:backgroundTint="@color/mc_gray_light"
+            app:drawableEndCompat="@drawable/next"
+            app:layout_constraintBottom_toBottomOf="@+id/create"
+            app:layout_constraintStart_toStartOf="@+id/view9"
+            app:layout_constraintTop_toTopOf="@+id/create" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_label"
+            style="@style/Widget.MyCardStyles.Button.OutlinedButton.Dense"
+            app:icon="@drawable/tag"
+            app:iconGravity="start"
+            app:strokeWidth="0dp"
+            android:textAppearance="@style/TextAppearance.MyCardStyles.Label"
+            android:layout_width="wrap_content"
+            android:clickable="true"
+            android:drawablePadding="8dp"
+            android:focusable="true"
+            android:onClick="@{()->viewModel.showLabelsFromEditDetail()}"
+            android:gravity="center_vertical"
+            android:padding="4dp"
+            android:text="@string/add_label"
+            android:visibility="@{viewModel.selectedLabel==Utils.UNLABELLED?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/create"
+            app:layout_constraintStart_toStartOf="@+id/detail"
+            app:layout_constraintTop_toTopOf="@+id/create" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.MyCardStyles.Body.Semibold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/edit_detail"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/detail"
+            app:layout_constraintStart_toStartOf="@+id/label"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/create"
+            style="@style/Widget.MyCardStyles.Button.RoundedButton.Dense"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="24dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:layout_marginBottom="16dp"
+            android:enabled="@{!viewModel.selectedDetail.empty || !viewModel.selectedLabel.equalsIgnoreCase(@string/unlabelled)}"
+            android:text="@string/done"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/label"
+            app:layout_constraintTop_toBottomOf="@+id/detail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

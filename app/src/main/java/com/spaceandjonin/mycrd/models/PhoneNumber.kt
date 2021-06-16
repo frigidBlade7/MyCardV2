@@ -4,7 +4,8 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.firebase.firestore.Exclude
 import com.squareup.moshi.JsonClass
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
 
@@ -13,10 +14,12 @@ import java.util.*
 @Keep
 data class PhoneNumber ( var number: String = "",var type: PhoneNumberType = PhoneNumberType.Mobile):Parcelable {
     @get:Exclude
+    @IgnoredOnParcel
     val id = Calendar.getInstance().timeInMillis
 
 
     @Keep enum class PhoneNumberType {
         Home,Mobile,Work,Other
     }
+
 }

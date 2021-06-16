@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.spaceandjonin.mycrd.utils.Utils"/>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/create_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <Button
+                android:id="@+id/create"
+                style="@style/Widget.MyCardStyles.Button.RoundedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:enabled="@{!viewModel.selectedDetail.empty &amp;&amp; !viewModel.selectedLabel.equalsIgnoreCase(@string/unlabelled)}"
+                android:text="@string/done"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list" />
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:elevation="0dp"
+            app:layout_collapseMode="pin"
+            app:layout_constraintBottom_toTopOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:navigationIcon="@drawable/back" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/detail"
+            style="@style/TextAppearance.MyCardStyles.Body.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:layout_margin="16dp"
+            android:background="@null"
+            android:hint="@string/type_here"
+            android:text="@={viewModel.selectedDetail}"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <View
+            android:id="@+id/view9"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/full_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/label"
+            style="@style/Widget.MyCardStyles.Button.RoundedButton.Dense"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="12dp"
+            android:drawablePadding="0dp"
+            android:gravity="center_vertical"
+            android:onClick="@{()->viewModel.showLabelsFromNewDetail()}"
+            android:padding="8dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:visibility="@{viewModel.selectedLabel==Utils.UNLABELLED?View.GONE:View.VISIBLE}"
+            android:text="@{viewModel.selectedLabel==Utils.UNLABELLED?@string/unlabelled:viewModel.selectedLabel}"            android:textAppearance="@style/TextAppearance.MyCardStyles.Label"
+            android:textColor="@android:color/black"
+            app:backgroundTint="@color/mc_gray_light"
+            app:drawableEndCompat="@drawable/next"
+            app:layout_constraintBottom_toTopOf="@+id/create_container"
+            app:layout_constraintStart_toStartOf="@+id/view9"
+            app:layout_constraintTop_toBottomOf="@+id/detail" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_label"
+            style="@style/Widget.MyCardStyles.Button.OutlinedButton.Dense"
+            android:layout_width="wrap_content"
+            android:clickable="true"
+            android:drawablePadding="8dp"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:onClick="@{()->viewModel.showLabelsFromNewDetail()}"
+            android:padding="4dp"
+            android:text="@string/add_label"
+            android:textAppearance="@style/TextAppearance.MyCardStyles.Label"
+            android:visibility="@{viewModel.selectedLabel==Utils.UNLABELLED?View.VISIBLE:View.GONE}"
+            app:icon="@drawable/tag"
+            app:iconGravity="start"
+            app:layout_constraintBottom_toBottomOf="@+id/label"
+            app:layout_constraintStart_toStartOf="@+id/label"
+            app:layout_constraintTop_toTopOf="@+id/label"
+            app:strokeWidth="0dp" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.MyCardStyles.Headline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/add_detail"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/detail"
+            app:layout_constraintStart_toStartOf="@+id/label"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

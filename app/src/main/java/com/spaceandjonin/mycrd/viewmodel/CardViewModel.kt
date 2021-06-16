@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.spaceandjonin.mycrd.db.dao.AddedCardDao
 import com.spaceandjonin.mycrd.db.dao.LiveCardDao
 import com.spaceandjonin.mycrd.event.Event
@@ -16,24 +17,20 @@ import com.spaceandjonin.mycrd.models.datasource.LiveCardDataSource
 import com.spaceandjonin.mycrd.repositories.AddedCardsRepository
 import com.spaceandjonin.mycrd.repositories.PersonalCardsRepository
 import com.spaceandjonin.mycrd.utils.Utils
-import com.google.firebase.auth.FirebaseAuth
-import com.spaceandjonin.mycrd.di.VcfFile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
-import java.lang.Exception
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsRepository,
                                         personalCardsRepository: PersonalCardsRepository,
-                                        val addedCardDataSourceImpl: AddedCardDataSource,
+                                        private val addedCardDataSourceImpl: AddedCardDataSource,
                                         val auth: FirebaseAuth,
                                         val storageDir: File?,
-                                        val personalCardDataSource: LiveCardDataSource,
+                                        private val personalCardDataSource: LiveCardDataSource,
                                         val addedCardDao: AddedCardDao,
                                         val liveCardDao: LiveCardDao): BaseViewModel() {
 
@@ -106,17 +103,12 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
         }
     }
 
-    fun createVcf(name: String?): File?{
+    fun createVcf(name: String?): File{
             return File(storageDir,"$name.vcf")
     }
     //val cardsPagedDataFlow = cardsRepository.allCardsPaged.flow.cachedIn(viewModelScope)
 
         //val cardsLiveDataFlow = cardsRepository.currentPage
-
-
-/*    val pagedSort = Transformations.map(sortMode, Function {
-        cardsRepository.firestoreCardPagingSource.filterBy(it)
-    })*/
 
 
 }

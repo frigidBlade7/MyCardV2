@@ -12,5 +12,5 @@ interface DataSource<T> {
 
     suspend fun updateData(data: T): Resource<String>
 
-    fun getData(id: String): Flow<Resource<T>>
+    fun getData(id: String?): Flow<Resource<T>>
 }

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/mc_black"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/mc_black">
 
     <com.canhub.cropper.CropImageView
         android:id="@+id/cropImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:background="@color/mc_black"
         app:cropBorderCornerColor="@android:color/white"
         app:cropBorderCornerLength="24dp"
         app:cropBorderCornerOffset="2dp"
@@ -22,26 +23,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        app:navigationIconTint="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/confirm_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/back_on_surface" />
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:navigationIcon="@drawable/back_on_surface"
+        app:navigationIconTint="@android:color/white" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
         android:text="@string/crop_the_photo_to_card_edges"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -52,11 +54,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/cropImageView"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/check" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -67,22 +69,9 @@
         android:clickable="true"
         app:backgroundTint="@color/mc_black"
         app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="@+id/add_more"
-        app:layout_constraintStart_toEndOf="@+id/add_more"
-        app:layout_constraintTop_toTopOf="@+id/add_more"
-        app:srcCompat="@drawable/rotate" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:clickable="true"
-        app:backgroundTint="@color/mc_black"
-
-        app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="@+id/confirm_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/confirm_button"
-        app:srcCompat="@drawable/add_more" />
+        app:srcCompat="@drawable/rotate" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

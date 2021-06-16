@@ -7,8 +7,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.ImageFormat
 import android.hardware.camera2.*
@@ -19,29 +17,28 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.provider.MediaStore
 import android.util.Log
 import android.view.*
-import android.widget.Toast
-import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.net.toUri
+import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.canhub.cropper.CropImage
 import com.spaceandjonin.mycrd.R
-import com.spaceandjonin.mycrd.databinding.FragmentCaptureCardBinding
+import com.spaceandjonin.mycrd.ScanNavArgs
 import com.spaceandjonin.mycrd.databinding.FragmentTakeCardPictureBinding
 import com.spaceandjonin.mycrd.event.Event
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.utils.AutoFitSurfaceView
 import com.spaceandjonin.mycrd.utils.Utils
+import com.spaceandjonin.mycrd.utils.computeExifOrientation
 import com.spaceandjonin.mycrd.utils.getPreviewOutputSize
 import com.spaceandjonin.mycrd.viewmodel.CaptureCardViewModel
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
+import com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,7 +53,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.TimeoutException
-import kotlin.Exception
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -113,6 +109,10 @@ class TakeCardPictureFragment : Fragment() {
     /** Internal reference to the ongoing [CameraCaptureSession] configured with our parameters */
     private lateinit var session: CameraCaptureSession
 
+
+    /** Live data listener for changes in the device orientation relative to the camera */
+    private lateinit var relativeOrientation: OrientationLiveData
+
     var cameraId = 0
 
     private val characteristics: CameraCharacteristics by lazy {
@@ -127,6 +127,12 @@ class TakeCardPictureFragment : Fragment() {
         defaultViewModelProviderFactory
     }
 
+    val reviewScannedDetailsViewModel: ReviewScannedDetailsViewModel by hiltNavGraphViewModels(R.id.scan_nav)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        reviewScannedDetailsViewModel.SCAN_TYPE = ScanNavArgs.fromBundle(requireArguments()).scanType
+    }
     override fun onResume() {
         super.onResume()
         requestPermissions()
@@ -142,10 +148,13 @@ class TakeCardPictureFragment : Fragment() {
 
         overlay = binding.overlay
         viewModel.destination.observe(viewLifecycleOwner, EventObserver {
-            findNavController().navigate(it)
+            if(it.actionId==0)
+                findNavController().popBackStack()
+            else
+                findNavController().navigate(it)
         })
 
-        viewModel.destination.observe(viewLifecycleOwner, EventObserver {
+        reviewScannedDetailsViewModel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
         })
 
@@ -163,6 +172,8 @@ class TakeCardPictureFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        reviewScannedDetailsViewModel.showDialogIfNotDismissed()
 
         binding.viewFinder.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceDestroyed(holder: SurfaceHolder) = Unit
@@ -186,8 +197,17 @@ class TakeCardPictureFragment : Fragment() {
 
                 // To ensure that size is set, initialize camera in the view's thread
                 Log.d(TAG, "surfaceCreated: ${cameraId}")
+
+
             }
         })
+
+        // Used to rotate the output media to match device orientation
+        relativeOrientation = OrientationLiveData(requireContext(), characteristics).apply {
+            observe(viewLifecycleOwner, Observer {
+                    orientation -> Log.d(TAG, "Orientation changed: $orientation")
+            })
+        }
 
 
 
@@ -212,7 +232,7 @@ class TakeCardPictureFragment : Fragment() {
         )!!
             .getOutputSizes(ImageFormat.JPEG).maxBy { it.height * it.width }!!
         imageReader = ImageReader.newInstance(
-            size.width, size.height, ImageFormat.JPEG, 2
+            size.width, size.height, ImageFormat.JPEG, 3
         )
 
         // Creates list of Surfaces where the camera will output frames
@@ -249,13 +269,23 @@ class TakeCardPictureFragment : Fragment() {
                     val output = saveResult(result)
                     Log.d(TAG, "Image saved: ${output.absolutePath}")
                     viewModel.filePath = output.absolutePath
+
+                    // If the result is a JPEG file (which it kind of is), update EXIF metadata with orientation info
+                    if (output.extension == "jpg") {
+                        val exif = ExifInterface(output.absolutePath)
+                        exif.setAttribute(
+                            ExifInterface.TAG_ORIENTATION, result.orientation.toString())
+                        exif.saveAttributes()
+                        Log.d(TAG, "EXIF metadata saved: ${output.absolutePath}")
+                    }
                     //viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true)))
 
 /*                    CropImage.activity(Uri.fromFile(output))
                         .start(requireContext(), this@TakeCardPictureFragment)*/
 
-                    CropImage.activity(Uri.fromFile(output))
-                            .start(requireContext(), this@TakeCardPictureFragment,CustomCropImageActivity::class.java)
+                    viewModel._destination.postValue(Event(TakeCardPictureFragmentDirections.actionTakeCardPictureFragmentToConfirmTextRecognitionFragment(Uri.fromFile(output).toString())))
+/*                    todo use me CropImage.activity(Uri.fromFile(output))
+                            .start(requireContext(), this@TakeCardPictureFragment,CustomCropImageActivity::class.java)*/
                     //CustomCropImageActivity.start(requireActivity(),Uri.fromFile(output))
                     //viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
 
@@ -303,7 +333,7 @@ class TakeCardPictureFragment : Fragment() {
 
             override fun onDisconnected(device: CameraDevice) {
                 Log.w(TAG, "Camera $cameraId has been disconnected")
-                //todo requireActivity().finish()
+                //viewModel._destination.postValue(Event(ActionOnlyNavDirections(0)))
             }
 
             override fun onError(device: CameraDevice, error: Int) {
@@ -422,10 +452,16 @@ class TakeCardPictureFragment : Fragment() {
                             imageQueue.take().close()
                         }
 
+                        // Compute EXIF orientation metadata
+                        val rotation = relativeOrientation.value ?: 0
+                        val mirrored = characteristics.get(CameraCharacteristics.LENS_FACING) ==
+                                CameraCharacteristics.LENS_FACING_FRONT
+                        val exifOrientation = computeExifOrientation(rotation, mirrored)
+
                         // Build the result and resume progress
                         cont.resume(
                             CombinedCaptureResult(
-                                image, result, imageReader.imageFormat
+                                image, result, exifOrientation, imageReader.imageFormat
                             )
                         )
 
@@ -517,12 +553,13 @@ class TakeCardPictureFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "CaptureCardFragment"
+        private const val TAG = "TakeCardPictureFragment"
 
         /** Helper data class used to hold capture metadata with their associated image */
         data class CombinedCaptureResult(
             val image: Image,
             val metadata: CaptureResult,
+            val orientation: Int,
             val format: Int
         ) : Closeable {
             override fun close() = image.close()
@@ -594,24 +631,12 @@ class TakeCardPictureFragment : Fragment() {
         if (requestCode == Utils.REQUEST_IMAGE_GET && resultCode == Activity.RESULT_OK) {
 
             val fullPhotoUri: Uri? = data?.data
-            CropImage.activity(fullPhotoUri)
-                .start(requireContext(), this,CustomCropImageActivity::class.java)
+            viewModel._destination.postValue(Event(TakeCardPictureFragmentDirections.actionTakeCardPictureFragmentToConfirmTextRecognitionFragment(fullPhotoUri.toString())))
+
             //CustomCropImageActivity.start(requireActivity(),fullPhotoUri)
 
         }
 
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            val result = CropImage.getActivityResult(data)
-            if (resultCode == Activity.RESULT_OK) {
-
-                Log.d(TAG, "onActivityResult: ${result?.getBitmap(requireContext())}")
-                viewModel._destination.postValue(Event(TakeCardPictureFragmentDirections.actionTakeCardPictureFragmentToConfirmTextRecognitionFragment(result?.uri.toString())))
-
-                //findNavController().popBackStack()
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Toast.makeText(context, result?.error?.message, Toast.LENGTH_SHORT).show()
-            }
-        }
     }
     override fun onRequestPermissionsResult(
         requestCode: Int,

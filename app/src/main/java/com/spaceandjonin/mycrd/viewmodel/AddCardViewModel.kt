@@ -6,8 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.ActionOnlyNavDirections
 import androidx.work.*
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.spaceandjonin.mycrd.AddCardNavDirections
 import com.spaceandjonin.mycrd.R
@@ -16,12 +14,12 @@ import com.spaceandjonin.mycrd.event.Event
 import com.spaceandjonin.mycrd.fragments.dashboard.AddCardFragmentDirections
 import com.spaceandjonin.mycrd.fragments.dashboard.AddWorkFragmentDirections
 import com.spaceandjonin.mycrd.models.*
-import com.spaceandjonin.mycrd.models.datasource.FirebaseAddedCardDataSourceImpl
 import com.spaceandjonin.mycrd.repositories.AddedCardsRepository
 import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.utils.aggregateNameToFullName
 import com.spaceandjonin.mycrd.utils.notifyObserver
 import com.spaceandjonin.mycrd.utils.segregateFullName
+import com.spaceandjonin.mycrd.workers.FirebaseFirestoreUploadWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -272,6 +270,8 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
     }
 
     private fun updateProfileImage(cardId: String) {
+
+        //todo consider checking if null
         profileImageUri.value?.let { uri ->
 
 

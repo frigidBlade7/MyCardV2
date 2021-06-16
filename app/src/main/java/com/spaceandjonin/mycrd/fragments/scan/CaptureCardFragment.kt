@@ -1,4 +1,4 @@
-package com.spaceandjonin.mycrd.fragments.onboarding
+package com.spaceandjonin.mycrd.fragments.scan
 
 /*import com.scanlibrary.ScanActivity
 import com.scanlibrary.ScanConstants*/
@@ -7,8 +7,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.ImageFormat
 import android.hardware.camera2.*
@@ -19,13 +17,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.provider.MediaStore
 import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
@@ -34,7 +29,6 @@ import androidx.navigation.fragment.findNavController
 import com.canhub.cropper.CropImage
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.databinding.FragmentCaptureCardBinding
-import com.spaceandjonin.mycrd.event.Event
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.utils.AutoFitSurfaceView
 import com.spaceandjonin.mycrd.utils.Utils
@@ -148,7 +142,7 @@ class CaptureCardFragment : Fragment() {
         })
 
         binding.importCard.setOnClickListener {
-           viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
+//           viewModel._destination.postValue(Event(SkipOnboardingFragmentDirections.actionGlobalScanNav()))
             callGallery()
         }
 
@@ -246,7 +240,7 @@ class CaptureCardFragment : Fragment() {
                     val output = saveResult(result)
                     Log.d(TAG, "Image saved: ${output.absolutePath}")
                     viewModel.filePath = output.absolutePath
-                    viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true)))
+//                    viewModel._destination.postValue(Event(SkipOnboardingFragmentDirections.actionGlobalScanNav()))
 
                     CropImage.activity(Uri.fromFile(output))
                         .start(requireContext(), this@CaptureCardFragment)

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.spaceandjonin.mycrd.utils.Utils"/>
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+        <variable
+            name="viewmodel"
+            type="com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="?attr/colorSurface">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/create_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView">
+
+
+            <Button
+                android:id="@+id/create"
+                style="@style/Widget.MyCardStyles.Button.RoundedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/create_card"
+                android:onClick="@{()->viewmodel.completeCreateCard()}"
+                android:enabled="@{!viewmodel.card.name.fullName.empty}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list" />
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/add_menu"
+            app:navigationIcon="@drawable/cancel"
+            app:navigationIconTint="@android:color/black" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/create_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/no_labelled"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{viewmodel.labelledToggle &amp;&amp; viewmodel.labelledStrings.empty?View.VISIBLE:View.GONE}"
+                    app:layout_constraintBottom_toTopOf="@+id/labelled_rv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/labelled_title">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView15"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/no_content" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="48dp"
+                        android:layout_marginBottom="32dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/you_haven_t_assigned_a_label_to_any_detail_yet_labelled_details_will_show_here"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/no_unlabelled"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="@{viewmodel.unlabelledToggle &amp;&amp; viewmodel.unlabelledStrings.empty?View.VISIBLE:View.GONE}"
+                    app:layout_constraintBottom_toTopOf="@+id/unlabelled_rv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/unlabelled_title">
+
+                    <ImageView
+                        android:id="@+id/imageView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView17"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/no_content" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="48dp"
+                        android:layout_marginBottom="32dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/there_are_no_details_to_assign_labels_to"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/labelled_title"
+                    style="@style/TextAppearance.MyCardStyles.Body.Semibold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/labelled"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toTopOf="@+id/no_labelled"
+                    app:layout_constraintEnd_toStartOf="@+id/labelled_chevron"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_title"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <com.spaceandjonin.mycrd.view.ToggleImageButton
+                    android:id="@+id/labelled_chevron"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{()->viewmodel.toggleLabelledVisibility()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/labelled_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/labelled_title"
+                    app:layout_constraintTop_toTopOf="@+id/labelled_title"
+                    app:selected="@{viewmodel.labelledToggle}"
+                    app:srcCompat="@drawable/chevron" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/labelled_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+                    android:visibility="@{viewmodel.labelledToggle &amp;&amp; !viewmodel.labelledStrings.empty?View.VISIBLE:View.GONE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@+id/unlabelled_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/no_labelled"
+                    tools:listitem="@layout/labelled_item"
+                    tools:visibility="gone" />
+
+                <com.spaceandjonin.mycrd.view.ToggleImageButton
+                    android:id="@+id/unlabelled_chevron"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{()->viewmodel.toggleUnLabelledVisibility()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/unlabelled_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/unlabelled_title"
+                    app:layout_constraintTop_toTopOf="@+id/unlabelled_title"
+                    app:selected="@{viewmodel.unlabelledToggle}"
+                    app:srcCompat="@drawable/chevron" />
+
+                <TextView
+                    android:id="@+id/unlabelled_title"
+                    style="@style/TextAppearance.MyCardStyles.Body.Semibold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/unlabelled"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toTopOf="@+id/no_unlabelled"
+                    app:layout_constraintEnd_toStartOf="@+id/unlabelled_chevron"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/labelled_rv" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/unlabelled_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingBottom="8dp"
+                    android:visibility="@{viewmodel.unlabelledToggle &amp;&amp; !viewmodel.unlabelledStrings.empty?View.VISIBLE:View.GONE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@+id/note"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/no_unlabelled"
+                    tools:listitem="@layout/unlabelled_item"
+                    tools:visibility="gone" />
+
+                <include
+                    android:id="@+id/note"
+                    layout="@layout/card_note_item_editable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="@{viewmodel.SCAN_TYPE.equals(Utils.SCAN_TYPE_ADDED)?View.VISIBLE: View.GONE}"
+                    app:item="@{viewmodel.cardNote}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/unlabelled_rv" />
+
+                <TextView
+                    android:id="@+id/label_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/label_details"
+                    android:textAppearance="@style/TextAppearance.MyCardStyles.Headline1"
+                    app:layout_constraintBottom_toTopOf="@+id/labelled_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,12 +1,12 @@
 package com.spaceandjonin.mycrd.models.datasource
 
 import android.util.Log
-import com.spaceandjonin.mycrd.R
-import com.spaceandjonin.mycrd.models.LiveCard
-import com.spaceandjonin.mycrd.models.Resource
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Query
+import com.spaceandjonin.mycrd.R
+import com.spaceandjonin.mycrd.models.LiveCard
+import com.spaceandjonin.mycrd.models.Resource
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -67,24 +67,28 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
             Resource.Error(R.string.failed)
         }    }
 
-    override fun getData(id: String): Flow<Resource<LiveCard>> = callbackFlow {
-        offer(Resource.Loading)
-        val subscriptionCallback = collectionReference.document(id).addSnapshotListener { value, error ->
-            value?.let {
-                try {
-                    if (it.exists())
-                        offer(Resource.Success(it.toObject(LiveCard::class.java)!!))
-                    else
-                        offer(Resource.Error(R.string.card_not_found))
-                }catch (e: Exception){
-                    Log.d(TAG, "getData: ${e.localizedMessage}")
-                    offer(Resource.Error(R.string.card_not_found))
+    override fun getData(id: String?): Flow<Resource<LiveCard>> = callbackFlow {
+        id?.let { id->
+            offer(Resource.Loading)
 
+            val subscriptionCallback = collectionReference.document(id).addSnapshotListener { value, error ->
+                value?.let {
+                    try {
+                        if (it.exists())
+                            offer(Resource.Success(it.toObject(LiveCard::class.java)!!))
+                        else
+                            offer(Resource.Error(R.string.card_not_found))
+                    }catch (e: Exception){
+                        Log.d(TAG, "getData: ${e.localizedMessage}")
+                        offer(Resource.Error(R.string.card_not_found))
+
+                    }
                 }
             }
+
+            awaitClose { subscriptionCallback.remove() }
         }
 
-        awaitClose { subscriptionCallback.remove() }
     }
 
     fun getList(owner: String): Flow<Resource<List<LiveCard>>> = callbackFlow {

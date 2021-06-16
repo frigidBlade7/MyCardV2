@@ -14,7 +14,7 @@ import com.spaceandjonin.mycrd.db.dao.LiveCardDao
 import com.spaceandjonin.mycrd.models.AddedCard
 import com.spaceandjonin.mycrd.models.LiveCard
 
-@Database(entities = [LiveCard::class, AddedCard::class], version = 2, exportSchema = false)
+@Database(entities = [LiveCard::class, AddedCard::class], version = 5, exportSchema = false)
 
 @TypeConverters(SocialMediaProfileConverter::class, PhoneNumberConverter::class, EmailAddressConverter::class, TimestampConverter::class )
 abstract class AppDb : RoomDatabase() {

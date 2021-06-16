@@ -8,9 +8,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.transition.MaterialContainerTransform
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.adapter.AddedCardAdapter
 import com.spaceandjonin.mycrd.adapter.rv.*
@@ -18,9 +23,6 @@ import com.spaceandjonin.mycrd.databinding.FragmentAddedCardDetailsBinding
 import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.fragments.dashboard.AlertDialogFragmentDirections
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
-import com.google.android.material.color.MaterialColors
-import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "CardDetailsFragment"
@@ -53,8 +55,10 @@ class ViewAddedCardDetailsFragment : Fragment() {
             setAllContainerColors(MaterialColors.getColor(requireView(),R.attr.colorSurface))
         }
 
+
         binding.toolbar.setNavigationOnClickListener{
             findNavController().navigateUp()
+            binding.include.pager[0].findViewById<ShapeableImageView>(R.id.icon).visibility = View.INVISIBLE
         }
     }
     override fun onCreateView(

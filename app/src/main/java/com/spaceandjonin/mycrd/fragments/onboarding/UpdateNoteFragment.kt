@@ -38,7 +38,7 @@ class UpdateNoteFragment : Fragment() {
         binding.cardViewModel = cardViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        cardViewModel.card.value = onboardingViewModel.selectedCard.value?.copy()
+        cardViewModel.card.value = onboardingViewModel.selectedCard.value
         cardViewModel.note.value = onboardingViewModel.selectedCard.value?.note
 
         onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {
@@ -58,7 +58,6 @@ class UpdateNoteFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.save -> {
-
                     //onboardingViewModel.selectedCard.value?.note = binding.noteText.text.toString()
                     //onboardingViewModel.selectedCard.notifyObserver()
                     goToEditState()

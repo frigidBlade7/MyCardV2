@@ -2,34 +2,31 @@ package com.spaceandjonin.mycrd.models
 
 import android.os.Parcelable
 import androidx.annotation.Keep
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Fts4
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentId
-import com.google.firebase.firestore.Exclude
-import kotlinx.android.parcel.Parcelize
+import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
 @Fts4
 @Entity
 @Parcelize
 @Keep
-data class LiveCard(@DocumentId
-                var id: String="",
+@JsonClass(generateAdapter = true)
 
-                    var owner: String? = FirebaseAuth.getInstance().currentUser?.uid,
-                    var profilePicUrl: String = "",
-                    var emailAddresses: List<EmailAddress> = listOf(),
-                    var phoneNumbers: List<PhoneNumber> = listOf(),
-                    var socialMediaProfiles: List<SocialMediaProfile> = listOf(),
-                    @Embedded var businessInfo: BusinessInfo = BusinessInfo(),
-                    @Embedded var name: Name = Name(),
-                    var createdAt:Timestamp = Timestamp.now(),
-                    var updatedAt:Timestamp = Timestamp.now()):Parcelable {
+data class LiveCard(var owner: String? = FirebaseAuth.getInstance().currentUser?.uid):Card(),Parcelable {
 
-    @get:Exclude
-    var position= 1
+    constructor(baseCard: Card) : this(){
+        super.id = baseCard.id
+        super.businessInfo = baseCard.businessInfo
+        super.createdAt = baseCard.createdAt
+        super.emailAddresses = baseCard.emailAddresses
+        super.name = baseCard.name
+        super.phoneNumbers = baseCard.phoneNumbers
+        super.profilePicUrl = baseCard.profilePicUrl
+        super.updatedAt = baseCard.updatedAt
+        super.socialMediaProfiles = baseCard.socialMediaProfiles
+    }
 
 }
 

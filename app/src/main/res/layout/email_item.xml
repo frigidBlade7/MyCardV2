@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.spaceandjonin.mycrd.converters.EmailTypeConverter"/>
+        <import type="com.spaceandjonin.mycrd.converters.EmailTypeBindingConverter"/>
         <variable
             name="item"
             type="com.spaceandjonin.mycrd.models.EmailAddress" />
@@ -29,7 +29,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/number"
-                style="@style/TextAppearance.MyCardStyles.Body.Body"
+                style="@style/TextAppearance.MyCardStyles.Body.Regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
@@ -56,8 +56,8 @@
                 android:editable="false"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="@={EmailTypeConverter.INSTANCE.emailTypeToString(item.type)}"
-                style="@style/TextAppearance.MyCardStyles.Body.Body"
+                android:text="@={EmailTypeBindingConverter.INSTANCE.emailTypeToString(item.type)}"
+                style="@style/TextAppearance.MyCardStyles.Body.Regular"
                 android:layout_width="108dp"
                 android:layout_height="wrap_content" />
 

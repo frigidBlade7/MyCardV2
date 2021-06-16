@@ -7,28 +7,33 @@ import androidx.lifecycle.viewModelScope
 import androidx.work.*
 import com.google.firebase.storage.FirebaseStorage
 import com.spaceandjonin.mycrd.AddCardNavDirections
-import com.spaceandjonin.mycrd.AddPersonalCardNavDirections
 import com.spaceandjonin.mycrd.R
+import com.spaceandjonin.mycrd.ScanNavDirections
 import com.spaceandjonin.mycrd.di.ImageFile
 import com.spaceandjonin.mycrd.event.Event
-import com.spaceandjonin.mycrd.fragments.dashboard.AddCardFragmentDirections
 import com.spaceandjonin.mycrd.fragments.dashboard.AddPersonalCardFragmentDirections
 import com.spaceandjonin.mycrd.fragments.dashboard.AddPersonalWorkFragmentDirections
 import com.spaceandjonin.mycrd.models.*
 import com.spaceandjonin.mycrd.repositories.PersonalCardsRepository
-import com.spaceandjonin.mycrd.services.UpdateImageService
+import com.spaceandjonin.mycrd.repositories.UserRepository
 import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.utils.aggregateNameToFullName
 import com.spaceandjonin.mycrd.utils.notifyObserver
 import com.spaceandjonin.mycrd.utils.segregateFullName
+import com.spaceandjonin.mycrd.workers.FirebaseFirestoreUploadWorkerBusinessImage
+import com.spaceandjonin.mycrd.workers.FirebaseFirestoreUploadWorkerLiveCards
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: PersonalCardsRepository, val workManager: WorkManager,
+class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: PersonalCardsRepository,
+                                                   val workManager: WorkManager,
+                                                   val userRepository: UserRepository,
                                                    @ImageFile val imageFile: File?): BaseViewModel() {
 
     var isNameExpanded =  MutableLiveData<Boolean>(false)
@@ -214,7 +219,27 @@ class AddPersonalCardViewModel @Inject constructor(val personalCardsRepository: 
                        //card.value?.id = data.data!!
 
                        _snackbarInt.postValue(Event(R.string.success))
-                       _destination.postValue(Event(AddCardNavDirections.actionGlobalMeFragment()))
+                       userRepository.userDataSourceImpl.getData(null)
+                           .catch {
+                               emit(Resource.Error(R.id.error))
+                           }.collect { userResource->
+                               when(userResource){
+                                   is Resource.Success ->{
+                                       if(userResource.data.name.isNullOrEmpty()){
+                                           _destination.postValue(Event(ScanNavDirections.actionGlobalSetupProfileFragment()))
+                                       }else{
+                                           _destination.postValue(Event(ScanNavDirections.actionGlobalMeFragment()))
+                                       }
+                                   }
+                                   is Resource.Loading ->{
+                                       //todo show loader
+
+                                   }
+                                   is Resource.Error ->{
+                                       _snackbarInt.postValue(Event(userResource.errorCode))
+                                   }
+                               }
+                           }
 
                        //updateBusinessLogo(data.data)
                        //updateProfileImage(data.data)

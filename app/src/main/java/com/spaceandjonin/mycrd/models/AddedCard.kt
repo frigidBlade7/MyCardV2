@@ -2,13 +2,9 @@ package com.spaceandjonin.mycrd.models
 
 import android.os.Parcelable
 import androidx.annotation.Keep
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Fts4
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentId
-import com.google.firebase.firestore.Exclude
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 //todo add ellipses
 
@@ -16,21 +12,20 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 @Parcelize
 @Keep
-data class AddedCard(@DocumentId
-                var id: String="",
-                     var profilePicUrl: String = "",
-                     var emailAddresses: List<EmailAddress> = listOf(),
-                     var phoneNumbers: List<PhoneNumber> = listOf(),
-                     var socialMediaProfiles: List<SocialMediaProfile> = listOf(),
-                     @Embedded var businessInfo: BusinessInfo = BusinessInfo(),
-                     var note: String? ="",
-                     @Embedded var name: Name = Name(),
-                     var createdAt:Timestamp = Timestamp.now(),
-                     var updatedAt:Timestamp = Timestamp.now()):Parcelable {
+data class AddedCard(var note: String? =""):Card(), Parcelable {
 
+    constructor(baseCard: Card) : this(){
+        super.id = baseCard.id
+        super.businessInfo = baseCard.businessInfo
+        super.createdAt = baseCard.createdAt
+        super.emailAddresses = baseCard.emailAddresses
+        super.name = baseCard.name
+        super.phoneNumbers = baseCard.phoneNumbers
+        super.profilePicUrl = baseCard.profilePicUrl
+        super.updatedAt = baseCard.updatedAt
+        super.socialMediaProfiles = baseCard.socialMediaProfiles
+    }
 
-    @get:Exclude
-    var position= 1
 }
 
 

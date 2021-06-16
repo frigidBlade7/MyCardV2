@@ -1,25 +1,18 @@
 
 package com.spaceandjonin.mycrd.fragments.dashboard
 
-import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
-import com.spaceandjonin.mycrd.R
-import com.spaceandjonin.mycrd.databinding.FragmentCardOptionsBinding
-import com.spaceandjonin.mycrd.event.EventObserver
-import com.spaceandjonin.mycrd.models.EmailAddress
-import com.spaceandjonin.mycrd.models.PhoneNumber
-import com.spaceandjonin.mycrd.viewmodel.CardViewModel
-import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.databinding.FragmentAddCardOptionsBinding
-import com.spaceandjonin.mycrd.utils.exportContactIntent
+import com.spaceandjonin.mycrd.event.EventObserver
+import com.spaceandjonin.mycrd.utils.Utils
+import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -65,7 +58,7 @@ class AddCardOptionsFragment : BottomSheetDialogFragment() {
 
         binding.scanCard.setOnClickListener {
             dismiss()
-            viewmodel.goToScanCard()
+            viewmodel.goToScanCard(Utils.SCAN_TYPE_ADDED)
         }
 
         binding.enterManually.setOnClickListener {

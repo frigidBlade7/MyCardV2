@@ -6,6 +6,6 @@ import com.spaceandjonin.mycrd.models.Resource
 
 interface PhysicalCardProcessService<T> {
 
-    suspend fun processPhysicalCardImage(bitmap: Bitmap?): Resource<List<Text.Element>?>
+    suspend fun processPhysicalCardImage(bitmap: Bitmap?): Resource<List<Text.Line>?>
 
 }

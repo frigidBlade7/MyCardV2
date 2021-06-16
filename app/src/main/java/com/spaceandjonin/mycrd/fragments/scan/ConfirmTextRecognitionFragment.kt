@@ -1,26 +1,24 @@
 
 package com.spaceandjonin.mycrd.fragments.scan
 
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.google.firebase.auth.FirebaseAuth
+import com.canhub.cropper.CropImage
 import com.spaceandjonin.mycrd.R
-import com.spaceandjonin.mycrd.ScanNavDirections
 import com.spaceandjonin.mycrd.databinding.FragmentConfirmTextRecognitionBinding
-import com.spaceandjonin.mycrd.event.Event
 import com.spaceandjonin.mycrd.event.EventObserver
-import com.spaceandjonin.mycrd.models.Resource
 import com.spaceandjonin.mycrd.utils.TextGraphic
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,18 +55,19 @@ class ConfirmTextRecognitionFragment : Fragment() {
             }
         })
         val uri = Uri.parse(ConfirmTextRecognitionFragmentArgs.fromBundle(requireArguments()).uriString)
-        binding.imageView.setImageURI(uri)
 
-        viewModel.processPhysicalCard(binding.imageView.drawable.toBitmap())
+        setupImageViewAndProcessUri(uri)
 
-
+/*
         Glide.with(this).asBitmap().load(uri).error(
             R.drawable
                 .user_default
         ).transform(
             CenterCrop(),
             RoundedCorners(8)
-        ).thumbnail(0.1f).into(binding.preview)
+        ).thumbnail(0.1f).into(binding.preview)*/
+
+
         viewModel.destination.observe(viewLifecycleOwner, EventObserver {
             if (it.actionId == 0)
                 findNavController().popBackStack()
@@ -77,11 +76,12 @@ class ConfirmTextRecognitionFragment : Fragment() {
         })
 
         binding.confirmButton.setOnClickListener {
-            if(FirebaseAuth.getInstance().currentUser==null)
-                viewModel._destination.postValue(Event(ScanNavDirections.actionGlobalAddPersonalCardNav()))
-            else
-                findNavController().navigate(ScanNavDirections.actionGlobalAddCardNav())
-
+            viewModel.elementListLiveData.value?.let {
+                var lines = mutableListOf<String>()
+                for (element in it)
+                    lines.add(element.text)
+                findNavController().navigate(ConfirmTextRecognitionFragmentDirections.actionConfirmTextRecognitionFragmentToReviewScannedDetailsFragment(lines.toTypedArray()))
+            }
         }
 
 
@@ -90,7 +90,38 @@ class ConfirmTextRecognitionFragment : Fragment() {
         }
 
 
+        binding.crop.setOnClickListener {
+            CropImage.activity(uri)
+                .start(requireContext(), this,CustomCropImageActivity::class.java)
+        }
+
+
         return binding.root
+    }
+
+    private fun setupImageViewAndProcessUri(uri: Uri?) {
+        binding.imageView.setImageURI(uri)
+        viewModel.processPhysicalCard(binding.imageView.drawable.toBitmap())
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == Activity.RESULT_OK) {
+
+                Log.d(TAG, "onActivityResult: ${result?.getBitmap(requireContext())}")
+
+                val uri = result?.uri
+                setupImageViewAndProcessUri(uri)
+
+                //findNavController().popBackStack()
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Toast.makeText(context, result?.error?.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 

@@ -35,12 +35,12 @@ public class TextGraphic extends GraphicOverlay.Graphic {
 
     private final Paint rectPaint;
     private final Paint textPaint;
-    private final Text.Element element;
+    private final Text.Line line;
 
-    public TextGraphic(GraphicOverlay overlay, Text.Element element) {
+    public TextGraphic(GraphicOverlay overlay, Text.Line line) {
         super(overlay);
 
-        this.element = element;
+        this.line = line;
 
         rectPaint = new Paint();
         rectPaint.setColor(TEXT_COLOR);
@@ -60,15 +60,15 @@ public class TextGraphic extends GraphicOverlay.Graphic {
     @Override
     public void draw(Canvas canvas) {
         Log.d(TAG, "on draw text graphic");
-        if (element == null) {
+        if (line == null) {
             throw new IllegalStateException("Attempting to draw a null text.");
         }
 
         // Draws the bounding box around the TextBlock.
-        RectF rect = new RectF(element.getBoundingBox());
+        RectF rect = new RectF(line.getBoundingBox());
         canvas.drawRect(rect, rectPaint);
 
         // Renders the text at the bottom of the box.
-        canvas.drawText(element.getText(), rect.left, rect.bottom, textPaint);
+        //canvas.drawText(line.getText(), rect.left, rect.bottom, textPaint);
     }
 }

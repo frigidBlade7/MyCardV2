@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.util.Log
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
-import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.models.LiveCard
@@ -14,7 +13,7 @@ import javax.inject.Inject
 
 class PhysicalCardProcessServiceImpl @Inject constructor(val textRecognizer: TextRecognizer) : PhysicalCardProcessService<LiveCard?> {
 
-    override suspend fun processPhysicalCardImage(bitmap: Bitmap?): Resource<List<Text.Element>?> {
+    override suspend fun processPhysicalCardImage(bitmap: Bitmap?): Resource<List<Text.Line>?> {
         bitmap?.let {
 
             val image = InputImage.fromBitmap(it, 0)
@@ -32,10 +31,10 @@ class PhysicalCardProcessServiceImpl @Inject constructor(val textRecognizer: Tex
     }
 
 
-    fun processText(text: Text):Resource<List<Text.Element>?>{
+    fun processText(text: Text): Resource<List<Text.Line>?> {
         Log.d(TAG, "processText: hi")
 
-        val allElements = mutableListOf<Text.Element>()
+        val allElements = mutableListOf<Text.Line>()
         val blocks = text.textBlocks
         if (blocks.size==0) {
             Log.d(TAG, "processText: natin")
@@ -44,13 +43,9 @@ class PhysicalCardProcessServiceImpl @Inject constructor(val textRecognizer: Tex
         for (block in blocks) {
             Log.d(TAG, "processText: ${block.text}")
             val lines = block.lines
-            for (line in lines){
-                val elements = line.elements
-                for (element in elements) {
-                    allElements.add(element)
-                    Log.d(TAG, "processedText: ${element.text}")
-                }
-            }
+            for (line in lines)
+                allElements.add(line)
+
             //return Resource.Success(LiveCard())
         }
 

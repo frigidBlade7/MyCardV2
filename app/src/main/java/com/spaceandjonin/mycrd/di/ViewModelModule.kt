@@ -3,12 +3,12 @@ package com.spaceandjonin.mycrd.di
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Environment
-import com.spaceandjonin.mycrd.models.datasource.*
-import com.spaceandjonin.mycrd.models.datasource.AddedCardDataSource
-import com.spaceandjonin.mycrd.services.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.spaceandjonin.mycrd.models.datasource.*
+import com.spaceandjonin.mycrd.models.datasource.AddedCardDataSource
+import com.spaceandjonin.mycrd.services.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +16,6 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import java.io.File
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,9 +39,9 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun providesAddedCardDataSource(db: FirebaseFirestore, auth: FirebaseAuth): AddedCardDataSource {
+    fun providesAddedCardDataSource(db: FirebaseFirestore, sessionManagerService: SessionManagerService): AddedCardDataSource {
         return FirebaseAddedCardDataSourceImpl(db.collection("users")
-            .document(auth.currentUser!!.uid).collection("addedCards"))
+            .document(sessionManagerService.loggedInUserId()).collection("addedCards"))
     }
 
     @Provides
@@ -88,8 +87,12 @@ object ViewModelModule {
         }*/
     }
 
-
-
+/*
+    @Provides
+    @ViewModelScoped
+    fun providesUserRepository(): UserRepository{
+        return FirebaseUpdateImageServiceImpl(fs)
+    }*/
 }
 
 

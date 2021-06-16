@@ -31,11 +31,6 @@
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
-            android:id="@+id/action_welcomeFragment_to_skipOnboardingFragment"
-            app:destination="@id/skipOnboardingFragment"
-            app:popUpTo="@id/welcomeFragment"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/action_welcomeFragment_to_cardsFragment"
             app:destination="@id/cardsFragment"
             app:launchSingleTop="true"
@@ -56,23 +51,8 @@
         android:label="fragment_skip_onboarding"
         tools:layout="@layout/fragment_skip_onboarding" >
         <action
-            android:id="@+id/action_skipOnboardingFragment_to_captureCardFragment"
-            app:destination="@id/captureCardFragment" />
-        <action
-            android:id="@+id/action_skipOnboardingFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/captureCardFragment"
-        android:name="com.spaceandjonin.mycrd.fragments.onboarding.CaptureCardFragment"
-        android:label="fragment_capture_card"
-        tools:layout="@layout/fragment_capture_card" >
-        <action
-            android:id="@+id/action_captureCardFragment_to_confirmDetailsFragment"
-            app:destination="@id/confirmAddPersonalDetailsFragment" />
-        <action
-            android:id="@+id/action_captureCardFragment_to_add_card_nav"
-            app:destination="@id/add_personal_card_nav" />
+            android:id="@+id/action_skipOnboardingFragment_to_setupProfileFragment"
+            app:destination="@id/setupProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/setUpAccountFragment"
@@ -109,21 +89,21 @@
     </fragment>
     <fragment
         android:id="@+id/verifyNumberFragment"
-        android:name="com.spaceandjonin.mycrd.fragments.onboarding.VerifyNumberFragment"
+        android:name="com.spaceandjonin.mycrd.fragments.settings.VerifyNumberFragment"
         tools:layout="@layout/fragment_verify_number" >
         <action
             android:id="@+id/action_verifyNumberFragment_to_cardsFragment"
             app:destination="@id/cardsFragment"
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_verifyNumberFragment_to_setupProfileFragment"
-            app:destination="@id/setupProfileFragment" />
         <argument
             android:name="number"
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_verifyNumberFragment_to_skipOnboardingFragment"
+            app:destination="@id/skipOnboardingFragment" />
     </fragment>
     <navigation
         android:id="@+id/add_personal_card_nav"
@@ -255,6 +235,9 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/cardsFragment"
             app:popUpToInclusive="false" />
+
+
+
         <deepLink
             android:id="@+id/deepLink2"
             app:uri="mycrd://spaceandjonin.com/mycrd/addCard" />
@@ -401,7 +384,7 @@
         app:startDestination="@id/settingsFragment">
         <fragment
             android:id="@+id/settingsFragment"
-            android:name="com.spaceandjonin.mycrd.fragments.dashboard.SettingsFragment"
+            android:name="com.spaceandjonin.mycrd.fragments.settings.SettingsFragment"
             tools:layout="@layout/fragment_settings" >
             <action
                 android:id="@+id/action_settingsFragment_to_updateDisplayNameFragment"
@@ -415,11 +398,11 @@
         </fragment>
         <fragment
             android:id="@+id/updateDisplayNameFragment"
-            android:name="com.spaceandjonin.mycrd.fragments.dashboard.UpdateDisplayNameFragment"
+            android:name="com.spaceandjonin.mycrd.fragments.settings.UpdateDisplayNameFragment"
             tools:layout="@layout/fragment_update_name"/>
         <fragment
             android:id="@+id/verifyCurrentNumberFragment"
-            android:name="com.spaceandjonin.mycrd.fragments.onboarding.VerifyCurrentNumberFragment"
+            android:name="com.spaceandjonin.mycrd.fragments.settings.VerifyCurrentNumberFragment"
             tools:layout="@layout/fragment_verify_current_number" >
             <action
                 android:id="@+id/action_verifyCurrentNumberFragment_to_updateNumberFragment"
@@ -427,7 +410,7 @@
         </fragment>
         <fragment
             android:id="@+id/confirmNumberResetFragment"
-            android:name="com.spaceandjonin.mycrd.fragments.dashboard.ConfirmNumberResetFragment"
+            android:name="com.spaceandjonin.mycrd.fragments.settings.ConfirmNumberResetFragment"
             tools:layout="@layout/fragment_confirm_number_reset">
             <action
                 android:id="@+id/action_confirmNumberResetFragment_to_verifyCurrentNumberFragment"
@@ -435,7 +418,7 @@
         </fragment>
         <fragment
             android:id="@+id/updateNumberFragment"
-            android:name="com.spaceandjonin.mycrd.fragments.onboarding.UpdateNumberFragment"
+            android:name="com.spaceandjonin.mycrd.fragments.settings.UpdateNumberFragment"
             tools:layout="@layout/fragment_update_number" >
             <action
                 android:id="@+id/action_updateNumberFragment_to_verifyNewNumberFragment"
@@ -443,7 +426,7 @@
         </fragment>
         <fragment
             android:id="@+id/verifyNewNumberFragment"
-            android:name="com.spaceandjonin.mycrd.fragments.onboarding.VerifyNewNumberFragment"
+            android:name="com.spaceandjonin.mycrd.fragments.settings.VerifyNewNumberFragment"
             tools:layout="@layout/fragment_verify_new_number" >
             <action
                 android:id="@+id/action_verifyNewNumberFragment_to_settingsFragment"
@@ -471,6 +454,12 @@
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.AddNoteFragment"
         tools:layout="@layout/fragment_add_note" />
     <action android:id="@+id/action_global_addNoteFragment" app:destination="@id/addNoteFragment" />
+
+    <fragment
+        android:id="@+id/addNoteScanFragment"
+        android:name="com.spaceandjonin.mycrd.fragments.scan.AddNoteScanFragment"
+        tools:layout="@layout/fragment_add_note" />
+    <action android:id="@+id/action_global_addNoteScanFragment" app:destination="@id/addNoteScanFragment" />
 
     <fragment
         android:id="@+id/updateNoteFragment"
@@ -503,9 +492,26 @@
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.AddCardOptionsFragment"
         tools:layout="@layout/fragment_add_card_options"
         android:label="AddCardOptionsFragment" />
+
+    <dialog
+        android:id="@+id/addPersonalCardOptionsFragment"
+        android:name="com.spaceandjonin.mycrd.fragments.dashboard.AddPersonalCardOptionsFragment"
+        tools:layout="@layout/fragment_add_card_options"
+        android:label="AddPersonalCardOptionsFragment" />
+
     <action android:id="@+id/action_global_addCardOptionsFragment" app:destination="@id/addCardOptionsFragment" />
     <navigation android:id="@+id/scan_nav"
         app:startDestination="@id/takeCardPictureFragment">
+
+        <action
+            android:id="@+id/action_global_scanNav_to_cardDetailsFragment"
+            app:destination="@id/cardDetailsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/scan_nav"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="scanType"
+            app:argType="string"/>
         <fragment
             android:id="@+id/takeCardPictureFragment"
             tools:layout="@layout/fragment_take_card_picture"
@@ -514,6 +520,9 @@
             <action
                 android:id="@+id/action_takeCardPictureFragment_to_confirmTextRecognitionFragment"
                 app:destination="@id/confirmTextRecognitionFragment" />
+            <action
+                android:id="@+id/action_takeCardPictureFragment_to_scanAlertDialogFragment"
+                app:destination="@id/scanAlertDialogFragment" />
         </fragment>
         <fragment
             android:id="@+id/confirmTextRecognitionFragment"
@@ -525,10 +534,82 @@
                 app:argType="string"
                 app:nullable="true"
                 android:defaultValue="null" />
+            <action
+                android:id="@+id/action_confirmTextRecognitionFragment_to_reviewScannedDetailsFragment"
+                app:destination="@id/reviewScannedDetailsFragment" />
         </fragment>
         <action
             android:id="@+id/action_global_confirmAddPersonalDetailsFragment"
             app:destination="@id/confirmAddPersonalDetailsFragment" />
+        <fragment
+            android:id="@+id/reviewScannedDetailsFragment"
+            tools:layout="@layout/fragment_review_scanned_details"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.ReviewScannedDetailsFragment"
+            android:label="ReviewScannedDetailsFragment" >
+            <argument
+                android:name="lines"
+                app:argType="string[]" />
+            <action
+                android:id="@+id/action_reviewScannedDetailsFragment_to_assignLabelsFragment"
+                app:destination="@id/assignLabelsFragment" />
+            <action
+                android:id="@+id/action_reviewScannedDetailsFragment_to_addLabelledDetailFragment"
+                app:destination="@id/addLabelledDetailFragment" />
+            <action
+                android:id="@+id/action_reviewScannedDetailsFragment_to_editDetailFragment"
+                app:destination="@id/editDetailFragment" />
+        </fragment>
+        <dialog
+            android:id="@+id/assignLabelsFragment"
+            tools:layout="@layout/fragment_assign_labels"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.AssignLabelsFragment"
+            android:label="AssignLabelsFragment" >
+            <argument
+                android:name="existingLabelDetail"
+                app:argType="com.spaceandjonin.mycrd.models.LabelDetail"
+                android:defaultValue="@null"
+                app:nullable="true" />
+        </dialog>
+        <fragment
+            android:id="@+id/addLabelledDetailFragment"
+            tools:layout="@layout/fragment_add_labelled_detail"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.AddLabelledDetailFragment"
+            android:label="AddLabelledDetailFragment" >
+            <action
+                android:id="@+id/action_addLabelledDetailFragment_to_editLabelsFragment"
+                app:destination="@id/editLabelsFragment" />
+        </fragment>
+        <dialog
+            android:id="@+id/editDetailFragment"
+            tools:layout="@layout/fragment_edit_labelled_detail"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.EditDetailFragment"
+            android:label="EditDetailFragment" >
+            <action
+                android:id="@+id/action_editDetailFragment_to_editLabelsFragment"
+                app:destination="@id/editLabelsFragment" />
+            <argument
+                android:name="existingLabelDetail"
+                app:argType="com.spaceandjonin.mycrd.models.LabelDetail"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </dialog>
+        <dialog
+            android:id="@+id/editLabelsFragment"
+            tools:layout="@layout/fragment_assign_labels"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.EditLabelsFragment"
+            android:label="EditLabelsFragment" />
+        <action
+            android:id="@+id/action_global_setUpAccountFragment"
+            app:destination="@id/setUpAccountFragment" />
+        <dialog
+            android:id="@+id/scanAlertDialogFragment"
+            tools:layout="@layout/fragment_scan_alert_dialog"
+            android:name="com.spaceandjonin.mycrd.fragments.scan.ScanAlertDialogFragment"
+            android:label="ScanAlertDialogFragment" >
+            <action
+                android:id="@+id/action_scanAlertDialogFragment_to_takeCardPictureFragment"
+                app:destination="@id/takeCardPictureFragment" />
+        </dialog>
     </navigation>
     <!--<navigation
         android:id="@+id/scan_nav_create_account"
@@ -557,6 +638,6 @@
             android:id="@+id/action_global_confirmAddPersonalDetailsFragment"
             app:destination="@id/confirmAddPersonalDetailsFragment" />
     </navigation>-->
-    <action android:id="@+id/action_global_scan_nav" app:destination="@id/scan_nav"/>
+    <action android:id="@+id/action_global_scan_nav" app:destination="@id/scan_nav"/><action android:id="@+id/action_global_addPersonalCardOptionsFragment" app:destination="@id/addPersonalCardOptionsFragment"/><action android:id="@+id/action_global_setupProfileFragment" app:destination="@id/setupProfileFragment"/>
 
 </navigation>

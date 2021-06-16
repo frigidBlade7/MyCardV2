@@ -1,5 +1,5 @@
 
-package com.spaceandjonin.mycrd.fragments.dashboard
+package com.spaceandjonin.mycrd.fragments.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater

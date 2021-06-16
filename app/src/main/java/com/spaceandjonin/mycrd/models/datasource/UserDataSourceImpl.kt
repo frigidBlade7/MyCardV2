@@ -2,11 +2,11 @@ package com.spaceandjonin.mycrd.models.datasource
 
 import android.net.Uri
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.models.Resource
 import com.spaceandjonin.mycrd.models.User
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -74,7 +74,7 @@ abstract class UserDataSourceImpl: DataSource<User> {
 
             }
 
-            val updateData = auth.currentUser?.updateProfile(profile)?.await()
+            val         updateData = auth.currentUser?.updateProfile(profile)?.await()
             Resource.Success("data.name!!")
         }catch (e: Exception){
             Log.d(TAG, "updateUserRecord: ${e.localizedMessage}")
@@ -82,7 +82,7 @@ abstract class UserDataSourceImpl: DataSource<User> {
         }
     }
 
-    override fun getData(id: String): Flow<Resource<User>> {
+    override fun getData(id: String?): Flow<Resource<User>> {
 
         return flow {
             try {

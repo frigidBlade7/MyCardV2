@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:animateLayoutChanges="true"
         android:paddingBottom="56dp"
         android:layout_height="match_parent">
 
@@ -19,6 +20,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:layout_marginBottom="16dp"
             app:layout_anchor="@+id/top"
             app:layout_anchorGravity="bottom|center"
@@ -53,6 +55,7 @@
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 app:layout_constraintBottom_toTopOf="@+id/tabLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -210,9 +213,24 @@
             android:layout_height="wrap_content" />
 
         <View
+            android:id="@+id/view8"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/part_divider"
+            android:visibility="@{item.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}" />
+
+        <include
+            android:id="@+id/website"
+            layout="@layout/card_website_item"
+            app:website="@{item.businessInfo.website}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{item.businessInfo.website.empty?View.GONE: View.VISIBLE}" />
+
+        <View
             android:id="@+id/view4"
             android:layout_width="match_parent"
-            android:visibility="@{item.businessInfo.companyAddress.empty?View.GONE: View.VISIBLE}"
+            android:visibility="@{item.businessInfo.website.empty?View.GONE: View.VISIBLE}"
             android:layout_height="0.5dp"
             android:background="@drawable/part_divider" />
 
