@@ -36,7 +36,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:text="@string/sort_by"
-            android:textAllCaps="true"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 

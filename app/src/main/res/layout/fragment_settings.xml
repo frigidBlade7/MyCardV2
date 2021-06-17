@@ -75,7 +75,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="4dp"
                         android:text="@string/mobile_number"
-                        android:textAllCaps="true"
+
                         app:layout_constraintBottom_toTopOf="@+id/phone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/icon2"
@@ -169,7 +169,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="4dp"
                         android:text="@string/name"
-                        android:textAllCaps="true"
+
                         app:layout_constraintBottom_toTopOf="@+id/name"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/icon"
