@@ -106,9 +106,6 @@ class EditCardFragment : Fragment(), ItemInteraction<PhoneNumber>,
         emailAdapter = EmailAdapter(this, emailTypes)
         socialAdapter = SocialAdapter(this)
 
-        //phoneNumberAdapter.submitList(listOf(PhoneNumber()))
-        //emailAdapter.submitList(listOf(EmailAddress()))
-
         viewmodel.socials.observe(viewLifecycleOwner) { it ->
             socialAdapter.submitList(it.filter { it.usernameOrUrl.isNotEmpty() })
         }

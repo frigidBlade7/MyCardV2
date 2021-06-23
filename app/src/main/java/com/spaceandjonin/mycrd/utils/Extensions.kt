@@ -78,10 +78,7 @@ fun View.initialsColor(colorCode: Int): Int {
 
 fun View.textColor(type: String?): Int {
     return when (type) {
-        this.context.getString(R.string.personal) -> ContextCompat.getColor(
-            context,
-            R.color.mc_purple
-        )
+        this.context.getString(R.string.personal),
         this.context.getString(R.string.mobile) -> ContextCompat.getColor(
             context,
             R.color.mc_purple
@@ -282,26 +279,6 @@ fun BottomNavigationView.show() {
     }
 }
 
-/*
-fun Bitmap.toByteArray(): ByteArray {
-
-    val baos = ByteArrayOutputStream()
-    this.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-    return baos.toByteArray()
-}*/
-/*@OptIn(ExperimentalCoroutinesApi::class)
-fun Query.awaitContinuous(): Flow<QuerySnapshot?> = callbackFlow {
-
-    val subscriptionCallback = addSnapshotListener { value, error ->
-        if (error!=null) {
-            cancel("error fetching live update of collection at path", error.cause)
-            return@addSnapshotListener
-        }
-        trySend(value)
-    }
-
-    awaitClose { subscriptionCallback.remove() }
-}*/
 fun LiveCard.exportVCard(byteArray: ByteArray?): VCard {
 
     val card = this

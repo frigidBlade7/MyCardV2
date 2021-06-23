@@ -7,7 +7,6 @@ internal class CustomCropPresenter : CustomCropContract.Presenter {
 
     override fun bindView(view: CustomCropContract.View) {
         this.view = view
-        //this.view?.updateRotationCounter(counter.toString())
     }
 
     override fun unbindView() {
@@ -18,6 +17,5 @@ internal class CustomCropPresenter : CustomCropContract.Presenter {
         counter += 90
         view?.rotate(90)
         if (counter == 360) counter = 0
-        //view?.updateRotationCounter(counter.toString())
     }
 }

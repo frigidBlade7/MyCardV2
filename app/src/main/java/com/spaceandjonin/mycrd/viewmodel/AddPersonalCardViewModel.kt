@@ -261,8 +261,6 @@ class AddPersonalCardViewModel @Inject constructor(
                                 }
                             }
 
-                        //updateBusinessLogo(data.data)
-                        //updateProfileImage(data.data)
                         data.data?.let {
                             card.value?.id = it
                             updateProfileImage(it)
@@ -303,71 +301,7 @@ class AddPersonalCardViewModel @Inject constructor(
                 .addTag(cardId)
                 .build()
 
-
             workManager.enqueue(myUploadWork)
-
-/*            viewModelScope.launch {
-                uploadService.setUri(uri)
-                when(val uploadData = uploadService.uploadImage("images/profiles/$cardId")){
-                    is Resource.Success->{
-                        //todo success upload _snackbarInt.postValue(Event(uploadData.errorCode))
-                            when (val profileData = personalCardsRepository.firebaseLiveCardDataSource.updateCardProfilePhoto(uploadData.data.toString(),cardId)){
-                                is Resource.Error ->{
-                                    _snackbarInt.postValue(Event(profileData.errorCode))
-                                }
-                            }
-
-                    }
-                    is Resource.Error->{
-                        _snackbarInt.postValue(Event(uploadData.errorCode))
-
-                    }
-                }
-            }*/
-
-        }
-    }
-
-    private fun updateBusinessLogo(cardId: String) {
-        businessImageUri.value?.let { uri ->
-
-            val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build()
-
-            val myUploadWork =
-                OneTimeWorkRequestBuilder<FirebaseFirestoreUploadWorkerBusinessImage>()
-                    .setInputData(
-                        workDataOf(
-                            Utils.PATH_ID to cardId,
-                            Utils.PHOTO_URI to uri.toString()
-                        )
-                    )
-                    .setConstraints(constraints)
-                    .addTag(cardId)
-                    .build()
-
-
-            workManager.enqueue(myUploadWork)
-/*            viewModelScope.launch {
-                uploadService.setUri(uri)
-                when(val uploadData = uploadService.uploadImage("images/companyLogos/$cardId")){
-                    is Resource.Success->{
-                        //todo success upload _snackbarInt.postValue(Event(uploadData.errorCode))
-                        when (val logoData = personalCardsRepository.firebaseLiveCardDataSource.updateCardCompanyLogo(uploadData.data.toString(),cardId)){
-                            is Resource.Error ->{
-                                _snackbarInt.postValue(Event(logoData.errorCode))
-                            }
-                        }
-
-                    }
-                    is Resource.Error->{
-                        _snackbarInt.postValue(Event(uploadData.errorCode))
-
-                    }
-                }
-            }*/
-
         }
     }
 }

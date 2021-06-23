@@ -154,9 +154,6 @@ class AddPersonalCardFragment : Fragment(), ItemInteraction<PhoneNumber>,
         emailAdapter = EmailAdapter(this, emailTypes)
         socialAdapter = SocialAdapter(this)
 
-        //phoneNumberAdapter.submitList(listOf(PhoneNumber()))
-        //emailAdapter.submitList(listOf(EmailAddress()))
-
         viewmodel.socials.observe(viewLifecycleOwner) { it ->
             socialAdapter.submitList(it.filter { it.usernameOrUrl.isNotEmpty() })
         }
@@ -226,7 +223,6 @@ class AddPersonalCardFragment : Fragment(), ItemInteraction<PhoneNumber>,
 
         // handle result of pick image chooser
         if (requestCode == Utils.REQUEST_IMAGE_GET && resultCode == Activity.RESULT_OK) {
-            //val imageUri: Bitmap? = data?.getParcelableExtra("data")
 
             val fullPhotoUri: Uri? = data?.data
             CropImage.activity(fullPhotoUri)
@@ -253,42 +249,6 @@ class AddPersonalCardFragment : Fragment(), ItemInteraction<PhoneNumber>,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-
-    }
-
-    @AfterPermissionGranted(Utils.REQUEST_PHOTO)
-    private fun callGallery() {
-        if (EasyPermissions.hasPermissions(requireContext(), Utils.STORAGE_PERMISSION)) {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "image/*"
-            }
-            if (activity?.packageManager?.let { intent.resolveActivity(it) } != null) {
-                startActivityForResult(intent, Utils.REQUEST_IMAGE_GET)
-            }
-        } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(
-                this, getString(R.string.require_gallery),
-                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION
-            )
-        }
-
-    }
-
-    @AfterPermissionGranted(Utils.REQUEST_CAMERA)
-    private fun takePhoto() {
-        if (EasyPermissions.hasPermissions(requireContext(), Utils.CAMERA_PERMISSION)) {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (activity?.packageManager?.let { intent.resolveActivity(it) } != null) {
-                startActivityForResult(intent, Utils.REQUEST_IMAGE_GET)
-            }
-        } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(
-                this, getString(R.string.require_gallery),
-                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION
-            )
-        }
 
     }
 

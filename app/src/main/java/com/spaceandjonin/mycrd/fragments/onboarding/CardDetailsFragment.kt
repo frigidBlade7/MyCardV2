@@ -33,13 +33,6 @@ class CardDetailsFragment : Fragment() {
 
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
-/*
-
-    val addPersonalCardViewModel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_card_nav){
-        defaultViewModelProviderFactory
-    }
-*/
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -216,8 +209,6 @@ class CardDetailsFragment : Fragment() {
         }
 
         binding.include.note.cardView.setOnClickListener {
-            //it.isVisible = false
-            //binding.categories.note.groupNote.isVisible = true
             findNavController().navigate(CardDetailsFragmentDirections.actionGlobalUpdateNoteFragment())
         }
 
@@ -229,9 +220,6 @@ class CardDetailsFragment : Fragment() {
                         onboardingViewModel.showCardOptions(it.isNotEmpty())
                     }
                 }
-/*
-                R.id.share -> onboardingViewModel.showShare()
-*/
             }
 
             return@setOnMenuItemClickListener true

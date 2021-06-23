@@ -62,9 +62,6 @@ class MeFragment : Fragment(), SocialItemInteraction {
         postponeEnterTransition()
         view.doOnPreDraw {
             startPostponedEnterTransition()
-/*
-            val mainActivity = requireActivity() as MainActivity
-            mainActivity.binding.bottomNav.show()*/
         }
     }
 
@@ -275,8 +272,6 @@ class MeFragment : Fragment(), SocialItemInteraction {
 
             exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
             reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
-
-            //val extras = FragmentNavigatorExtras(binding.toolbar to "search")
 
             when (it.itemId) {
                 R.id.add_personal_card -> {

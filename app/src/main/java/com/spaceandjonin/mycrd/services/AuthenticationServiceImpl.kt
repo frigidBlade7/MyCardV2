@@ -99,19 +99,6 @@ class AuthenticationServiceImpl @Inject constructor(private val auth: FirebaseAu
         }
     }
 
-/*    suspend fun updateCredential(phoneAuthCredential: PhoneAuthCredential) {
-        try{
-            val data = auth.signInWithCredential(phoneAuthCredential).await()
-            data.user?.let {
-                authCallback.onAuthSuccess(it)
-            }
-        }catch (e: Exception){
-            Timber.d( "attemptAuth: ${e.localizedMessage}")
-            authCallback.onAuthFailure(e.getCode())
-        }
-    }*/
-
-
     override fun setUpAuthCallbacks(authenticationCallbacks: AuthenticationCallbacks<FirebaseUser>) {
         this.authCallback = authenticationCallbacks
     }

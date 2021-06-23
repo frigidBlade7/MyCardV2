@@ -29,13 +29,4 @@ class AddedCardAdapter : ListAdapter<AddedCard, BaseViewHolder>(AddedCardDiffUti
         return position
     }
 
-    fun getImage() {
-
-    }
-/*
-    override fun getItemId(position: Int): Long {
-        return currentList[position].hashCode().toLong()
-    }
-*/
-
 }

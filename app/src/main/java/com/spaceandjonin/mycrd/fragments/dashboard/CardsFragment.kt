@@ -45,12 +45,6 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
     val filterViewModel: FilterViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
     val cardViewmodel: CardViewModel by viewModels()
-/*
-    private val closeCardOnBackPressed = object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() {
-            requireActivity().finish()
-        }
-    }*/
 
 
     override fun onPause() {
@@ -65,20 +59,9 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         postponeEnterTransition()
         view.doOnPreDraw {
             startPostponedEnterTransition()
-/*
-            val mainActivity = requireActivity() as MainActivity
-            mainActivity.binding.bottomNav.show()*/
         }
 
         binding.list.adapter = cardAdapter
-
-/*
-        viewLifecycleOwner.lifecycleScope.launch {
-            pagedAdapter.loadStateFlow.collectLatest {
-                binding.progressBar.isVisible = it.refresh is LoadState.Loading
-                binding.group.isVisible = it.refresh is LoadState.Error
-            }
-        }*/
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -199,7 +182,6 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
         val popupMenu = PopupMenu(requireContext(), view, GravityCompat.END)
         popupMenu.inflate(R.menu.card_options)
-        //val popupHelper = MenuPopupHelper(requireContext(), popupMenu.menu as MenuBuilder)
 
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {

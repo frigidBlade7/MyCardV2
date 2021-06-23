@@ -238,35 +238,10 @@ class CaptureCardFragment : Fragment() {
                     val output = saveResult(result)
                     Timber.d( "Image saved: ${output.absolutePath}")
                     viewModel.filePath = output.absolutePath
-//                    viewModel._destination.postValue(Event(SkipOnboardingFragmentDirections.actionGlobalScanNav()))
 
                     CropImage.activity(Uri.fromFile(output))
                         .start(requireContext(), this@CaptureCardFragment)
-                    //viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
 
-                    /*val intent = Intent(context, ScanActivity::class.java)
-
-                    //val inputBuffer = viewModel.loadInputBuffer()
-                    //val bitmap = viewModel.decodeBitmap(inputBuffer, 0, inputBuffer.size)
-
-                    intent.putExtra(ScanConstants.SELECTED_BITMAP, output.absolutePath)
-                    startActivity(intent)
-                    //val bitmap = BitmapFactory.decodeFile(output.absolutePath)
-*/
-                    /*val bitmap = BitmapFactory.decodeFile(output.absolutePath)
-                    viewModel.processPhysicalCard(bitmap)
-                    viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
-*/
-                    // Display the photo taken to user
-/*                    lifecycleScope.launch(Dispatchers.Main) {
-                        //todo go to next view
-                        findNavController().navigate(CameraFragmentDirections
-                            .actionCameraToJpegViewer(output.absolutePath)
-                            .setOrientation(result.orientation)
-                            .setDepth(
-                                Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
-                                    result.format == ImageFormat.DEPTH_JPEG))
-                    }*/
                 }
 
                 // Re-enable click listener after photo is taken
@@ -390,7 +365,7 @@ class CaptureCardFragment : Fragment() {
 
                         // Dequeue images while timestamps don't match
                         val image = imageQueue.take()
-                        // TODO(owahltinez): b/142011420
+                        // TODO(owahltinez): b/142011420 whoever this is thank you
                         // if (image.timestamp != resultTimestamp) continue
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
                             image.format != ImageFormat.DEPTH_JPEG &&
@@ -522,37 +497,6 @@ class CaptureCardFragment : Fragment() {
             return File(context.filesDir, "IMG_${sdf.format(Date())}.$extension")
         }
     }
-
-/*    @AfterPermissionGranted(Utils.REQUEST_CAMERA)
-    private fun takePhoto() {
-        if (EasyPermissions.hasPermissions(requireContext(), Utils.CAMERA_PERMISSION)) {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (activity?.packageManager?.let { intent.resolveActivity(it) } != null) {
-                intent.also {
-                    val file: File? = try {
-                        viewmodel.imageFile
-                    }catch (e: Exception){
-                        null
-                        //todo inform user that images cannot be saved/created/taken
-                    }
-                    file?.also {
-                        val photoURI: Uri = FileProvider.getUriForFile(
-                            requireContext(),
-                            "com.spaceandjonin.mycrd.fileprovider",
-                            it)
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                        Log.d("TAG", "takePhoto: $photoURI")
-                        startActivityForResult(intent, Utils.REQUEST_IMAGE_CAPTURE)
-                    }
-                }
-            }
-        } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.require_camera),
-                Utils.REQUEST_CAMERA, Utils.CAMERA_PERMISSION)
-        }
-
-    }*/
 
     @AfterPermissionGranted(Utils.REQUEST_PHOTO)
     private fun callGallery() {

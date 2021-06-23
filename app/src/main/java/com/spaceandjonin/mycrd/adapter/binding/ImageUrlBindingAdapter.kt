@@ -40,13 +40,3 @@ fun setImageDisplayUrl(imageView: ImageView, imageUrl: String?) {
             .thumbnail(0.1f).into(imageView)
 }
 
-/*    @BindingAdapter("imageUrlResource")
-    fun setImageUrlResource(imageView: ImageView, imageUrlResource: Resource<User?>){
-        when(imageUrlResource){
-            is Resource.Success->{
-                if(imageUrlResource.data?.profileUrl!!.isEmpty())
-                    Glide.with(imageView.context).asBitmap().load(imageUrlResource.data.profileUrl).transform(CenterCrop(),CircleCrop()).thumbnail(0.1f).into(imageView)
-
-            }
-        }
-    }*/

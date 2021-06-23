@@ -2,7 +2,6 @@ package com.spaceandjonin.mycrd.fragments.scan
 
 interface CustomCropContract {
     interface View {
-        //fun updateRotationCounter(counter: String)
         fun rotate(counter: Int)
     }
 

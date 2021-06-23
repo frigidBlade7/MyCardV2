@@ -34,10 +34,4 @@ class ChildEmailAdapter(val itemInteraction: EmailTypeInteraction) :
         return position
     }
 
-/*
-    override fun getItemId(position: Int): Long {
-        return currentList[position].hashCode().toLong()
-    }
-*/
-
 }

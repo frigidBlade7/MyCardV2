@@ -37,24 +37,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-/*        val deferringInsetsListener = RootViewDeferringInsetsCallback(
-            persistentInsetTypes = WindowInsets.Type.systemBars(),
-            deferredInsetTypes = WindowInsets.Type.ime()
-        )
-        // RootViewDeferringInsetsCallback is both an WindowInsetsAnimation.Callback and an
-        // OnApplyWindowInsetsListener, so needs to be set as so.
-        binding.root.setWindowInsetsAnimationCallback(deferringInsetsListener)
-        binding.root.setOnApplyWindowInsetsListener(deferringInsetsListener)
-
-        binding.bottomNav.setWindowInsetsAnimationCallback(
-            TranslateDeferringInsetsAnimationCallback(
-                view = binding.conversationRecyclerview,
-                persistentInsetTypes = WindowInsets.Type.systemBars(),
-                deferredInsetTypes = WindowInsets.Type.ime()
-            )
-        )*/
-
         binding.apply {
             val mainfrag = supportFragmentManager
                 .findFragmentById(R.id.fragment) as NavHostFragment

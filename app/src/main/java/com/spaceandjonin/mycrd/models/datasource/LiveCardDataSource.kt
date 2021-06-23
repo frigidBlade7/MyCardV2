@@ -31,7 +31,7 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
 
     override suspend fun removeData(data: LiveCard): Resource<String> {
         return try {
-            val result = collectionReference.document(data.id).delete()//.await()
+            collectionReference.document(data.id).delete()//.await()
             Resource.Success(data.id)
         } catch (e: Exception) {
             Timber.d( "error: ${e.localizedMessage}")
@@ -43,7 +43,7 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
         return try {
             Timber.d( "updateData: ${data.id}")
             data.updatedAt = Timestamp.now()
-            val result = collectionReference.document(data.id).set(data)//.await()
+            collectionReference.document(data.id).set(data)//.await()
             Resource.Success(data.id)
         } catch (e: Exception) {
             Timber.d( "error: ${e.localizedMessage}")
@@ -118,19 +118,6 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
 
         awaitClose { subscriptionCallback.remove() }
     }
-
-    /*    class FirestoreCardDeserializer : Function<DocumentSnapshot,Card> {
-            override fun apply(input: DocumentSnapshot?): Card? {
-                return input?.toObject(Card::class.java)
-            }
-        }
-
-        class FirestoreCardListDeserializer : Function<QuerySnapshot,List<Card>> {
-            override fun apply(input: QuerySnapshot?): List<Card>? {
-                return input?.toObjects(Card::class.java)
-            }
-
-        }*/
     companion object {
         private const val TAG = "CardDataSource"
     }

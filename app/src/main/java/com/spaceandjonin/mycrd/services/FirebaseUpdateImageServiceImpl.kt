@@ -21,8 +21,6 @@ class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseSt
     val reference = storage.reference.child("images")
     var photoUri: Uri? = null
     var sessionUri: Uri? = null
-
-    //var byteData: ByteArray? = null
     lateinit var dataTask: UploadTask
 
 
@@ -34,10 +32,6 @@ class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseSt
                 dataTask = resource.putFile(it)
                 sessionUri = dataTask.snapshot.uploadSessionUri
             }
-
-/*            byteData?.let {
-                dataTask = resource.putBytes(it)
-            }*/
 
             val uri = dataTask.continueWithTask { task ->
                 if (!task.isSuccessful)

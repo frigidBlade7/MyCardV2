@@ -39,12 +39,6 @@ class AddCardViewModel @Inject constructor(
 
     var isEditFlow = MutableLiveData(false)
 
-/*    val _uploadWork = MutableLiveData<Event<OneTimeWorkRequest>>()
-
-    val uploadWork: LiveData<Event<OneTimeWorkRequest>>
-        get() = _uploadWork*/
-
-
     var card = MutableLiveData(AddedCard())
 
     var name = MutableLiveData(Name())
@@ -196,7 +190,6 @@ class AddCardViewModel @Inject constructor(
                             card.value?.id = it
                             updateProfileImage(it)
                         }
-                        //updateBusinessLogo(data.data)
 
                     }
                     is Resource.Error -> {
@@ -314,59 +307,10 @@ class AddCardViewModel @Inject constructor(
                 .addTag(cardId)
                 .build()
 
-
             workManager.enqueue(myUploadWork)
-            //_uploadWork.postValue(Event(myUploadWork))
-
-
-            /*viewModelScope.launch {
-                uploadService.setUri(uri)
-                when(val uploadData = uploadService.uploadImage("profiles/$cardId")){
-                    is Resource.Success->{
-                            when (val profileData = addedCardsRepository.firebaseAddedCardDataSource.updateCardProfilePhoto(uploadData.data.toString(),cardId)){
-                                is Resource.Error ->{
-                                    _snackbarInt.postValue(Event(profileData.errorCode))
-                                }
-                            }
-
-                    }
-                    is Resource.Error -> {
-                        Log.d(Companion.TAG, "updateProfileImage: ${uploadData.errorCode}")
-                        _snackbarInt.postValue(Event(uploadData.errorCode))
-
-                    }
-                }
-            }
-*/
-
-
         }
     }
 
-    /*    private fun updateBusinessLogo(cardId: String) {
-            businessImageUri.value?.let { uri->
-
-                viewModelScope.launch {
-                    uploadService.setUri(uri)
-                    when(val uploadData = uploadService.uploadImage("businesses/$cardId")){
-                        is Resource.Success->{
-                            //todo success upload _snackbarInt.postValue(Event(uploadData.errorCode))
-                            when (val logoData = personalCardsRepository.firebaseCardDataSource.updateCardCompanyLogo(uploadData.data.toString(),cardId)){
-                                is Resource.Error ->{
-                                    _snackbarInt.postValue(Event(logoData.errorCode))
-                                }
-                            }
-
-                        }
-                        is Resource.Error->{
-                            _snackbarInt.postValue(Event(uploadData.errorCode))
-
-                        }
-                    }
-                }
-
-            }
-        }*/
     companion object {
         private const val TAG = "AddCardViewModel"
     }

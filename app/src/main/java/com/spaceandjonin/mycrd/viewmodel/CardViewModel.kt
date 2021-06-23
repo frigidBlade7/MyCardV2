@@ -111,9 +111,5 @@ class CardViewModel @Inject constructor(
     fun createVcf(name: String?): File {
         return File(storageDir, "$name.vcf")
     }
-    //val cardsPagedDataFlow = cardsRepository.allCardsPaged.flow.cachedIn(viewModelScope)
-
-    //val cardsLiveDataFlow = cardsRepository.currentPage
-
 
 }

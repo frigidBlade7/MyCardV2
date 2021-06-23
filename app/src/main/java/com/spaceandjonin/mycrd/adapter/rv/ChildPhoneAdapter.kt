@@ -33,10 +33,4 @@ class ChildPhoneAdapter(val itemInteraction: PhoneTypeInteraction) :
         return position
     }
 
-/*
-    override fun getItemId(position: Int): Long {
-        return currentList[position].hashCode().toLong()
-    }
-*/
-
 }

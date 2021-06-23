@@ -51,10 +51,6 @@ class ConfirmAddDetailsFragment : Fragment() {
         socialAdapter = SocialAdapter(null)
         binding.categories.socialMedia.socialItems.adapter = socialAdapter
 
-
-        //phoneNumberAdapter.submitList(listOf(PhoneNumber()))
-        //emailAdapter.submitList(listOf(EmailAddress()))
-
         binding.categories.email.list.adapter = extraEmailAddressAdapter
         binding.categories.phone.list.adapter = extraPhoneNumbersAdapter
 
@@ -89,9 +85,6 @@ class ConfirmAddDetailsFragment : Fragment() {
 
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
-/*            if(it.actionId== R.id.action_global_cardDetailsFragment){
-                requireParentFragment().findNavController().navigate(it)
-            }*/
             findNavController().navigate(it)
         })
 
