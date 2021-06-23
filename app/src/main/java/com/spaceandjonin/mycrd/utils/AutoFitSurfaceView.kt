@@ -18,7 +18,6 @@ package com.spaceandjonin.mycrd.utils
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.SurfaceView
 import timber.log.Timber
 import kotlin.math.roundToInt

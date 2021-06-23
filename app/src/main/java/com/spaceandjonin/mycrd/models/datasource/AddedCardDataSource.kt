@@ -1,6 +1,5 @@
 package com.spaceandjonin.mycrd.models.datasource
 
-import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Query

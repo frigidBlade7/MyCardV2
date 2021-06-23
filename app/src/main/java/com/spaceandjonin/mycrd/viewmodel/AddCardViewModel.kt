@@ -1,7 +1,6 @@
 package com.spaceandjonin.mycrd.viewmodel
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.ActionOnlyNavDirections

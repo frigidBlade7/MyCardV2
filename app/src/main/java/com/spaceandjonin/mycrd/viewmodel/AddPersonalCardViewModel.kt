@@ -1,7 +1,6 @@
 package com.spaceandjonin.mycrd.viewmodel
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.work.*
@@ -20,7 +19,6 @@ import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.utils.aggregateNameToFullName
 import com.spaceandjonin.mycrd.utils.notifyObserver
 import com.spaceandjonin.mycrd.utils.segregateFullName
-import com.spaceandjonin.mycrd.workers.FirebaseFirestoreUploadWorkerBusinessImage
 import com.spaceandjonin.mycrd.workers.FirebaseFirestoreUploadWorkerLiveCards
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch

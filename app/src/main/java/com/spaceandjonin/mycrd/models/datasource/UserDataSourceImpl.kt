@@ -1,7 +1,6 @@
 package com.spaceandjonin.mycrd.models.datasource
 
 import android.net.Uri
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.spaceandjonin.mycrd.R

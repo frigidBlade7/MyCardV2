@@ -1,7 +1,6 @@
 package com.spaceandjonin.mycrd.models
 
 import android.content.Context
-import android.util.Log
 import com.bumptech.glide.Glide
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber

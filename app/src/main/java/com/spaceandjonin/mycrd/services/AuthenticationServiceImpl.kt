@@ -1,7 +1,6 @@
 package com.spaceandjonin.mycrd.services
 
 import android.app.Activity
-import android.util.Log
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.spaceandjonin.mycrd.listeners.AuthenticationCallbacks

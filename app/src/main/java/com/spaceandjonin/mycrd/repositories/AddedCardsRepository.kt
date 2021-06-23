@@ -1,6 +1,5 @@
 package com.spaceandjonin.mycrd.repositories
 
-import android.util.Log
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.db.dao.AddedCardDao
 import com.spaceandjonin.mycrd.models.AddedCard

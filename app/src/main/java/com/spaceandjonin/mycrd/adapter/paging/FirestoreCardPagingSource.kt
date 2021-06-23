@@ -1,6 +1,5 @@
 package com.spaceandjonin.mycrd.adapter.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.google.firebase.firestore.FirebaseFirestore

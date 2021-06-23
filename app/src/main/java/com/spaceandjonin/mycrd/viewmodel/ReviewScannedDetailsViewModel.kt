@@ -1,6 +1,5 @@
 package com.spaceandjonin.mycrd.viewmodel
 
-import android.util.Log
 import android.util.Patterns
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
