@@ -12,14 +12,19 @@ import com.spaceandjonin.mycrd.models.LabelDetail
 import com.spaceandjonin.mycrd.models.PhoneNumber
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
-class ExtraPhoneNumbersActionsAdapter(val itemInteraction: LabelledDetailItemInteraction): ListAdapter<PhoneNumber, BaseViewHolder>(PhoneNumberDiffCallback()) {
+class ExtraPhoneNumbersActionsAdapter(val itemInteraction: LabelledDetailItemInteraction) :
+    ListAdapter<PhoneNumber, BaseViewHolder>(PhoneNumberDiffCallback()) {
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bindTo(getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        val binding = CardPhoneItemAdditionalActionsBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        val binding = CardPhoneItemAdditionalActionsBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         val baseViewHolder = BaseViewHolder(binding)
 
         binding.actions.edit.setOnClickListener {
@@ -37,7 +42,12 @@ class ExtraPhoneNumbersActionsAdapter(val itemInteraction: LabelledDetailItemInt
             val phoneNumber = getItem(baseViewHolder.bindingAdapterPosition)
             TooltipCompat.setTooltipText(it, parent.context.getString(R.string.remove_label))
 
-            itemInteraction.onRemoveLabelClicked(LabelDetail(phoneNumber.type.name, phoneNumber.number))
+            itemInteraction.onRemoveLabelClicked(
+                LabelDetail(
+                    phoneNumber.type.name,
+                    phoneNumber.number
+                )
+            )
         }
         return baseViewHolder
     }

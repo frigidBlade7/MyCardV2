@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import timber.log.Timber;
+
 import static com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap;
 
 public class MyCardToggleGroup extends LinearLayout {
@@ -46,7 +48,7 @@ public class MyCardToggleGroup extends LinearLayout {
         /**
          * Called when a {@link MaterialButton} in this group is checked or unchecked.
          *
-         * @param group The group in which the MaterialButton's checked state was changed
+         * @param group     The group in which the MaterialButton's checked state was changed
          * @param checkedId The unique identifier of the MaterialButton whose check state changed
          * @param isChecked Whether the MaterialButton is currently checked
          */
@@ -59,26 +61,22 @@ public class MyCardToggleGroup extends LinearLayout {
 
 
     private final MyCardToggleGroup.CheckedStateTracker checkedStateTracker = new MyCardToggleGroup.CheckedStateTracker();
-    //private final MyCardToggleGroup.PressedStateTracker pressedStateTracker = new MyCardToggleGroup.PressedStateTracker();
     private final LinkedHashSet<MyCardToggleGroup.OnButtonCheckedListener> onButtonCheckedListeners =
             new LinkedHashSet<>();
     private final Comparator<MaterialButton> childOrderComparator =
-            new Comparator<MaterialButton>() {
-                @Override
-                public int compare(MaterialButton v1, MaterialButton v2) {
-                    int checked = Boolean.valueOf(v1.isChecked()).compareTo(v2.isChecked());
-                    if (checked != 0) {
-                        return checked;
-                    }
-
-                    int stateful = Boolean.valueOf(v1.isPressed()).compareTo(v2.isPressed());
-                    if (stateful != 0) {
-                        return stateful;
-                    }
-
-                    // don't return 0s
-                    return Integer.valueOf(indexOfChild(v1)).compareTo(indexOfChild(v2));
+            (v1, v2) -> {
+                int checked = Boolean.compare(v1.isChecked(), v2.isChecked());
+                if (checked != 0) {
+                    return checked;
                 }
+
+                int stateful = Boolean.compare(v1.isPressed(), v2.isPressed());
+                if (stateful != 0) {
+                    return stateful;
+                }
+
+                // don't return 0s
+                return Integer.compare(indexOfChild(v1), indexOfChild(v2));
             };
 
     private Integer[] childOrder;
@@ -86,7 +84,8 @@ public class MyCardToggleGroup extends LinearLayout {
     private boolean singleSelection;
     private boolean selectionRequired;
 
-    @IdRes private int checkedId;
+    @IdRes
+    private int checkedId;
 
     public MyCardToggleGroup(@NonNull Context context) {
         this(context, null);
@@ -140,7 +139,7 @@ public class MyCardToggleGroup extends LinearLayout {
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         if (!(child instanceof MaterialButton)) {
-            Log.e(LOG_TAG, "Child views must be of type MaterialButton.");
+            Timber.e("Child views must be of type MaterialButton.");
             return;
         }
 
@@ -275,13 +274,13 @@ public class MyCardToggleGroup extends LinearLayout {
      * If not in single selection mode, the return value is {@link View#NO_ID}.
      *
      * @return The unique id of the selected {@link MaterialButton} in this group in {@link
-     *     #isSingleSelection() single selection mode}. When not in {@link #isSingleSelection() single
-     *     selection mode}, returns {@link View#NO_ID}.
+     * #isSingleSelection() single selection mode}. When not in {@link #isSingleSelection() single
+     * selection mode}, returns {@link View#NO_ID}.
+     * @attr ref R.styleable#MaterialButtonToggleGroup_checkedButton
      * @see #check(int)
      * @see #uncheck(int)
      * @see #clearChecked()
      * @see #getCheckedButtonIds()
-     * @attr ref R.styleable#MaterialButtonToggleGroup_checkedButton
      */
     @IdRes
     public int getCheckedButtonId() {
@@ -293,8 +292,8 @@ public class MyCardToggleGroup extends LinearLayout {
      * selection, the returned value is an empty list.
      *
      * @return The unique IDs of the selected {@link MaterialButton}s in this group. When in {@link
-     *     #isSingleSelection() single selection mode}, returns a list with a single ID. When no
-     *     {@link MaterialButton}s are selected, returns an empty list.
+     * #isSingleSelection() single selection mode}, returns a list with a single ID. When no
+     * {@link MaterialButton}s are selected, returns an empty list.
      * @see #check(int)
      * @see #uncheck(int)
      * @see #clearChecked()
@@ -336,7 +335,9 @@ public class MyCardToggleGroup extends LinearLayout {
         onButtonCheckedListeners.remove(listener);
     }
 
-    /** Remove all previously added {@link MaterialButtonToggleGroup.OnButtonCheckedListener}s. */
+    /**
+     * Remove all previously added {@link MaterialButtonToggleGroup.OnButtonCheckedListener}s.
+     */
     public void clearOnButtonCheckedListeners() {
         onButtonCheckedListeners.clear();
     }
@@ -478,7 +479,6 @@ public class MyCardToggleGroup extends LinearLayout {
     }
 
 
-
     private int getFirstVisibleChildIndex() {
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
@@ -533,7 +533,6 @@ public class MyCardToggleGroup extends LinearLayout {
     }
 
 
-
     /**
      * When a checked child is added, or a child is clicked, updates checked state and draw order of
      * children to draw all checked children on top of all unchecked children.
@@ -543,7 +542,7 @@ public class MyCardToggleGroup extends LinearLayout {
      * <p>If {@code selectionRequired} is true, and the last child is unchecked it will undo the
      * deselection.
      *
-     * @param childId ID of child whose checked state may have changed
+     * @param childId        ID of child whose checked state may have changed
      * @param childIsChecked Whether the child is checked
      * @return Whether the checked state for childId has changed.
      */
@@ -591,7 +590,7 @@ public class MyCardToggleGroup extends LinearLayout {
      * {@code checkable}, and set internal checked change listener for this child.
      *
      * @param buttonChild {@link MaterialButton} child to set up to be added to this {@link
-     *     MaterialButtonToggleGroup}
+     *                    MaterialButtonToggleGroup}
      */
     private void setupButtonChild(@NonNull MaterialButton buttonChild) {
         buttonChild.setMaxLines(1);
@@ -622,7 +621,7 @@ public class MyCardToggleGroup extends LinearLayout {
     @Override
     protected int getChildDrawingOrder(int childCount, int i) {
         if (childOrder == null || i >= childOrder.length) {
-            Log.w(LOG_TAG, "Child order wasn't updated");
+            Timber.tag(LOG_TAG).w("Child order wasn't updated");
             return i;
         }
 

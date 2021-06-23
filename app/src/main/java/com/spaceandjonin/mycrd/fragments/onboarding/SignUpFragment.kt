@@ -22,15 +22,15 @@ class SignUpFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSignUpBinding.inflate(layoutInflater,container, false)
+        binding = FragmentSignUpBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.countryCodeHolder.registerCarrierNumberEditText(binding.phoneNumber)
 
         binding.skip.setOnClickListener {
-            val formattedNumber =  binding.countryCodeHolder.fullNumberWithPlus
+            val formattedNumber = binding.countryCodeHolder.fullNumberWithPlus
             viewmodel.phoneNumberFormatted.value = formattedNumber
             viewmodel.goToConfirmNumber(formattedNumber)
         }
@@ -40,13 +40,13 @@ class SignUpFragment : Fragment() {
         })
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             viewmodel.resetLiveDataParams()
             findNavController().popBackStack()
         }
 
-        viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
+        viewmodel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
         return binding.root

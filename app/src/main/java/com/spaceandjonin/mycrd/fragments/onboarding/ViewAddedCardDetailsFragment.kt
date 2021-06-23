@@ -30,7 +30,7 @@ private const val TAG = "CardDetailsFragment"
 @AndroidEntryPoint
 class ViewAddedCardDetailsFragment : Fragment() {
 
-    lateinit var binding : FragmentAddedCardDetailsBinding
+    lateinit var binding: FragmentAddedCardDetailsBinding
     lateinit var cardAdapter: AddedCardAdapter
     lateinit var socialAdapter: SocialAdapter
     lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
@@ -46,25 +46,26 @@ class ViewAddedCardDetailsFragment : Fragment() {
 */
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             scrimColor = Color.TRANSPARENT
-            setAllContainerColors(MaterialColors.getColor(requireView(),R.attr.colorSurface))
+            setAllContainerColors(MaterialColors.getColor(requireView(), R.attr.colorSurface))
         }
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
-            binding.include.pager[0].findViewById<ShapeableImageView>(R.id.icon).visibility = View.INVISIBLE
+            binding.include.pager[0].findViewById<ShapeableImageView>(R.id.icon).visibility =
+                View.INVISIBLE
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentAddedCardDetailsBinding.inflate(layoutInflater, container, false)
@@ -73,7 +74,7 @@ class ViewAddedCardDetailsFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        cardAdapter= AddedCardAdapter()
+        cardAdapter = AddedCardAdapter()
         extraEmailAddressAdapter = ExtraEmailAddressAdapter()
         extraPhoneNumbersAdapter = ExtraPhoneNumbersAdapter()
 
@@ -81,11 +82,11 @@ class ViewAddedCardDetailsFragment : Fragment() {
         binding.include.email.list.adapter = extraEmailAddressAdapter
         binding.include.phone.list.adapter = extraPhoneNumbersAdapter
 
-        onboardingViewModel.selectedCard.observe(viewLifecycleOwner){
+        onboardingViewModel.selectedCard.observe(viewLifecycleOwner) {
             cardAdapter.submitList(listOf(it))
-            if(it.phoneNumbers.size>1)
+            if (it.phoneNumbers.size > 1)
                 extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
-            if(it.emailAddresses.size>1)
+            if (it.emailAddresses.size > 1)
                 extraEmailAddressAdapter.submitList(it.emailAddresses.drop(1))
             socialAdapter.submitList(it.socialMediaProfiles)
 
@@ -93,7 +94,7 @@ class ViewAddedCardDetailsFragment : Fragment() {
 
         binding.include.email.chevron.setOnClickListener {
             it.isSelected = !it.isSelected
-            if(it.isSelected)
+            if (it.isSelected)
                 binding.include.email.list.visibility = View.VISIBLE
             else
                 binding.include.email.list.visibility = View.GONE
@@ -102,7 +103,7 @@ class ViewAddedCardDetailsFragment : Fragment() {
         binding.include.phone.chevron.setOnClickListener {
             it.isSelected = !it.isSelected
 
-            if(it.isSelected)
+            if (it.isSelected)
                 binding.include.phone.list.visibility = View.VISIBLE
             else
                 binding.include.phone.list.visibility = View.GONE
@@ -120,10 +121,9 @@ class ViewAddedCardDetailsFragment : Fragment() {
 
 
         onboardingViewModel.selectedCard.value?.note?.let {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 binding.include.note.role.text = it
-            }
-            else
+            } else
                 binding.include.note.role.setOnClickListener {
                     //todo show modal
                 }
@@ -138,13 +138,14 @@ class ViewAddedCardDetailsFragment : Fragment() {
         binding.include.makeCall.setOnClickListener {
             onboardingViewModel.selectedCard.value?.phoneNumbers?.let {
 
-                if(it.isEmpty()) {
+                if (it.isEmpty()) {
                     val destination = AlertDialogFragmentDirections.actionGlobalAlertDialogFragment(
                         R.string.no_phone_specified_for_this_card_add_and_try_again,
-                        R.drawable.phone_icon)
+                        R.drawable.phone_icon
+                    )
                     findNavController().navigate(destination)
 
-                } else if(it.size==1){
+                } else if (it.size == 1) {
                     Uri.parse("tel:${it[0].number}")?.let { number ->
                         try {
                             startActivity(Intent(Intent.ACTION_DIAL, number))
@@ -152,7 +153,7 @@ class ViewAddedCardDetailsFragment : Fragment() {
                             // Define what your app should do if no activity can handle the intent.
                         }
                     }
-                }else {
+                } else {
                     findNavController().navigate(ViewAddedCardDetailsFragmentDirections.actionGlobalSelectPhoneNumberFragment())
                 }
             }
@@ -161,7 +162,7 @@ class ViewAddedCardDetailsFragment : Fragment() {
         binding.include.sendMail.setOnClickListener {
             onboardingViewModel.selectedCard.value?.emailAddresses?.let {
 
-                if(it.isEmpty()) {
+                if (it.isEmpty()) {
 
                     val destination = AlertDialogFragmentDirections.actionGlobalAlertDialogFragment(
                         R.string.no_email_specified_for_this_card_add_and_try_again,
@@ -170,20 +171,19 @@ class ViewAddedCardDetailsFragment : Fragment() {
                     findNavController().navigate(destination)
 
 
-                } else if(it.size==1) {
-                            try {
-                                val intent = Intent(Intent.ACTION_SENDTO).apply {
-                                    data = Uri.parse("mailto:${it[0].address}") // only email apps should handle this
-                                    putExtra(Intent.EXTRA_EMAIL, it[0].address)
-                                }
-                                startActivity(intent)
-                            } catch (e: ActivityNotFoundException) {
-                                // Define what your app should do if no activity can handle the intent.
-                            }
+                } else if (it.size == 1) {
+                    try {
+                        val intent = Intent(Intent.ACTION_SENDTO).apply {
+                            data =
+                                Uri.parse("mailto:${it[0].address}") // only email apps should handle this
+                            putExtra(Intent.EXTRA_EMAIL, it[0].address)
+                        }
+                        startActivity(intent)
+                    } catch (e: ActivityNotFoundException) {
+                        // Define what your app should do if no activity can handle the intent.
+                    }
 
-                }
-
-                else {
+                } else {
                     findNavController().navigate(ViewAddedCardDetailsFragmentDirections.actionGlobalSelectEmailFragment())
 
                 }
@@ -193,7 +193,7 @@ class ViewAddedCardDetailsFragment : Fragment() {
         binding.include.showLocation.setOnClickListener {
             onboardingViewModel.selectedCard.value?.businessInfo?.companyAddress?.let {
 
-                if(it.isEmpty()) {
+                if (it.isEmpty()) {
 
                     val destination = AlertDialogFragmentDirections.actionGlobalAlertDialogFragment(
                         R.string.no_location_specified_for_this_card_add_and_try_again,
@@ -217,8 +217,8 @@ class ViewAddedCardDetailsFragment : Fragment() {
         }
 
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.options-> {
+            when (it.itemId) {
+                R.id.options -> {
                     onboardingViewModel.selectedCard.value?.note?.let {
                         //onboardingViewModel.tempCardByteArray = binding.include.pager[0].findViewById<ImageView>(R.id.icon).drawToBitmap().toByteArray()
                         //onboardingViewModel.setUpImageBytearray()
@@ -232,7 +232,7 @@ class ViewAddedCardDetailsFragment : Fragment() {
 
             return@setOnMenuItemClickListener true
         }
-            //binding.toolbar.menu.
+        //binding.toolbar.menu.
         return binding.root
     }
 

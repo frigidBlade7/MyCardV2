@@ -32,5 +32,6 @@
     <color name="mc_black_5">#1A000000</color>
     <color name="mc_purple_10">#1A5513C1</color>
     <color name="mc_black_10">#1A000000</color>
+    <color name="mc_white_10">#1AFFFFFF</color>
 
 </resources>

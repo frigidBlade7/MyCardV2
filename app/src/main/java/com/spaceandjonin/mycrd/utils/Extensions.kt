@@ -30,25 +30,28 @@ import ezvcard.property.Email
 import ezvcard.property.Role
 import ezvcard.property.StructuredName
 import ezvcard.property.Telephone
+import timber.log.Timber
 
 
-fun Name?.initials():String{
+fun Name?.initials(): String {
     this?.let {
-        return "${firstName.trim().getOrNull(0)?:""}${lastName.trim().getOrNull(0)?:""}".trim()
+        return "${firstName.trim().getOrNull(0) ?: ""}${lastName.trim().getOrNull(0) ?: ""}".trim()
     }
     return ""
 }
 
 
-fun LiveCard?.initials():String{
+fun LiveCard?.initials(): String {
     this?.let {
-        return "${name.firstName.trim().getOrNull(0)?:""}${name.lastName.trim().getOrNull(0)?:""}".trim()
+        return "${name.firstName.trim().getOrNull(0) ?: ""}${
+            name.lastName.trim().getOrNull(0) ?: ""
+        }".trim()
     }
     return ""
 }
 
-fun View.backgroundColor(colorCode: Int): Int{
-    return when(colorCode%7){
+fun View.backgroundColor(colorCode: Int): Int {
+    return when (colorCode % 7) {
         0 -> ContextCompat.getColor(context, R.color.mc_purple_10)
         1 -> ContextCompat.getColor(context, R.color.mc_blue_20)
         2 -> ContextCompat.getColor(context, R.color.mc_orange_30)
@@ -60,8 +63,8 @@ fun View.backgroundColor(colorCode: Int): Int{
     }
 }
 
-fun View.initialsColor(colorCode: Int): Int{
-    return when(colorCode%7){
+fun View.initialsColor(colorCode: Int): Int {
+    return when (colorCode % 7) {
         0 -> ContextCompat.getColor(context, R.color.mc_purple)
         1 -> ContextCompat.getColor(context, R.color.mc_blue)
         2 -> ContextCompat.getColor(context, R.color.mc_orange)
@@ -73,8 +76,8 @@ fun View.initialsColor(colorCode: Int): Int{
     }
 }
 
-fun View.textColor(type: String?): Int{
-    return when(type){
+fun View.textColor(type: String?): Int {
+    return when (type) {
         this.context.getString(R.string.personal) -> ContextCompat.getColor(
             context,
             R.color.mc_purple
@@ -89,14 +92,15 @@ fun View.textColor(type: String?): Int{
     }
 }
 
-fun List<SocialMediaProfile>.hasAtLeastOne(): Boolean{
+fun List<SocialMediaProfile>.hasAtLeastOne(): Boolean {
     return this.any { it.usernameOrUrl.trim().isNotEmpty() }
 }
-fun List<SocialMediaProfile>.hasAll(): Boolean{
+
+fun List<SocialMediaProfile>.hasAll(): Boolean {
     return this.all { it.usernameOrUrl.trim().isNotEmpty() }
 }
 
-fun Name.aggregateNameToFullName(){
+fun Name.aggregateNameToFullName() {
     this.fullName = "$prefix $firstName $middleName $lastName $suffix".trim().replace(
         "\\s+".toRegex(),
         " "
@@ -104,31 +108,33 @@ fun Name.aggregateNameToFullName(){
 
 }
 
-fun Name.getPrefix(): String{
+fun Name.getPrefix(): String {
     val components = fullName.split(" ").toTypedArray()
-    return components.filter { Utils.PREFIXES.contains(it.toLowerCase())}.joinToString(" ")
+    return components.filter { Utils.PREFIXES.contains(it.lowercase()) }.joinToString(" ")
 }
 
-fun Name.getSuffix(): String{
+fun Name.getSuffix(): String {
     val components = fullName.split(" ").toTypedArray()
-    return components.filter { Utils.SUFFIXES.contains(it.toLowerCase())}.joinToString(" ")
+    return components.filter { Utils.SUFFIXES.contains(it.lowercase()) }.joinToString(" ")
 }
 
-fun Name.getNameOnly(): List<String>{
+fun Name.getNameOnly(): List<String> {
     val components = fullName.split(" ").toTypedArray()
-    return components.filterNot { Utils.SUFFIXES.contains(it.toLowerCase()) || Utils.PREFIXES.contains(
-        it.toLowerCase()
-    )}
+    return components.filterNot {
+        Utils.SUFFIXES.contains(it.lowercase()) || Utils.PREFIXES.contains(
+            it.lowercase()
+        )
+    }
 }
 
-fun Name.segregateFullName(){
-    val list =  getNameOnly()
+fun Name.segregateFullName() {
+    val list = getNameOnly()
 
     prefix = getPrefix()
     suffix = getSuffix()
 
     //Log.d("TAG", "segregateFullName: ${list.size}")
-    when (list.size){
+    when (list.size) {
         1 -> firstName = list.getOrNull(0) ?: ""
         2 -> {
             firstName = list.getOrNull(0) ?: ""
@@ -146,20 +152,22 @@ fun Name.segregateFullName(){
             middleName = list.getOrNull(1) ?: ""
             lastName = list.getOrNull(2) ?: ""
         }
-        else->{
-            firstName = list.getOrNull(0)?:""
-            lastName = list.getOrNull(list.size - 1)?:""
+        else -> {
+            firstName = list.getOrNull(0) ?: ""
+            lastName = list.getOrNull(list.size - 1) ?: ""
             middleName = list.drop(1).dropLast(1).joinToString(separator = " ")
         }
     }
 }
 
 fun Name.isNotEmpty(): Boolean {
-    return fullName.trim().isNotEmpty() || firstName.trim().isNotEmpty() || lastName.trim().isNotEmpty() || middleName.trim().isNotEmpty()
+    return fullName.trim().isNotEmpty() || firstName.trim().isNotEmpty() || lastName.trim()
+        .isNotEmpty() || middleName.trim().isNotEmpty()
 }
 
 //just gonna use this to trigger the livedata since it behaves a little fuzzy with lists
 fun <T> MutableLiveData<T>.notifyObserver() {
+    //looks an issue but not an issue. Just force - triggering the observer
     this.value = this.value
 }
 
@@ -177,9 +185,9 @@ fun <T : Parcelable> deepClone(objectToClone: T): T? {
     }
 }
 
-fun Name?.fullname():String{
+fun Name?.fullname(): String {
     this?.let {
-        if(it.middleName.isNotEmpty())
+        if (it.middleName.isNotEmpty())
             return "${it.prefix} ${it.firstName} ${it.middleName} ${it.lastName} ${it.suffix}".trim()
         return "${it.prefix} ${it.firstName} ${it.lastName} ${it.suffix}".trim()
     }
@@ -187,17 +195,16 @@ fun Name?.fullname():String{
 }
 
 
-
-fun Exception.getCode(): Int{
-    return when(this){
+fun Exception.getCode(): Int {
+    return when (this) {
         is FirebaseAuthInvalidCredentialsException -> {
             R.string.invalid_credentials
         }
         is FirebaseTooManyRequestsException -> {
             R.string.too_many_tries
         }
-        else ->{
-            Log.d("ERROR", "onVerificationFailed: ${this.localizedMessage}")
+        else -> {
+            Timber.d("onVerificationFailed: ${this.localizedMessage}")
             R.string.default_error
         }
     }
@@ -233,6 +240,7 @@ fun Activity.hideKeyboard(view: View) {
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
+
 fun Activity.showKeyboard(/*view: View*/) {
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
@@ -289,19 +297,19 @@ fun Query.awaitContinuous(): Flow<QuerySnapshot?> = callbackFlow {
             cancel("error fetching live update of collection at path", error.cause)
             return@addSnapshotListener
         }
-        offer(value)
+        trySend(value)
     }
 
     awaitClose { subscriptionCallback.remove() }
 }*/
-fun LiveCard.exportVCard(byteArray: ByteArray?):VCard{
+fun LiveCard.exportVCard(byteArray: ByteArray?): VCard {
 
     val card = this
     val vcard = VCard()
 
     card?.name?.let {
 
-        val name= StructuredName()
+        val name = StructuredName()
         name.family = it.lastName
         name.given = it.firstName
         name.additionalNames.add(it.middleName)
@@ -362,7 +370,7 @@ fun LiveCard.exportVCard(byteArray: ByteArray?):VCard{
         }
 
     //primary phone
-    card?.phoneNumbers?.filter {it.type == PhoneNumber.PhoneNumberType.Home }
+    card?.phoneNumbers?.filter { it.type == PhoneNumber.PhoneNumberType.Home }
         ?.let {
             for (item in it) {
                 val telephone = Telephone(item.number)
@@ -372,7 +380,7 @@ fun LiveCard.exportVCard(byteArray: ByteArray?):VCard{
         }
 
     //secondary phone
-    card?.phoneNumbers?.filter {it.type == PhoneNumber.PhoneNumberType.Work }
+    card?.phoneNumbers?.filter { it.type == PhoneNumber.PhoneNumberType.Work }
         ?.let {
             for (item in it) {
                 val telephone = Telephone(item.number)
@@ -382,7 +390,7 @@ fun LiveCard.exportVCard(byteArray: ByteArray?):VCard{
         }
 
     //tertiary phone
-    card?.phoneNumbers?.filter {it.type == PhoneNumber.PhoneNumberType.Other }
+    card?.phoneNumbers?.filter { it.type == PhoneNumber.PhoneNumberType.Other }
         ?.let {
             for (item in it) {
                 val telephone = Telephone(item.number)
@@ -394,7 +402,7 @@ fun LiveCard.exportVCard(byteArray: ByteArray?):VCard{
     return vcard
 }
 
-fun AddedCard.exportContactIntent(byteArray: ByteArray?):Intent{
+fun AddedCard.exportContactIntent(byteArray: ByteArray?): Intent {
     val card = this
     return Intent(Intent.ACTION_INSERT_OR_EDIT).apply {
         type = ContactsContract.Contacts.CONTENT_ITEM_TYPE

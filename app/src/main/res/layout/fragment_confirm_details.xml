@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
@@ -13,7 +14,7 @@
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.onboarding.WelcomeFragment" >
+        tools:context=".fragments.onboarding.WelcomeFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/top"

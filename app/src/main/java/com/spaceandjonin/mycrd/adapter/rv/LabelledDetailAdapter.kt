@@ -9,7 +9,7 @@ import com.spaceandjonin.mycrd.listeners.LabelledDetailItemInteraction
 import com.spaceandjonin.mycrd.models.LabelDetail
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
-class LabelledDetailAdapter (val itemInteraction: LabelledDetailItemInteraction):
+class LabelledDetailAdapter(val itemInteraction: LabelledDetailItemInteraction) :
     ListAdapter<LabelDetail, BaseViewHolder>(LabelDetailDiffCallback()) {
 
     lateinit var binding: LabelledItemBinding
@@ -17,14 +17,14 @@ class LabelledDetailAdapter (val itemInteraction: LabelledDetailItemInteraction)
         binding = LabelledItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val baseViewHolder = BaseViewHolder(binding)
 
-        binding.actions.edit.setOnClickListener{
+        binding.actions.edit.setOnClickListener {
             itemInteraction.onEditClicked(getItem(baseViewHolder.bindingAdapterPosition))
         }
 
         binding.actions.untag.setOnClickListener {
             itemInteraction.onRemoveLabelClicked(getItem(baseViewHolder.bindingAdapterPosition))
         }
-        binding.actions.swap.setOnClickListener{
+        binding.actions.swap.setOnClickListener {
             itemInteraction.onSwapClicked(getItem(baseViewHolder.bindingAdapterPosition))
 
         }
@@ -34,7 +34,7 @@ class LabelledDetailAdapter (val itemInteraction: LabelledDetailItemInteraction)
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val labelDetail = getItem(position)
-        val labelList = currentList.filter {it.label==labelDetail.label}
+        val labelList = currentList.filter { it.label == labelDetail.label }
         holder.bindTo(labelDetail, labelList.indexOf(labelDetail))
     }
 

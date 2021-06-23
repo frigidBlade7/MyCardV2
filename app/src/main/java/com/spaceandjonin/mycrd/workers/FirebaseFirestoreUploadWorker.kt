@@ -16,11 +16,12 @@ import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.utils.getCode
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 
 //@HiltWorker
 class FirebaseFirestoreUploadWorker @AssistedInject constructor(/*@Assisted*/ appContext: Context,
-                                                                /*@Assisted */workerParams: WorkerParameters
-):
+    /*@Assisted */workerParams: WorkerParameters
+) :
     CoroutineWorker(appContext, workerParams) {
 
     lateinit var dataTask: UploadTask
@@ -30,14 +31,16 @@ class FirebaseFirestoreUploadWorker @AssistedInject constructor(/*@Assisted*/ ap
 
         // Do the work here--in this case, upload the images.
 
-        uploadImage(inputData.getString(Utils.PATH_ID)?: return Result.failure(),
-            inputData.getString(Utils.PHOTO_URI)?: return Result.failure())
+        uploadImage(
+            inputData.getString(Utils.PATH_ID) ?: return Result.failure(),
+            inputData.getString(Utils.PHOTO_URI) ?: return Result.failure()
+        )
         // Indicate whether the work finished successfully with the Result
         return Result.success()
     }
 
 
-      private suspend fun uploadImage(cardId: String, photoUri: String): Resource<Uri> {
+    private suspend fun uploadImage(cardId: String, photoUri: String): Resource<Uri> {
 
         return try {
             val resource = FirebaseStorage.getInstance().reference.child("images")
@@ -54,15 +57,17 @@ class FirebaseFirestoreUploadWorker @AssistedInject constructor(/*@Assisted*/ ap
 
             }.await()
 
-            FirebaseAddedCardDataSourceImpl(FirebaseFirestore.getInstance().collection("users")
-                .document(FirebaseAuth.getInstance().currentUser!!.uid).collection("addedCards")).updateCardProfilePhoto(uri.toString(),cardId)
+            FirebaseAddedCardDataSourceImpl(
+                FirebaseFirestore.getInstance().collection("users")
+                    .document(FirebaseAuth.getInstance().currentUser!!.uid).collection("addedCards")
+            ).updateCardProfilePhoto(uri.toString(), cardId)
 
             Resource.Success(uri)
 
 
-        }catch (e: Exception){
-            Log.d("TAG", "uploadImage: ${e.localizedMessage}")
-            Log.d("TAG", "uploadImage: ${e.getCode()}")
+        } catch (e: Exception) {
+            Timber.d("uploadImage: ${e.localizedMessage}")
+            Timber.d("uploadImage: ${e.getCode()}")
             Resource.Error(R.string.failed)
         }
     }

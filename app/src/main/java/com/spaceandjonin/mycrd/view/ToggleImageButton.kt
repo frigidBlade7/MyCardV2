@@ -13,16 +13,17 @@ class ToggleImageButton : AppCompatImageButton, Checkable {
     private var checked = false
     private var broadcasting = false
     private val onCheckedChangeListeners = LinkedHashSet<OnCheckedChangeListener>()
-    override fun onSaveInstanceState(): Parcelable? {
+    override fun onSaveInstanceState(): Parcelable {
         val superState = super.onSaveInstanceState()
         val savedState = SavedState(superState)
         savedState.checked = checked
         return savedState
     }
 
-    fun addOnCheckChangedListener(){
+    fun addOnCheckChangedListener() {
 
     }
+
     override fun onRestoreInstanceState(state: Parcelable) {
         if (state !is SavedState) {
             super.onRestoreInstanceState(state)
@@ -93,7 +94,8 @@ class ToggleImageButton : AppCompatImageButton, Checkable {
         }
 
         companion object {
-            @JvmField val CREATOR: Parcelable.Creator<SavedState> =
+            @JvmField
+            val CREATOR: Parcelable.Creator<SavedState> =
                 object : Parcelable.ClassLoaderCreator<SavedState> {
                     override fun createFromParcel(`in`: Parcel, loader: ClassLoader): SavedState {
                         return SavedState(`in`, loader)

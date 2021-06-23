@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.spaceandjonin.mycrd.utils.Utils"/>
+
+        <import type="com.spaceandjonin.mycrd.utils.Utils" />
+
         <variable
             name="viewModel"
             type="com.spaceandjonin.mycrd.viewmodel.FilterViewModel" />
@@ -17,11 +19,11 @@
         tools:context=".fragments.onboarding.CardOptionsFragment">
 
 
-
         <ImageView
             android:id="@+id/imageView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/handle"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +84,7 @@
                 android:textAppearance="@style/TextAppearance.MyCardStyles.Body.Regular"
                 app:icon="@drawable/check"
                 android:paddingStart="28dp"
+                android:paddingEnd="28dp"
                 app:iconGravity="start"
                 app:iconPadding="12dp"
                 app:iconTint="@color/selector_color"
@@ -95,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/name"
                 android:paddingStart="28dp"
+                android:paddingEnd="28dp"
                 android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.MyCardStyles.Body.Regular"
                 app:icon="@drawable/check"

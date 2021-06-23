@@ -16,16 +16,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ViewCardQrFragment : Fragment() {
 
-    lateinit var binding : FragmentQrBinding
+    lateinit var binding: FragmentQrBinding
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
-
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentQrBinding.inflate(layoutInflater, container, false)

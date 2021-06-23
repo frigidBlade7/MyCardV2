@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.settings
 
 import android.os.Bundle
@@ -15,6 +14,7 @@ import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.models.Resource
 import com.spaceandjonin.mycrd.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 private const val TAG = "SettingsFragment"
 
@@ -23,10 +23,9 @@ class SettingsFragment : Fragment() {
 
     lateinit var binding: FragmentSettingsBinding
 
-    val viewmodel: SettingsViewModel by navGraphViewModels(R.id.settings_nav){
+    val viewmodel: SettingsViewModel by navGraphViewModels(R.id.settings_nav) {
         defaultViewModelProviderFactory
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,19 +33,20 @@ class SettingsFragment : Fragment() {
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSettingsBinding.inflate(layoutInflater,container, false)
+        binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
-            if(it.actionId==0)
+            if (it.actionId == 0)
                 findNavController().popBackStack()
             else
                 findNavController().navigate(it)
@@ -63,12 +63,14 @@ class SettingsFragment : Fragment() {
         }
 
 
-        viewmodel.getLoggedInUser().observe(viewLifecycleOwner){
-            when(it){
-                is Resource.Success->{
+        viewmodel.getLoggedInUser().observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
                     viewmodel.user.value = it.data
                 }
-                else -> {}
+                else -> {
+                    Timber.d("error $it")
+                }
             }
         }
 

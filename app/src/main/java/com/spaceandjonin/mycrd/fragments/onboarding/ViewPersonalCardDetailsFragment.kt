@@ -24,7 +24,7 @@ private const val TAG = "CardDetailsFragment"
 @AndroidEntryPoint
 class ViewPersonalCardDetailsFragment : Fragment() {
 
-    lateinit var binding : FragmentPersonalCardDetailsBinding
+    lateinit var binding: FragmentPersonalCardDetailsBinding
     lateinit var cardAdapter: PersonalCardAdapter
     lateinit var socialAdapter: SocialAdapter
     lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
@@ -40,10 +40,8 @@ class ViewPersonalCardDetailsFragment : Fragment() {
 */
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
 
     }
@@ -53,17 +51,18 @@ class ViewPersonalCardDetailsFragment : Fragment() {
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             scrimColor = Color.TRANSPARENT
-            setAllContainerColors(MaterialColors.getColor(requireView(),R.attr.colorSurface))
+            setAllContainerColors(MaterialColors.getColor(requireView(), R.attr.colorSurface))
         }
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentPersonalCardDetailsBinding.inflate(layoutInflater, container, false)
@@ -72,7 +71,7 @@ class ViewPersonalCardDetailsFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        cardAdapter= PersonalCardAdapter()
+        cardAdapter = PersonalCardAdapter()
         extraEmailAddressAdapter = ExtraEmailAddressAdapter()
         extraPhoneNumbersAdapter = ExtraPhoneNumbersAdapter()
 
@@ -80,11 +79,11 @@ class ViewPersonalCardDetailsFragment : Fragment() {
         binding.include.email.list.adapter = extraEmailAddressAdapter
         binding.include.phone.list.adapter = extraPhoneNumbersAdapter
 
-        onboardingViewModel.selectedPersonalCard.observe(viewLifecycleOwner){
+        onboardingViewModel.selectedPersonalCard.observe(viewLifecycleOwner) {
             cardAdapter.submitList(listOf(it))
-            if(it.phoneNumbers.size>1)
+            if (it.phoneNumbers.size > 1)
                 extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
-            if(it.emailAddresses.size>1)
+            if (it.emailAddresses.size > 1)
                 extraEmailAddressAdapter.submitList(it.emailAddresses.drop(1))
             socialAdapter.submitList(it.socialMediaProfiles)
 
@@ -92,7 +91,7 @@ class ViewPersonalCardDetailsFragment : Fragment() {
 
         binding.include.email.chevron.setOnClickListener {
             it.isSelected = !it.isSelected
-            if(it.isSelected)
+            if (it.isSelected)
                 binding.include.email.list.visibility = View.VISIBLE
             else
                 binding.include.email.list.visibility = View.GONE
@@ -101,7 +100,7 @@ class ViewPersonalCardDetailsFragment : Fragment() {
         binding.include.phone.chevron.setOnClickListener {
             it.isSelected = !it.isSelected
 
-            if(it.isSelected)
+            if (it.isSelected)
                 binding.include.phone.list.visibility = View.VISIBLE
             else
                 binding.include.phone.list.visibility = View.GONE
@@ -119,8 +118,8 @@ class ViewPersonalCardDetailsFragment : Fragment() {
 
 
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.options-> onboardingViewModel.showPersonalCardOptions()
+            when (it.itemId) {
+                R.id.options -> onboardingViewModel.showPersonalCardOptions()
 /*
                 R.id.share-> onboardingViewModel.showShare()
 */
@@ -128,7 +127,7 @@ class ViewPersonalCardDetailsFragment : Fragment() {
 
             return@setOnMenuItemClickListener true
         }
-            //binding.toolbar.menu.
+        //binding.toolbar.menu.
         return binding.root
     }
 

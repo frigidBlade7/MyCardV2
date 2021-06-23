@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="item"
-            type="com.spaceandjonin.mycrd.models.LiveCard"/>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+            type="com.spaceandjonin.mycrd.models.LiveCard" />
+
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

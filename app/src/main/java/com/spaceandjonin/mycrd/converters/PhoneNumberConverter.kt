@@ -9,16 +9,16 @@ import com.squareup.moshi.Types
 import javax.inject.Inject
 
 @ProvidedTypeConverter
-    class PhoneNumberConverter @Inject constructor(var moshi: Moshi) {
+class PhoneNumberConverter @Inject constructor(var moshi: Moshi) {
 
-        val dataListType =
-            Types.newParameterizedType(MutableList::class.java, PhoneNumber::class.java)
-        val dataListAdapter: JsonAdapter<List<PhoneNumber>> = moshi.adapter(dataListType)
+    val dataListType =
+        Types.newParameterizedType(MutableList::class.java, PhoneNumber::class.java)
+    val dataListAdapter: JsonAdapter<List<PhoneNumber>> = moshi.adapter(dataListType)
 
 
-        @TypeConverter
-        fun listToDataJson(value: List<PhoneNumber>) = dataListAdapter.toJson(value)
+    @TypeConverter
+    fun listToDataJson(value: List<PhoneNumber>) = dataListAdapter.toJson(value)
 
-        @TypeConverter
-        fun dataJsonToList(value: String) = dataListAdapter.fromJson(value)
-    }
+    @TypeConverter
+    fun dataJsonToList(value: String) = dataListAdapter.fromJson(value)
+}

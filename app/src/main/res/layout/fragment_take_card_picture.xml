@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
@@ -26,7 +27,7 @@
                 android:id="@+id/overlay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:foreground="@android:color/transparent" />
+                android:background="@android:color/transparent" />
 
             <com.spaceandjonin.mycrd.utils.AutoFitSurfaceView
                 android:id="@+id/view_finder"
@@ -58,7 +59,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_marginBottom="32dp"
-                android:onClick="@{()->viewModel.goToConfirm()}"
+                android:contentDescription="@string/capture_card_image"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +73,7 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="32dp"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/import_card"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/capture"
                 app:layout_constraintEnd_toStartOf="@+id/capture"

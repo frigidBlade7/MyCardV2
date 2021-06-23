@@ -15,16 +15,16 @@ import com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel
 
 class AddLabelledDetailFragment : Fragment() {
 
-    lateinit var binding : FragmentAddLabelledDetailBinding
+    lateinit var binding: FragmentAddLabelledDetailBinding
 
-    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav){
+    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentAddLabelledDetailBinding.inflate(layoutInflater, container, false)
@@ -37,19 +37,19 @@ class AddLabelledDetailFragment : Fragment() {
 
 
         binding.toolbar.setNavigationOnClickListener {
-            viewmodel.selectedLabel.value =""
-            viewmodel.selectedLabelType.value =""
-            viewmodel.selectedDetail.value =""
+            viewmodel.selectedLabel.value = ""
+            viewmodel.selectedLabelType.value = ""
+            viewmodel.selectedDetail.value = ""
             findNavController().popBackStack()
         }
 
 
-        viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        viewmodel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 

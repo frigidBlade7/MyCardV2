@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="website"
             type="String" />
@@ -62,16 +63,16 @@
             app:layout_constraintTop_toBottomOf="@+id/heading"
             tools:text="Senior Android Dev" />
 
-<!--        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/location"
-            app:tint="@android:color/white" />-->
+        <!--        <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/background"
+                    app:layout_constraintEnd_toEndOf="@+id/background"
+                    app:layout_constraintStart_toStartOf="@+id/background"
+                    app:layout_constraintTop_toTopOf="@+id/background"
+                    app:srcCompat="@drawable/location"
+                    app:tint="@android:color/white" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

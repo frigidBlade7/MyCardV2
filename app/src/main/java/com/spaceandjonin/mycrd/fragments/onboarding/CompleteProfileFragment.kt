@@ -31,9 +31,9 @@ class CompleteProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentCompleteProfileBinding.inflate(layoutInflater,container, false)
+        binding = FragmentCompleteProfileBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -50,8 +50,8 @@ class CompleteProfileFragment : Fragment() {
             findNavController().popBackStack()
         }*/
 
-        viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
+        viewmodel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
         return binding.root
@@ -62,11 +62,9 @@ class CompleteProfileFragment : Fragment() {
 
         // handle result of pick image chooser
         if (requestCode == Utils.REQUEST_IMAGE_GET && resultCode == Activity.RESULT_OK) {
-            val imageUri: Bitmap? = data?.getParcelableExtra("data")
-
             val fullPhotoUri: Uri? = data?.data
             CropImage.activity(fullPhotoUri)
-                .setAspectRatio(1,1)
+                .setAspectRatio(1, 1)
                 .start(requireContext(), this)
 
         }
@@ -81,6 +79,7 @@ class CompleteProfileFragment : Fragment() {
             }
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -90,6 +89,7 @@ class CompleteProfileFragment : Fragment() {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
 
     }
+
     @AfterPermissionGranted(Utils.REQUEST_PHOTO)
     private fun callGallery() {
         if (EasyPermissions.hasPermissions(requireContext(), Utils.STORAGE_PERMISSION)) {
@@ -101,8 +101,10 @@ class CompleteProfileFragment : Fragment() {
             }
         } else {
             // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.require_gallery),
-                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION)
+            EasyPermissions.requestPermissions(
+                this, getString(R.string.require_gallery),
+                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION
+            )
         }
 
     }

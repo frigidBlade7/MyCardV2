@@ -7,12 +7,14 @@ import com.google.firebase.auth.*
 import com.spaceandjonin.mycrd.listeners.AuthenticationCallbacks
 import com.spaceandjonin.mycrd.utils.getCode
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
- class AuthenticationServiceImpl @Inject constructor(private val auth: FirebaseAuth): AuthenticationService{
+class AuthenticationServiceImpl @Inject constructor(private val auth: FirebaseAuth) :
+    AuthenticationService {
 
     private val phoneAuthOptions = PhoneAuthOptions.newBuilder(auth)
     private lateinit var verificationId: String
@@ -22,7 +24,7 @@ import javax.inject.Singleton
 
     private lateinit var authCallback: AuthenticationCallbacks<FirebaseUser>
 
-    private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
+    private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         override fun onVerificationCompleted(p0: PhoneAuthCredential) {
             authCallback.onAuthCredentialSent(p0)
         }
@@ -38,15 +40,15 @@ import javax.inject.Singleton
 
         override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
             super.onCodeSent(p0, p1)
-            forceResendingToken =p1
+            forceResendingToken = p1
             verificationId = p0
 
             authCallback.onCodeSent()
         }
 
 
-
     }
+
     override fun sendVerificationCode(phoneNumber: String, timeoutInMillis: Long) {
         this.timeoutInMillis = timeoutInMillis
         this.phoneNumber = phoneNumber
@@ -72,26 +74,27 @@ import javax.inject.Singleton
     }
 
     override suspend fun attemptAuth(phoneNumber: String, verificationCode: String) {
-        try{
-            val phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId,verificationCode)
+        try {
+            val phoneAuthCredential =
+                PhoneAuthProvider.getCredential(verificationId, verificationCode)
             val data = auth.signInWithCredential(phoneAuthCredential).await()
             data.user?.let {
                 authCallback.onAuthSuccess(it)
             }
-        }catch (e: Exception){
-            Log.d(TAG, "attemptAuth: ${e.localizedMessage}")
+        } catch (e: Exception) {
+            Timber.d( "attemptAuth: ${e.localizedMessage}")
             authCallback.onAuthFailure(e.getCode())
         }
     }
 
     override suspend fun attemptAuth(phoneAuthCredential: PhoneAuthCredential) {
-        try{
+        try {
             val data = auth.signInWithCredential(phoneAuthCredential).await()
             data.user?.let {
                 authCallback.onAuthSuccess(it)
             }
-        }catch (e: Exception){
-            Log.d(TAG, "attemptAuth: ${e.localizedMessage}")
+        } catch (e: Exception) {
+            Timber.d( "attemptAuth: ${e.localizedMessage}")
             authCallback.onAuthFailure(e.getCode())
         }
     }
@@ -103,7 +106,7 @@ import javax.inject.Singleton
                 authCallback.onAuthSuccess(it)
             }
         }catch (e: Exception){
-            Log.d(TAG, "attemptAuth: ${e.localizedMessage}")
+            Timber.d( "attemptAuth: ${e.localizedMessage}")
             authCallback.onAuthFailure(e.getCode())
         }
     }*/
@@ -113,7 +116,7 @@ import javax.inject.Singleton
         this.authCallback = authenticationCallbacks
     }
 
-    override fun resendVerificationCode(){
+    override fun resendVerificationCode() {
         setupPhoneAuthOptions()
         sendSms()
     }

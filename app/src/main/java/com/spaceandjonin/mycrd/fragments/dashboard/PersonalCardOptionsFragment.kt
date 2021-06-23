@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.os.Bundle
@@ -24,9 +23,9 @@ class PersonalCardOptionsFragment : BottomSheetDialogFragment() {
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
     val cardViewmodel: CardViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
-/*    override fun getTheme(): Int {
-        return R.style.Theme_MyCardStyles_Options
-    }*/
+    /*    override fun getTheme(): Int {
+            return R.style.Theme_MyCardStyles_Options
+        }*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,9 +37,9 @@ class PersonalCardOptionsFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentPersonalCardOptionsBinding.inflate(layoutInflater,container, false)
+        binding = FragmentPersonalCardOptionsBinding.inflate(layoutInflater, container, false)
 
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -62,7 +61,12 @@ class PersonalCardOptionsFragment : BottomSheetDialogFragment() {
 
         binding.edit.setOnClickListener {
             dismiss()
-            findNavController().navigate(PersonalCardOptionsFragmentDirections.actionGlobalAddPersonalCardNav(isEdit = true, viewmodel.selectedPersonalCard.value))
+            findNavController().navigate(
+                PersonalCardOptionsFragmentDirections.actionGlobalAddPersonalCardNav(
+                    isEdit = true,
+                    viewmodel.selectedPersonalCard.value
+                )
+            )
         }
 
         binding.view.setOnClickListener {

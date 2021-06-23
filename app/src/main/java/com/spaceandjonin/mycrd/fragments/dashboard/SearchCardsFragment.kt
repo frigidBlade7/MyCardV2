@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.graphics.Color
@@ -31,21 +30,21 @@ import com.spaceandjonin.mycrd.viewmodel.SearchCardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 private const val TAG = "SearchCardsFragment"
+
 @AndroidEntryPoint
 class
 SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
-    lateinit var binding:FragmentSearchCardsBinding
+    lateinit var binding: FragmentSearchCardsBinding
 
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
     val searchCardViewModel: SearchCardViewModel by viewModels()
 
-    val pagedAdapter= CardPagingAdapter(this)
-
-
+    val pagedAdapter = CardPagingAdapter(this)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +52,7 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             scrimColor = Color.TRANSPARENT
-            setAllContainerColors(MaterialColors.getColor(requireView(),R.attr.colorSurface))
+            setAllContainerColors(MaterialColors.getColor(requireView(), R.attr.colorSurface))
         }
 
         binding.search.requestFocus()
@@ -70,9 +69,9 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSearchCardsBinding.inflate(layoutInflater,container, false)
+        binding = FragmentSearchCardsBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.searchviewmodel = searchCardViewModel
@@ -84,7 +83,7 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         })
 
         binding.filters.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId) {
+            when (checkedId) {
                 binding.all.id -> searchCardViewModel.searchMode.value = Utils.FILTER_ALL
                 binding.name.id -> searchCardViewModel.searchMode.value = Utils.FILTER_NAME
                 binding.role.id -> searchCardViewModel.searchMode.value = Utils.FILTER_ROLE
@@ -97,21 +96,25 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         }
 
         searchCardViewModel.pagedAddedCardsFlow.observe(viewLifecycleOwner) {
-            Log.d(TAG, "onCreateView: $it")
+            Timber.d( "onCreateView: $it")
 
-            pagedAdapter.submitData(viewLifecycleOwner.lifecycle,it)
+            pagedAdapter.submitData(viewLifecycleOwner.lifecycle, it)
 
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             pagedAdapter.loadStateFlow.collectLatest {
-                when(it.refresh){
-                    is LoadState.Error-> {}
-                    is LoadState.NotLoading->{
-                        binding.noResults.isVisible = pagedAdapter.itemCount<1
+                when (it.refresh) {
+                    is LoadState.Error -> {
+                        Timber.d("loadstate error")
+                    }
+                    is LoadState.NotLoading -> {
+                        binding.noResults.isVisible = pagedAdapter.itemCount < 1
 
                     }
-                    is LoadState.Loading->{}
+                    is LoadState.Loading -> {
+                        Timber.d("loadstate loading")
+                    }
                 }
                 //binding.progressBar.isVisible = it.refresh is LoadState.Loading
             }
@@ -130,7 +133,10 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
             val cardDetailTransitionName = it.id
             val extras = FragmentNavigatorExtras(view to cardDetailTransitionName)
-            val directions = SearchCardsFragmentDirections.actionSearchCardsFragmentToViewAddedCardDetailsFragment(it)
+            val directions =
+                SearchCardsFragmentDirections.actionSearchCardsFragmentToViewAddedCardDetailsFragment(
+                    it
+                )
             findNavController().navigate(directions, extras)
         }
     }
@@ -138,13 +144,13 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
     override fun onItemLongClicked(item: AddedCard?, view: View, position: Int) {
         viewmodel.selectedCard.value = item
 
-        val popupMenu = PopupMenu(requireContext(),view,R.menu.card_options)
+        val popupMenu = PopupMenu(requireContext(), view, R.menu.card_options)
         popupMenu.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.edit->{
+            when (it.itemId) {
+                R.id.edit -> {
                     viewmodel.editCard()
                 }
-                R.id.delete->{
+                R.id.delete -> {
                     viewmodel.confirmCardDeletion()
                 }
             }

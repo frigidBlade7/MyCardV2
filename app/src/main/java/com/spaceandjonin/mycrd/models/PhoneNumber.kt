@@ -12,14 +12,18 @@ import java.util.*
 @JsonClass(generateAdapter = true)
 @Parcelize
 @Keep
-data class PhoneNumber ( var number: String = "",var type: PhoneNumberType = PhoneNumberType.Mobile):Parcelable {
+data class PhoneNumber(
+    var number: String = "",
+    var type: PhoneNumberType = PhoneNumberType.Mobile
+) : Parcelable {
     @get:Exclude
     @IgnoredOnParcel
     val id = Calendar.getInstance().timeInMillis
 
 
-    @Keep enum class PhoneNumberType {
-        Home,Mobile,Work,Other
+    @Keep
+    enum class PhoneNumberType {
+        Home, Mobile, Work, Other
     }
 
 }

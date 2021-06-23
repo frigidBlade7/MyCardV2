@@ -24,7 +24,7 @@ class VerificationViewModel @Inject constructor(
     var smsCode = MutableLiveData<String>()
     var newPhoneNumber = MutableLiveData<String>()
 
-    var authCallbacks = object : AuthenticationCallbacks<FirebaseUser>(){
+    var authCallbacks = object : AuthenticationCallbacks<FirebaseUser>() {
         override fun onCodeSent() {
             //start countdown
             isVerifyButtonEnabled.value = true
@@ -33,7 +33,8 @@ class VerificationViewModel @Inject constructor(
 
         override fun onAuthSuccess(userObject: FirebaseUser) {
             //go back to settings, we successfully updated the user's phone number
-            _destination.value = Event(VerifyNewNumberFragmentDirections.actionVerifyNewNumberFragmentToSettingsFragment())
+            _destination.value =
+                Event(VerifyNewNumberFragmentDirections.actionVerifyNewNumberFragmentToSettingsFragment())
 
         }
 
@@ -55,11 +56,11 @@ class VerificationViewModel @Inject constructor(
 
     }
 
-    fun resendCode(){
+    fun resendCode() {
         updateNumberService.resendVerificationCode()
     }
 
-    fun attemptAuth(phoneNumber: String){
+    fun attemptAuth(phoneNumber: String) {
         viewModelScope.launch {
             smsCode.value?.let {
                 updateNumberService.attemptAuth(phoneNumber, it)
@@ -69,9 +70,7 @@ class VerificationViewModel @Inject constructor(
     }
 
 
-
-
-    fun sendVerificationCode(phoneNumber: String){
+    fun sendVerificationCode(phoneNumber: String) {
         updateNumberService.setUpAuthCallbacks(authCallbacks)
         updateNumberService.sendVerificationCode(phoneNumber, Utils.TIMEOUT)
     }

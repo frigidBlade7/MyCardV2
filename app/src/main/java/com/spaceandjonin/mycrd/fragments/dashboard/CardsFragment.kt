@@ -29,6 +29,7 @@ import com.spaceandjonin.mycrd.viewmodel.CardViewModel
 import com.spaceandjonin.mycrd.viewmodel.FilterViewModel
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 private const val TAG = "CardsFragment"
@@ -55,7 +56,7 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
     override fun onPause() {
         super.onPause()
         //binding.addCard.hide()
-        Log.d("TAG", "onPause: ")
+        Timber.d( "onPause: ")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,15 +85,13 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         super.onCreate(savedInstanceState)
 
 
-
-
     }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = CardsFragmentBinding.inflate(layoutInflater, container, false)
 
@@ -127,14 +126,14 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
         })
 
-        filterViewModel.sortMode.observe(viewLifecycleOwner){
+        filterViewModel.sortMode.observe(viewLifecycleOwner) {
             it?.let {
                 cardViewmodel.sortMode.value = it
             }
         }
 
-        cardViewmodel.cardsLiveData.observe(viewLifecycleOwner){
-            when(it){
+        cardViewmodel.cardsLiveData.observe(viewLifecycleOwner) {
+            when (it) {
                 is Resource.Success -> {
                     binding.empty.isVisible = it.data.isEmpty()
                     cardAdapter.submitList(it.data)
@@ -151,7 +150,7 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 /*        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             cardViewmodel.cardsLiveData.collect {
                 it?.awaitContinuous()?.collect {
-                    Log.d(TAG, "onCreateView: ${it?.toObjects(LiveCard::class.java)}")
+                    Timber.d( "onCreateView: ${it?.toObjects(LiveCard::class.java)}")
                     //pagedAdapter.sub
                 }
             }
@@ -188,7 +187,8 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
             val cardDetailTransitionName = it.id
             val extras = FragmentNavigatorExtras(view to cardDetailTransitionName)/*,
                 view.findViewById<ShapeableImageView>(R.id.icon) to cardDetailTransitionName+"icon"*/
-            val directions = CardsFragmentDirections.actionCardsFragmentToViewCardDetailsFragment(it)
+            val directions =
+                CardsFragmentDirections.actionCardsFragmentToViewCardDetailsFragment(it)
             findNavController().navigate(directions, extras)
         }
 
@@ -202,7 +202,7 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         //val popupHelper = MenuPopupHelper(requireContext(), popupMenu.menu as MenuBuilder)
 
         popupMenu.setOnMenuItemClickListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.edit -> {
                     viewmodel.editCard()
 

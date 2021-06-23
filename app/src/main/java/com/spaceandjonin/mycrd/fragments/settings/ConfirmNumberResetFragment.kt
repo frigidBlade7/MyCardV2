@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.settings
 
 import android.os.Bundle
@@ -20,7 +19,7 @@ class ConfirmNumberResetFragment : Fragment() {
 
     lateinit var binding: FragmentConfirmNumberResetBinding
 
-    val viewmodel: SettingsViewModel by navGraphViewModels(R.id.settings_nav){
+    val viewmodel: SettingsViewModel by navGraphViewModels(R.id.settings_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -28,16 +27,16 @@ class ConfirmNumberResetFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentConfirmNumberResetBinding.inflate(layoutInflater,container, false)
+        binding = FragmentConfirmNumberResetBinding.inflate(layoutInflater, container, false)
 
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
-            if(it.actionId==0)
+            if (it.actionId == 0)
                 findNavController().popBackStack()
             else
                 findNavController().navigate(it)

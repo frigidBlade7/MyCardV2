@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt" />
+
         <variable
             name="viewmodel"
             type="com.spaceandjonin.mycrd.viewmodel.AddCardViewModel" />
@@ -27,7 +31,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/back" />
+            app:navigationIcon="@drawable/back"
+            tools:ignore="RtlSymmetry" />
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -110,6 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="8dp"
+                        android:contentDescription="@string/info_icon"
                         android:layout_marginEnd="12dp"
                         app:layout_constraintEnd_toStartOf="@+id/textView5"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -143,6 +149,7 @@
                     android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
+                    android:contentDescription="@string/camera_icon"
                     app:srcCompat="@drawable/camera_icon"
                     android:visibility="gone"
                     app:fabSize="mini"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
@@ -33,7 +34,7 @@
                 android:id="@+id/overlay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:foreground="@android:color/transparent" />
+                android:background="@android:color/transparent" />
 
             <com.spaceandjonin.mycrd.utils.AutoFitSurfaceView
                 android:id="@+id/view_finder"
@@ -65,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:onClick="@{()->viewModel.goToConfirm()}"
+                android:contentDescription="@string/capture_card_image"
                 app:srcCompat="@drawable/shutter"
                 app:layout_constraintBottom_toTopOf="@+id/manual"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -104,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="83dp"
+                android:contentDescription="@string/viewfinder_corner"
                 app:srcCompat="@drawable/top_left_viewfinder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -113,6 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
+                android:contentDescription="@string/viewfinder_corner"
                 app:srcCompat="@drawable/top_right_viewfinder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView3" />
@@ -121,6 +124,7 @@
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/viewfinder_corner"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="144dp"
                 app:srcCompat="@drawable/bottom_left_viewfinder"
@@ -132,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
+                android:contentDescription="@string/viewfinder_corner"
                 app:srcCompat="@drawable/bottom_right_viewfinder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView5" />

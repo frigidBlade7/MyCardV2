@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt" />
+
         <variable
             name="viewmodel"
             type="com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel" />
@@ -102,6 +105,7 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="60dp"
                     android:clickable="true"
+                    android:contentDescription="@string/update_photo"
                     android:onClick="@{()->viewmodel.showPhotoOptions()}"
                     android:focusable="true"
                     app:srcCompat="@drawable/camera_icon"
@@ -155,6 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:clickable="true"
+                        android:contentDescription="@string/add_phone"
                         android:focusable="true"
                         app:srcCompat="@drawable/add"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -275,6 +280,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:contentDescription="@string/add_email"
                         app:srcCompat="@drawable/add"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/second" />

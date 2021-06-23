@@ -20,7 +20,7 @@ import com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel
 
 class ConfirmAddPersonalDetailsFragment : Fragment() {
 
-    lateinit var binding : FragmentAddPersonalConfirmDetailsBinding
+    lateinit var binding: FragmentAddPersonalConfirmDetailsBinding
     lateinit var cardAdapter: CardAdapter
     lateinit var socialAdapter: SocialAdapter
 
@@ -30,18 +30,16 @@ class ConfirmAddPersonalDetailsFragment : Fragment() {
     val addPersonalCardViewModel: AddPersonalCardViewModel by hiltNavGraphViewModels(R.id.add_personal_card_nav)
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentAddPersonalConfirmDetailsBinding.inflate(layoutInflater, container, false)
         binding.viewModel = addPersonalCardViewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        cardAdapter= CardAdapter()
+        cardAdapter = CardAdapter()
 
         extraEmailAddressAdapter = ExtraEmailAddressAdapter()
         extraPhoneNumbersAdapter = ExtraPhoneNumbersAdapter()
@@ -58,11 +56,11 @@ class ConfirmAddPersonalDetailsFragment : Fragment() {
         binding.categories.email.list.adapter = extraEmailAddressAdapter
         binding.categories.phone.list.adapter = extraPhoneNumbersAdapter
 
-        addPersonalCardViewModel.card.observe(viewLifecycleOwner){
+        addPersonalCardViewModel.card.observe(viewLifecycleOwner) {
             cardAdapter.submitList(listOf(it))
-            if(it.phoneNumbers.size>1)
+            if (it.phoneNumbers.size > 1)
                 extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
-            if(it.emailAddresses.size>1)
+            if (it.emailAddresses.size > 1)
                 extraEmailAddressAdapter.submitList(it.emailAddresses.drop(1))
             socialAdapter.submitList(it.socialMediaProfiles)
 
@@ -70,7 +68,7 @@ class ConfirmAddPersonalDetailsFragment : Fragment() {
 
         binding.categories.email.chevron.setOnClickListener {
             it.isSelected = !it.isSelected
-            if(it.isSelected)
+            if (it.isSelected)
                 binding.categories.email.list.visibility = View.VISIBLE
             else
                 binding.categories.email.list.visibility = View.GONE
@@ -79,7 +77,7 @@ class ConfirmAddPersonalDetailsFragment : Fragment() {
         binding.categories.phone.chevron.setOnClickListener {
             it.isSelected = !it.isSelected
 
-            if(it.isSelected)
+            if (it.isSelected)
                 binding.categories.phone.list.visibility = View.VISIBLE
             else
                 binding.categories.phone.list.visibility = View.GONE
@@ -99,12 +97,12 @@ class ConfirmAddPersonalDetailsFragment : Fragment() {
 
 
 
-        addPersonalCardViewModel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        addPersonalCardViewModel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         return binding.root

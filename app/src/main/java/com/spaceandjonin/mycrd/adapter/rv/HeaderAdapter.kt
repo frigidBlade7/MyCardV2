@@ -11,7 +11,13 @@ import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 class HeaderAdapter : ListAdapter<String, BaseViewHolder>(StringDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return BaseViewHolder(LabelHeaderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return BaseViewHolder(
+            LabelHeaderItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {

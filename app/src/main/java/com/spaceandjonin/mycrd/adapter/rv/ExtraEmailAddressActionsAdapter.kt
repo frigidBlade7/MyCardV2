@@ -12,14 +12,19 @@ import com.spaceandjonin.mycrd.models.EmailAddress
 import com.spaceandjonin.mycrd.models.LabelDetail
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
-class ExtraEmailAddressActionsAdapter(val itemInteraction: LabelledDetailItemInteraction): ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
+class ExtraEmailAddressActionsAdapter(val itemInteraction: LabelledDetailItemInteraction) :
+    ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bindTo(getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        val binding = CardEmailItemAdditionalActionsBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        val binding = CardEmailItemAdditionalActionsBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         val baseViewHolder = BaseViewHolder(binding)
 
 
@@ -37,7 +42,12 @@ class ExtraEmailAddressActionsAdapter(val itemInteraction: LabelledDetailItemInt
         binding.actions.untag.setOnClickListener {
             val emailAddress = getItem(baseViewHolder.bindingAdapterPosition)
             TooltipCompat.setTooltipText(it, parent.context.getString(R.string.remove_label))
-            itemInteraction.onRemoveLabelClicked(LabelDetail(emailAddress.type.name, emailAddress.address))
+            itemInteraction.onRemoveLabelClicked(
+                LabelDetail(
+                    emailAddress.type.name,
+                    emailAddress.address
+                )
+            )
         }
 
         return baseViewHolder

@@ -15,8 +15,8 @@ android {
         applicationId "com.spaceandjonin.mycrd"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 33
-        versionName "1.0.33"
+        versionCode 34
+        versionName "1.0.34"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -72,7 +72,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 
-
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "com.google.android.material:material:$material_version"
@@ -100,7 +99,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
 
 
-
     implementation 'com.github.CanHub:Android-Image-Cropper:2.3.1'
 
     implementation 'pub.devrel:easypermissions:3.0.0'
@@ -121,11 +119,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
 
 
-
     implementation("com.squareup.moshi:moshi-kotlin:$moshi_version")
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 
-    implementation 'com.hbb20:ccp:2.4.5'
+    implementation 'com.hbb20:ccp:2.5.3'
 
     //implementation 'com.kirich1409.viewbindingpropertydelegate:vbpd-noreflection:1.4.1'
 

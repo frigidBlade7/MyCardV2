@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-#-keepnames class androidx.navigation.fragment.NavHostFragment
+-keepnames class androidx.navigation.fragment.NavHostFragment
 -keep,includedescriptorclasses class ezvcard.Ezvcard { *; }
 -keep enum ezvcard.VCardVersion { *; }
 -keepclasseswithmembernames class com.google.mlkit.nl.languageid.internal.LanguageIdentificationJni {

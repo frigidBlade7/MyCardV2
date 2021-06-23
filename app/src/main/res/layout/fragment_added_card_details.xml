@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="onboardingViewModel"
             type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
-<!--
-        <variable
-            name="viewModel"
-            type="spaceandjoninin.mycrd.viewmodel.AddPersonalCardViewModel" />-->
+        <!--
+                <variable
+                    name="viewModel"
+                    type="spaceandjoninin.mycrd.viewmodel.AddPersonalCardViewModel" />-->
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -18,7 +19,7 @@
         android:transitionName="@{onboardingViewModel.selectedCard.id}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.onboarding.WelcomeFragment" >
+        tools:context=".fragments.onboarding.WelcomeFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"

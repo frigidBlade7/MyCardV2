@@ -52,9 +52,9 @@ class MeFragment : Fragment(), SocialItemInteraction {
     val cardViewModel: CardViewModel by viewModels()
 
     val cardAdapter = PersonalCardSpecialAdapter()
-    val socialAdapter= SocialAdapter(null)
-    val extraEmailAddressAdapter =ExtraEmailAddressAdapter()
-    val extraPhoneNumbersAdapter= ExtraPhoneNumbersAdapter()
+    val socialAdapter = SocialAdapter(null)
+    val extraEmailAddressAdapter = ExtraEmailAddressAdapter()
+    val extraPhoneNumbersAdapter = ExtraPhoneNumbersAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,7 +76,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = MeFragmentBinding.inflate(layoutInflater, container, false)
         binding.onboardingViewModel = onboardingViewModel
@@ -86,7 +86,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
 
         binding.include.pager.apply {
             val recyclerView = getChildAt(0) as RecyclerView
-            recyclerView.clipToPadding=false
+            recyclerView.clipToPadding = false
             recyclerView.setPadding(48, recyclerView.paddingTop, 48, recyclerView.bottom)
 
         }
@@ -98,7 +98,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
         binding.include.socialMedia.socialItems.adapter = socialAdapter
         binding.include.socialMedia.socialItems.setHasFixedSize(true)
 
-        cardViewModel.selectedPersonalCard.observe(viewLifecycleOwner){
+        cardViewModel.selectedPersonalCard.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.phoneNumbers.size > 1)
                     extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
@@ -109,19 +109,19 @@ class MeFragment : Fragment(), SocialItemInteraction {
 
         }
 
-        onboardingViewModel.errorString.observe(viewLifecycleOwner, EventObserver{
+        onboardingViewModel.errorString.observe(viewLifecycleOwner, EventObserver {
             if (it.isNotEmpty()) {
                 binding.error.isVisible = true
 
                 binding.error.postDelayed(
-                    Runnable {
+                    {
                         binding.error.isVisible = false
                     }, 2000
                 )
             }
         })
-        onboardingViewModel.getUser().observe(viewLifecycleOwner){
-            when(it){
+        onboardingViewModel.getUser().observe(viewLifecycleOwner) {
+            when (it) {
                 is Resource.Success -> {
                     binding.displayName.text = it.data.name
                     Glide.with(this).asBitmap().load(it.data.profileUrl).transform(
@@ -187,15 +187,20 @@ class MeFragment : Fragment(), SocialItemInteraction {
 
 
 
-        cardViewModel.personalCardsLiveData.observe(viewLifecycleOwner){
-            when(it){
+        cardViewModel.personalCardsLiveData.observe(viewLifecycleOwner) {
+            when (it) {
                 is Resource.Success -> {
                     binding.empty.isVisible = it.data.isEmpty()
                     if (it.data.isEmpty()) {
                         binding.full.isVisible = it.data.isNotEmpty()
                         binding.cardCount.isVisible = false
 
-                        binding.appbar.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+                        binding.appbar.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                android.R.color.white
+                            )
+                        )
                     } else {
                         binding.appbar.backgroundColor(R.color.mc_gray_light)
                         binding.cardCount.isVisible = true
@@ -205,7 +210,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
                         R.plurals.cards,
                         it.data.size,
                         it.data.size
-                    );
+                    )
 
                     cardViewModel.savePersonal(it.data)
                 }
@@ -219,13 +224,14 @@ class MeFragment : Fragment(), SocialItemInteraction {
 
         binding.include.shareCard.setOnClickListener {
 
-            onboardingViewModel.selectedPersonalCard.value = cardViewModel.selectedPersonalCard.value
+            onboardingViewModel.selectedPersonalCard.value =
+                cardViewModel.selectedPersonalCard.value
             onboardingViewModel.storePersonalTempCardByteArray()
             //onboardingViewModel._errorString.value = Event(getString(R.string.share_card_error))
 
             val file: File? = try {
                 cardViewModel.createVcf(onboardingViewModel.selectedPersonalCard.value?.name?.fullName)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 onboardingViewModel._errorString.value = Event(getString(R.string.share_card_error))
                 null
                 //todo inform user that vcard cannot be created
@@ -234,8 +240,13 @@ class MeFragment : Fragment(), SocialItemInteraction {
                 val vcfURI: Uri = FileProvider.getUriForFile(
                     requireContext(),
                     "com.spaceandjonin.mycrd.fileprovider",
-                    it)
-                Ezvcard.write(onboardingViewModel.selectedPersonalCard.value?.exportVCard(onboardingViewModel.tempCardByteArray))/*.version(VCardVersion.V2_1)*/.go(file)
+                    it
+                )
+                Ezvcard.write(
+                    onboardingViewModel.selectedPersonalCard.value?.exportVCard(
+                        onboardingViewModel.tempCardByteArray
+                    )
+                )/*.version(VCardVersion.V2_1)*/.go(file)
                 ShareCompat.IntentBuilder.from(requireActivity())
                     .setStream(vcfURI)
                     .setType("text/vcard")
@@ -249,10 +260,11 @@ class MeFragment : Fragment(), SocialItemInteraction {
         }
 
         binding.include.cardOptions.setOnClickListener {
-            onboardingViewModel.selectedPersonalCard.value = cardViewModel.selectedPersonalCard.value
+            onboardingViewModel.selectedPersonalCard.value =
+                cardViewModel.selectedPersonalCard.value
             findNavController().navigate(MeFragmentDirections.actionGlobalPersonalCardOptionsFragment())
-        /*
-            findNavController().navigate(MeFragmentDirections.actionGlobalDeletePersonalCardDialogFragment())*/
+            /*
+                findNavController().navigate(MeFragmentDirections.actionGlobalDeletePersonalCardDialogFragment())*/
         }
 
         binding.createOne.setOnClickListener {
@@ -266,7 +278,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
 
             //val extras = FragmentNavigatorExtras(binding.toolbar to "search")
 
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.add_personal_card -> {
                     findNavController().navigate(MeFragmentDirections.actionGlobalAddPersonalCardOptionsFragment())
                 }

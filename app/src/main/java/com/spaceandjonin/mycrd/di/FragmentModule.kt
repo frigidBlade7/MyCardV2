@@ -17,7 +17,7 @@ import java.util.*
 @Module
 @InstallIn(FragmentComponent::class)
 
-object FragmentModule{
+object FragmentModule {
 
     @SuppressLint("SimpleDateFormat")
     @Provides
@@ -26,10 +26,12 @@ object FragmentModule{
     fun providesImageFile(@ApplicationContext applicationContext: Context): File? {
         // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File? = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir: File? =
+            applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
             "MYCRD_JPEG_${timeStamp}",
-            ".jpg", storageDir)/*.apply {
+            ".jpg", storageDir
+        )/*.apply {
             // Save a file: path for use with ACTION_VIEW intents
             //  currentPhotoPath = absolutePath
         }*/

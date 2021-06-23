@@ -1,4 +1,4 @@
 package com.spaceandjonin.mycrd.viewmodel
 
-class AuthenticationViewModel: BaseViewModel() {
+class AuthenticationViewModel : BaseViewModel() {
 }

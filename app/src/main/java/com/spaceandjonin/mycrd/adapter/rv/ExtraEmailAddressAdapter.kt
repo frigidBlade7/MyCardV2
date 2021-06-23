@@ -8,14 +8,19 @@ import com.spaceandjonin.mycrd.databinding.CardEmailItemAdditionalBinding
 import com.spaceandjonin.mycrd.models.EmailAddress
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
-class ExtraEmailAddressAdapter(): ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
+class ExtraEmailAddressAdapter() :
+    ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bindTo(getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        val binding = CardEmailItemAdditionalBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        val binding = CardEmailItemAdditionalBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return BaseViewHolder(binding)
     }
 }

@@ -23,22 +23,22 @@ interface AddedCardDao {
 
 
     @Query("SELECT * FROM addedcard WHERE fullName LIKE (:filterQuery) ORDER BY createdAt ASC")
-    fun filterByName(filterQuery: String): PagingSource<Int,AddedCard>
+    fun filterByName(filterQuery: String): PagingSource<Int, AddedCard>
 
 
     @Query("SELECT * FROM addedcard WHERE companyName LIKE (:filterQuery) ORDER BY createdAt ASC")
-    fun filterByCompany(filterQuery: String): PagingSource<Int,AddedCard>
+    fun filterByCompany(filterQuery: String): PagingSource<Int, AddedCard>
 
 
     @Query("SELECT * FROM addedcard WHERE role LIKE (:filterQuery) ORDER BY createdAt ASC")
-    fun filterByRole(filterQuery: String): PagingSource<Int,AddedCard>
+    fun filterByRole(filterQuery: String): PagingSource<Int, AddedCard>
 
 
     @Query(" SELECT * FROM addedcard WHERE addedcard MATCH (:filterQuery) ORDER BY createdAt ASC")
-    fun filterByAny(filterQuery: String): PagingSource<Int,AddedCard>
+    fun filterByAny(filterQuery: String): PagingSource<Int, AddedCard>
 
     @Query(" SELECT * FROM addedcard ORDER BY createdAt ASC")
-    fun filterByNone(): PagingSource<Int,AddedCard>
+    fun filterByNone(): PagingSource<Int, AddedCard>
 
     @Query("DELETE FROM addedcard")
     suspend fun deleteAll()

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="workInfo"
             type="com.spaceandjonin.mycrd.models.BusinessInfo" />
@@ -25,7 +26,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/heading"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/heading"
@@ -78,15 +79,15 @@
             app:layout_constraintTop_toBottomOf="@+id/role"
             tools:text="Nate Att" />
 
-<!--        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/background"
-            app:layout_constraintEnd_toEndOf="@+id/background"
-            app:layout_constraintStart_toStartOf="@+id/background"
-            app:layout_constraintTop_toTopOf="@+id/background"
-            app:srcCompat="@drawable/office"
-            app:tint="@android:color/white" />-->
+        <!--        <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/background"
+                    app:layout_constraintEnd_toEndOf="@+id/background"
+                    app:layout_constraintStart_toStartOf="@+id/background"
+                    app:layout_constraintTop_toTopOf="@+id/background"
+                    app:srcCompat="@drawable/office"
+                    app:tint="@android:color/white" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

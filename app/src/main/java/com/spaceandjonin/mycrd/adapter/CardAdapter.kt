@@ -13,9 +13,21 @@ import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 class CardAdapter : ListAdapter<LiveCard, BaseViewHolder>(PersonalCardDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
-        return when(viewType) {
-            0-> BaseViewHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-            else -> BaseViewHolder(CardItemFlippedBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return when (viewType) {
+            0 -> BaseViewHolder(
+                CardItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            else -> BaseViewHolder(
+                CardItemFlippedBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
         }
     }
 

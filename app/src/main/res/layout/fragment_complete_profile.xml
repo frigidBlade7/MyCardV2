@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.net.Uri"/>
+
+        <import type="android.net.Uri" />
+
         <variable
             name="viewModel"
             type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
@@ -29,6 +31,7 @@
                 android:layout_height="96dp"
                 android:layout_marginTop="28dp"
                 app:srcCompat="@drawable/user_default"
+                android:contentDescription="@string/profile_photo"
                 app:layout_constraintBottom_toTopOf="@+id/fullnamelayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

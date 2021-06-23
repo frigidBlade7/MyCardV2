@@ -8,17 +8,20 @@ import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.models.Resource
 import com.spaceandjonin.mycrd.utils.getCode
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import javax.inject.Inject
 
 private const val TAG = "FirebaseUpdateImageServ"
 
 
-class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseStorage): UpdateImageService {
+class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseStorage) :
+    UpdateImageService {
 
 
     val reference = storage.reference.child("images")
     var photoUri: Uri? = null
-    var sessionUri: Uri?= null
+    var sessionUri: Uri? = null
+
     //var byteData: ByteArray? = null
     lateinit var dataTask: UploadTask
 
@@ -45,9 +48,9 @@ class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseSt
             Resource.Success(uri)
 
 
-        }catch (e: Exception){
-            Log.d(TAG, "uploadImage: ${e.localizedMessage}")
-            Log.d(TAG, "uploadImage: ${e.getCode()}")
+        } catch (e: Exception) {
+            Timber.d( "uploadImage: ${e.localizedMessage}")
+            Timber.d( "uploadImage: ${e.getCode()}")
             //todo save session url
             Resource.Error(R.string.failed)
         }

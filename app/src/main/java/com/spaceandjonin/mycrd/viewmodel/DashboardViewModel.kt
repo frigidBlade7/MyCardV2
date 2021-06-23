@@ -4,5 +4,4 @@ class DashboardViewModel : BaseViewModel() {
     // TODO: Implement the ViewModel
 
 
-
 }

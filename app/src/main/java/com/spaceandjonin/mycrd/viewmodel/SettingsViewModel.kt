@@ -32,6 +32,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -54,7 +55,7 @@ class SettingsViewModel @Inject constructor(
         return userRepository.getLoggedInUser()
     }
 
-    var authCallbacks = object : AuthenticationCallbacks<FirebaseUser>(){
+    var authCallbacks = object : AuthenticationCallbacks<FirebaseUser>() {
         override fun onCodeSent() {
             //start countdown
             isVerifyButtonEnabled.value = true
@@ -63,10 +64,10 @@ class SettingsViewModel @Inject constructor(
 
         override fun onAuthSuccess(userObject: FirebaseUser) {
             //go to update number
-            _destination.value = Event(VerifyCurrentNumberFragmentDirections.actionVerifyCurrentNumberFragmentToUpdateNumberFragment())
+            _destination.value =
+                Event(VerifyCurrentNumberFragmentDirections.actionVerifyCurrentNumberFragmentToUpdateNumberFragment())
 
         }
-
 
 
         override fun onAuthCredentialSent(phoneAuthCredential: PhoneAuthCredential) {
@@ -87,16 +88,17 @@ class SettingsViewModel @Inject constructor(
 
     }
 
-    fun showPhotoOptions(){
-        val action = SettingsFragmentDirections.actionSettingsFragmentToProfilePhotoActionsFragment()
+    fun showPhotoOptions() {
+        val action =
+            SettingsFragmentDirections.actionSettingsFragmentToProfilePhotoActionsFragment()
         _destination.value = Event(action)
     }
 
-    fun resendCode(){
+    fun resendCode() {
         authenticationService.resendVerificationCode()
     }
 
-    fun attemptAuth(phoneNumber: String){
+    fun attemptAuth(phoneNumber: String) {
         viewModelScope.launch {
             smsCode.value?.let {
                 authenticationService.attemptAuth(phoneNumber, it)
@@ -104,31 +106,37 @@ class SettingsViewModel @Inject constructor(
         }
 
     }
-    fun goToUpdateNumber(){
-        _destination.value = Event(SettingsFragmentDirections.actionSettingsFragmentToConfirmNumberResetFragment())
+
+    fun goToUpdateNumber() {
+        _destination.value =
+            Event(SettingsFragmentDirections.actionSettingsFragmentToConfirmNumberResetFragment())
     }
+
     fun goToUpdateProfile() {
-        _destination.value = Event(SettingsFragmentDirections.actionSettingsFragmentToUpdateDisplayNameFragment())
+        _destination.value =
+            Event(SettingsFragmentDirections.actionSettingsFragmentToUpdateDisplayNameFragment())
     }
 
     fun updateProfile() {
         profileImageUri.value?.let {
             viewModelScope.launch {
                 uploadService.setUri(it)
-                when(val uploadData = uploadService.uploadImage("profiles/${auth.currentUser?.uid}")){
-                    is Resource.Success->{
-                        when (val profileData = userRepository.userDataSourceImpl.updateImage(uploadData.data)){
-                            is Resource.Error ->{
+                when (val uploadData =
+                    uploadService.uploadImage("profiles/${auth.currentUser?.uid}")) {
+                    is Resource.Success -> {
+                        when (val profileData =
+                            userRepository.userDataSourceImpl.updateImage(uploadData.data)) {
+                            is Resource.Error -> {
                                 _snackbarInt.postValue(Event(profileData.errorCode))
                             }
-                            is Resource.Success->{
+                            is Resource.Success -> {
                                 user.value?.profileUrl = profileData.data
                                 user.notifyObserver()
                             }
                         }
 
                     }
-                    is Resource.Error->{
+                    is Resource.Error -> {
                         _snackbarInt.postValue(Event(uploadData.errorCode))
 
                     }
@@ -138,7 +146,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun logout(){
+    fun logout() {
         auth.addAuthStateListener {
             if (it.currentUser == null) {
                 _destination.value = Event(SettingsNavDirections.actionGlobalWelcomeFragment())
@@ -153,22 +161,23 @@ class SettingsViewModel @Inject constructor(
     }
 
 
-    fun sendVerificationCode(phoneNumber: String){
+    fun sendVerificationCode(phoneNumber: String) {
         authenticationService.setUpAuthCallbacks(authCallbacks)
         authenticationService.sendVerificationCode(phoneNumber, Utils.TIMEOUT)
     }
 
-    fun updateProfileNumber(){
-        _destination.value = Event(ConfirmNumberResetFragmentDirections.actionConfirmNumberResetFragmentToVerifyCurrentNumberFragment())
+    fun updateProfileNumber() {
+        _destination.value =
+            Event(ConfirmNumberResetFragmentDirections.actionConfirmNumberResetFragmentToVerifyCurrentNumberFragment())
     }
 
-    fun updateProfileName(){
+    fun updateProfileName() {
         viewModelScope.launch {
-            when(val profileData = userRepository.userDataSourceImpl.updateData(user.value!!)){
-                is Resource.Error ->{
+            when (val profileData = userRepository.userDataSourceImpl.updateData(user.value!!)) {
+                is Resource.Error -> {
                     _snackbarInt.postValue(Event(profileData.errorCode))
                 }
-                is Resource.Success->{
+                is Resource.Success -> {
                     user.value?.profileUrl = profileData.data
                     user.notifyObserver()
                     _destination.postValue(Event(ActionOnlyNavDirections(0)))
@@ -183,29 +192,29 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
 
             profileImageUri.value?.let {
-                when(val data = userRepository.userDataSourceImpl.updateImage(it)){
+                when (val data = userRepository.userDataSourceImpl.updateImage(it)) {
                     is Resource.Success -> {
                         //todo hide loader
-                            try {
-                                FirebaseStorage.getInstance().reference.child("images")
-                                    .child("profiles/${auth.currentUser?.uid}").delete().await()
+                        try {
+                            FirebaseStorage.getInstance().reference.child("images")
+                                .child("profiles/${auth.currentUser?.uid}").delete().await()
 
 
-                                user.value?.profileUrl = ""
-                                user.notifyObserver()
-                                _snackbarInt.postValue(Event(R.string.success))
-                            } catch (e: Exception) {
-                                Log.d(Companion.TAG, "removePhoto: ${e.localizedMessage}")
-                            }
+                            user.value?.profileUrl = ""
+                            user.notifyObserver()
+                            _snackbarInt.postValue(Event(R.string.success))
+                        } catch (e: Exception) {
+                            Timber.d( "removePhoto: ${e.localizedMessage}")
+                        }
 
                     }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         //todo hide loader
                         _snackbarInt.postValue(Event(data.errorCode))
 
                     }
 
-                    is Resource.Loading->{
+                    is Resource.Loading -> {
                         //todo show loader
                         _snackbarInt.postValue(Event(R.string.adding_card))
                     }

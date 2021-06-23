@@ -8,9 +8,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Keep
 @JsonClass(generateAdapter = true)
-data class Name(var firstName: String = "", var lastName: String = "",    var prefix: String? ="",
-                var middleName: String="",
-                var fullName: String="",
-                var suffix: String? = ""
-):Parcelable {
+data class Name(
+    var firstName: String = "", var lastName: String = "", var prefix: String? = "",
+    var middleName: String = "",
+    var fullName: String = "",
+    var suffix: String? = ""
+) : Parcelable {
 }

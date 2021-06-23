@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.os.Bundle
@@ -21,9 +20,9 @@ class AlertDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentAlertDialogBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAlertDialogBinding.inflate(layoutInflater, container, false)
 
         binding.icon.apply {
             setImageResource(AlertDialogFragmentArgs.fromBundle(requireArguments()).drawableId)

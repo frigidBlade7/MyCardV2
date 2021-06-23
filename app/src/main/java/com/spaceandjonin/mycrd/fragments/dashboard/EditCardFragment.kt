@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.graphics.Color
@@ -36,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 private const val TAG = "AddPersonalCardFragment"
 
 @AndroidEntryPoint
-class EditCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
+class EditCardFragment : Fragment(), ItemInteraction<PhoneNumber>,
     EmailItemInteraction, SocialItemInteraction {
 
     lateinit var binding: FragmentAddCardBinding
@@ -47,7 +46,7 @@ class EditCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
     lateinit var phoneTypes: DropDownAdapter
     lateinit var emailTypes: DropDownAdapter
 
-    val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav){
+    val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -65,17 +64,18 @@ class EditCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
             duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
 */
             scrimColor = Color.TRANSPARENT
-            containerColor = MaterialColors.getColor(view,R.attr.colorSurface)
-            startContainerColor = MaterialColors.getColor(view,R.attr.colorPrimary)
-            endContainerColor = MaterialColors.getColor(view,R.attr.colorSurface)
+            containerColor = MaterialColors.getColor(view, R.attr.colorSurface)
+            startContainerColor = MaterialColors.getColor(view, R.attr.colorPrimary)
+            endContainerColor = MaterialColors.getColor(view, R.attr.colorSurface)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentAddCardBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAddCardBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -85,31 +85,39 @@ class EditCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
             findNavController().navigate(it)
         })
 
-        viewmodel.isNameExpanded.observe(viewLifecycleOwner, Observer {
+        viewmodel.isNameExpanded.observe(viewLifecycleOwner){
             it?.let {
                 binding.fullNameChevron.isSelected = it
             }
-        })
+        }
 
-        phoneTypes = DropDownAdapter(requireContext(),R.layout.spinner_item, resources.getStringArray(R.array.phone_types))
-        emailTypes = DropDownAdapter(requireContext(),R.layout.spinner_item, resources.getStringArray(R.array.email_types))
+        phoneTypes = DropDownAdapter(
+            requireContext(),
+            R.layout.spinner_item,
+            resources.getStringArray(R.array.phone_types)
+        )
+        emailTypes = DropDownAdapter(
+            requireContext(),
+            R.layout.spinner_item,
+            resources.getStringArray(R.array.email_types)
+        )
 
         phoneNumberAdapter = PhoneNumberAdapter(this, phoneTypes)
-        emailAdapter = EmailAdapter(this,emailTypes)
+        emailAdapter = EmailAdapter(this, emailTypes)
         socialAdapter = SocialAdapter(this)
 
         //phoneNumberAdapter.submitList(listOf(PhoneNumber()))
         //emailAdapter.submitList(listOf(EmailAddress()))
 
-        viewmodel.socials.observe(viewLifecycleOwner){ it ->
-            socialAdapter.submitList(it.filter { it.usernameOrUrl.isNotEmpty()})
+        viewmodel.socials.observe(viewLifecycleOwner) { it ->
+            socialAdapter.submitList(it.filter { it.usernameOrUrl.isNotEmpty() })
         }
 
-        viewmodel.phoneNumbers.observe(viewLifecycleOwner){ it ->
+        viewmodel.phoneNumbers.observe(viewLifecycleOwner) { it ->
             phoneNumberAdapter.submitList(it.toMutableList())
         }
 
-        viewmodel.emailAddresses.observe(viewLifecycleOwner){ it ->
+        viewmodel.emailAddresses.observe(viewLifecycleOwner) { it ->
             emailAdapter.submitList(it.toMutableList())
         }
 
@@ -122,7 +130,7 @@ class EditCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         binding.fullNameChevron.setOnClickListener {
             viewmodel.isNameExpanded.value = !it.isSelected
 
-            if(it.isSelected)
+            if (it.isSelected)
                 viewmodel.name.value?.segregateFullName()
             else
                 viewmodel.name.value?.aggregateNameToFullName()
@@ -161,7 +169,7 @@ class EditCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         }
 
         binding.addPhone.setOnClickListener {
-            if(phoneNumberAdapter.currentList.none { it.number.trim().isEmpty()}) {
+            if (phoneNumberAdapter.currentList.none { it.number.trim().isEmpty() }) {
                 viewmodel.phoneNumbers.value?.add(PhoneNumber())
                 viewmodel.phoneNumbers.notifyObserver()
             }
@@ -169,7 +177,7 @@ class EditCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         }
 
         binding.addEmail.setOnClickListener {
-            if(emailAdapter.currentList.none { it.address.isEmpty() }) {
+            if (emailAdapter.currentList.none { it.address.isEmpty() }) {
                 viewmodel.emailAddresses.value?.add(EmailAddress())
                 viewmodel.emailAddresses.notifyObserver()
 

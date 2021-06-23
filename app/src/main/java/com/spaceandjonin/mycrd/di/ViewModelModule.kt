@@ -26,22 +26,27 @@ object ViewModelModule {
     @Provides
     @ViewModelScoped
     @AuthService
-    fun providesAuthenticationService(auth: FirebaseAuth): AuthenticationService{
+    fun providesAuthenticationService(auth: FirebaseAuth): AuthenticationService {
         return AuthenticationServiceImpl(auth)
     }
 
     @Provides
     @ViewModelScoped
     @UpdateService
-    fun providesUpdateNumberService(auth: FirebaseAuth): AuthenticationService{
+    fun providesUpdateNumberService(auth: FirebaseAuth): AuthenticationService {
         return UpdatePhoneNumberServiceImpl(auth)
     }
 
     @Provides
     @ViewModelScoped
-    fun providesAddedCardDataSource(db: FirebaseFirestore, sessionManagerService: SessionManagerService): AddedCardDataSource {
-        return FirebaseAddedCardDataSourceImpl(db.collection("users")
-            .document(sessionManagerService.loggedInUserId()).collection("addedCards"))
+    fun providesAddedCardDataSource(
+        db: FirebaseFirestore,
+        sessionManagerService: SessionManagerService
+    ): AddedCardDataSource {
+        return FirebaseAddedCardDataSourceImpl(
+            db.collection("users")
+                .document(sessionManagerService.loggedInUserId()).collection("addedCards")
+        )
     }
 
     @Provides
@@ -59,7 +64,7 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun providesUpdateImageService(fs: FirebaseStorage): UpdateImageService{
+    fun providesUpdateImageService(fs: FirebaseStorage): UpdateImageService {
         return FirebaseUpdateImageServiceImpl(fs)
     }
 
@@ -67,7 +72,7 @@ object ViewModelModule {
     @SuppressLint("SimpleDateFormat")
     @Provides
     @ViewModelScoped
-    fun providesStorageDir(@ApplicationContext applicationContext: Context):File?{
+    fun providesStorageDir(@ApplicationContext applicationContext: Context): File? {
         return applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     }
 
@@ -78,10 +83,12 @@ object ViewModelModule {
     fun providesImageFile(@ApplicationContext applicationContext: Context): File? {
         // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File? = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir: File? =
+            applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
             "MYCRD_JPEG_${timeStamp}",
-            ".jpg", storageDir)/*.apply {
+            ".jpg", storageDir
+        )/*.apply {
             // Save a file: path for use with ACTION_VIEW intents
             //  currentPhotoPath = absolutePath
         }*/

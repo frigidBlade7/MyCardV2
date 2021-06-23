@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/cardDetailsFragment"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.CardDetailsFragment"
-        tools:layout="@layout/fragment_added_card_details" >
+        tools:layout="@layout/fragment_added_card_details">
         <argument
             android:name="card"
             app:argType="com.spaceandjonin.mycrd.models.AddedCard"
@@ -29,7 +29,7 @@
         android:id="@+id/welcomeFragment"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.WelcomeFragment"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
+        tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_cardsFragment"
             app:destination="@id/cardsFragment"
@@ -49,7 +49,7 @@
         android:id="@+id/skipOnboardingFragment"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.SkipOnboardingFragment"
         android:label="fragment_skip_onboarding"
-        tools:layout="@layout/fragment_skip_onboarding" >
+        tools:layout="@layout/fragment_skip_onboarding">
         <action
             android:id="@+id/action_skipOnboardingFragment_to_setupProfileFragment"
             app:destination="@id/setupProfileFragment" />
@@ -58,7 +58,7 @@
         android:id="@+id/setUpAccountFragment"
         tools:layout="@layout/fragment_setup_account_onboarding"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.SetUpAccountFragment"
-        android:label="SetUpAccountFragment" >
+        android:label="SetUpAccountFragment">
         <action
             android:id="@+id/action_setUpAccountFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -67,7 +67,7 @@
         android:id="@+id/confirmAddPersonalDetailsFragment"
         tools:layout="@layout/fragment_confirm_details"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.ConfirmAddPersonalDetailsFragment"
-        android:label="ConfirmDetailsFragment" >
+        android:label="ConfirmDetailsFragment">
         <action
             android:id="@+id/action_confirmDetailsFragment_to_setUpAccountFragment"
             app:destination="@id/setUpAccountFragment" />
@@ -79,7 +79,7 @@
         android:id="@+id/signUpFragment"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.SignUpFragment"
         tools:layout="@layout/fragment_sign_up"
-        android:label="SignUpFragment" >
+        android:label="SignUpFragment">
         <action
             android:id="@+id/action_signUpFragment_to_verifyNumberFragment"
             app:destination="@id/verifyNumberFragment" />
@@ -90,7 +90,7 @@
     <fragment
         android:id="@+id/verifyNumberFragment"
         android:name="com.spaceandjonin.mycrd.fragments.settings.VerifyNumberFragment"
-        tools:layout="@layout/fragment_verify_number" >
+        tools:layout="@layout/fragment_verify_number">
         <action
             android:id="@+id/action_verifyNumberFragment_to_cardsFragment"
             app:destination="@id/cardsFragment"
@@ -237,7 +237,6 @@
             app:popUpToInclusive="false" />
 
 
-
         <deepLink
             android:id="@+id/deepLink2"
             app:uri="mycrd://spaceandjonin.com/mycrd/addCard" />
@@ -245,7 +244,7 @@
     <dialog
         android:id="@+id/cardOptionsFragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.CardOptionsFragment"
-        tools:layout="@layout/fragment_card_options" >
+        tools:layout="@layout/fragment_card_options">
         <action
             android:id="@+id/action_cardOptionsFragment_to_viewCardQrFragment"
             app:destination="@id/viewCardQrFragment" />
@@ -270,7 +269,7 @@
     <dialog
         android:id="@+id/confirmNumberFragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.ConfirmNumberDialogFragment"
-        tools:layout="@layout/fragment_confirm_number_dialog" >
+        tools:layout="@layout/fragment_confirm_number_dialog">
         <action
             android:id="@+id/action_confirmNumberFragment_to_verifyNumberFragment"
             app:destination="@id/verifyNumberFragment" />
@@ -287,7 +286,7 @@
     <fragment
         android:id="@+id/searchCardsFragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.SearchCardsFragment"
-        tools:layout="@layout/fragment_search_cards" >
+        tools:layout="@layout/fragment_search_cards">
         <action
             android:id="@+id/action_searchCardsFragment_to_viewAddedCardDetailsFragment"
             app:destination="@id/viewAddedCardDetailsFragment" />
@@ -307,7 +306,7 @@
         android:id="@+id/cardsFragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.CardsFragment"
         tools:layout="@layout/cards_fragment"
-        android:label="@string/my_network" >
+        android:label="@string/my_network">
         <action
             android:id="@+id/action_cardsFragment_to_viewCardDetailsFragment"
             app:destination="@id/viewAddedCardDetailsFragment"
@@ -333,7 +332,7 @@
         android:id="@+id/meFragment"
         tools:layout="@layout/me_fragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.MeFragment"
-        android:label="@string/me" >
+        android:label="@string/me">
         <action
             android:id="@+id/action_meFragment_to_add_personal_card_nav"
             app:destination="@id/add_personal_card_nav" />
@@ -344,11 +343,13 @@
             android:id="@+id/action_meFragment_to_settingsNav"
             app:destination="@id/settings_nav" />
     </fragment>
-    <action android:id="@+id/action_global_cardOptionsFragment" app:destination="@id/cardOptionsFragment" />
+    <action
+        android:id="@+id/action_global_cardOptionsFragment"
+        app:destination="@id/cardOptionsFragment" />
     <fragment
         android:id="@+id/setupProfileFragment"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.CompleteProfileFragment"
-        tools:layout="@layout/fragment_complete_profile" >
+        tools:layout="@layout/fragment_complete_profile">
         <action
             android:id="@+id/action_setupProfileFragment_to_cardsFragment"
             app:destination="@id/cardsFragment"
@@ -363,12 +364,14 @@
     <dialog
         android:id="@+id/personalCardOptionsFragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.PersonalCardOptionsFragment"
-        tools:layout="@layout/fragment_personal_card_options" >
+        tools:layout="@layout/fragment_personal_card_options">
         <action
             android:id="@+id/action_personalCardOptionsFragment_to_viewCardQrFragment"
             app:destination="@id/viewCardQrFragment" />
     </dialog>
-    <action android:id="@+id/action_global_personalCardOptionsFragment" app:destination="@id/personalCardOptionsFragment" />
+    <action
+        android:id="@+id/action_global_personalCardOptionsFragment"
+        app:destination="@id/personalCardOptionsFragment" />
     <fragment
         android:id="@+id/viewPersonalCardDetailsFragment"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.ViewPersonalCardDetailsFragment"
@@ -378,14 +381,19 @@
         app:destination="@id/meFragment"
         app:launchSingleTop="true"
         app:popUpToInclusive="true" />
-    <action android:id="@+id/action_global_deleteCardDialogFragment" app:destination="@id/deleteCardDialogFragment" />
-    <action android:id="@+id/action_global_deletePersonalCardDialogFragment" app:destination="@id/deletePersonalCardDialogFragment" />
-    <navigation android:id="@+id/settings_nav"
+    <action
+        android:id="@+id/action_global_deleteCardDialogFragment"
+        app:destination="@id/deleteCardDialogFragment" />
+    <action
+        android:id="@+id/action_global_deletePersonalCardDialogFragment"
+        app:destination="@id/deletePersonalCardDialogFragment" />
+    <navigation
+        android:id="@+id/settings_nav"
         app:startDestination="@id/settingsFragment">
         <fragment
             android:id="@+id/settingsFragment"
             android:name="com.spaceandjonin.mycrd.fragments.settings.SettingsFragment"
-            tools:layout="@layout/fragment_settings" >
+            tools:layout="@layout/fragment_settings">
             <action
                 android:id="@+id/action_settingsFragment_to_updateDisplayNameFragment"
                 app:destination="@id/updateDisplayNameFragment" />
@@ -399,11 +407,11 @@
         <fragment
             android:id="@+id/updateDisplayNameFragment"
             android:name="com.spaceandjonin.mycrd.fragments.settings.UpdateDisplayNameFragment"
-            tools:layout="@layout/fragment_update_name"/>
+            tools:layout="@layout/fragment_update_name" />
         <fragment
             android:id="@+id/verifyCurrentNumberFragment"
             android:name="com.spaceandjonin.mycrd.fragments.settings.VerifyCurrentNumberFragment"
-            tools:layout="@layout/fragment_verify_current_number" >
+            tools:layout="@layout/fragment_verify_current_number">
             <action
                 android:id="@+id/action_verifyCurrentNumberFragment_to_updateNumberFragment"
                 app:destination="@id/updateNumberFragment" />
@@ -419,7 +427,7 @@
         <fragment
             android:id="@+id/updateNumberFragment"
             android:name="com.spaceandjonin.mycrd.fragments.settings.UpdateNumberFragment"
-            tools:layout="@layout/fragment_update_number" >
+            tools:layout="@layout/fragment_update_number">
             <action
                 android:id="@+id/action_updateNumberFragment_to_verifyNewNumberFragment"
                 app:destination="@id/verifyNewNumberFragment" />
@@ -427,7 +435,7 @@
         <fragment
             android:id="@+id/verifyNewNumberFragment"
             android:name="com.spaceandjonin.mycrd.fragments.settings.VerifyNewNumberFragment"
-            tools:layout="@layout/fragment_verify_new_number" >
+            tools:layout="@layout/fragment_verify_new_number">
             <action
                 android:id="@+id/action_verifyNewNumberFragment_to_settingsFragment"
                 app:destination="@id/settingsFragment"
@@ -453,19 +461,25 @@
         android:id="@+id/addNoteFragment"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.AddNoteFragment"
         tools:layout="@layout/fragment_add_note" />
-    <action android:id="@+id/action_global_addNoteFragment" app:destination="@id/addNoteFragment" />
+    <action
+        android:id="@+id/action_global_addNoteFragment"
+        app:destination="@id/addNoteFragment" />
 
     <fragment
         android:id="@+id/addNoteScanFragment"
         android:name="com.spaceandjonin.mycrd.fragments.scan.AddNoteScanFragment"
         tools:layout="@layout/fragment_add_note" />
-    <action android:id="@+id/action_global_addNoteScanFragment" app:destination="@id/addNoteScanFragment" />
+    <action
+        android:id="@+id/action_global_addNoteScanFragment"
+        app:destination="@id/addNoteScanFragment" />
 
     <fragment
         android:id="@+id/updateNoteFragment"
         android:name="com.spaceandjonin.mycrd.fragments.onboarding.UpdateNoteFragment"
         tools:layout="@layout/fragment_update_note" />
-    <action android:id="@+id/action_global_updateNoteFragment" app:destination="@id/updateNoteFragment"/>
+    <action
+        android:id="@+id/action_global_updateNoteFragment"
+        app:destination="@id/updateNoteFragment" />
 
     <dialog
         android:id="@+id/alertDialogFragment"
@@ -478,7 +492,9 @@
             android:name="drawableId"
             app:argType="reference" />
     </dialog>
-    <action android:id="@+id/action_global_alertDialogFragment" app:destination="@id/alertDialogFragment" />
+    <action
+        android:id="@+id/action_global_alertDialogFragment"
+        app:destination="@id/alertDialogFragment" />
     <dialog
         android:id="@+id/selectEmailFragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.SelectEmailFragment"
@@ -486,7 +502,19 @@
     <dialog
         android:id="@+id/selectPhoneNumberFragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.SelectPhoneNumberFragment"
-        tools:layout="@layout/fragment_select_phone_number" /><action android:id="@+id/action_global_selectPhoneNumberFragment" app:destination="@id/selectPhoneNumberFragment"/><action android:id="@+id/action_global_selectEmailFragment" app:destination="@id/selectEmailFragment"/><action android:id="@+id/action_global_add_card_nav" app:destination="@id/add_card_nav"/><action android:id="@+id/action_global_add_personal_card_nav" app:destination="@id/add_personal_card_nav"/>
+        tools:layout="@layout/fragment_select_phone_number" />
+    <action
+        android:id="@+id/action_global_selectPhoneNumberFragment"
+        app:destination="@id/selectPhoneNumberFragment" />
+    <action
+        android:id="@+id/action_global_selectEmailFragment"
+        app:destination="@id/selectEmailFragment" />
+    <action
+        android:id="@+id/action_global_add_card_nav"
+        app:destination="@id/add_card_nav" />
+    <action
+        android:id="@+id/action_global_add_personal_card_nav"
+        app:destination="@id/add_personal_card_nav" />
     <dialog
         android:id="@+id/addCardOptionsFragment"
         android:name="com.spaceandjonin.mycrd.fragments.dashboard.AddCardOptionsFragment"
@@ -499,8 +527,11 @@
         tools:layout="@layout/fragment_add_card_options"
         android:label="AddPersonalCardOptionsFragment" />
 
-    <action android:id="@+id/action_global_addCardOptionsFragment" app:destination="@id/addCardOptionsFragment" />
-    <navigation android:id="@+id/scan_nav"
+    <action
+        android:id="@+id/action_global_addCardOptionsFragment"
+        app:destination="@id/addCardOptionsFragment" />
+    <navigation
+        android:id="@+id/scan_nav"
         app:startDestination="@id/takeCardPictureFragment">
 
         <action
@@ -511,12 +542,12 @@
             app:popUpToInclusive="false" />
         <argument
             android:name="scanType"
-            app:argType="string"/>
+            app:argType="string" />
         <fragment
             android:id="@+id/takeCardPictureFragment"
             tools:layout="@layout/fragment_take_card_picture"
             android:name="com.spaceandjonin.mycrd.fragments.scan.TakeCardPictureFragment"
-            android:label="TakeCardPictureFragment" >
+            android:label="TakeCardPictureFragment">
             <action
                 android:id="@+id/action_takeCardPictureFragment_to_confirmTextRecognitionFragment"
                 app:destination="@id/confirmTextRecognitionFragment" />
@@ -528,7 +559,7 @@
             android:id="@+id/confirmTextRecognitionFragment"
             tools:layout="@layout/fragment_confirm_text_recognition"
             android:name="com.spaceandjonin.mycrd.fragments.scan.ConfirmTextRecognitionFragment"
-            android:label="ConfirmTextRecognitionFragment" >
+            android:label="ConfirmTextRecognitionFragment">
             <argument
                 android:name="uriString"
                 app:argType="string"
@@ -545,7 +576,7 @@
             android:id="@+id/reviewScannedDetailsFragment"
             tools:layout="@layout/fragment_review_scanned_details"
             android:name="com.spaceandjonin.mycrd.fragments.scan.ReviewScannedDetailsFragment"
-            android:label="ReviewScannedDetailsFragment" >
+            android:label="ReviewScannedDetailsFragment">
             <argument
                 android:name="lines"
                 app:argType="string[]" />
@@ -563,7 +594,7 @@
             android:id="@+id/assignLabelsFragment"
             tools:layout="@layout/fragment_assign_labels"
             android:name="com.spaceandjonin.mycrd.fragments.scan.AssignLabelsFragment"
-            android:label="AssignLabelsFragment" >
+            android:label="AssignLabelsFragment">
             <argument
                 android:name="existingLabelDetail"
                 app:argType="com.spaceandjonin.mycrd.models.LabelDetail"
@@ -574,7 +605,7 @@
             android:id="@+id/addLabelledDetailFragment"
             tools:layout="@layout/fragment_add_labelled_detail"
             android:name="com.spaceandjonin.mycrd.fragments.scan.AddLabelledDetailFragment"
-            android:label="AddLabelledDetailFragment" >
+            android:label="AddLabelledDetailFragment">
             <action
                 android:id="@+id/action_addLabelledDetailFragment_to_editLabelsFragment"
                 app:destination="@id/editLabelsFragment" />
@@ -583,7 +614,7 @@
             android:id="@+id/editDetailFragment"
             tools:layout="@layout/fragment_edit_labelled_detail"
             android:name="com.spaceandjonin.mycrd.fragments.scan.EditDetailFragment"
-            android:label="EditDetailFragment" >
+            android:label="EditDetailFragment">
             <action
                 android:id="@+id/action_editDetailFragment_to_editLabelsFragment"
                 app:destination="@id/editLabelsFragment" />
@@ -605,7 +636,7 @@
             android:id="@+id/scanAlertDialogFragment"
             tools:layout="@layout/fragment_scan_alert_dialog"
             android:name="com.spaceandjonin.mycrd.fragments.scan.ScanAlertDialogFragment"
-            android:label="ScanAlertDialogFragment" >
+            android:label="ScanAlertDialogFragment">
             <action
                 android:id="@+id/action_scanAlertDialogFragment_to_takeCardPictureFragment"
                 app:destination="@id/takeCardPictureFragment" />
@@ -638,6 +669,14 @@
             android:id="@+id/action_global_confirmAddPersonalDetailsFragment"
             app:destination="@id/confirmAddPersonalDetailsFragment" />
     </navigation>-->
-    <action android:id="@+id/action_global_scan_nav" app:destination="@id/scan_nav"/><action android:id="@+id/action_global_addPersonalCardOptionsFragment" app:destination="@id/addPersonalCardOptionsFragment"/><action android:id="@+id/action_global_setupProfileFragment" app:destination="@id/setupProfileFragment"/>
+    <action
+        android:id="@+id/action_global_scan_nav"
+        app:destination="@id/scan_nav" />
+    <action
+        android:id="@+id/action_global_addPersonalCardOptionsFragment"
+        app:destination="@id/addPersonalCardOptionsFragment" />
+    <action
+        android:id="@+id/action_global_setupProfileFragment"
+        app:destination="@id/setupProfileFragment" />
 
 </navigation>

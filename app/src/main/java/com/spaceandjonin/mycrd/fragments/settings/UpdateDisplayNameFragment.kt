@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.settings
 
 import android.os.Bundle
@@ -21,10 +20,9 @@ class UpdateDisplayNameFragment : Fragment() {
 
     lateinit var binding: FragmentUpdateNameBinding
 
-    val viewmodel: SettingsViewModel by navGraphViewModels(R.id.settings_nav){
+    val viewmodel: SettingsViewModel by navGraphViewModels(R.id.settings_nav) {
         defaultViewModelProviderFactory
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,19 +30,20 @@ class UpdateDisplayNameFragment : Fragment() {
         /*enterTransition = MaterialSharedAxis(MaterialSharedAxis.X,true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X,false)*/
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentUpdateNameBinding.inflate(layoutInflater,container, false)
+        binding = FragmentUpdateNameBinding.inflate(layoutInflater, container, false)
 
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
-            if(it.actionId==0)
+            if (it.actionId == 0)
                 findNavController().popBackStack()
             else
                 findNavController().navigate(it)

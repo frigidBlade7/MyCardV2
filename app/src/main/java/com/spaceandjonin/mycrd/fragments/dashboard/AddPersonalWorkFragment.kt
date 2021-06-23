@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.os.Bundle
@@ -20,7 +19,7 @@ class AddPersonalWorkFragment : Fragment() {
 
     lateinit var binding: FragmentAddPersonalWorkBinding
 
-    val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav){
+    val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -28,9 +27,9 @@ class AddPersonalWorkFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentAddPersonalWorkBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAddPersonalWorkBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -45,8 +44,8 @@ class AddPersonalWorkFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        viewmodel.isEditFlow.observe(viewLifecycleOwner){
-            if(it) {
+        viewmodel.isEditFlow.observe(viewLifecycleOwner) {
+            if (it) {
                 binding.button.text = resources.getText(R.string.save)
                 binding.button.setOnClickListener {
                     viewmodel.updateCard()

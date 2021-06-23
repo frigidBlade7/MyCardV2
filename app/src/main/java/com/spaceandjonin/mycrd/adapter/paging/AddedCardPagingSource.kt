@@ -8,7 +8,8 @@ import javax.inject.Inject
 
 
 private const val TAG = "FirestoreCardPagingSour"
-class AddedCardPagingSource @Inject constructor(val addedCardDao: AddedCardDao):
+
+class AddedCardPagingSource @Inject constructor(val addedCardDao: AddedCardDao) :
     PagingSource<Int, AddedCard>() {
 
 
@@ -29,7 +30,7 @@ class AddedCardPagingSource @Inject constructor(val addedCardDao: AddedCardDao):
 
             if(data.size <Utils.PAGE_SIZE){
                 //added listener
-                Log.d(TAG, "load:update query state flow")
+                Timber.d( "load:update query state flow")
                 currentQuery.value= currentPageQuery.query
             }
 
@@ -46,7 +47,7 @@ class AddedCardPagingSource @Inject constructor(val addedCardDao: AddedCardDao):
         } catch (e: Exception) {
             // Handle errors in this block and return LoadResult.Error if it is an
             // expected error (such as a network failure).
-            Log.d(TAG, "load: ${e.localizedMessage}")
+            Timber.d( "load: ${e.localizedMessage}")
             LoadResult.Error(e)
         }*/
     }

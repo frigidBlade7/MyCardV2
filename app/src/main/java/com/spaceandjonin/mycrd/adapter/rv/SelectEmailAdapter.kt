@@ -9,14 +9,15 @@ import com.spaceandjonin.mycrd.listeners.ItemInteraction
 import com.spaceandjonin.mycrd.models.EmailAddress
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
-class SelectEmailAdapter (val itemInteraction: ItemInteraction<EmailAddress>): ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
+class SelectEmailAdapter(val itemInteraction: ItemInteraction<EmailAddress>) :
+    ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
 
     lateinit var binding: SelectEmailItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         binding = SelectEmailItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val baseViewHolder = BaseViewHolder(binding)
 
-        binding.root.setOnClickListener{
+        binding.root.setOnClickListener {
             itemInteraction.onItemClicked(getItem(baseViewHolder.bindingAdapterPosition))
         }
 

@@ -39,7 +39,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesAuth(): FirebaseAuth{
+    fun providesAuth(): FirebaseAuth {
         val auth = FirebaseAuth.getInstance()
         auth.useAppLanguage()
         return auth
@@ -47,39 +47,48 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesMoshi():Moshi{
+    fun providesMoshi(): Moshi {
         return Moshi.Builder().build()
     }
 
     @Provides
     @Singleton
-    fun providesOnlineDb(): FirebaseFirestore{
+    fun providesOnlineDb(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
     }
 
     @Provides
     @Singleton
-    fun providesFileStorage():FirebaseStorage{
+    fun providesFileStorage(): FirebaseStorage {
         return FirebaseStorage.getInstance()
     }
 
     @Provides
     @Singleton
-    fun providesLocalDb(@ApplicationContext context: Context, socialMediaProfileConverter: SocialMediaProfileConverter
-                        ,phoneNumberConverter: PhoneNumberConverter,emailAddressConverter: EmailAddressConverter):AppDb{
-        return AppDb.getDatabase(context, socialMediaProfileConverter, phoneNumberConverter, emailAddressConverter)
+    fun providesLocalDb(
+        @ApplicationContext context: Context,
+        socialMediaProfileConverter: SocialMediaProfileConverter,
+        phoneNumberConverter: PhoneNumberConverter,
+        emailAddressConverter: EmailAddressConverter
+    ): AppDb {
+        return AppDb.getDatabase(
+            context,
+            socialMediaProfileConverter,
+            phoneNumberConverter,
+            emailAddressConverter
+        )
     }
 
     @Provides
     @Singleton
-    fun providesNetworkInfo(@ApplicationContext context: Context): ConnectivityManager{
+    fun providesNetworkInfo(@ApplicationContext context: Context): ConnectivityManager {
         return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     }
 
     @Provides
     @Singleton
-    fun providesLiveCardDao(appDb: AppDb): LiveCardDao{
+    fun providesLiveCardDao(appDb: AppDb): LiveCardDao {
         return appDb.liveCardsDao()
     }
 
@@ -91,7 +100,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesWorkManager(@ApplicationContext applicationContext: Context): WorkManager{
+    fun providesWorkManager(@ApplicationContext applicationContext: Context): WorkManager {
         return WorkManager.getInstance(applicationContext)
     }
 
@@ -105,13 +114,13 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesSessionManagerService(firebaseAuth: FirebaseAuth): SessionManagerService{
+    fun providesSessionManagerService(firebaseAuth: FirebaseAuth): SessionManagerService {
         return FirebaseSessionManagerServiceImpl(firebaseAuth)
     }
 
     @Provides
     @Singleton
-    fun providesPreferencesDatastore(@ApplicationContext applicationContext: Context):DataStore<Preferences>{
+    fun providesPreferencesDatastore(@ApplicationContext applicationContext: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
             produceFile = {
                 applicationContext.preferencesDataStoreFile(Utils.PREFS)

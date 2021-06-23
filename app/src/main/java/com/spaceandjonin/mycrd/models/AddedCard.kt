@@ -12,9 +12,9 @@ import kotlinx.parcelize.Parcelize
 @Entity
 @Parcelize
 @Keep
-data class AddedCard(var note: String? =""):Card(), Parcelable {
+data class AddedCard(var note: String? = "") : Card(), Parcelable {
 
-    constructor(baseCard: Card) : this(){
+    constructor(baseCard: Card) : this() {
         super.id = baseCard.id
         super.businessInfo = baseCard.businessInfo
         super.createdAt = baseCard.createdAt

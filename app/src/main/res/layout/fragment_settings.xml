@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt" />
+
         <variable
             name="viewmodel"
             type="com.spaceandjonin.mycrd.viewmodel.SettingsViewModel" />
@@ -99,6 +102,7 @@
                         android:id="@+id/icon2"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
+                        android:contentDescription="@string/mobile"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -137,6 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="60dp"
+                    android:contentDescription="@string/update_photo"
                     android:clickable="true"
                     android:onClick="@{()->viewmodel.showPhotoOptions()}"
                     android:focusable="true"
@@ -193,6 +198,7 @@
                         android:id="@+id/icon"
                         android:layout_width="wrap_content"
                         app:tint="@color/mc_black_60"
+                        android:contentDescription="@string/user_photo"
                         android:layout_height="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

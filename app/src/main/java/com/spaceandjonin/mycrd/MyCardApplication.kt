@@ -7,14 +7,14 @@ import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class MyCardApplication: Application(), Configuration.Provider {
+class MyCardApplication : Application(), Configuration.Provider {
 
     //@Inject lateinit var workerFactory: HiltWorkerFactory
 
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
-        if(BuildConfig.DEBUG)
+        if (BuildConfig.DEBUG)
             Timber.plant(Timber.DebugTree())
         /*else
             todo add class for writing logs to a txt file or something
@@ -26,5 +26,5 @@ class MyCardApplication: Application(), Configuration.Provider {
             .setMinimumLoggingLevel(android.util.Log.DEBUG)
             //.setWorkerFactory(workerFactory)
             .build()
-    }
+}
 

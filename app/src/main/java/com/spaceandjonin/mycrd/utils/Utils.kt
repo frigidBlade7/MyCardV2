@@ -7,17 +7,17 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 class Utils {
 
     companion object {
-        const val PREFS= "SETTINGS_PREFERENCES"
-        const val SORT_MODE_NAME= "NAME"
-        const val SORT_MODE_RECENT= "RECENT"
-        const val PATH_ID= "pathId"
-        const val PHOTO_URI= "photoUri"
+        const val PREFS = "SETTINGS_PREFERENCES"
+        const val SORT_MODE_NAME = "NAME"
+        const val SORT_MODE_RECENT = "RECENT"
+        const val PATH_ID = "pathId"
+        const val PHOTO_URI = "photoUri"
 
 
-        const val FILTER_ALL= "ALL"
-        const val FILTER_COMPANY= "COMPANY"
-        const val FILTER_ROLE= "ROLE"
-        const val FILTER_NAME= "NAME"
+        const val FILTER_ALL = "ALL"
+        const val FILTER_COMPANY = "COMPANY"
+        const val FILTER_ROLE = "ROLE"
+        const val FILTER_NAME = "NAME"
         const val REQUEST_PHOTO: Int = 77
         const val REQUEST_CAMERA: Int = 79
         const val REQUEST_IMAGE_GET: Int = 65
@@ -39,15 +39,33 @@ class Utils {
 
         const val TIMEOUT: Long = 60000
 
-        const val SCAN_TYPE_LIVE= "LIVE_CARD"
-        const val SCAN_TYPE_ADDED= "ADDED_CARD"
-        val NEW_USER_LIVE_CARD= stringPreferencesKey("NEW_USER_LIVE_CARD")
+        const val SCAN_TYPE_LIVE = "LIVE_CARD"
+        const val SCAN_TYPE_ADDED = "ADDED_CARD"
+        val NEW_USER_LIVE_CARD = stringPreferencesKey("NEW_USER_LIVE_CARD")
 
-        val LIVE_CARD_SCAN_ALERT= booleanPreferencesKey("LIVE_CARD_SCAN_ALERT")
-        val ADDED_CARD_SCAN_ALERT= booleanPreferencesKey("ADDED_CARD_SCAN_ALERT")
-        val PREFIXES = listOf("mad","mr", "ms", "mrs", "dr", "adm", "capt", "chief", "cmdr", "col", "gov", "hon", "maj", "msgt", "prof", "rev")
+        val LIVE_CARD_SCAN_ALERT = booleanPreferencesKey("LIVE_CARD_SCAN_ALERT")
+        val ADDED_CARD_SCAN_ALERT = booleanPreferencesKey("ADDED_CARD_SCAN_ALERT")
+        val PREFIXES = listOf(
+            "mad",
+            "mr",
+            "ms",
+            "mrs",
+            "dr",
+            "adm",
+            "capt",
+            "chief",
+            "cmdr",
+            "col",
+            "gov",
+            "hon",
+            "maj",
+            "msgt",
+            "prof",
+            "rev"
+        )
 
-        val SUFFIXES = listOf("phd",
+        val SUFFIXES = listOf(
+            "phd",
             "ccna",
             "obe",
             "sr",
@@ -63,7 +81,8 @@ class Utils {
             "ix",
             "x",
             "snr",
-            "jnr")
+            "jnr"
+        )
 
     }
 

@@ -11,15 +11,16 @@ import java.util.*
 @JsonClass(generateAdapter = true)
 @Parcelize
 @Keep
-data class EmailAddress (var address: String = "", var type: EmailType = EmailType.Personal): Parcelable{
+data class EmailAddress(var address: String = "", var type: EmailType = EmailType.Personal) :
+    Parcelable {
 
     @get:Exclude
     @IgnoredOnParcel
     val id = Calendar.getInstance().timeInMillis
 
 
-
-    @Keep enum class EmailType {
+    @Keep
+    enum class EmailType {
         Personal, Work, Other
     }
 }

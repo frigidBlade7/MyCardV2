@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.spaceandjonin.mycrd.viewmodel.SettingsViewModel" />
@@ -40,7 +41,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar"
                 app:srcCompat="@drawable/change_number"
-                android:contentDescription="logo" />
+                android:contentDescription="@string/logo" />
 
             <TextView
                 android:id="@+id/title"

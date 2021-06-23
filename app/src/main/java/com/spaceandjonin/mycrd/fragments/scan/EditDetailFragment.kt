@@ -18,9 +18,9 @@ class EditDetailFragment : BottomSheetDialogFragment() {
 
     var existingLabelDetail: LabelDetail? = null
 
-    lateinit var binding : FragmentEditLabelledDetailBinding
+    lateinit var binding: FragmentEditLabelledDetailBinding
 
-    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav){
+    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -30,14 +30,15 @@ class EditDetailFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        existingLabelDetail = EditDetailFragmentArgs.fromBundle(requireArguments()).existingLabelDetail
+        existingLabelDetail =
+            EditDetailFragmentArgs.fromBundle(requireArguments()).existingLabelDetail
 
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentEditLabelledDetailBinding.inflate(layoutInflater, container, false)
@@ -49,8 +50,8 @@ class EditDetailFragment : BottomSheetDialogFragment() {
         })
 
 
-        viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        viewmodel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
 

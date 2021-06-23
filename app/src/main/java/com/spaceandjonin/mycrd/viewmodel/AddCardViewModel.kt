@@ -23,15 +23,18 @@ import com.spaceandjonin.mycrd.workers.FirebaseFirestoreUploadWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCardsRepository,
-                                            @ImageFile val imageFile: File?,
-                                            val workManager: WorkManager): BaseViewModel() {
+class AddCardViewModel @Inject constructor(
+    val addedCardsRepository: AddedCardsRepository,
+    @ImageFile val imageFile: File?,
+    val workManager: WorkManager
+) : BaseViewModel() {
 
-    var isNameExpanded =  MutableLiveData<Boolean>(false)
+    var isNameExpanded = MutableLiveData<Boolean>(false)
     var profileImageUri = MutableLiveData<Uri>(Uri.EMPTY)
 
     var isEditFlow = MutableLiveData(false)
@@ -43,11 +46,16 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
 
 
     var card = MutableLiveData(AddedCard())
-    
+
     var name = MutableLiveData(Name())
-    var socials = MutableLiveData(mutableListOf<SocialMediaProfile>(SocialMediaProfile(type= SocialMediaProfile.SocialMedia.LinkedIn),
-        SocialMediaProfile(type= SocialMediaProfile.SocialMedia.Facebook),SocialMediaProfile(type= SocialMediaProfile.SocialMedia.Twitter),
-        SocialMediaProfile(type= SocialMediaProfile.SocialMedia.Instagram)))
+    var socials = MutableLiveData(
+        mutableListOf<SocialMediaProfile>(
+            SocialMediaProfile(type = SocialMediaProfile.SocialMedia.LinkedIn),
+            SocialMediaProfile(type = SocialMediaProfile.SocialMedia.Facebook),
+            SocialMediaProfile(type = SocialMediaProfile.SocialMedia.Twitter),
+            SocialMediaProfile(type = SocialMediaProfile.SocialMedia.Instagram)
+        )
+    )
 
     var phoneNumbers = MutableLiveData(mutableListOf(PhoneNumber()))
     var emailAddresses = MutableLiveData(mutableListOf(EmailAddress()))
@@ -55,34 +63,38 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
     var businessInfo = MutableLiveData(BusinessInfo())
     var note = MutableLiveData("")
 
-    fun goToSocialProfile(){
+    fun goToSocialProfile() {
         _destination.postValue(Event(AddCardFragmentDirections.actionAddCardFragmentToAddSocialsFragment()))
     }
 
-    fun goToWorkProfile(){
+    fun goToWorkProfile() {
         card.value?.name = name.value!!
-        card.value?.socialMediaProfiles = socials.value?.filter { it.usernameOrUrl.trim().isNotEmpty() }!!
+        card.value?.socialMediaProfiles =
+            socials.value?.filter { it.usernameOrUrl.trim().isNotEmpty() }!!
 
-        card.value?.emailAddresses = emailAddresses.value?.filter { it.address.trim().isNotEmpty() }!!
+        card.value?.emailAddresses =
+            emailAddresses.value?.filter { it.address.trim().isNotEmpty() }!!
         card.value?.phoneNumbers = phoneNumbers.value?.filter { it.number.trim().isNotEmpty() }!!
-        if(isNameExpanded.value!!)
+        if (isNameExpanded.value!!)
             card.value?.name?.aggregateNameToFullName()
         else
             card.value?.name?.segregateFullName()
 
         card.notifyObserver()
 
-        _destination.value = Event(AddCardFragmentDirections.actionAddCardFragmentToAddWorkFragment())
+        _destination.value =
+            Event(AddCardFragmentDirections.actionAddCardFragmentToAddWorkFragment())
     }
 
-    fun goToConfirmDetails(){
+    fun goToConfirmDetails() {
         card.value?.businessInfo = businessInfo.value!!
         card.notifyObserver()
 
-        _destination.value = Event(AddWorkFragmentDirections.actionAddWorkFragmentToConfirmAddDetailsFragment())
+        _destination.value =
+            Event(AddWorkFragmentDirections.actionAddWorkFragmentToConfirmAddDetailsFragment())
     }
 
-    fun goToCard(){
+    fun goToCard() {
         card.value?.note = note.value
         card.notifyObserver()
         addCard()
@@ -99,7 +111,7 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
         card.notifyObserver()
 
         isEditFlow.value?.let {
-            if(it)
+            if (it)
                 card.value?.let {
                     updateProfileImage(it.id)
                 }
@@ -112,15 +124,19 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
         card.notifyObserver()
     }
 
-    fun removePhoto(){
-        card.value?.profilePicUrl =""
+    fun removePhoto() {
+        card.value?.profilePicUrl = ""
         profileImageUri.value = Uri.EMPTY
         card.notifyObserver()
 
         viewModelScope.launch {
 
             card.value?.let {
-                when(val data = addedCardsRepository.firebaseAddedCardDataSource.updateCardProfilePhoto("",it.id)){
+                when (val data =
+                    addedCardsRepository.firebaseAddedCardDataSource.updateCardProfilePhoto(
+                        "",
+                        it.id
+                    )) {
                     is Resource.Success -> {
                         //todo hide loader
 
@@ -131,19 +147,19 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
 
                                 _snackbarInt.postValue(Event(R.string.success))
                             } catch (e: Exception) {
-                                Log.d(TAG, "removePhoto: ${e.localizedMessage}")
+                                Timber.d( "removePhoto: ${e.localizedMessage}")
                             }
 
                         }
 
                     }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         //todo hide loader
                         _snackbarInt.postValue(Event(data.errorCode))
 
                     }
 
-                    is Resource.Loading->{
+                    is Resource.Loading -> {
                         //todo show loader
                         _snackbarInt.postValue(Event(R.string.adding_card))
                     }
@@ -151,73 +167,73 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
             }
             //onsuccess
         }
-//        Log.d(TAG, "updateProfileImage: ${profileImageUri.value.toString()}")
+//        Timber.d( "updateProfileImage: ${profileImageUri.value.toString()}")
 
         //updateCard()
         //do it on the server
 
     }
 
-    fun showPhotoOptions(){
+    fun showPhotoOptions() {
         val action = AddCardFragmentDirections.actionAddCardFragmentToPhotoActionsFragment()
         _destination.value = Event(action)
     }
 
 
-    fun addCard(){
+    fun addCard() {
 
-       viewModelScope.launch {
-           card.value?.let {
-               when(val data = addedCardsRepository.firebaseAddedCardDataSource.addData(it)){
-                   is Resource.Success->{
-                       //todo hide loader
-
-                       _snackbarInt.postValue(Event(R.string.success))
-                       _destination.postValue(Event(AddCardNavDirections.actionGlobalCardsFragment()))
-
-
-                       data.data?.let {
-                           card.value?.id = it
-                           updateProfileImage(it)
-                       }
-                       //updateBusinessLogo(data.data)
-
-                   }
-                   is Resource.Error ->{
-                       //todo hide loader
-                       _snackbarInt.postValue(Event(data.errorCode))
-
-                   }
-
-                   is Resource.Loading->{
-                       //todo show loader
-                       _snackbarInt.postValue(Event(R.string.adding_card))
-                   }
-               }
-           }
-       }
-
-    }
-
-    fun updateNote(){
-        card.value?.note = note.value
-
-        card.notifyObserver()
         viewModelScope.launch {
             card.value?.let {
-                when(val data = addedCardsRepository.firebaseAddedCardDataSource.updateData(it)){
-                    is Resource.Success->{
+                when (val data = addedCardsRepository.firebaseAddedCardDataSource.addData(it)) {
+                    is Resource.Success -> {
                         //todo hide loader
-                        _destination.postValue(Event(ActionOnlyNavDirections(0)))
+
                         _snackbarInt.postValue(Event(R.string.success))
+                        _destination.postValue(Event(AddCardNavDirections.actionGlobalCardsFragment()))
+
+
+                        data.data?.let {
+                            card.value?.id = it
+                            updateProfileImage(it)
+                        }
+                        //updateBusinessLogo(data.data)
+
                     }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         //todo hide loader
                         _snackbarInt.postValue(Event(data.errorCode))
 
                     }
 
-                    is Resource.Loading->{
+                    is Resource.Loading -> {
+                        //todo show loader
+                        _snackbarInt.postValue(Event(R.string.adding_card))
+                    }
+                }
+            }
+        }
+
+    }
+
+    fun updateNote() {
+        card.value?.note = note.value
+
+        card.notifyObserver()
+        viewModelScope.launch {
+            card.value?.let {
+                when (val data = addedCardsRepository.firebaseAddedCardDataSource.updateData(it)) {
+                    is Resource.Success -> {
+                        //todo hide loader
+                        _destination.postValue(Event(ActionOnlyNavDirections(0)))
+                        _snackbarInt.postValue(Event(R.string.success))
+                    }
+                    is Resource.Error -> {
+                        //todo hide loader
+                        _snackbarInt.postValue(Event(data.errorCode))
+
+                    }
+
+                    is Resource.Loading -> {
                         //todo show loader
                         _snackbarInt.postValue(Event(R.string.adding_card))
                     }
@@ -226,15 +242,17 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
         }
     }
 
-    fun updateCard(){
+    fun updateCard() {
 
         card.value?.businessInfo = businessInfo.value!!
         card.value?.name = name.value!!
-        card.value?.socialMediaProfiles = socials.value?.filter { it.usernameOrUrl.trim().isNotEmpty() }!!
+        card.value?.socialMediaProfiles =
+            socials.value?.filter { it.usernameOrUrl.trim().isNotEmpty() }!!
 
-        card.value?.emailAddresses = emailAddresses.value?.filter { it.address.trim().isNotEmpty() }!!
+        card.value?.emailAddresses =
+            emailAddresses.value?.filter { it.address.trim().isNotEmpty() }!!
         card.value?.phoneNumbers = phoneNumbers.value?.filter { it.number.trim().isNotEmpty() }!!
-        if(isNameExpanded.value!!)
+        if (isNameExpanded.value!!)
             card.value?.name?.aggregateNameToFullName()
         else
             card.value?.name?.segregateFullName()
@@ -243,24 +261,30 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
         card.notifyObserver()
         viewModelScope.launch {
             card.value?.let {
-                when(val data = addedCardsRepository.firebaseAddedCardDataSource.updateData(it)){
-                    is Resource.Success->{
+                when (val data = addedCardsRepository.firebaseAddedCardDataSource.updateData(it)) {
+                    is Resource.Success -> {
                         //todo hide loader
                         data.data.let {
                             card.value?.id = it
                             updateProfileImage(it)
                         }
                         _snackbarInt.postValue(Event(R.string.success))
-                        _destination.postValue(Event(AddCardNavDirections.actionGlobalCardDetailsFragment(card.value)))
+                        _destination.postValue(
+                            Event(
+                                AddCardNavDirections.actionGlobalCardDetailsFragment(
+                                    card.value
+                                )
+                            )
+                        )
 
                     }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         //todo hide loader
                         _snackbarInt.postValue(Event(data.errorCode))
 
                     }
 
-                    is Resource.Loading->{
+                    is Resource.Loading -> {
                         //todo show loader
                         _snackbarInt.postValue(Event(R.string.adding_card))
                     }
@@ -280,10 +304,12 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
                 .build()
 
             val myUploadWork = OneTimeWorkRequestBuilder<FirebaseFirestoreUploadWorker>()
-                .setInputData(workDataOf(
-                    Utils.PATH_ID to cardId,
-                    Utils.PHOTO_URI to uri.toString()
-                ))
+                .setInputData(
+                    workDataOf(
+                        Utils.PATH_ID to cardId,
+                        Utils.PHOTO_URI to uri.toString()
+                    )
+                )
                 .setConstraints(constraints)
                 .addTag(cardId)
                 .build()
@@ -314,34 +340,33 @@ class AddCardViewModel @Inject constructor( val addedCardsRepository: AddedCards
 */
 
 
-
         }
     }
 
-/*    private fun updateBusinessLogo(cardId: String) {
-        businessImageUri.value?.let { uri->
+    /*    private fun updateBusinessLogo(cardId: String) {
+            businessImageUri.value?.let { uri->
 
-            viewModelScope.launch {
-                uploadService.setUri(uri)
-                when(val uploadData = uploadService.uploadImage("businesses/$cardId")){
-                    is Resource.Success->{
-                        //todo success upload _snackbarInt.postValue(Event(uploadData.errorCode))
-                        when (val logoData = personalCardsRepository.firebaseCardDataSource.updateCardCompanyLogo(uploadData.data.toString(),cardId)){
-                            is Resource.Error ->{
-                                _snackbarInt.postValue(Event(logoData.errorCode))
+                viewModelScope.launch {
+                    uploadService.setUri(uri)
+                    when(val uploadData = uploadService.uploadImage("businesses/$cardId")){
+                        is Resource.Success->{
+                            //todo success upload _snackbarInt.postValue(Event(uploadData.errorCode))
+                            when (val logoData = personalCardsRepository.firebaseCardDataSource.updateCardCompanyLogo(uploadData.data.toString(),cardId)){
+                                is Resource.Error ->{
+                                    _snackbarInt.postValue(Event(logoData.errorCode))
+                                }
                             }
+
                         }
+                        is Resource.Error->{
+                            _snackbarInt.postValue(Event(uploadData.errorCode))
 
-                    }
-                    is Resource.Error->{
-                        _snackbarInt.postValue(Event(uploadData.errorCode))
-
+                        }
                     }
                 }
-            }
 
-        }
-    }*/
+            }
+        }*/
     companion object {
         private const val TAG = "AddCardViewModel"
     }

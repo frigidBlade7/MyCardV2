@@ -23,20 +23,17 @@ class VerifyCurrentNumberFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewmodel.smsCode.value=""
+        viewmodel.smsCode.value = ""
 
         viewmodel.authenticationService.setActivity(requireActivity())
-/*
-        val number = VerifyNumberFragmentArgs.fromBundle(requireArguments()).number
-        viewmodel.sendVerificationCode(number)*/
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentVerifyCurrentNumberBinding.inflate(layoutInflater,container, false)
+        binding = FragmentVerifyCurrentNumberBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -48,12 +45,12 @@ class VerifyCurrentNumberFragment : Fragment() {
             viewmodel.sendVerificationCode(it)
         }
 
-        viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        viewmodel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         return binding.root

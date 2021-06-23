@@ -10,7 +10,7 @@ abstract class AuthenticationCallbacks<T> {
 
     abstract fun onAuthCredentialSent(phoneAuthCredential: PhoneAuthCredential)
 
-    abstract fun onAuthFailure(errorCode:Int)
+    abstract fun onAuthFailure(errorCode: Int)
 
     abstract fun onCodeTimeout()
 }

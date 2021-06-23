@@ -16,22 +16,24 @@ import com.squareup.moshi.Moshi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
     val dataStore: DataStore<Preferences>,
-    val moshi: Moshi, val userDataSourceImpl: UserDataSourceImpl) {
+    val moshi: Moshi, val userDataSourceImpl: UserDataSourceImpl
+) {
 
 
-    val cardJsonFlow: Flow<Card?> = dataStore.data.catch { exception->
-        when(exception){
+    val cardJsonFlow: Flow<Card?> = dataStore.data.catch { exception ->
+        when (exception) {
             is IOException -> emit(emptyPreferences())
-            else-> Log.d("TAG",exception.localizedMessage!!)
+            else -> Timber.d( exception.localizedMessage!!)
         }
     }.map {
-        val data = it[Utils.NEW_USER_LIVE_CARD]?:""
-        if(data.isNotEmpty())
+        val data = it[Utils.NEW_USER_LIVE_CARD] ?: ""
+        if (data.isNotEmpty())
             CardJsonAdapter(moshi).fromJson(data)
         else
             null

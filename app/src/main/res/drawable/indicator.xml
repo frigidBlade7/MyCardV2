@@ -3,7 +3,8 @@
 
     <item>
 
-        <shape android:shape="ring"
+        <shape
+            android:shape="ring"
             android:innerRadius="0dp"
             android:thickness="4dp"
             android:useLevel="false">
@@ -14,9 +15,7 @@
         </shape>
 
 
-
     </item>
-
 
 
 </layer-list>
