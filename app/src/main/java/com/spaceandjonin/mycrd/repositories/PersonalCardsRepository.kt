@@ -19,23 +19,11 @@ class PersonalCardsRepository @Inject constructor(val firebaseLiveCardDataSource
             emit(Resource.Error(R.string.failed))
         }//todo add a catch for others
     }
+
+    fun getFirstPersonalCard(owner: String): Flow<Resource<LiveCard>> {
+        return firebaseLiveCardDataSource.getFirst(owner).catch { exception ->
+            Timber.d( "error: ${exception.localizedMessage}")
+            emit(Resource.Error(R.string.failed))
+        }//todo add a catch for others
+    }
 }
-
-
-/*    val allCardsPaged = Pager(PagingConfig(10)){
-        firestoreCardPagingSource
-    }*/
-
-/*
-    val currentPage = firestoreCardPagingSource.currentQuery
-*/
-
-
-/*    fun sort(sortString: String){
-        firestoreCardPagingSource.filterBy(sortString)
-    }*/
-/*    suspend fun addCard(card: Card?){
-        card?.let {
-            firebaseCardDataSource.addData(it)
-        }
-    } */

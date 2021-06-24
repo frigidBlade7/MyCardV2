@@ -42,6 +42,7 @@ class Utils {
         const val SCAN_TYPE_LIVE = "LIVE_CARD"
         const val SCAN_TYPE_ADDED = "ADDED_CARD"
         val NEW_USER_LIVE_CARD = stringPreferencesKey("NEW_USER_LIVE_CARD")
+        val NEW_USER_DISPLAY_NAME = stringPreferencesKey("NEW_USER_DISPLAY_NAME")
 
         val LIVE_CARD_SCAN_ALERT = booleanPreferencesKey("LIVE_CARD_SCAN_ALERT")
         val ADDED_CARD_SCAN_ALERT = booleanPreferencesKey("ADDED_CARD_SCAN_ALERT")

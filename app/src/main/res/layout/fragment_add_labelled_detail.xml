@@ -100,7 +100,7 @@
             android:gravity="center_vertical"
             android:onClick="@{()->viewModel.showLabelsFromNewDetail()}"
             android:padding="8dp"
-            android:paddingStart="0dp"
+            android:paddingStart="8dp"
             android:paddingEnd="0dp"
             android:visibility="@{viewModel.selectedLabel==Utils.UNLABELLED?View.GONE:View.VISIBLE}"
             android:text="@{viewModel.selectedLabel==Utils.UNLABELLED?@string/unlabelled:viewModel.selectedLabel}"

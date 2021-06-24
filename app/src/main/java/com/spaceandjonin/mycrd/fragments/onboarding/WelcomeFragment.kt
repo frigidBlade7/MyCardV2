@@ -24,22 +24,15 @@ class WelcomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-/*        if(findNavController().currentDestination?.id==R.id.cardsFragment){
-            return
-        }
-        FirebaseAuth.getInstance().currentUser?.let {
-            if(FirebaseAuth.getInstance().currentUser!=null){
-                it.displayName?.let {
-                    if(it.isNotEmpty())
-                        findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
-                    else
-                        findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
-                    return
+        if(findNavController().currentDestination?.id == R.id.welcomeFragment) {
+            FirebaseAuth.getInstance().currentUser?.let {
+                if(it.displayName.isNullOrEmpty()){
+                    findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
+                }else{
+                    findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
                 }
-                findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
             }
-
-        }*/
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,16 +61,12 @@ class WelcomeFragment : Fragment() {
 
         if (findNavController().currentDestination?.id != R.id.cardsFragment)
             FirebaseAuth.getInstance().currentUser?.let {
-                if (FirebaseAuth.getInstance().currentUser != null) {
-                    it.displayName?.let { name ->
-                        if (name.isNotEmpty())
-                            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
-                        else
-                            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
-                    }
-                    //findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
+                it.displayName?.let { name ->
+                    if (name.isNotEmpty())
+                        findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
+                    else
+                        findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
                 }
-
             }
 
         return binding.root

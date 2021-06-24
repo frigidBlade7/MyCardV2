@@ -3,6 +3,7 @@ package com.spaceandjonin.mycrd
 //import com.scanlibrary.IScanner
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     when (destination.id) {
                         R.id.searchCardsFragment -> {
-                            showKeyboard(/*binding.root*/)
+                            showKeyboard()
                         }
                     }
 
@@ -101,7 +102,15 @@ class MainActivity : AppCompatActivity() {
                 finish()
                 return
             }
+
+            R.id.setupProfileFragment ->{
+                Toast.makeText(baseContext, R.string.enter_your_name_to_complete_your_profile, Toast.LENGTH_SHORT).show()
+                finish()
+                return
+            }
+
         }
+
         super.onBackPressed()
     }
 }

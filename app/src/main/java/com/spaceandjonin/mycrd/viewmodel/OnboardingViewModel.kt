@@ -285,36 +285,13 @@ class OnboardingViewModel @Inject constructor(
         viewModelScope.launch {
             when (val userData = userRepository.userDataSourceImpl.addData(user)) {
                 is Resource.Success -> {
-                    userRepository.cardJsonFlow.collect {
-                        it?.let {
-                            val liveCard = LiveCard(it)
-                            liveCard.owner = user.uid
-                            when (val data =
-                                personalCardsRepository.firebaseLiveCardDataSource.addData(liveCard)) {
-                                is Resource.Success -> {
-                                    //todo hide loader
-                                    //card.value?.id = data.data!!
-                                    _snackbarInt.postValue(Event(R.string.success))
-                                    liveCardDataStore.edit { mutablePrefs ->
-                                        mutablePrefs.remove(Utils.NEW_USER_LIVE_CARD)
-                                    }
-                                }
-                                is Resource.Error -> {
-                                    //todo hide loader
-                                    _snackbarInt.postValue(Event(data.errorCode))
-
-                                }
-
-                                is Resource.Loading -> {
-                                    //todo show loader
-                                    _snackbarInt.postValue(Event(R.string.adding_card))
-                                }
-                            }
-                        }
-                        resetLiveDataParams()
-                        goToDashboardAfterSetup()
+                    _snackbarInt.postValue(Event(R.string.success))
+                    //if there is a display name stored, remove it
+                    liveCardDataStore.edit { mutablePrefs ->
+                        mutablePrefs.remove(Utils.NEW_USER_DISPLAY_NAME)
                     }
-
+                    resetLiveDataParams()
+                    goToDashboardAfterSetup()
                 }
                 is Resource.Error -> {
                     _snackbarInt.postValue(Event(userData.errorCode))
@@ -386,6 +363,23 @@ class OnboardingViewModel @Inject constructor(
     fun resetLiveDataParams() {
         phoneNumber.value = ""
         name.value = ""
+    }
+
+    fun populateDisplayName() {
+        //collect display name stored in shared preferences and display
+        viewModelScope.launch {
+            userRepository.userDisplayNameFlow.collect {
+                if(it.isNullOrEmpty())
+                    personalCardsRepository.getFirstPersonalCard(userRepository.getAuthId()).collect ResourceCollect@{
+                        when(it){
+                            is Resource.Success -> name.postValue(it.data.name.fullName)
+                            else -> return@ResourceCollect //naming nested
+                        }
+                    }
+                else
+                    name.postValue(it)
+            }
+        }
     }
 
 }
