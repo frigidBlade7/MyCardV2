@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.tabs.TabLayoutMediator
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.adapter.AddedCardAdapter
 import com.spaceandjonin.mycrd.adapter.rv.*
@@ -71,7 +70,6 @@ class CardDetailsFragment : Fragment() {
         extraEmailAddressAdapter = ExtraEmailAddressAdapter()
         extraPhoneNumbersAdapter = ExtraPhoneNumbersAdapter()
 
-        binding.include.pager.adapter = cardAdapter
         binding.include.email.list.adapter = extraEmailAddressAdapter
         binding.include.phone.list.adapter = extraPhoneNumbersAdapter
 
@@ -193,9 +191,6 @@ class CardDetailsFragment : Fragment() {
         onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
         })
-
-        TabLayoutMediator(binding.include.tabLayout, binding.include.pager) { _, _ ->
-        }.attach()
 
 
 

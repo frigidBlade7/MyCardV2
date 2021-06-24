@@ -63,13 +63,6 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         binding.list.adapter = cardAdapter
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,10 +72,6 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
 
         enterTransition = MaterialFadeThrough()
-
-/*        binding.addCard.setOnClickListener {
-            viewmodel.goToAddCard()
-        }*/
 
         binding.search.setOnClickListener {
 
@@ -95,7 +84,6 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
                 CardsFragmentDirections.actionCardsFragmentToSearchCardsFragment(),
                 extras
             )
-            //viewmodel.goToSearch()
         }
 
         binding.sort.setOnClickListener {
@@ -128,31 +116,6 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
             }
 
         }
-
-/*        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            cardViewmodel.cardsLiveData.collect {
-                it?.awaitContinuous()?.collect {
-                    Timber.d( "onCreateView: ${it?.toObjects(LiveCard::class.java)}")
-                    //pagedAdapter.sub
-                }
-            }
-        }*/
-/*        binding.apply {
-
-            val navController = Navigation.findNavController(requireActivity(), R.id.fragment)
-            bottomNav.setupWithNavController(navController)
-
-            lifecycleScope.launchWhenResumed {
-                findNavController().addOnDestinationChangedListener { _, destination, _ ->
-                    when (destination.id) {
-                        R.id.cardsFragment, R.id.meFragment -> bottomNav.show()
-                        else -> binding.bottomNav.hide()
-                    }
-                }
-            }
-        }*/
-
-
         return binding.root
     }
 
@@ -167,8 +130,7 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         item?.let {
 
             val cardDetailTransitionName = it.id
-            val extras = FragmentNavigatorExtras(view to cardDetailTransitionName)/*,
-                view.findViewById<ShapeableImageView>(R.id.icon) to cardDetailTransitionName+"icon"*/
+            val extras = FragmentNavigatorExtras(view to cardDetailTransitionName)
             val directions =
                 CardsFragmentDirections.actionCardsFragmentToViewCardDetailsFragment(it)
             findNavController().navigate(directions, extras)
@@ -186,7 +148,6 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
             when (it.itemId) {
                 R.id.edit -> {
                     viewmodel.editCard()
-
                 }
                 R.id.export -> {
 

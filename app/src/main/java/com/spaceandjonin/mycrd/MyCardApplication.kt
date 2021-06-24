@@ -9,8 +9,6 @@ import timber.log.Timber
 @HiltAndroidApp
 class MyCardApplication : Application(), Configuration.Provider {
 
-    //@Inject lateinit var workerFactory: HiltWorkerFactory
-
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)

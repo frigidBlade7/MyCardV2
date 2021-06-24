@@ -19,10 +19,7 @@ class PhysicalCardProcessServiceImpl @Inject constructor(val textRecognizer: Tex
 
             val image = InputImage.fromBitmap(it, 0)
             return try {
-
                 return processText(textRecognizer.process(image).await())
-                //return Resource.Success(LiveCard())
-
             } catch (e: Exception) {
                 e.printStackTrace()
                 Resource.Error(R.string.could_not_process_image)
@@ -46,8 +43,6 @@ class PhysicalCardProcessServiceImpl @Inject constructor(val textRecognizer: Tex
             val lines = block.lines
             for (line in lines)
                 allElements.add(line)
-
-            //return Resource.Success(LiveCard())
         }
 
         return Resource.Success(allElements)

@@ -88,18 +88,8 @@ object ViewModelModule {
         return File.createTempFile(
             "MYCRD_JPEG_${timeStamp}",
             ".jpg", storageDir
-        )/*.apply {
-            // Save a file: path for use with ACTION_VIEW intents
-            //  currentPhotoPath = absolutePath
-        }*/
+        )
     }
-
-/*
-    @Provides
-    @ViewModelScoped
-    fun providesUserRepository(): UserRepository{
-        return FirebaseUpdateImageServiceImpl(fs)
-    }*/
 }
 
 

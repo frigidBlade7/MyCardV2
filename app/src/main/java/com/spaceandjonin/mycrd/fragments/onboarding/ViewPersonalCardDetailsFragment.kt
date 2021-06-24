@@ -32,12 +32,7 @@ class ViewPersonalCardDetailsFragment : Fragment() {
 
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
-/*
 
-    val addPersonalCardViewModel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_card_nav){
-        defaultViewModelProviderFactory
-    }
-*/
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

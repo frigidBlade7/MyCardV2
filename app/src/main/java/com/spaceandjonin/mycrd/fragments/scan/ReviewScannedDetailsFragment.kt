@@ -38,9 +38,6 @@ class ReviewScannedDetailsFragment : Fragment(), UnlabelledDetailItemInteraction
     lateinit var extraEmailAddressActionsAdapter: ExtraEmailAddressActionsAdapter
     lateinit var extraPhoneNumbersActionsAdapter: ExtraPhoneNumbersActionsAdapter
 
-    /*
-    lateinit var socialAdapter: SocialAdapter*/
-
     val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory
     }
@@ -91,37 +88,6 @@ class ReviewScannedDetailsFragment : Fragment(), UnlabelledDetailItemInteraction
                 R.drawable.full_divider
             )!!
         )
-        /*binding.phone.list.addItemDecoration(itemDecorator)
-        binding.email.list.addItemDecoration(itemDecorator)
-
-
-        binding.email.list.adapter = extraEmailAddressActionsAdapter
-        binding.phone.list.adapter = extraPhoneNumbersActionsAdapter
-
-
-        viewmodel.card.observe(viewLifecycleOwner){
-            if(it.phoneNumbers.size>1) {
-                extraPhoneNumbersActionsAdapter.submitList(it.phoneNumbers.drop(1))
-                binding.phone.list.isVisible = true
-
-            }
-            else
-                binding.phone.list.isVisible = false
-
-
-            if(it.emailAddresses.size>1) {
-                extraEmailAddressActionsAdapter.submitList(it.emailAddresses.drop(1))
-                binding.email.list.isVisible = true
-
-            }
-            else
-               binding.email.list.isVisible = false
-
-            //todo socialAdapter.submitList(it.socialMediaProfiles)
-
-        }
-*/
-
 
         viewmodel.labelledStrings.observe(viewLifecycleOwner) {
             val card = Card()
@@ -170,8 +136,7 @@ class ReviewScannedDetailsFragment : Fragment(), UnlabelledDetailItemInteraction
                 R.id.add_detail -> {
                     viewmodel.addLabelledDetail()
                 }
-                else -> {
-                }
+                else -> return@setOnMenuItemClickListener true
             }
             return@setOnMenuItemClickListener true
 

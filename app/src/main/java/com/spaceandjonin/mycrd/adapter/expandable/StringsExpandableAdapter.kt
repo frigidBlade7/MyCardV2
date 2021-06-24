@@ -35,12 +35,14 @@ class StringsExpandableAdapter constructor(
         return childList[groupPosition][childPosition] //child item per list
     }
 
+    // the id of the group
     override fun getGroupId(groupPosition: Int): Long {
-        return groupList[groupPosition].hashCode().toLong() //return id of group
+        return groupList[groupPosition].hashCode().toLong()
     }
 
+    //the id of the item
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
-        return childList[groupPosition][childPosition].hashCode().toLong() //return id of item
+        return childList[groupPosition][childPosition].hashCode().toLong()
 
     }
 

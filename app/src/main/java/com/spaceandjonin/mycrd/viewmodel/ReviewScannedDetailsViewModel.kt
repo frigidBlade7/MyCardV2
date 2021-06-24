@@ -84,15 +84,11 @@ class ReviewScannedDetailsViewModel @Inject constructor(
 
     fun togglePhoneOptionsVisibility() {
         phoneOptionsToggle.value = !phoneOptionsToggle.value!!
-/*        if(emailOptionsToggle.value!!)
-            toggleEmailOptionsVisibility()*/
 
     }
 
     fun toggleEmailOptionsVisibility() {
         emailOptionsToggle.value = !emailOptionsToggle.value!!
-/*        if(phoneOptionsToggle.value!!)
-            togglePhoneOptionsVisibility()*/
     }
 
     fun retrieveScannedDetails(
@@ -372,7 +368,6 @@ class ReviewScannedDetailsViewModel @Inject constructor(
                         data.data?.let {
                             card.value?.id = it
                         }
-                        //updateBusinessLogo(data.data)
 
                     }
                     is Resource.Error -> {

@@ -15,7 +15,6 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.spaceandjonin.mycrd.databinding.ActivityMainBinding
 import com.spaceandjonin.mycrd.fragments.dashboard.CardsFragmentDirections
 import com.spaceandjonin.mycrd.utils.hideKeyboard
-import com.spaceandjonin.mycrd.utils.showKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -83,12 +82,6 @@ class MainActivity : AppCompatActivity() {
                             binding.root
                         )
                     }
-                    when (destination.id) {
-                        R.id.searchCardsFragment -> {
-                            showKeyboard()
-                        }
-                    }
-
                 }
             }
         }

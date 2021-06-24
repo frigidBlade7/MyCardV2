@@ -8,16 +8,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.color.MaterialColors
-import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialContainerTransform
 import com.spaceandjonin.mycrd.R
-import com.spaceandjonin.mycrd.adapter.AddedCardAdapter
 import com.spaceandjonin.mycrd.adapter.rv.*
 import com.spaceandjonin.mycrd.databinding.FragmentAddedCardDetailsBinding
 import com.spaceandjonin.mycrd.event.EventObserver
@@ -31,19 +26,12 @@ private const val TAG = "CardDetailsFragment"
 class ViewAddedCardDetailsFragment : Fragment() {
 
     lateinit var binding: FragmentAddedCardDetailsBinding
-    lateinit var cardAdapter: AddedCardAdapter
     lateinit var socialAdapter: SocialAdapter
     lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
     lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
 
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
-/*
-
-    val addPersonalCardViewModel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_card_nav){
-        defaultViewModelProviderFactory
-    }
-*/
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,14 +39,11 @@ class ViewAddedCardDetailsFragment : Fragment() {
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             scrimColor = Color.TRANSPARENT
-            setAllContainerColors(MaterialColors.getColor(requireView(), R.attr.colorSurface))
         }
-
 
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
-            binding.include.pager[0].findViewById<ShapeableImageView>(R.id.icon).visibility =
-                View.INVISIBLE
+            binding.include.pager.icon.visibility = View.INVISIBLE
         }
     }
 
@@ -70,20 +55,17 @@ class ViewAddedCardDetailsFragment : Fragment() {
 
         binding = FragmentAddedCardDetailsBinding.inflate(layoutInflater, container, false)
         binding.onboardingViewModel = onboardingViewModel
-        //binding.viewModel = addPersonalCardViewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        cardAdapter = AddedCardAdapter()
         extraEmailAddressAdapter = ExtraEmailAddressAdapter()
         extraPhoneNumbersAdapter = ExtraPhoneNumbersAdapter()
 
-        binding.include.pager.adapter = cardAdapter
         binding.include.email.list.adapter = extraEmailAddressAdapter
         binding.include.phone.list.adapter = extraPhoneNumbersAdapter
 
         onboardingViewModel.selectedCard.observe(viewLifecycleOwner) {
-            cardAdapter.submitList(listOf(it))
+            //addedcarditem
             if (it.phoneNumbers.size > 1)
                 extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
             if (it.emailAddresses.size > 1)
@@ -116,9 +98,6 @@ class ViewAddedCardDetailsFragment : Fragment() {
             findNavController().navigate(it)
         })
 
-        TabLayoutMediator(binding.include.tabLayout, binding.include.pager) { _, _ ->
-        }.attach()
-
 
         onboardingViewModel.selectedCard.value?.note?.let {
             if (it.isNotEmpty()) {
@@ -134,6 +113,7 @@ class ViewAddedCardDetailsFragment : Fragment() {
             //binding.categories.note.groupNote.isVisible = true
             findNavController().navigate(ViewAddedCardDetailsFragmentDirections.actionGlobalUpdateNoteFragment())
         }
+
 
         binding.include.makeCall.setOnClickListener {
             onboardingViewModel.selectedCard.value?.phoneNumbers?.let {
@@ -220,8 +200,6 @@ class ViewAddedCardDetailsFragment : Fragment() {
             when (it.itemId) {
                 R.id.options -> {
                     onboardingViewModel.selectedCard.value?.note?.let {
-                        //onboardingViewModel.tempCardByteArray = binding.include.pager[0].findViewById<ImageView>(R.id.icon).drawToBitmap().toByteArray()
-                        //onboardingViewModel.setUpImageBytearray()
                         onboardingViewModel.showCardOptions(it.isNotEmpty())
                     }
                 }
@@ -232,7 +210,6 @@ class ViewAddedCardDetailsFragment : Fragment() {
 
             return@setOnMenuItemClickListener true
         }
-        //binding.toolbar.menu.
         return binding.root
     }
 

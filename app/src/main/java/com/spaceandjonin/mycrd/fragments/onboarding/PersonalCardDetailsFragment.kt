@@ -43,10 +43,6 @@ class PersonalCardDetailsFragment : Fragment() {
         PersonalCardDetailsFragmentArgs.fromBundle(requireArguments()).card?.let {
             onboardingViewModel.selectedPersonalCard.value = it
         }
-
-/*        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            scrimColor = Color.TRANSPARENT
-        }*/
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

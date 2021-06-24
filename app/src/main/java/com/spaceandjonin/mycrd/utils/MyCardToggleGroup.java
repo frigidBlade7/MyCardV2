@@ -184,11 +184,6 @@ public class MyCardToggleGroup extends LinearLayout {
 
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
     @NonNull
     @Override
     public CharSequence getAccessibilityClassName() {
@@ -597,7 +592,6 @@ public class MyCardToggleGroup extends LinearLayout {
         buttonChild.setCheckable(true);
 
         buttonChild.addOnCheckedChangeListener(checkedStateTracker);
-        //buttonChild.setOnPressedChangeListenerInternal(pressedStateTracker);
 
         // Enables surface layer drawing for semi-opaque strokes
         //buttonChild.setShouldDrawSurfaceColorStroke(true);
@@ -659,11 +653,4 @@ public class MyCardToggleGroup extends LinearLayout {
         }
     }
 
-/*    private class PressedStateTracker implements MaterialButton.OnPressedChangeListener {
-
-        @Override
-        public void onPressedChanged(@NonNull MaterialButton button, boolean isPressed) {
-            invalidate();
-        }
-    }*/
 }
