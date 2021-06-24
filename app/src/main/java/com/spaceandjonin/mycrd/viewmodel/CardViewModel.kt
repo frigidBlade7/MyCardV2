@@ -16,6 +16,7 @@ import com.spaceandjonin.mycrd.models.datasource.AddedCardDataSource
 import com.spaceandjonin.mycrd.models.datasource.LiveCardDataSource
 import com.spaceandjonin.mycrd.repositories.AddedCardsRepository
 import com.spaceandjonin.mycrd.repositories.PersonalCardsRepository
+import com.spaceandjonin.mycrd.repositories.UserRepository
 import com.spaceandjonin.mycrd.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +32,7 @@ class CardViewModel @Inject constructor(
     private val addedCardDataSourceImpl: AddedCardDataSource,
     val auth: FirebaseAuth,
     val storageDir: File?,
+    val userRepository: UserRepository,
     private val personalCardDataSource: LiveCardDataSource,
     val addedCardDao: AddedCardDao,
     val liveCardDao: LiveCardDao
@@ -59,7 +61,7 @@ class CardViewModel @Inject constructor(
         }*/
 
     val personalCardsLiveData =
-        personalCardsRepository.getPersonalCards(auth.currentUser!!.uid).asLiveData()
+        personalCardsRepository.getPersonalCards(userRepository.getAuthId()).asLiveData()
 
     fun deleteCard() {
         selectedCard.value?.let {

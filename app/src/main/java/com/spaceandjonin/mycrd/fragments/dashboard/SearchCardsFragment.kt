@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,7 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
-import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.adapter.rv.CardPagingAdapter
 import com.spaceandjonin.mycrd.databinding.FragmentSearchCardsBinding
@@ -24,6 +25,7 @@ import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.listeners.ItemViewInteraction
 import com.spaceandjonin.mycrd.models.AddedCard
 import com.spaceandjonin.mycrd.utils.Utils
+import com.spaceandjonin.mycrd.utils.showKeyboard
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import com.spaceandjonin.mycrd.viewmodel.SearchCardViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,8 +48,15 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
     val pagedAdapter = CardPagingAdapter(this)
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        postponeEnterTransition()
+        view.doOnPreDraw {
+            startPostponedEnterTransition()
+            requireActivity().showKeyboard()
+        }
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             scrimColor = Color.TRANSPARENT
@@ -55,12 +64,6 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         }
 
         binding.search.requestFocus()
-/*        viewLifecycleOwner.lifecycleScope.launch {
-            searchCardViewModel.pagedAddedCardsFlow.collectLatest {
-                pagedAdapter.submitData(it)
-            }
-        }*/
-
 
     }
 
@@ -76,6 +79,7 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         binding.searchviewmodel = searchCardViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        enterTransition = MaterialFadeThrough()
         binding.cardList.adapter = pagedAdapter
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
@@ -94,9 +98,8 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
             findNavController().popBackStack()
         }
 
-        searchCardViewModel.pagedAddedCardsFlow.observe(viewLifecycleOwner) {
+        searchCardViewModel.pagedAddedCardsFlow.observe(viewLifecycleOwner) { it->
             Timber.d( "onCreateView: $it")
-
             pagedAdapter.submitData(viewLifecycleOwner.lifecycle, it)
 
         }
@@ -123,8 +126,9 @@ SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
     override fun onItemClicked(item: AddedCard?, view: View, position: Int) {
         item?.position = position
-        exitTransition = MaterialElevationScale(false)
-        reenterTransition = MaterialElevationScale(true)
+
+        //exitTransition = MaterialElevationScale(false)
+        //reenterTransition = MaterialElevationScale(true)
 
         viewmodel.selectedCard.value = item
 

@@ -1,6 +1,7 @@
 package com.spaceandjonin.mycrd.adapter.rv
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.spaceandjonin.mycrd.adapter.diffutils.AddedCardDiffUtil
@@ -24,6 +25,7 @@ class CardPagingAdapter(val itemInteraction: ItemViewInteraction<AddedCard?>) :
             AddedCardListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val baseViewHolder = BaseViewHolder(binding)
         binding.cardItem.setOnClickListener {
+            binding.icon.visibility = View.INVISIBLE //temp fix for black background
             itemInteraction.onItemClicked(
                 getItem(baseViewHolder.bindingAdapterPosition),
                 baseViewHolder.itemView,

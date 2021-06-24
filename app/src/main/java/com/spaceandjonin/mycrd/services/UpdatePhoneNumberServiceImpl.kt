@@ -65,7 +65,6 @@ class UpdatePhoneNumberServiceImpl @Inject constructor(private val auth: Firebas
     private fun setupPhoneAuthOptions() {
         phoneAuthOptions.setCallbacks(callbacks)
             .setPhoneNumber(phoneNumber)
-            //todo .setActivity(TaskExecutors.MAIN_THREAD as Activity)
             .setTimeout(timeoutInMillis, TimeUnit.MILLISECONDS)
 
         forceResendingToken?.let {
@@ -84,7 +83,7 @@ class UpdatePhoneNumberServiceImpl @Inject constructor(private val auth: Firebas
         try {
             val phoneAuthCredential =
                 PhoneAuthProvider.getCredential(verificationId, verificationCode)
-            val data = auth.currentUser?.updatePhoneNumber(phoneAuthCredential)?.await()
+            auth.currentUser?.updatePhoneNumber(phoneAuthCredential)?.await()
             authCallback.onAuthSuccess(auth.currentUser!!)
         } catch (e: Exception) {
             Timber.d( "attemptAuth: ${e.localizedMessage}")
@@ -96,7 +95,7 @@ class UpdatePhoneNumberServiceImpl @Inject constructor(private val auth: Firebas
         //attempt auth now provides implementation for update number
 
         try {
-            val data = auth.currentUser?.updatePhoneNumber(phoneAuthCredential)?.await()
+            auth.currentUser?.updatePhoneNumber(phoneAuthCredential)?.await()
             authCallback.onAuthSuccess(auth.currentUser!!)
         } catch (e: Exception) {
             Timber.d( "attemptAuth: ${e.localizedMessage}")

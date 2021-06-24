@@ -102,9 +102,8 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
         val subscriptionCallback = collectionReference.whereEqualTo("owner", owner)
             .orderBy("createdAt", Query.Direction.DESCENDING).addSnapshotListener { value, error ->
             value?.let {
-                //todo is this necessary if(!it.isEmpty)
                 try {
-                    //todo save to room
+                    // save to room if this implementation ever moves from firebase
 
                     trySend(Resource.Success(value.toObjects(LiveCard::class.java)))
                 } catch (e: Exception) {
@@ -117,9 +116,34 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
 
         awaitClose { subscriptionCallback.remove() }
     }
+
+    fun getFirst(owner: String): Flow<Resource<LiveCard>> = callbackFlow {
+
+        trySend(Resource.Loading)
+        val subscriptionCallback = collectionReference.whereEqualTo("owner", owner)
+            .orderBy("createdAt", Query.Direction.DESCENDING).limit(1).addSnapshotListener { value, error ->
+                value?.let {
+                    try {
+                        // save to room if implementation should change
+                        val dataList = value.toObjects(LiveCard::class.java)
+                        if(dataList.isNullOrEmpty())
+                            trySend(Resource.Error(R.string.card_not_found))
+                        else
+                            trySend(Resource.Success(dataList[0]))
+                    } catch (e: Exception) {
+                        Timber.d( "getData: ${e.localizedMessage}")
+                        trySend(Resource.Error(R.string.cards_not_found))
+
+                    }
+                }
+            }
+
+        awaitClose { subscriptionCallback.remove() }
+    }
     companion object {
         private const val TAG = "CardDataSource"
     }
+
 
 
 }

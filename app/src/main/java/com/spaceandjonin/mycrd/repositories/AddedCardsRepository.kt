@@ -12,8 +12,7 @@ import javax.inject.Inject
 
 class AddedCardsRepository @Inject constructor(
     val firebaseAddedCardDataSource: AddedCardDataSource,
-    val addedCardDao: AddedCardDao/*, val firestoreCardPagingSource: FirestoreCardPagingSource*/
-) {
+    val addedCardDao: AddedCardDao) {
 
 
     fun getSortedCards(sort: String): Flow<Resource<List<AddedCard>>> {

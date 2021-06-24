@@ -20,10 +20,6 @@ class ToggleImageButton : AppCompatImageButton, Checkable {
         return savedState
     }
 
-    fun addOnCheckChangedListener() {
-
-    }
-
     override fun onRestoreInstanceState(state: Parcelable) {
         if (state !is SavedState) {
             super.onRestoreInstanceState(state)

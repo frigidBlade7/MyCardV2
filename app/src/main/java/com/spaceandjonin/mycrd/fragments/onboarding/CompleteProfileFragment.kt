@@ -45,15 +45,18 @@ class CompleteProfileFragment : Fragment() {
             callGallery()
         }
 
-/*        binding.toolbar.setNavigationOnClickListener{
-            findNavController().popBackStack()
-        }*/
-
         viewmodel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewmodel.populateDisplayName()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -107,5 +110,6 @@ class CompleteProfileFragment : Fragment() {
         }
 
     }
+
 
 }

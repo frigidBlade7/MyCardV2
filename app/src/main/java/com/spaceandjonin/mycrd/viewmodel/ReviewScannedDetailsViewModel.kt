@@ -21,6 +21,7 @@ import com.spaceandjonin.mycrd.services.SessionManagerService
 import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.utils.notifyObserver
 import com.spaceandjonin.mycrd.utils.segregateFullName
+import com.squareup.moshi.Moshi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -34,6 +35,7 @@ class ReviewScannedDetailsViewModel @Inject constructor(
     val personalCardsRepository: PersonalCardsRepository,
     val userRepository: UserRepository,
     val dataStore: DataStore<Preferences>,
+    val moshi: Moshi,
     val sessionManagerService: SessionManagerService
 ) : BaseViewModel() {
 
@@ -82,15 +84,11 @@ class ReviewScannedDetailsViewModel @Inject constructor(
 
     fun togglePhoneOptionsVisibility() {
         phoneOptionsToggle.value = !phoneOptionsToggle.value!!
-/*        if(emailOptionsToggle.value!!)
-            toggleEmailOptionsVisibility()*/
 
     }
 
     fun toggleEmailOptionsVisibility() {
         emailOptionsToggle.value = !emailOptionsToggle.value!!
-/*        if(phoneOptionsToggle.value!!)
-            togglePhoneOptionsVisibility()*/
     }
 
     fun retrieveScannedDetails(
@@ -177,17 +175,6 @@ class ReviewScannedDetailsViewModel @Inject constructor(
 
         labelledStrings.notifyObserver()
 
-
-/*        labelledStrings.value?.let {
-            if(it.filter { labelDetail-> labelDetail.detail == selectedDetail.value }.isNotEmpty()){
-                labelledStrings.value?.add(LabelDetail(label,selectedDetail.value!!,selectedLabelType.value!!))
-                if(existingLabelDetail==null)
-                    removeDetail(selectedDetail.value!!)
-                else
-                    removeLabelledDetail(existingLabelDetail)
-            }else
-                labelledStrings.value?.add(LabelDetail(label,selectedDetail.value!!,selectedLabelType.value!!))
-        }*/
     }
 
     fun updateLists() {
@@ -299,19 +286,6 @@ class ReviewScannedDetailsViewModel @Inject constructor(
         }
     }
 
-/*    fun storePersonalCard(){
-        //todo some datastore stuff
-        viewModelScope.launch(Dispatchers.IO) {
-            liveCardDataStore.edit { mutablePrefs->
-                card.value?.let {
-                    mutablePrefs[Utils.NEW_USER_LIVE_CARD]= CardJsonAdapter(moshi).toJson(it)
-                    _destination.postValue(Event(ScanNavDirections.actionGlobalSetUpAccountFragment()))
-                }
-
-            }
-        }
-    }*/
-
     fun addPersonalCard(personalCard: LiveCard) {
         viewModelScope.launch {
             card.value?.let {
@@ -330,7 +304,14 @@ class ReviewScannedDetailsViewModel @Inject constructor(
                                 when (it) {
                                     is Resource.Success -> {
                                         if (it.data.name.isNullOrEmpty()) {
-                                            _destination.postValue(Event(ScanNavDirections.actionGlobalSetupProfileFragment()))
+                                            dataStore.edit { mutablePrefs->
+                                                card.value?.let { card->
+                                                    mutablePrefs[Utils.NEW_USER_DISPLAY_NAME]= card.name.fullName
+                                                    //we could pass it as a param to the destination, but what if the flow is interrupted
+                                                    //the card is already created, we can just save the user name to shared prefs
+                                                    _destination.postValue(Event(ScanNavDirections.actionGlobalSetUpAccountFragment()))
+                                                }
+                                            }
                                         } else {
                                             _destination.postValue(Event(ScanNavDirections.actionGlobalMeFragment()))
                                         }
@@ -375,7 +356,6 @@ class ReviewScannedDetailsViewModel @Inject constructor(
 
                         _snackbarInt.postValue(Event(R.string.success))
 
-                        //hereoo
                         _destination.postValue(
                             Event(
                                 ScanNavDirections.actionGlobalScanNavToCardDetailsFragment(
@@ -388,7 +368,6 @@ class ReviewScannedDetailsViewModel @Inject constructor(
                         data.data?.let {
                             card.value?.id = it
                         }
-                        //updateBusinessLogo(data.data)
 
                     }
                     is Resource.Error -> {

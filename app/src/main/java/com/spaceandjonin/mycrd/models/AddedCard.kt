@@ -6,8 +6,6 @@ import androidx.room.Entity
 import androidx.room.Fts4
 import kotlinx.parcelize.Parcelize
 
-//todo add ellipses
-
 @Fts4
 @Entity
 @Parcelize

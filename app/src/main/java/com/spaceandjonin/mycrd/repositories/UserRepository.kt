@@ -38,7 +38,27 @@ class UserRepository @Inject constructor(
             null
     }
 
+    val userDisplayNameFlow: Flow<String?> = dataStore.data.catch { exception ->
+        when (exception) {
+            is IOException -> emit(emptyPreferences())
+            else -> Timber.d( exception.localizedMessage!!)
+        }
+    }.map {
+        val data = it[Utils.NEW_USER_DISPLAY_NAME] ?: ""
+        if (data.isNotEmpty())
+            data
+        else
+            ""
+    }
+
     fun getLoggedInUser(): LiveData<Resource<User>> {
         return userDataSourceImpl.getData(null).asLiveData()
+    }
+
+    fun getAuthId():String{
+        userDataSourceImpl.auth.currentUser?.uid?.let {
+            return it
+        }
+        return ""
     }
 }

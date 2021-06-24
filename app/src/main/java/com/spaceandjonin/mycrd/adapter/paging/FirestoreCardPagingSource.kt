@@ -25,14 +25,6 @@ class FirestoreCardPagingSource @Inject constructor(db: FirebaseFirestore) :
         TODO("Not yet implemented")
     }
 
-    fun filterBy(sort: String): PagingSource<QuerySnapshot, LiveCard> {
-        when (sort) {
-            Utils.SORT_MODE_NAME -> collectionReference.orderBy("name.fullname")
-            Utils.SORT_MODE_RECENT -> collectionReference.orderBy("timestamp")
-        }
-        return this
-    }
-
     override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, LiveCard> {
 
         return try {

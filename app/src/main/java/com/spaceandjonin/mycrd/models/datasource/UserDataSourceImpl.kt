@@ -24,7 +24,7 @@ abstract class UserDataSourceImpl : DataSource<User> {
                 //photoUri = Uri.parse(data.profileUrl)
             }
 
-            val updateData = auth.currentUser?.updateProfile(profile)?.await()
+            auth.currentUser?.updateProfile(profile)?.await()
             Resource.Success(data.uid)
         } catch (e: Exception) {
             Timber.d( "updateUserRecord: ${e.localizedMessage}")
@@ -38,7 +38,7 @@ abstract class UserDataSourceImpl : DataSource<User> {
                 photoUri = data
             }
 
-            val updateData = auth.currentUser?.updateProfile(profile)?.await()
+            auth.currentUser?.updateProfile(profile)?.await()
             Resource.Success(data.toString())
         } catch (e: Exception) {
             Timber.d( "updateUserRecord: ${e.localizedMessage}")
@@ -74,7 +74,7 @@ abstract class UserDataSourceImpl : DataSource<User> {
 
             }
 
-            val updateData = auth.currentUser?.updateProfile(profile)?.await()
+            auth.currentUser?.updateProfile(profile)?.await()
             Resource.Success("data.name!!")
         } catch (e: Exception) {
             Timber.d( "updateUserRecord: ${e.localizedMessage}")

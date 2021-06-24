@@ -379,6 +379,8 @@ fun LiveCard.exportVCard(byteArray: ByteArray?): VCard {
 }
 
 fun AddedCard.exportContactIntent(byteArray: ByteArray?): Intent {
+    //todo consider modularize in viewmodel
+
     val card = this
     return Intent(Intent.ACTION_INSERT_OR_EDIT).apply {
         type = ContactsContract.Contacts.CONTENT_ITEM_TYPE

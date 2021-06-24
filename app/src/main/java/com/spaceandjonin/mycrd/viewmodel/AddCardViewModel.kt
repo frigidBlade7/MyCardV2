@@ -286,8 +286,6 @@ class AddCardViewModel @Inject constructor(
     }
 
     private fun updateProfileImage(cardId: String) {
-
-        //todo consider checking if null
         profileImageUri.value?.let { uri ->
 
 

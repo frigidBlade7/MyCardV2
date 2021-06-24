@@ -62,7 +62,6 @@ class CardOptionsFragment : BottomSheetDialogFragment() {
 
         binding.export.setOnClickListener {
             dismiss()
-            //todo gotta fix this man. modularize in viewmodel
             val card = viewmodel.selectedCard.value
             startActivity(card?.exportContactIntent(viewmodel.tempCardByteArray))
 

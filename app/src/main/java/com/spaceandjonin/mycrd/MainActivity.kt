@@ -3,6 +3,7 @@ package com.spaceandjonin.mycrd
 //import com.scanlibrary.IScanner
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +15,6 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.spaceandjonin.mycrd.databinding.ActivityMainBinding
 import com.spaceandjonin.mycrd.fragments.dashboard.CardsFragmentDirections
 import com.spaceandjonin.mycrd.utils.hideKeyboard
-import com.spaceandjonin.mycrd.utils.showKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -82,12 +82,6 @@ class MainActivity : AppCompatActivity() {
                             binding.root
                         )
                     }
-                    when (destination.id) {
-                        R.id.searchCardsFragment -> {
-                            showKeyboard(/*binding.root*/)
-                        }
-                    }
-
                 }
             }
         }
@@ -101,7 +95,15 @@ class MainActivity : AppCompatActivity() {
                 finish()
                 return
             }
+
+            R.id.setupProfileFragment ->{
+                Toast.makeText(baseContext, R.string.enter_your_name_to_complete_your_profile, Toast.LENGTH_SHORT).show()
+                finish()
+                return
+            }
+
         }
+
         super.onBackPressed()
     }
 }

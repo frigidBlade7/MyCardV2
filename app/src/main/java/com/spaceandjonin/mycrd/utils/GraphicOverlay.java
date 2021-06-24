@@ -15,12 +15,14 @@ package com.spaceandjonin.mycrd.utils;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.hardware.camera2.CameraCharacteristics;
 import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static android.hardware.camera2.CameraMetadata.LENS_FACING_BACK;
+import static android.hardware.camera2.CameraMetadata.LENS_FACING_FRONT;
 
 /**
  * A view which renders a series of custom graphics to be overlayed on top of an associated preview
@@ -47,7 +49,7 @@ public class GraphicOverlay extends View {
     private float widthScaleFactor = 1.0f;
     private int previewHeight;
     private float heightScaleFactor = 1.0f;
-    private int facing = CameraCharacteristics.LENS_FACING_BACK;
+    private int facing = LENS_FACING_BACK;
     private Set<Graphic> graphics = new HashSet<>();
 
     /**
@@ -58,7 +60,7 @@ public class GraphicOverlay extends View {
     public abstract static class Graphic {
         private GraphicOverlay overlay;
 
-        public Graphic(GraphicOverlay overlay) {
+        protected Graphic(GraphicOverlay overlay) {
             this.overlay = overlay;
         }
 
@@ -102,7 +104,7 @@ public class GraphicOverlay extends View {
          * Adjusts the x coordinate from the preview's coordinate system to the view coordinate system.
          */
         public float translateX(float x) {
-            if (overlay.facing == CameraCharacteristics.LENS_FACING_FRONT) {
+            if (overlay.facing == LENS_FACING_FRONT) {
                 return overlay.getWidth() - scaleX(x);
             } else {
                 return scaleX(x);

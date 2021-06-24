@@ -45,7 +45,7 @@ class SettingsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     var profileImageUri = MutableLiveData<Uri>(Uri.EMPTY)
-    var user = MutableLiveData(User(auth.uid!!))
+    var user = MutableLiveData(User(userRepository.getAuthId()))
     var isVerifyButtonEnabled = MutableLiveData(true)
     var isResendButtonEnabled = MutableLiveData(true)
     var smsCode = MutableLiveData<String>()

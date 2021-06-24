@@ -38,17 +38,6 @@ class SetUpAccountFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-/*        binding.useCard.addOnCheckedChangeListener { button, isChecked ->
-            //Toast.makeText(context,isChecked.toString(),Toast.LENGTH_SHORT).show()
-
-            if(isChecked){
-
-            }
-            else{
-
-            }
-        }*/
-
         binding.skip.setOnClickListener {
             viewmodel.goToSignUp(binding.useCard.isChecked)
         }

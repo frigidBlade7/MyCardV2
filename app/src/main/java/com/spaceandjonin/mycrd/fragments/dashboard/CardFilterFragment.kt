@@ -46,8 +46,6 @@ class CardFilterFragment : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        //todo recycler selection binding.list.adapter = ArrayAdapter<String>(requireContext(),R.layout.filter_item,resources.getStringArray(R.array.filters))
-
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
         })

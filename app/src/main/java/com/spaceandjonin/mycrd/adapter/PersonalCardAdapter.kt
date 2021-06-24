@@ -28,11 +28,4 @@ class PersonalCardAdapter : ListAdapter<LiveCard, BaseViewHolder>(PersonalCardDi
     override fun getItemViewType(position: Int): Int {
         return position
     }
-
-/*
-    override fun getItemId(position: Int): Long {
-        return currentList[position].hashCode().toLong()
-    }
-*/
-
 }

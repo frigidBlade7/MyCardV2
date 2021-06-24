@@ -231,7 +231,6 @@ class MeFragment : Fragment(), SocialItemInteraction {
             } catch (e: Exception) {
                 onboardingViewModel._errorString.value = Event(getString(R.string.share_card_error))
                 null
-                //todo inform user that vcard cannot be created
             }
             file?.also {
                 val vcfURI: Uri = FileProvider.getUriForFile(

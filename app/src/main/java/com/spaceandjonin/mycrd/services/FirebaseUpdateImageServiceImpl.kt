@@ -44,7 +44,6 @@ class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseSt
         } catch (e: Exception) {
             Timber.d( "uploadImage: ${e.localizedMessage}")
             Timber.d( "uploadImage: ${e.getCode()}")
-            //todo save session url
             Resource.Error(R.string.failed)
         }
     }
