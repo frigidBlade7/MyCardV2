@@ -9,18 +9,20 @@ import com.spaceandjonin.mycrd.listeners.ItemInteraction
 import com.spaceandjonin.mycrd.models.SocialMediaProfile
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
-class SocialDisplayAdapter (val itemInteraction: ItemInteraction<SocialMediaProfile.SocialMedia>): ListAdapter<SocialMediaProfile.SocialMedia, BaseViewHolder>(
-    SocialDisplayDiffCallback()
-) {
+class SocialDisplayAdapter(val itemInteraction: ItemInteraction<SocialMediaProfile.SocialMedia>) :
+    ListAdapter<SocialMediaProfile.SocialMedia, BaseViewHolder>(
+        SocialDisplayDiffCallback()
+    ) {
 
     lateinit var binding: SocialDisplayItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
-        binding = SocialDisplayItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding =
+            SocialDisplayItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         val baseViewHolder = BaseViewHolder(binding)
 
-        binding.title.setOnClickListener{
+        binding.title.setOnClickListener {
             itemInteraction.onItemClicked(getItem(baseViewHolder.bindingAdapterPosition))
         }
 
@@ -30,8 +32,6 @@ class SocialDisplayAdapter (val itemInteraction: ItemInteraction<SocialMediaProf
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bindTo(getItem(position))
     }
-
-
 
 
 }

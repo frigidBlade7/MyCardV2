@@ -4,8 +4,10 @@
 
     <data>
 
-        <import type="com.spaceandjonin.mycrd.utils.Utils"/>
-        <import type="android.view.View"/>
+        <import type="com.spaceandjonin.mycrd.utils.Utils" />
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel" />
@@ -101,7 +103,8 @@
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:visibility="@{viewModel.selectedLabel==Utils.UNLABELLED?View.GONE:View.VISIBLE}"
-            android:text="@{viewModel.selectedLabel==Utils.UNLABELLED?@string/unlabelled:viewModel.selectedLabel}"            android:textAppearance="@style/TextAppearance.MyCardStyles.Label"
+            android:text="@{viewModel.selectedLabel==Utils.UNLABELLED?@string/unlabelled:viewModel.selectedLabel}"
+            android:textAppearance="@style/TextAppearance.MyCardStyles.Label"
             android:textColor="@android:color/black"
             app:backgroundTint="@color/mc_gray_light"
             app:drawableEndCompat="@drawable/next"

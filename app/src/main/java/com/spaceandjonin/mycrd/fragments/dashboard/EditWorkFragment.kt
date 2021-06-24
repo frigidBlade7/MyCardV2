@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.os.Bundle
@@ -19,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class EditWorkFragment : Fragment() {
 
     lateinit var binding: FragmentAddWorkBinding
-    val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav){
+    val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -27,9 +26,9 @@ class EditWorkFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentAddWorkBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAddWorkBinding.inflate(layoutInflater, container, false)
 
         binding.info.visibility = View.GONE
         binding.companyLogo.visibility = View.GONE

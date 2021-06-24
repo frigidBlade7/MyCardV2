@@ -9,7 +9,11 @@ import com.spaceandjonin.mycrd.databinding.LabelHeaderItemBinding
 import com.spaceandjonin.mycrd.listeners.StringInteraction
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
-class StringsExpandableAdapter constructor(val groupList: List<String>, val childList: List<List<String>>, val itemInteraction: StringInteraction) : BaseExpandableListAdapter(){
+class StringsExpandableAdapter constructor(
+    val groupList: List<String>,
+    val childList: List<List<String>>,
+    val itemInteraction: StringInteraction
+) : BaseExpandableListAdapter() {
 
     //expandable adapter that contains a header item and a list of child items
     lateinit var groupItem: BaseViewHolder //header item
@@ -45,10 +49,16 @@ class StringsExpandableAdapter constructor(val groupList: List<String>, val chil
     }
 
 
-    override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup?): View {
+    override fun getGroupView(
+        groupPosition: Int,
+        isExpanded: Boolean,
+        convertView: View?,
+        parent: ViewGroup?
+    ): View {
 
         //using viewbinding to display group items
-        val binding = LabelHeaderItemBinding.inflate(LayoutInflater.from(parent?.context),parent,false)
+        val binding =
+            LabelHeaderItemBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
         groupItem = BaseViewHolder(binding)
         groupItem.bindTo(getGroup(groupPosition))
 
@@ -57,17 +67,24 @@ class StringsExpandableAdapter constructor(val groupList: List<String>, val chil
         return binding.root
     }
 
-    override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
+    override fun getChildView(
+        groupPosition: Int,
+        childPosition: Int,
+        isLastChild: Boolean,
+        convertView: View?,
+        parent: ViewGroup?
+    ): View {
         //using viewbinding to display child items
 
-        val binding = LabelChildItemBinding.inflate(LayoutInflater.from(parent?.context),parent, false)
+        val binding =
+            LabelChildItemBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
         childItem = BaseViewHolder(binding)
 
         //filter makes sure you have only one contributor per cashout destination number
-        childItem.bindTo(getChild(groupPosition,childPosition))
+        childItem.bindTo(getChild(groupPosition, childPosition))
 
         binding.container.setOnClickListener {
-            itemInteraction.onItemClicked(getChild(groupPosition,childPosition) as String)
+            itemInteraction.onItemClicked(getChild(groupPosition, childPosition) as String)
         }
 
         return binding.root

@@ -1,18 +1,15 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.canhub.cropper.CropImage
@@ -36,13 +33,12 @@ import com.spaceandjonin.mycrd.utils.notifyObserver
 import com.spaceandjonin.mycrd.utils.segregateFullName
 import com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
 private const val TAG = "AddPersonalCardFragment"
 
 @AndroidEntryPoint
-class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
+class AddPersonalCardFragment : Fragment(), ItemInteraction<PhoneNumber>,
     EmailItemInteraction, SocialItemInteraction {
 
     lateinit var binding: FragmentAddPersonalCardBinding
@@ -53,31 +49,31 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
     lateinit var phoneTypes: DropDownAdapter
     lateinit var emailTypes: DropDownAdapter
 
-    val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav){
+    val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav) {
         defaultViewModelProviderFactory
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var isedit = AddPersonalCardFragmentArgs.fromBundle(requireArguments()).isEdit
+        val isedit = AddPersonalCardFragmentArgs.fromBundle(requireArguments()).isEdit
         viewmodel.isEditFlow.value = isedit
-        if(isedit) {
-            AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.let{
+        if (isedit) {
+            AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.let {
                 viewmodel.card.value?.id = it.id
                 viewmodel.name.value = it.name.copy()
                 viewmodel.businessInfo.value = it.businessInfo.copy()
                 viewmodel.phoneNumbers.value = it.phoneNumbers.toMutableList()
                 viewmodel.emailAddresses.value = it.emailAddresses.toMutableList()
                 viewmodel.card.value?.createdAt = it.createdAt
-                viewmodel.card.value?.profilePicUrl =  it.profilePicUrl
+                viewmodel.card.value?.profilePicUrl = it.profilePicUrl
 
                 //viewmodel.updateProfile(it.profilePicUrl?.toUri())
 
             }
 
             AddPersonalCardFragmentArgs.fromBundle(requireArguments()).existingCard?.socialMediaProfiles?.let {
-                for(item in it){
+                for (item in it) {
                     viewmodel.socials.value?.set(it.indexOf(item), item)
                 }
             }
@@ -89,12 +85,13 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentAddPersonalCardBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAddPersonalCardBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -133,31 +130,36 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
             findNavController().navigate(it)
         })
 
-        viewmodel.isNameExpanded.observe(viewLifecycleOwner, Observer {
+        viewmodel.isNameExpanded.observe(viewLifecycleOwner) {
             it?.let {
                 binding.fullNameChevron.isSelected = it
             }
-        })
-
-        phoneTypes = DropDownAdapter(requireContext(),R.layout.spinner_item, resources.getStringArray(R.array.phone_types))
-        emailTypes = DropDownAdapter(requireContext(),R.layout.spinner_item, resources.getStringArray(R.array.email_types))
-
-        phoneNumberAdapter = PhoneNumberAdapter(this, phoneTypes)
-        emailAdapter = EmailAdapter(this,emailTypes)
-        socialAdapter = SocialAdapter(this)
-
-        //phoneNumberAdapter.submitList(listOf(PhoneNumber()))
-        //emailAdapter.submitList(listOf(EmailAddress()))
-
-        viewmodel.socials.observe(viewLifecycleOwner){ it ->
-            socialAdapter.submitList(it.filter { it.usernameOrUrl.isNotEmpty()})
         }
 
-        viewmodel.phoneNumbers.observe(viewLifecycleOwner){ it ->
+        phoneTypes = DropDownAdapter(
+            requireContext(),
+            R.layout.spinner_item,
+            resources.getStringArray(R.array.phone_types)
+        )
+        emailTypes = DropDownAdapter(
+            requireContext(),
+            R.layout.spinner_item,
+            resources.getStringArray(R.array.email_types)
+        )
+
+        phoneNumberAdapter = PhoneNumberAdapter(this, phoneTypes)
+        emailAdapter = EmailAdapter(this, emailTypes)
+        socialAdapter = SocialAdapter(this)
+
+        viewmodel.socials.observe(viewLifecycleOwner) { it ->
+            socialAdapter.submitList(it.filter { it.usernameOrUrl.isNotEmpty() })
+        }
+
+        viewmodel.phoneNumbers.observe(viewLifecycleOwner) { it ->
             phoneNumberAdapter.submitList(it.toMutableList())
         }
 
-        viewmodel.emailAddresses.observe(viewLifecycleOwner){ it ->
+        viewmodel.emailAddresses.observe(viewLifecycleOwner) { it ->
             emailAdapter.submitList(it.toMutableList())
         }
 
@@ -170,7 +172,7 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         binding.fullNameChevron.setOnClickListener {
             viewmodel.isNameExpanded.value = !it.isSelected
 
-            if(it.isSelected)
+            if (it.isSelected)
                 viewmodel.name.value?.segregateFullName()
             else
                 viewmodel.name.value?.aggregateNameToFullName()
@@ -180,7 +182,7 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
 
 
         binding.addPhone.setOnClickListener {
-            if(phoneNumberAdapter.currentList.none { it.number.trim().isEmpty()}) {
+            if (phoneNumberAdapter.currentList.none { it.number.trim().isEmpty() }) {
                 viewmodel.phoneNumbers.value?.add(PhoneNumber())
                 viewmodel.phoneNumbers.notifyObserver()
             }
@@ -188,7 +190,7 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
         }
 
         binding.addEmail.setOnClickListener {
-            if(emailAdapter.currentList.none { it.address.trim().isEmpty() }) {
+            if (emailAdapter.currentList.none { it.address.trim().isEmpty() }) {
                 viewmodel.emailAddresses.value?.add(EmailAddress())
                 viewmodel.emailAddresses.notifyObserver()
 
@@ -218,11 +220,10 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
 
         // handle result of pick image chooser
         if (requestCode == Utils.REQUEST_IMAGE_GET && resultCode == Activity.RESULT_OK) {
-            //val imageUri: Bitmap? = data?.getParcelableExtra("data")
 
             val fullPhotoUri: Uri? = data?.data
             CropImage.activity(fullPhotoUri)
-                .setAspectRatio(1,1)
+                .setAspectRatio(1, 1)
                 .start(requireContext(), this)
 
         }
@@ -237,6 +238,7 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
             }
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -244,37 +246,6 @@ class AddPersonalCardFragment : Fragment(),ItemInteraction<PhoneNumber>,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-
-    }
-    @AfterPermissionGranted(Utils.REQUEST_PHOTO)
-    private fun callGallery() {
-        if (EasyPermissions.hasPermissions(requireContext(), Utils.STORAGE_PERMISSION)) {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "image/*"
-            }
-            if (activity?.packageManager?.let { intent.resolveActivity(it) } != null) {
-                startActivityForResult(intent, Utils.REQUEST_IMAGE_GET)
-            }
-        } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.require_gallery),
-                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION)
-        }
-
-    }
-
-    @AfterPermissionGranted(Utils.REQUEST_CAMERA)
-    private fun takePhoto() {
-        if (EasyPermissions.hasPermissions(requireContext(), Utils.CAMERA_PERMISSION)) {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (activity?.packageManager?.let { intent.resolveActivity(it) } != null) {
-                startActivityForResult(intent, Utils.REQUEST_IMAGE_GET)
-            }
-        } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.require_gallery),
-                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION)
-        }
 
     }
 

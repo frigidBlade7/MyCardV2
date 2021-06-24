@@ -4,7 +4,8 @@
 
     <data>
 
-        <import type="com.spaceandjonin.mycrd.converters.EmailTypeBindingConverter"/>
+        <import type="com.spaceandjonin.mycrd.converters.EmailTypeBindingConverter" />
+
         <variable
             name="item"
             type="com.spaceandjonin.mycrd.models.EmailAddress" />
@@ -56,6 +57,7 @@
                 android:editable="false"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:hint="@{EmailTypeBindingConverter.INSTANCE.emailTypeToString(item.type)}"
                 android:text="@={EmailTypeBindingConverter.INSTANCE.emailTypeToString(item.type)}"
                 style="@style/TextAppearance.MyCardStyles.Body.Regular"
                 android:layout_width="108dp"
@@ -70,6 +72,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/number_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            android:contentDescription="@string/remove"
             app:layout_constraintStart_toEndOf="@+id/type_layout"
             app:layout_constraintTop_toTopOf="@+id/number_layout"
             app:srcCompat="@drawable/remove" />

@@ -9,7 +9,7 @@ import com.squareup.moshi.Types
 import javax.inject.Inject
 
 @ProvidedTypeConverter
-class EmailAddressConverter @Inject constructor(var moshi: Moshi){
+class EmailAddressConverter @Inject constructor(var moshi: Moshi) {
 
     val dataListType =
         Types.newParameterizedType(MutableList::class.java, EmailAddress::class.java)

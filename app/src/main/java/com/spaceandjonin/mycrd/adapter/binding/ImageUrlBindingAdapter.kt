@@ -10,34 +10,33 @@ import com.spaceandjonin.mycrd.R
 
 
 @BindingAdapter("imageUrl")
-    fun setImageUrl(imageView: ImageView, imageUrl: String?){
-        if(!imageUrl.isNullOrEmpty())
-            Glide.with(imageView.context).asBitmap().load(imageUrl)
-                /*.placeholder(R.drawable.user_default)*/.error(R.drawable
-                    .user_default).diskCacheStrategy(DiskCacheStrategy.DATA)/*.transform(CenterCrop(),CircleCrop())*/.thumbnail(0.1f).into(imageView)
-        else
-            Glide.with(imageView.context).clear(imageView)
-    }
-
-@BindingAdapter("imageDisplayUrl")
-fun setImageDisplayUrl(imageView: ImageView, imageUrl: String?){
-    if(!imageUrl.isNullOrEmpty())
+fun setImageUrl(imageView: ImageView, imageUrl: String?) {
+    if (!imageUrl.isNullOrEmpty())
         Glide.with(imageView.context).asBitmap().load(imageUrl)
-            /*.placeholder(R.drawable.user_default)*/.error(R.drawable
-                .user_default).diskCacheStrategy(DiskCacheStrategy.DATA).transform(CenterCrop(),CircleCrop()).thumbnail(0.1f).into(imageView)
+            /*.placeholder(R.drawable.user_default)*/.error(
+                R.drawable
+                    .user_default
+            ).diskCacheStrategy(DiskCacheStrategy.DATA)/*.transform(CenterCrop(),CircleCrop())*/
+            .thumbnail(0.1f).into(imageView)
     else
-        Glide.with(imageView.context).asBitmap().load(R.drawable.user_default)
-            /*.placeholder(R.drawable.user_default)*/.error(R.drawable
-                .user_default).diskCacheStrategy(DiskCacheStrategy.DATA).transform(CenterCrop(),CircleCrop()).thumbnail(0.1f).into(imageView)
+        Glide.with(imageView.context).clear(imageView)
 }
 
-/*    @BindingAdapter("imageUrlResource")
-    fun setImageUrlResource(imageView: ImageView, imageUrlResource: Resource<User?>){
-        when(imageUrlResource){
-            is Resource.Success->{
-                if(imageUrlResource.data?.profileUrl!!.isEmpty())
-                    Glide.with(imageView.context).asBitmap().load(imageUrlResource.data.profileUrl).transform(CenterCrop(),CircleCrop()).thumbnail(0.1f).into(imageView)
+@BindingAdapter("imageDisplayUrl")
+fun setImageDisplayUrl(imageView: ImageView, imageUrl: String?) {
+    if (!imageUrl.isNullOrEmpty())
+        Glide.with(imageView.context).asBitmap().load(imageUrl)
+            /*.placeholder(R.drawable.user_default)*/.error(
+                R.drawable
+                    .user_default
+            ).diskCacheStrategy(DiskCacheStrategy.DATA).transform(CenterCrop(), CircleCrop())
+            .thumbnail(0.1f).into(imageView)
+    else
+        Glide.with(imageView.context).asBitmap().load(R.drawable.user_default)
+            /*.placeholder(R.drawable.user_default)*/.error(
+                R.drawable
+                    .user_default
+            ).diskCacheStrategy(DiskCacheStrategy.DATA).transform(CenterCrop(), CircleCrop())
+            .thumbnail(0.1f).into(imageView)
+}
 
-            }
-        }
-    }*/

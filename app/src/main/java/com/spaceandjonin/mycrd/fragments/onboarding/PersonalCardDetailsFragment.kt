@@ -21,7 +21,7 @@ private const val TAG = "CardDetailsFragment"
 @AndroidEntryPoint
 class PersonalCardDetailsFragment : Fragment() {
 
-    lateinit var binding : FragmentCardDetailsBinding
+    lateinit var binding: FragmentCardDetailsBinding
     lateinit var cardAdapter: CardAdapter
     lateinit var socialAdapter: SocialAdapter
     lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
@@ -37,12 +37,11 @@ class PersonalCardDetailsFragment : Fragment() {
 */
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         PersonalCardDetailsFragmentArgs.fromBundle(requireArguments()).card?.let {
-            onboardingViewModel.selectedPersonalCard.value  = it
+            onboardingViewModel.selectedPersonalCard.value = it
         }
 
 /*        sharedElementEnterTransition = MaterialContainerTransform().apply {
@@ -54,14 +53,15 @@ class PersonalCardDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentCardDetailsBinding.inflate(layoutInflater, container, false)
@@ -70,7 +70,7 @@ class PersonalCardDetailsFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        cardAdapter= CardAdapter()
+        cardAdapter = CardAdapter()
         extraEmailAddressAdapter = ExtraEmailAddressAdapter()
         extraPhoneNumbersAdapter = ExtraPhoneNumbersAdapter()
 
@@ -78,11 +78,11 @@ class PersonalCardDetailsFragment : Fragment() {
         binding.include.email.list.adapter = extraEmailAddressAdapter
         binding.include.phone.list.adapter = extraPhoneNumbersAdapter
 
-        onboardingViewModel.selectedPersonalCard.observe(viewLifecycleOwner){
+        onboardingViewModel.selectedPersonalCard.observe(viewLifecycleOwner) {
             cardAdapter.submitList(listOf(it))
-            if(it.phoneNumbers.size>1)
+            if (it.phoneNumbers.size > 1)
                 extraPhoneNumbersAdapter.submitList(it.phoneNumbers.drop(1))
-            if(it.emailAddresses.size>1)
+            if (it.emailAddresses.size > 1)
                 extraEmailAddressAdapter.submitList(it.emailAddresses.drop(1))
             socialAdapter.submitList(it.socialMediaProfiles)
 
@@ -90,7 +90,7 @@ class PersonalCardDetailsFragment : Fragment() {
 
         binding.include.email.chevron.setOnClickListener {
             it.isSelected = !it.isSelected
-            if(it.isSelected)
+            if (it.isSelected)
                 binding.include.email.list.visibility = View.VISIBLE
             else
                 binding.include.email.list.visibility = View.GONE
@@ -99,7 +99,7 @@ class PersonalCardDetailsFragment : Fragment() {
         binding.include.phone.chevron.setOnClickListener {
             it.isSelected = !it.isSelected
 
-            if(it.isSelected)
+            if (it.isSelected)
                 binding.include.phone.list.visibility = View.VISIBLE
             else
                 binding.include.phone.list.visibility = View.GONE
@@ -119,8 +119,8 @@ class PersonalCardDetailsFragment : Fragment() {
 
 
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.options-> onboardingViewModel.showPersonalCardOptions()
+            when (it.itemId) {
+                R.id.options -> onboardingViewModel.showPersonalCardOptions()
 /*
                 R.id.share-> onboardingViewModel.showShare()
 */
@@ -128,7 +128,7 @@ class PersonalCardDetailsFragment : Fragment() {
 
             return@setOnMenuItemClickListener true
         }
-            //binding.toolbar.menu.
+        //binding.toolbar.menu.
         return binding.root
     }
 

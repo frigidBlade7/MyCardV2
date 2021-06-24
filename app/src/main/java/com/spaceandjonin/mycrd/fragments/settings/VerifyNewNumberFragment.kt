@@ -34,9 +34,9 @@ class VerifyNewNumberFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentVerifyNewNumberBinding.inflate(layoutInflater,container, false)
+        binding = FragmentVerifyNewNumberBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -45,12 +45,12 @@ class VerifyNewNumberFragment : Fragment() {
         })
 
 
-        viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        viewmodel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         return binding.root

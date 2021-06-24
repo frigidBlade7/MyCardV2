@@ -22,12 +22,12 @@ import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SelectEmailFragment : BottomSheetDialogFragment(), ItemInteraction<EmailAddress>{
+class SelectEmailFragment : BottomSheetDialogFragment(), ItemInteraction<EmailAddress> {
 
     lateinit var binding: FragmentSelectEmailBinding
     lateinit var adapter: SelectEmailAdapter
 
-    val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav){
+    val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -45,16 +45,16 @@ class SelectEmailFragment : BottomSheetDialogFragment(), ItemInteraction<EmailAd
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSelectEmailBinding.inflate(layoutInflater,container, false)
+        binding = FragmentSelectEmailBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
 
         adapter = SelectEmailAdapter(this)
-        viewmodel.selectedCard.observe(viewLifecycleOwner){
+        viewmodel.selectedCard.observe(viewLifecycleOwner) {
             it?.emailAddresses?.let {
                 adapter.submitList(it)
                 binding.nestedScrollView.adapter = adapter

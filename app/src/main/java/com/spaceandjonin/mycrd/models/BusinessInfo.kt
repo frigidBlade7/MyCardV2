@@ -8,10 +8,12 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Keep
 @JsonClass(generateAdapter = true)
-data class BusinessInfo(var companyName: String = "",
-                        var role: String = "",
-                        var companyAddress: String? ="",
-                        var website: String? ="",
-                        var companyLogo: String?=""): Parcelable {
+data class BusinessInfo(
+    var companyName: String = "",
+    var role: String = "",
+    var companyAddress: String? = "",
+    var website: String? = "",
+    var companyLogo: String? = ""
+) : Parcelable {
 
 }

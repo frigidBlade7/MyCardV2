@@ -16,11 +16,11 @@ import com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddPersonalSocialsFragment : BottomSheetDialogFragment(){
+class AddPersonalSocialsFragment : BottomSheetDialogFragment() {
 
     lateinit var binding: FragmentAddPersonalSocialsBinding
 
-    val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav){
+    val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -29,7 +29,7 @@ class AddPersonalSocialsFragment : BottomSheetDialogFragment(){
 
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         dialog.behavior.skipCollapsed = true
-        dialog.behavior.setPeekHeight(resources.displayMetrics.heightPixels,true)
+        dialog.behavior.setPeekHeight(resources.displayMetrics.heightPixels, true)
 
         return dialog
     }
@@ -37,9 +37,9 @@ class AddPersonalSocialsFragment : BottomSheetDialogFragment(){
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentAddPersonalSocialsBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAddPersonalSocialsBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -64,10 +64,10 @@ class AddPersonalSocialsFragment : BottomSheetDialogFragment(){
         binding.facebook.edit.setOnClickListener {
             binding.facebook.edit.isSelected = !binding.facebook.edit.isSelected
 
-            if(!binding.facebook.edit.isSelected) {
+            if (!binding.facebook.edit.isSelected) {
                 binding.facebook.usernameLayout.visibility = View.GONE
                 binding.facebook.username.editableText.clear()
-            }else
+            } else
                 binding.facebook.usernameLayout.visibility = View.VISIBLE
 
         }
@@ -75,34 +75,39 @@ class AddPersonalSocialsFragment : BottomSheetDialogFragment(){
         binding.twitter.edit.setOnClickListener {
             binding.twitter.edit.isSelected = !binding.twitter.edit.isSelected
 
-            if(!binding.twitter.edit.isSelected) {
+            if (!binding.twitter.edit.isSelected) {
                 binding.twitter.usernameLayout.visibility = View.GONE
                 binding.twitter.username.editableText.clear()
-            }else
+            } else
                 binding.twitter.usernameLayout.visibility = View.VISIBLE
         }
         binding.instagram.edit.setOnClickListener {
             binding.instagram.edit.isSelected = !binding.instagram.edit.isSelected
 
-            if(!binding.instagram.edit.isSelected) {
+            if (!binding.instagram.edit.isSelected) {
                 binding.instagram.usernameLayout.visibility = View.GONE
                 binding.instagram.username.editableText.clear()
-            }else
+            } else
                 binding.instagram.usernameLayout.visibility = View.VISIBLE
         }
         binding.linkedin.edit.setOnClickListener {
             binding.linkedin.edit.isSelected = !binding.linkedin.edit.isSelected
 
-            if(!binding.linkedin.edit.isSelected) {
+            if (!binding.linkedin.edit.isSelected) {
                 binding.linkedin.usernameLayout.visibility = View.GONE
                 binding.linkedin.username.editableText.clear()
-            }else
+            } else
                 binding.linkedin.usernameLayout.visibility = View.VISIBLE
 
         }
 
         binding.button.setOnClickListener {
-            viewmodel.socials.value = mutableListOf(binding.linkedin.item!!,binding.facebook.item!!,binding.twitter.item!!,binding.instagram.item!!)
+            viewmodel.socials.value = mutableListOf(
+                binding.linkedin.item!!,
+                binding.facebook.item!!,
+                binding.twitter.item!!,
+                binding.instagram.item!!
+            )
             dismiss()
         }
 

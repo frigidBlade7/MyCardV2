@@ -11,7 +11,10 @@ import com.spaceandjonin.mycrd.listeners.EmailItemInteraction
 import com.spaceandjonin.mycrd.models.EmailAddress
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
-class EmailAdapter (val itemInteraction: EmailItemInteraction, val arrayAdapter: ArrayAdapter<String>): ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
+class EmailAdapter(
+    val itemInteraction: EmailItemInteraction,
+    val arrayAdapter: ArrayAdapter<String>
+) : ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
 
     lateinit var binding: EmailItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -19,8 +22,8 @@ class EmailAdapter (val itemInteraction: EmailItemInteraction, val arrayAdapter:
         val baseViewHolder = BaseViewHolder(binding)
 
         binding.type.setAdapter(arrayAdapter)
-        binding.remove.setOnClickListener{
-            if(itemCount>1)
+        binding.remove.setOnClickListener {
+            if (itemCount > 1)
                 itemInteraction.onItemClicked(getItem(baseViewHolder.bindingAdapterPosition))
         }
 
@@ -30,9 +33,9 @@ class EmailAdapter (val itemInteraction: EmailItemInteraction, val arrayAdapter:
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bindTo(getItem(position))
 
-        if(position==0){
+        if (position == 0) {
             binding.remove.visibility = View.INVISIBLE
-        }else
+        } else
             binding.remove.visibility = View.VISIBLE
     }
 

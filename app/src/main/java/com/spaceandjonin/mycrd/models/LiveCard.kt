@@ -14,9 +14,10 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @JsonClass(generateAdapter = true)
 
-data class LiveCard(var owner: String? = FirebaseAuth.getInstance().currentUser?.uid):Card(),Parcelable {
+data class LiveCard(var owner: String? = FirebaseAuth.getInstance().currentUser?.uid) : Card(),
+    Parcelable {
 
-    constructor(baseCard: Card) : this(){
+    constructor(baseCard: Card) : this() {
         super.id = baseCard.id
         super.businessInfo = baseCard.businessInfo
         super.createdAt = baseCard.createdAt

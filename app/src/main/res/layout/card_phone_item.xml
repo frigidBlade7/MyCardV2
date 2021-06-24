@@ -4,8 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
-        <import type="android.view.View"/>
+
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt" />
+
+        <import type="android.view.View" />
+
         <variable
             name="item"
             type="com.spaceandjonin.mycrd.models.PhoneNumber" />
@@ -31,7 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/heading"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/phone_label"/>
+            app:srcCompat="@drawable/phone_label" />
 
         <TextView
             android:id="@+id/heading"

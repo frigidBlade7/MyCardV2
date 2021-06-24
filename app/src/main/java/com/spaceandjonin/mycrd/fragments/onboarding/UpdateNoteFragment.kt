@@ -22,16 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class UpdateNoteFragment : Fragment() {
 
-    lateinit var binding : FragmentUpdateNoteBinding
+    lateinit var binding: FragmentUpdateNoteBinding
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
     val cardViewModel: AddCardViewModel by viewModels()
-
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentUpdateNoteBinding.inflate(layoutInflater, container, false)
@@ -46,20 +45,17 @@ class UpdateNoteFragment : Fragment() {
         })
 
         onboardingViewModel.selectedCard.value?.note?.let {
-            if(it.isEmpty()){
+            if (it.isEmpty()) {
                 goToSaveState()
-            }
-            else{
+            } else {
                 goToEditState()
             }
         }
 
 
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.save -> {
-                    //onboardingViewModel.selectedCard.value?.note = binding.noteText.text.toString()
-                    //onboardingViewModel.selectedCard.notifyObserver()
                     goToEditState()
                     cardViewModel.updateNote()
                 }
@@ -73,16 +69,16 @@ class UpdateNoteFragment : Fragment() {
         }
 
 
-        onboardingViewModel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        onboardingViewModel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
-        cardViewModel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        cardViewModel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
-        cardViewModel.destination.observe(viewLifecycleOwner,EventObserver{
-            if(it.actionId==0) {
+        cardViewModel.destination.observe(viewLifecycleOwner, EventObserver {
+            if (it.actionId == 0) {
                 //success
                 onboardingViewModel.selectedCard.value = cardViewModel.card.value?.copy()
                 findNavController().popBackStack()
@@ -90,7 +86,7 @@ class UpdateNoteFragment : Fragment() {
         })
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         return binding.root
@@ -98,8 +94,8 @@ class UpdateNoteFragment : Fragment() {
 
 
     private fun goToSaveState() {
-        binding.toolbar.menu.findItem(R.id.edit).isVisible=false
-        binding.toolbar.menu.findItem(R.id.save).isVisible=true
+        binding.toolbar.menu.findItem(R.id.edit).isVisible = false
+        binding.toolbar.menu.findItem(R.id.save).isVisible = true
         binding.groupNote.isVisible = true
         binding.role.isVisible = false
         binding.noteText.requestFocus()
@@ -108,8 +104,8 @@ class UpdateNoteFragment : Fragment() {
 
     private fun goToEditState() {
 
-        binding.toolbar.menu.findItem(R.id.edit).isVisible=true
-        binding.toolbar.menu.findItem(R.id.save).isVisible=false
+        binding.toolbar.menu.findItem(R.id.edit).isVisible = true
+        binding.toolbar.menu.findItem(R.id.save).isVisible = false
         binding.groupNote.isVisible = false
         binding.role.isVisible = true
         binding.role.requestFocus()

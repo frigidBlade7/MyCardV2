@@ -29,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AssignLabelsFragment : BottomSheetDialogFragment(),
     ItemInteraction<SocialMediaProfile.SocialMedia>, PhoneTypeInteraction,
-    EmailTypeInteraction{
+    EmailTypeInteraction {
 
     lateinit var binding: FragmentAssignLabelsBinding
     lateinit var socialDisplayAdapter: SocialDisplayAdapter
@@ -37,7 +37,7 @@ class AssignLabelsFragment : BottomSheetDialogFragment(),
     lateinit var emailAddressAdapter: ChildEmailAdapter
     var existingLabelDetail: LabelDetail? = null
 
-    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav){
+    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -46,24 +46,27 @@ class AssignLabelsFragment : BottomSheetDialogFragment(),
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
 
         dialog.behavior.skipCollapsed = true
-        dialog.behavior.setPeekHeight(resources.displayMetrics.heightPixels,true)
+        dialog.behavior.setPeekHeight(resources.displayMetrics.heightPixels, true)
 
-        existingLabelDetail = AssignLabelsFragmentArgs.fromBundle(requireArguments()).existingLabelDetail
+        existingLabelDetail =
+            AssignLabelsFragmentArgs.fromBundle(requireArguments()).existingLabelDetail
         return dialog
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentAssignLabelsBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAssignLabelsBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val listOfTextViews = listOf<TextView>(binding.websiteLabel,binding.locationLabel, binding.roleLabel,
-            binding.companyNameLabel, binding.fullNameLabel)
+        val listOfTextViews = listOf<TextView>(
+            binding.websiteLabel, binding.locationLabel, binding.roleLabel,
+            binding.companyNameLabel, binding.fullNameLabel
+        )
 
         socialDisplayAdapter = SocialDisplayAdapter(this)
         binding.socialOptions.adapter = socialDisplayAdapter
@@ -82,7 +85,7 @@ class AssignLabelsFragment : BottomSheetDialogFragment(),
             findNavController().navigate(it)
         })
 
-        listOfTextViews.forEach { textview->
+        listOfTextViews.forEach { textview ->
             textview.setOnClickListener {
                 viewmodel.selectedLabelType.value = ""
                 viewmodel.addLabelledDetail(textview.text.toString(), existingLabelDetail)
@@ -94,7 +97,7 @@ class AssignLabelsFragment : BottomSheetDialogFragment(),
         return binding.root
     }
 
-    
+
     override fun onItemClicked(item: SocialMediaProfile.SocialMedia) {
         viewmodel.selectedLabelType.value = ""
         viewmodel.addLabelledDetail(item.name, existingLabelDetail)
@@ -106,6 +109,7 @@ class AssignLabelsFragment : BottomSheetDialogFragment(),
         viewmodel.addLabelledDetail(item.name, existingLabelDetail)
         dismiss()
     }
+
     override fun onItemClicked(item: PhoneNumber.PhoneNumberType) {
         viewmodel.selectedLabelType.value = getString(R.string.phone_number)
         viewmodel.addLabelledDetail(item.name, existingLabelDetail)

@@ -22,12 +22,12 @@ import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SelectPhoneNumberFragment : BottomSheetDialogFragment(), ItemInteraction<PhoneNumber>{
+class SelectPhoneNumberFragment : BottomSheetDialogFragment(), ItemInteraction<PhoneNumber> {
 
     lateinit var binding: FragmentSelectPhoneNumberBinding
     lateinit var adapter: SelectPhoneAdapter
 
-    val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav){
+    val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -45,15 +45,15 @@ class SelectPhoneNumberFragment : BottomSheetDialogFragment(), ItemInteraction<P
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSelectPhoneNumberBinding.inflate(layoutInflater,container, false)
+        binding = FragmentSelectPhoneNumberBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
         adapter = SelectPhoneAdapter(this)
-        viewmodel.selectedCard.observe(viewLifecycleOwner){
+        viewmodel.selectedCard.observe(viewLifecycleOwner) {
             it?.phoneNumbers?.let {
                 adapter.submitList(it)
                 binding.nestedScrollView.adapter = adapter

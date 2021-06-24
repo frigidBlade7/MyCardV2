@@ -10,7 +10,8 @@ import com.spaceandjonin.mycrd.models.PhoneNumber
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
 
-class ChildPhoneAdapter (val itemInteraction: PhoneTypeInteraction): ListAdapter<PhoneNumber.PhoneNumberType, BaseViewHolder>(PhoneNumberTypeDiffCallback()) {
+class ChildPhoneAdapter(val itemInteraction: PhoneTypeInteraction) :
+    ListAdapter<PhoneNumber.PhoneNumberType, BaseViewHolder>(PhoneNumberTypeDiffCallback()) {
 
     lateinit var binding: LabelChildItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -31,11 +32,5 @@ class ChildPhoneAdapter (val itemInteraction: PhoneTypeInteraction): ListAdapter
     override fun getItemViewType(position: Int): Int {
         return position
     }
-
-/*
-    override fun getItemId(position: Int): Long {
-        return currentList[position].hashCode().toLong()
-    }
-*/
 
 }

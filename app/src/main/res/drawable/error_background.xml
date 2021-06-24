@@ -4,7 +4,7 @@
     android:useLevel="false">
 
 
-    <corners android:radius="4dp"/>
+    <corners android:radius="4dp" />
     <solid android:color="@color/mc_red" />
 
 

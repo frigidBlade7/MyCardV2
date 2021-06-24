@@ -1,7 +1,6 @@
 package com.spaceandjonin.mycrd.models.datasource
 
 import android.net.Uri
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.spaceandjonin.mycrd.R
@@ -10,10 +9,11 @@ import com.spaceandjonin.mycrd.models.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 
 private const val TAG = "UserDataSourceImpl"
 
-abstract class UserDataSourceImpl: DataSource<User> {
+abstract class UserDataSourceImpl : DataSource<User> {
 
     abstract var auth: FirebaseAuth
 
@@ -26,8 +26,8 @@ abstract class UserDataSourceImpl: DataSource<User> {
 
             val updateData = auth.currentUser?.updateProfile(profile)?.await()
             Resource.Success(data.uid)
-        }catch (e: Exception){
-            Log.d(TAG, "updateUserRecord: ${e.localizedMessage}")
+        } catch (e: Exception) {
+            Timber.d( "updateUserRecord: ${e.localizedMessage}")
             Resource.Error(R.string.failed)
         }
     }
@@ -40,8 +40,8 @@ abstract class UserDataSourceImpl: DataSource<User> {
 
             val updateData = auth.currentUser?.updateProfile(profile)?.await()
             Resource.Success(data.toString())
-        }catch (e: Exception){
-            Log.d(TAG, "updateUserRecord: ${e.localizedMessage}")
+        } catch (e: Exception) {
+            Timber.d( "updateUserRecord: ${e.localizedMessage}")
             Resource.Error(R.string.failed)
         }
     }
@@ -60,8 +60,8 @@ abstract class UserDataSourceImpl: DataSource<User> {
 
             val updateData = auth.currentUser?.updateProfile(profile)?.await()
             Resource.Success(data.name!!)
-        }catch (e: Exception){
-            Log.d(TAG, "updateUserRecord: ${e.localizedMessage}")
+        } catch (e: Exception) {
+            Timber.d( "updateUserRecord: ${e.localizedMessage}")
             Resource.Error(R.string.failed)
         }
     }
@@ -74,10 +74,10 @@ abstract class UserDataSourceImpl: DataSource<User> {
 
             }
 
-            val         updateData = auth.currentUser?.updateProfile(profile)?.await()
+            val updateData = auth.currentUser?.updateProfile(profile)?.await()
             Resource.Success("data.name!!")
-        }catch (e: Exception){
-            Log.d(TAG, "updateUserRecord: ${e.localizedMessage}")
+        } catch (e: Exception) {
+            Timber.d( "updateUserRecord: ${e.localizedMessage}")
             Resource.Error(R.string.failed)
         }
     }
@@ -95,7 +95,7 @@ abstract class UserDataSourceImpl: DataSource<User> {
                     )
                     emit(Resource.Success(user))
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 emit(Resource.Error(R.string.default_error))
             }
         }

@@ -1,12 +1,12 @@
 package com.spaceandjonin.mycrd.repositories
 
-import android.util.Log
 import com.spaceandjonin.mycrd.R
 import com.spaceandjonin.mycrd.models.LiveCard
 import com.spaceandjonin.mycrd.models.Resource
 import com.spaceandjonin.mycrd.models.datasource.LiveCardDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import timber.log.Timber
 import javax.inject.Inject
 
 private const val TAG = "PersonalCardsRepository"
@@ -15,7 +15,7 @@ class PersonalCardsRepository @Inject constructor(val firebaseLiveCardDataSource
 
     fun getPersonalCards(owner: String): Flow<Resource<List<LiveCard>>> {
         return firebaseLiveCardDataSource.getList(owner).catch { exception ->
-            Log.d(TAG, "error: ${exception.localizedMessage}")
+            Timber.d( "error: ${exception.localizedMessage}")
             emit(Resource.Error(R.string.failed))
         }//todo add a catch for others
     }

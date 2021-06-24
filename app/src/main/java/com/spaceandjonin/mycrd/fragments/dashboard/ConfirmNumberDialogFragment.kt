@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.os.Bundle
@@ -27,9 +26,9 @@ class ConfirmNumberDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentConfirmNumberDialogBinding.inflate(layoutInflater,container, false)
+        binding = FragmentConfirmNumberDialogBinding.inflate(layoutInflater, container, false)
 
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner

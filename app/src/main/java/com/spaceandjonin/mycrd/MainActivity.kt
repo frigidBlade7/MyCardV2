@@ -37,84 +37,66 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.apply {
+            val mainfrag = supportFragmentManager
+                .findFragmentById(R.id.fragment) as NavHostFragment
+            navController = mainfrag.navController
+            bottomNav.setupWithNavController(navController)
 
+            bottomNav.setOnNavigationItemSelectedListener {
+                if (it.itemId != bottomNav.selectedItemId)
+                    NavigationUI.onNavDestinationSelected(it, navController)
+                true
 
-/*        val deferringInsetsListener = RootViewDeferringInsetsCallback(
-            persistentInsetTypes = WindowInsets.Type.systemBars(),
-            deferredInsetTypes = WindowInsets.Type.ime()
-        )
-        // RootViewDeferringInsetsCallback is both an WindowInsetsAnimation.Callback and an
-        // OnApplyWindowInsetsListener, so needs to be set as so.
-        binding.root.setWindowInsetsAnimationCallback(deferringInsetsListener)
-        binding.root.setOnApplyWindowInsetsListener(deferringInsetsListener)
+            }
+            addCard.setOnClickListener {
 
-        binding.bottomNav.setWindowInsetsAnimationCallback(
-            TranslateDeferringInsetsAnimationCallback(
-                view = binding.conversationRecyclerview,
-                persistentInsetTypes = WindowInsets.Type.systemBars(),
-                deferredInsetTypes = WindowInsets.Type.ime()
-            )
-        )*/
+                when (navController.currentDestination?.id) {
+                    R.id.viewPersonalCardDetailsFragment, R.id.viewAddedCardDetailsFragment ->
+                        currentNavigationFragment?.apply {
+                            exitTransition = MaterialElevationScale(false)
+                            reenterTransition = MaterialElevationScale(true)
+                        }
+                }
 
-       binding.apply {
-           val mainfrag =  supportFragmentManager
-               .findFragmentById(R.id.fragment) as NavHostFragment
-           navController = mainfrag.navController
-           bottomNav.setupWithNavController(navController)
+                navController.navigate(CardsFragmentDirections.actionGlobalAddCardOptionsFragment())
+            }
+            // Hide bottom nav on screens which don't require it
+            lifecycleScope.launchWhenResumed {
+                navController.addOnDestinationChangedListener { _, destination, _ ->
+                    when (destination.id) {
+                        R.id.cardsFragment, R.id.meFragment -> {
+                            hideKeyboard(binding.root)
+                            bottomAppBar.visibility = View.VISIBLE
+                            bottomAppBar.performShow()
+                        }
+                        //R.id.welcomeFragment-> bottomAppBar.performHide()
+                        else -> bottomAppBar.performHide()
+                    }
+                    when (destination.id) {
+                        R.id.cardsFragment -> addCard.show()
+                        else -> addCard.hide()
+                    }
+                    when (destination.id) {
+                        R.id.viewAddedCardDetailsFragment, R.id.confirmAddDetailsFragment, R.id.cardDetailsFragment, R.id.reviewScannedDetailsFragment -> hideKeyboard(
+                            binding.root
+                        )
+                    }
+                    when (destination.id) {
+                        R.id.searchCardsFragment -> {
+                            showKeyboard(/*binding.root*/)
+                        }
+                    }
 
-           bottomNav.setOnNavigationItemSelectedListener {
-               if (it.itemId != bottomNav.selectedItemId)
-                   NavigationUI.onNavDestinationSelected(it, navController)
-               true
+                }
+            }
+        }
 
-           }
-           addCard.setOnClickListener {
-
-               when(navController.currentDestination?.id) {
-                   R.id.viewPersonalCardDetailsFragment, R.id.viewAddedCardDetailsFragment ->
-                   currentNavigationFragment?.apply {
-                       exitTransition = MaterialElevationScale(false)
-                       reenterTransition = MaterialElevationScale(true)
-                   }
-               }
-
-               navController.navigate(CardsFragmentDirections.actionGlobalAddCardOptionsFragment())
-           }
-           // Hide bottom nav on screens which don't require it
-          lifecycleScope.launchWhenResumed {
-               navController.addOnDestinationChangedListener { _, destination, _ ->
-                   when (destination.id) {
-                       R.id.cardsFragment, R.id.meFragment -> {
-                           hideKeyboard(binding.root)
-                           bottomAppBar.visibility = View.VISIBLE
-                           bottomAppBar.performShow()
-                       }
-                       //R.id.welcomeFragment-> bottomAppBar.performHide()
-                       else -> bottomAppBar.performHide()
-                   }
-                   when(destination.id){
-                       R.id.cardsFragment -> addCard.show()
-                       else -> addCard.hide()
-                   }
-                   when(destination.id){
-                       R.id.viewAddedCardDetailsFragment,R.id.confirmAddDetailsFragment,R.id.cardDetailsFragment, R.id.reviewScannedDetailsFragment -> hideKeyboard(binding.root)
-                   }
-                   when(destination.id){
-                       R.id.searchCardsFragment-> {
-                           showKeyboard(/*binding.root*/)
-                       }
-                   }
-
-               }
-           }
-       }
-
-   }
-
+    }
 
 
     override fun onBackPressed() {
-        when(navController.currentDestination?.id){
+        when (navController.currentDestination?.id) {
             R.id.cardsFragment, R.id.welcomeFragment -> {
                 finish()
                 return

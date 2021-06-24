@@ -18,8 +18,8 @@ package com.spaceandjonin.mycrd.utils
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.SurfaceView
+import timber.log.Timber
 import kotlin.math.roundToInt
 
 /**
@@ -27,9 +27,9 @@ import kotlin.math.roundToInt
  * performs center-crop transformation of input frames.
  */
 class AutoFitSurfaceView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyle: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
 ) : SurfaceView(context, attrs, defStyle) {
 
     private var aspectRatio = 0f
@@ -68,7 +68,7 @@ class AutoFitSurfaceView @JvmOverloads constructor(
                 newHeight = (width / actualRatio).roundToInt()
             }
 
-            Log.d(TAG, "Measured dimensions set: $newWidth x $newHeight")
+            Timber.d( "Measured dimensions set: $newWidth x $newHeight")
             setMeasuredDimension(newWidth, newHeight)
         }
     }

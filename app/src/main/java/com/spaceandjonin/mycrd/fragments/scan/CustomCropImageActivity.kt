@@ -4,14 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageActivity
 import com.spaceandjonin.mycrd.databinding.ActivityCustomCropImageBinding
+import timber.log.Timber
 
-class CustomCropImageActivity: CropImageActivity(), CustomCropContract.View {
+class CustomCropImageActivity : CropImageActivity(), CustomCropContract.View {
 
     lateinit var binding: ActivityCustomCropImageBinding
     private val presenter: CustomCropContract.Presenter = CustomCropPresenter()
@@ -20,9 +20,9 @@ class CustomCropImageActivity: CropImageActivity(), CustomCropContract.View {
 
         fun start(activity: Activity) {
             ActivityCompat.startActivity(
-                    activity,
-                    Intent(activity, CustomCropImageActivity::class.java),
-                    null
+                activity,
+                Intent(activity, CustomCropImageActivity::class.java),
+                null
             )
         }
     }
@@ -33,7 +33,7 @@ class CustomCropImageActivity: CropImageActivity(), CustomCropContract.View {
         super.onCreate(savedInstanceState)
         presenter.bindView(this)
 
-        Log.d("TAG", "onCreate: $cropImageUri")
+        Timber.d( "onCreate: $cropImageUri")
 
 
         binding.confirmButton.setOnClickListener {
@@ -50,8 +50,6 @@ class CustomCropImageActivity: CropImageActivity(), CustomCropContract.View {
         val bundle = intent.getBundleExtra(CropImage.CROP_IMAGE_EXTRA_BUNDLE)
         cropImageUri = bundle?.getParcelable(CropImage.CROP_IMAGE_EXTRA_SOURCE)
         binding.cropImageView.setImageUriAsync(cropImageUri)
-        //binding.cropImageView.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.add_card_manually))
-        //binding.cropImageView.setImageUriAsync(Uri.parse("content://com.android.providers.media.documents/document/image%3A434233"))
     }
 
     override fun setContentView(view: View?) {
@@ -61,12 +59,7 @@ class CustomCropImageActivity: CropImageActivity(), CustomCropContract.View {
     override fun rotate(counter: Int) {
         binding.cropImageView.rotateImage(counter)
     }
-/*
 
-    override fun updateRotationCounter(counter: String) {
-        binding.rotateText.text = getString(R.string.rotation_value, counter)
-    }
-*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -91,16 +84,8 @@ class CustomCropImageActivity: CropImageActivity(), CustomCropContract.View {
     }
 
     override fun setResultCancel() {
-        Log.i("extend", "User this override to change behaviour when cancel")
+        Timber.d("User this override to change behaviour when cancel")
         super.setResultCancel()
     }
-
-/*    override fun updateMenuItemIconColor(menu: Menu, itemId: Int, color: Int) {
-        Log.i(
-                "extend",
-                "If not using your layout, this can be one option to change colours. Check README and wiki for more"
-        )
-        super.updateMenuItemIconColor(menu, itemId, color)
-    }*/
 
 }

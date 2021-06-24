@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.spaceandjonin.mycrd.converters.PhoneTypeBindingConverter"/>
+
+        <import type="com.spaceandjonin.mycrd.converters.PhoneTypeBindingConverter" />
 
         <variable
             name="item"
@@ -56,6 +57,7 @@
                 android:editable="false"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:hint="@{PhoneTypeBindingConverter.INSTANCE.phoneTypeToString(item.type)}"
                 android:text="@={PhoneTypeBindingConverter.INSTANCE.phoneTypeToString(item.type)}"
                 style="@style/TextAppearance.MyCardStyles.Body.Regular"
                 android:layout_width="108dp"

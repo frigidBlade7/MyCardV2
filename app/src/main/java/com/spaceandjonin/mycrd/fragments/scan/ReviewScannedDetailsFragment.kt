@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.scan
 
 import android.content.ClipData
@@ -29,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 private const val TAG = "AddPersonalCardFragment"
 
 @AndroidEntryPoint
-class ReviewScannedDetailsFragment : Fragment(),UnlabelledDetailItemInteraction,
+class ReviewScannedDetailsFragment : Fragment(), UnlabelledDetailItemInteraction,
     LabelledDetailItemInteraction {
 
     lateinit var binding: FragmentReviewScannedDetailsBinding
@@ -42,7 +41,7 @@ class ReviewScannedDetailsFragment : Fragment(),UnlabelledDetailItemInteraction,
     /*
     lateinit var socialAdapter: SocialAdapter*/
 
-    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav){
+    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -50,16 +49,18 @@ class ReviewScannedDetailsFragment : Fragment(),UnlabelledDetailItemInteraction,
         super.onCreate(savedInstanceState)
 
         val details = ReviewScannedDetailsFragmentArgs.fromBundle(requireArguments()).lines
-        viewmodel.retrieveScannedDetails(details, getString(R.string.phone_number),
-            getString(R.string.email_address), getString(R.string.website))
+        viewmodel.retrieveScannedDetails(
+            details, getString(R.string.phone_number),
+            getString(R.string.email_address), getString(R.string.website)
+        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentReviewScannedDetailsBinding.inflate(layoutInflater,container, false)
+        binding = FragmentReviewScannedDetailsBinding.inflate(layoutInflater, container, false)
 
         binding.viewmodel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -70,11 +71,11 @@ class ReviewScannedDetailsFragment : Fragment(),UnlabelledDetailItemInteraction,
         extraEmailAddressActionsAdapter = ExtraEmailAddressActionsAdapter(this)
         extraPhoneNumbersActionsAdapter = ExtraPhoneNumbersActionsAdapter(this)
 
-        viewmodel.unlabelledStrings.observe(viewLifecycleOwner){
+        viewmodel.unlabelledStrings.observe(viewLifecycleOwner) {
             unlabelledStringsAdapter.submitList(it.toList())
         }
 
-        viewmodel.labelledStrings.observe(viewLifecycleOwner){
+        viewmodel.labelledStrings.observe(viewLifecycleOwner) {
             labelledDetailAdapter.submitList(it.toList())
         }
 
@@ -83,8 +84,13 @@ class ReviewScannedDetailsFragment : Fragment(),UnlabelledDetailItemInteraction,
             findNavController().navigate(ReviewScannedDetailsFragmentDirections.actionGlobalAddNoteScanFragment())
         }
 
-        val itemDecorator = DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
-        itemDecorator.setDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.full_divider)!!)
+        val itemDecorator = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        itemDecorator.setDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.full_divider
+            )!!
+        )
         /*binding.phone.list.addItemDecoration(itemDecorator)
         binding.email.list.addItemDecoration(itemDecorator)
 
@@ -117,11 +123,11 @@ class ReviewScannedDetailsFragment : Fragment(),UnlabelledDetailItemInteraction,
 */
 
 
-        viewmodel.labelledStrings.observe(viewLifecycleOwner){
+        viewmodel.labelledStrings.observe(viewLifecycleOwner) {
             val card = Card()
 
             it.forEach { labelDetail ->
-                when(labelDetail.label) {
+                when (labelDetail.label) {
                     getString(R.string.full_name) -> card.name.fullName = labelDetail.detail
                     getString(R.string.website) -> card.businessInfo.website = labelDetail.detail
                     getString(R.string.work_location) -> card.businessInfo.companyAddress =
@@ -131,13 +137,14 @@ class ReviewScannedDetailsFragment : Fragment(),UnlabelledDetailItemInteraction,
                     getString(R.string.role) -> card.businessInfo.role = labelDetail.detail
                 }
 
-                when(labelDetail.parentLabel){
-                    getString(R.string.phone_number)->viewmodel.phoneNumbers.value?.add(
+                when (labelDetail.parentLabel) {
+                    getString(R.string.phone_number) -> viewmodel.phoneNumbers.value?.add(
                         PhoneNumber(labelDetail.detail, PhoneNumber.PhoneNumberType.values()
-                            .first { labelParam -> labelParam.name== labelDetail.label }))
-                    getString(R.string.email_address)->viewmodel.emailAddresses.value?.add(
+                            .first { labelParam -> labelParam.name == labelDetail.label })
+                    )
+                    getString(R.string.email_address) -> viewmodel.emailAddresses.value?.add(
                         EmailAddress(labelDetail.detail, EmailAddress.EmailType.values()
-                            .first { labelParam -> labelParam.name== labelDetail.label })
+                            .first { labelParam -> labelParam.name == labelDetail.label })
                     )
                 }
             }
@@ -159,11 +166,12 @@ class ReviewScannedDetailsFragment : Fragment(),UnlabelledDetailItemInteraction,
 
 
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.add_detail->{
+            when (it.itemId) {
+                R.id.add_detail -> {
                     viewmodel.addLabelledDetail()
                 }
-                else -> {}
+                else -> {
+                }
             }
             return@setOnMenuItemClickListener true
 
@@ -188,10 +196,15 @@ class ReviewScannedDetailsFragment : Fragment(),UnlabelledDetailItemInteraction,
     }
 
     override fun onCopyClicked(item: String) {
-        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip: ClipData = ClipData.newPlainText(item,item)
+        val clipboard =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip: ClipData = ClipData.newPlainText(item, item)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(requireContext(), getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.copied_to_clipboard),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onRemoveClicked(item: String) {

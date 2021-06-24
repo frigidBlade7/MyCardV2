@@ -1,4 +1,3 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.os.Bundle
@@ -26,16 +25,16 @@ class CardFilterFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentCardFilterBinding.inflate(layoutInflater,container, false)
+        binding = FragmentCardFilterBinding.inflate(layoutInflater, container, false)
 
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        when(viewmodel.sortMode.value){
-            Utils.SORT_MODE_NAME-> binding.name.isChecked =true
+        when (viewmodel.sortMode.value) {
+            Utils.SORT_MODE_NAME -> binding.name.isChecked = true
             Utils.SORT_MODE_RECENT -> binding.recent.isChecked = true
         }
 
@@ -52,15 +51,6 @@ class CardFilterFragment : BottomSheetDialogFragment() {
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(it)
         })
-
-/*        binding.name.setOnClickListener {
-            dismiss()
-        }
-
-        binding.recent.setOnClickListener {
-            dismiss()
-        }*/
-
 
         return binding.root
     }

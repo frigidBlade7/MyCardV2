@@ -1,9 +1,7 @@
-
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +26,7 @@ import pub.devrel.easypermissions.EasyPermissions
 class AddWorkFragment : Fragment() {
 
     lateinit var binding: FragmentAddWorkBinding
-    val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav){
+    val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav) {
         defaultViewModelProviderFactory
     }
 
@@ -36,9 +34,9 @@ class AddWorkFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentAddWorkBinding.inflate(layoutInflater,container, false)
+        binding = FragmentAddWorkBinding.inflate(layoutInflater, container, false)
 
         binding.info.visibility = View.GONE
         binding.companyLogo.visibility = View.GONE
@@ -57,8 +55,8 @@ class AddWorkFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        viewmodel.isEditFlow.observe(viewLifecycleOwner){
-            if(it) {
+        viewmodel.isEditFlow.observe(viewLifecycleOwner) {
+            if (it) {
                 binding.button.text = resources.getText(R.string.save)
                 binding.button.setOnClickListener {
                     viewmodel.updateCard()
@@ -78,8 +76,6 @@ class AddWorkFragment : Fragment() {
 
         // handle result of pick image chooser
         if (requestCode == Utils.REQUEST_IMAGE_GET && resultCode == Activity.RESULT_OK) {
-            val imageUri: Bitmap? = data?.getParcelableExtra("data")
-
             val fullPhotoUri: Uri? = data?.data
             CropImage.activity(fullPhotoUri)
                 .start(requireContext(), this)
@@ -96,6 +92,7 @@ class AddWorkFragment : Fragment() {
             }
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -117,8 +114,10 @@ class AddWorkFragment : Fragment() {
             }
         } else {
             // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.require_gallery),
-                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION)
+            EasyPermissions.requestPermissions(
+                this, getString(R.string.require_gallery),
+                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION
+            )
         }
 
     }

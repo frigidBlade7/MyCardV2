@@ -5,6 +5,7 @@
 
 
     <data>
+
         <variable
             name="item"
             type="String" />
@@ -83,22 +84,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/heading"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next" />
-            <!--
-                    <ImageView
-                        android:id="@+id/imageView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/background"
-                        app:layout_constraintEnd_toEndOf="@+id/background"
-                        app:layout_constraintStart_toStartOf="@+id/background"
-                        app:layout_constraintTop_toTopOf="@+id/background"
-                        app:srcCompat="@drawable/notes"
-                        app:tint="@android:color/white" />-->
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

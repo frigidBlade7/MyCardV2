@@ -18,9 +18,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.google.mlkit.vision.text.Text;
+
+import timber.log.Timber;
 
 /**
  * Graphic instance for rendering TextBlock position, size, and ID within an associated graphic
@@ -59,7 +60,7 @@ public class TextGraphic extends GraphicOverlay.Graphic {
      */
     @Override
     public void draw(Canvas canvas) {
-        Log.d(TAG, "on draw text graphic");
+        Timber.d( "on draw text graphic");
         if (line == null) {
             throw new IllegalStateException("Attempting to draw a null text.");
         }

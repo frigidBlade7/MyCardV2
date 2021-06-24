@@ -22,18 +22,20 @@ class UpdateNumberFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentUpdateNumberBinding.inflate(layoutInflater,container, false)
+        binding = FragmentUpdateNumberBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewmodel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.countryCodeHolder.registerCarrierNumberEditText(binding.phoneNumber)
 
         binding.skip.setOnClickListener {
-            //viewmodel.user.value?.phoneNumber = binding.countryCodeHolder.fullNumberWithPlus
-            //viewmodel.user.notifyObserver()
             //go to verify
-            findNavController().navigate(UpdateNumberFragmentDirections.actionUpdateNumberFragmentToVerifyNewNumberFragment(binding.countryCodeHolder.fullNumberWithPlus))
+            findNavController().navigate(
+                UpdateNumberFragmentDirections.actionUpdateNumberFragmentToVerifyNewNumberFragment(
+                    binding.countryCodeHolder.fullNumberWithPlus
+                )
+            )
         }
 
         viewmodel.destination.observe(viewLifecycleOwner, EventObserver {
@@ -41,12 +43,12 @@ class UpdateNumberFragment : Fragment() {
         })
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
-        viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
+        viewmodel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
         return binding.root

@@ -10,7 +10,8 @@ import com.spaceandjonin.mycrd.models.EmailAddress
 import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
 
-class ChildEmailAdapter (val itemInteraction: EmailTypeInteraction): ListAdapter<EmailAddress.EmailType, BaseViewHolder>(EmailAddressTypeDiffCallback()) {
+class ChildEmailAdapter(val itemInteraction: EmailTypeInteraction) :
+    ListAdapter<EmailAddress.EmailType, BaseViewHolder>(EmailAddressTypeDiffCallback()) {
 
     lateinit var binding: LabelChildItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -32,11 +33,5 @@ class ChildEmailAdapter (val itemInteraction: EmailTypeInteraction): ListAdapter
     override fun getItemViewType(position: Int): Int {
         return position
     }
-
-/*
-    override fun getItemId(position: Int): Long {
-        return currentList[position].hashCode().toLong()
-    }
-*/
 
 }

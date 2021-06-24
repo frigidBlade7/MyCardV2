@@ -1,6 +1,5 @@
 package com.spaceandjonin.mycrd.viewmodel
 
-import android.util.Log
 import android.util.Patterns
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -26,23 +25,31 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository: AddedCardsRepository,
-                                                        val personalCardsRepository: PersonalCardsRepository,
-                                                        val userRepository: UserRepository,
-                                                        val dataStore: DataStore<Preferences>,
-                                                        val sessionManagerService: SessionManagerService): BaseViewModel() {
+class ReviewScannedDetailsViewModel @Inject constructor(
+    val addedCardsRepository: AddedCardsRepository,
+    val personalCardsRepository: PersonalCardsRepository,
+    val userRepository: UserRepository,
+    val dataStore: DataStore<Preferences>,
+    val sessionManagerService: SessionManagerService
+) : BaseViewModel() {
 
-    lateinit var SCAN_TYPE:String
+    lateinit var SCAN_TYPE: String
 
     var card = MutableLiveData(Card())
-    
+
     var name = MutableLiveData(Name())
-    var socials = MutableLiveData(mutableListOf<SocialMediaProfile>(SocialMediaProfile(type= SocialMediaProfile.SocialMedia.LinkedIn),
-        SocialMediaProfile(type= SocialMediaProfile.SocialMedia.Facebook),SocialMediaProfile(type= SocialMediaProfile.SocialMedia.Twitter),
-        SocialMediaProfile(type= SocialMediaProfile.SocialMedia.Instagram)))
+    var socials = MutableLiveData(
+        mutableListOf<SocialMediaProfile>(
+            SocialMediaProfile(type = SocialMediaProfile.SocialMedia.LinkedIn),
+            SocialMediaProfile(type = SocialMediaProfile.SocialMedia.Facebook),
+            SocialMediaProfile(type = SocialMediaProfile.SocialMedia.Twitter),
+            SocialMediaProfile(type = SocialMediaProfile.SocialMedia.Instagram)
+        )
+    )
 
     var phoneNumbers = MutableLiveData(mutableSetOf(PhoneNumber()))
     var emailAddresses = MutableLiveData(mutableSetOf(EmailAddress()))
@@ -65,38 +72,40 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
     val selectedLabelType = MutableLiveData("")
     val selectedLabel = MutableLiveData(Utils.UNLABELLED)
 
-    fun toggleUnLabelledVisibility(){
+    fun toggleUnLabelledVisibility() {
         unlabelledToggle.value = !unlabelledToggle.value!!
     }
 
-    fun toggleLabelledVisibility(){
+    fun toggleLabelledVisibility() {
         labelledToggle.value = !labelledToggle.value!!
     }
 
-    fun togglePhoneOptionsVisibility(){
+    fun togglePhoneOptionsVisibility() {
         phoneOptionsToggle.value = !phoneOptionsToggle.value!!
 /*        if(emailOptionsToggle.value!!)
             toggleEmailOptionsVisibility()*/
 
     }
 
-    fun toggleEmailOptionsVisibility(){
+    fun toggleEmailOptionsVisibility() {
         emailOptionsToggle.value = !emailOptionsToggle.value!!
 /*        if(phoneOptionsToggle.value!!)
             togglePhoneOptionsVisibility()*/
     }
 
-    fun retrieveScannedDetails(details: Array<String>, numberParentLabel: String,
-                               emailParentLabel: String, websiteLabel:String) {
+    fun retrieveScannedDetails(
+        details: Array<String>, numberParentLabel: String,
+        emailParentLabel: String, websiteLabel: String
+    ) {
 
         val mutableDetails = details.toMutableList()
 
         details.forEach {
-            if(Patterns.PHONE.matcher(it.replace(" ","")).matches()) {
+            if (Patterns.PHONE.matcher(it.replace(" ", "")).matches()) {
                 labelledStrings.value?.add(
                     LabelDetail(
                         PhoneNumber.PhoneNumberType.Mobile.name,
-                        it,numberParentLabel
+                        it, numberParentLabel
                     )
                 )
                 mutableDetails.remove(it)
@@ -104,16 +113,17 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
         }
 
         details.forEach {
-            if(Patterns.EMAIL_ADDRESS.matcher(it.replace(" ","")).matches()){
+            if (Patterns.EMAIL_ADDRESS.matcher(it.replace(" ", "")).matches()) {
                 labelledStrings.value?.add(
-                    LabelDetail(EmailAddress.EmailType.Personal.name, it,emailParentLabel))
+                    LabelDetail(EmailAddress.EmailType.Personal.name, it, emailParentLabel)
+                )
                 mutableDetails.remove(it)
             }
 
         }
 
         details.forEach {
-            if(Patterns.WEB_URL.matcher(it.replace(" ","")).matches()) {
+            if (Patterns.WEB_URL.matcher(it.trim()).matches()) {
                 labelledStrings.value?.add(
                     LabelDetail(
                         websiteLabel,
@@ -133,9 +143,11 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
         unlabelledStrings.value?.remove(item)
         unlabelledStrings.notifyObserver()
     }
+
     fun editDetail(item: String) {
-        selectedDetail.value=item
-        _destination.value = Event(ReviewScannedDetailsFragmentDirections.actionReviewScannedDetailsFragmentToEditDetailFragment())
+        selectedDetail.value = item
+        _destination.value =
+            Event(ReviewScannedDetailsFragmentDirections.actionReviewScannedDetailsFragmentToEditDetailFragment())
 
     }
 
@@ -144,7 +156,7 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
         labelledStrings.notifyObserver()
     }
 
-    fun addUnLabelledDetail(item: String){
+    fun addUnLabelledDetail(item: String) {
         unlabelledStrings.value?.add(item)
         unlabelledStrings.notifyObserver()
     }
@@ -158,13 +170,12 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
                 selectedLabelType.value!!
             )
         )
-        if(existingLabelDetail!=null)//its a swap
+        if (existingLabelDetail != null)//its a swap
             removeLabelledDetail(existingLabelDetail)
         else
             removeDetail(selectedDetail.value!!)
 
         labelledStrings.notifyObserver()
-
 
 
 /*        labelledStrings.value?.let {
@@ -180,16 +191,19 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
     }
 
     fun updateLists() {
-        card.value?.emailAddresses = emailAddresses.value?.toSet()?.filter {it.address.trim().isNotEmpty()}!!
-        card.value?.phoneNumbers = phoneNumbers.value?.toSet()?.filter { it.number.trim().isNotEmpty() }!!
+        card.value?.emailAddresses =
+            emailAddresses.value?.toSet()?.filter { it.address.trim().isNotEmpty() }!!
+        card.value?.phoneNumbers =
+            phoneNumbers.value?.toSet()?.filter { it.number.trim().isNotEmpty() }!!
 
     }
 
-    fun addLabelledDetail(){
-        selectedDetail.value=""
-        selectedLabelType.value =""
-        selectedLabel.value= Utils.UNLABELLED
-        _destination.value = Event(ReviewScannedDetailsFragmentDirections.actionReviewScannedDetailsFragmentToAddLabelledDetailFragment())
+    fun addLabelledDetail() {
+        selectedDetail.value = ""
+        selectedLabelType.value = ""
+        selectedLabel.value = Utils.UNLABELLED
+        _destination.value =
+            Event(ReviewScannedDetailsFragmentDirections.actionReviewScannedDetailsFragmentToAddLabelledDetailFragment())
 
     }
 
@@ -199,16 +213,22 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
         selectedLabel.value = item.label
         selectedLabelType.value = item.parentLabel
 
-        _destination.value = Event(ReviewScannedDetailsFragmentDirections.actionReviewScannedDetailsFragmentToAssignLabelsFragment(item))
+        _destination.value = Event(
+            ReviewScannedDetailsFragmentDirections.actionReviewScannedDetailsFragmentToAssignLabelsFragment(
+                item
+            )
+        )
 
     }
 
-    fun showLabelsFromNewDetail(){
-        _destination.value = Event(AddLabelledDetailFragmentDirections.actionAddLabelledDetailFragmentToEditLabelsFragment())
+    fun showLabelsFromNewDetail() {
+        _destination.value =
+            Event(AddLabelledDetailFragmentDirections.actionAddLabelledDetailFragmentToEditLabelsFragment())
     }
 
-    fun showLabelsFromEditDetail(){
-        _destination.value = Event(EditDetailFragmentDirections.actionEditDetailFragmentToEditLabelsFragment())
+    fun showLabelsFromEditDetail() {
+        _destination.value =
+            Event(EditDetailFragmentDirections.actionEditDetailFragmentToEditLabelsFragment())
     }
 
     fun executeEdit(item: LabelDetail) {
@@ -216,7 +236,11 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
         selectedLabel.value = item.label
         selectedLabelType.value = item.parentLabel
 
-        _destination.value = Event(ReviewScannedDetailsFragmentDirections.actionReviewScannedDetailsFragmentToEditDetailFragment(item))
+        _destination.value = Event(
+            ReviewScannedDetailsFragmentDirections.actionReviewScannedDetailsFragmentToEditDetailFragment(
+                item
+            )
+        )
 
     }
 
@@ -225,13 +249,13 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
         removeLabelledDetail(item)
     }
 
-    fun showDialogIfNotDismissed(){
+    fun showDialogIfNotDismissed() {
         viewModelScope.launch {
             dataStore.data.collect {
-                val showDialog = if(SCAN_TYPE==Utils.SCAN_TYPE_ADDED)
-                    it[Utils.ADDED_CARD_SCAN_ALERT]?: true
+                val showDialog = if (SCAN_TYPE == Utils.SCAN_TYPE_ADDED)
+                    it[Utils.ADDED_CARD_SCAN_ALERT] ?: true
                 else
-                    it[Utils.LIVE_CARD_SCAN_ALERT]?: true
+                    it[Utils.LIVE_CARD_SCAN_ALERT] ?: true
 
                 if (showDialog)
                     _destination.postValue(Event(TakeCardPictureFragmentDirections.actionTakeCardPictureFragmentToScanAlertDialogFragment()))
@@ -240,24 +264,24 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
 
     }
 
-    fun setDialogDismissed(){
+    fun setDialogDismissed() {
         viewModelScope.launch {
             dataStore.edit {
-                if(SCAN_TYPE==Utils.SCAN_TYPE_ADDED)
+                if (SCAN_TYPE == Utils.SCAN_TYPE_ADDED)
                     it[Utils.ADDED_CARD_SCAN_ALERT] = false
                 else
-                    it[Utils.LIVE_CARD_SCAN_ALERT]= false
+                    it[Utils.LIVE_CARD_SCAN_ALERT] = false
             }
         }
 
     }
 
-    fun completeCreateCard(){
+    fun completeCreateCard() {
         card.value?.name?.segregateFullName()
         card.notifyObserver()
 
-        when(SCAN_TYPE){
-            Utils.SCAN_TYPE_LIVE ->{
+        when (SCAN_TYPE) {
+            Utils.SCAN_TYPE_LIVE -> {
                 card.value?.let {
                     val personalCard = LiveCard(it)
                     personalCard.owner = sessionManagerService.loggedInUserId()
@@ -265,7 +289,7 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
                 }
 
             }
-            Utils.SCAN_TYPE_ADDED->{
+            Utils.SCAN_TYPE_ADDED -> {
                 card.value?.let {
                     val addedCard = AddedCard(it)
                     addedCard.note = cardNote.value
@@ -288,11 +312,12 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
         }
     }*/
 
-    fun addPersonalCard(personalCard: LiveCard){
+    fun addPersonalCard(personalCard: LiveCard) {
         viewModelScope.launch {
             card.value?.let {
-                when(val data = personalCardsRepository.firebaseLiveCardDataSource.addData(personalCard)){
-                    is Resource.Success->{
+                when (val data =
+                    personalCardsRepository.firebaseLiveCardDataSource.addData(personalCard)) {
+                    is Resource.Success -> {
                         //todo hide loader
                         //card.value?.id = data.data!!
 
@@ -302,36 +327,33 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
                             .catch {
                                 emit(Resource.Error(R.id.error))
                             }.collect {
-                            when(it){
-                                is Resource.Success ->{
-                                    if(it.data.name.isNullOrEmpty()){
-                                        _destination.postValue(Event(ScanNavDirections.actionGlobalSetupProfileFragment()))
-                                    }else{
-                                        _destination.postValue(Event(ScanNavDirections.actionGlobalMeFragment()))
+                                when (it) {
+                                    is Resource.Success -> {
+                                        if (it.data.name.isNullOrEmpty()) {
+                                            _destination.postValue(Event(ScanNavDirections.actionGlobalSetupProfileFragment()))
+                                        } else {
+                                            _destination.postValue(Event(ScanNavDirections.actionGlobalMeFragment()))
+                                        }
+                                    }
+                                    is Resource.Loading -> {
+                                        //todo show loader
+                                    }
+                                    is Resource.Error -> {
+                                        Timber.d("addPersonalCard: ${it.errorCode}")
                                     }
                                 }
-                                is Resource.Loading ->{
-                                    //todo show loader
-                                }
-                                is Resource.Error ->{
-                                    Log.d("ReviewScanned", "addPersonalCard: ${it.errorCode}")
-                                }
                             }
-                        }
-
-                        //updateBusinessLogo(data.data)
-                        //updateProfileImage(data.data)
                         data.data?.let {
                             card.value?.id = it
                         }
                     }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         //todo hide loader
                         _snackbarInt.postValue(Event(data.errorCode))
 
                     }
 
-                    is Resource.Loading->{
+                    is Resource.Loading -> {
                         //todo show loader
                         _snackbarInt.postValue(Event(R.string.adding_card))
                     }
@@ -342,18 +364,25 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
     }
 
 
-    fun addCard(addedCard: AddedCard){
+    fun addCard(addedCard: AddedCard) {
 
         viewModelScope.launch {
             card.value?.let {
-                when(val data = addedCardsRepository.firebaseAddedCardDataSource.addData(addedCard)){
-                    is Resource.Success->{
+                when (val data =
+                    addedCardsRepository.firebaseAddedCardDataSource.addData(addedCard)) {
+                    is Resource.Success -> {
                         //todo hide loader
 
                         _snackbarInt.postValue(Event(R.string.success))
 
                         //hereoo
-                        _destination.postValue(Event(ScanNavDirections.actionGlobalScanNavToCardDetailsFragment(addedCard)))
+                        _destination.postValue(
+                            Event(
+                                ScanNavDirections.actionGlobalScanNavToCardDetailsFragment(
+                                    addedCard
+                                )
+                            )
+                        )
 
 
                         data.data?.let {
@@ -362,13 +391,13 @@ class ReviewScannedDetailsViewModel @Inject constructor(val addedCardsRepository
                         //updateBusinessLogo(data.data)
 
                     }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         //todo hide loader
                         _snackbarInt.postValue(Event(data.errorCode))
 
                     }
 
-                    is Resource.Loading->{
+                    is Resource.Loading -> {
                         //todo show loader
                         _snackbarInt.postValue(Event(R.string.adding_card))
                     }

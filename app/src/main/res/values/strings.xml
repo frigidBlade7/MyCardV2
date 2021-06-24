@@ -153,6 +153,36 @@
     <string name="assign_label">Assign label</string>
     <string name="okay_got_it">Okay, got it</string>
     <string name="hold_card_close_to_phone_s_camera_to_improve_scan_accuracy">Hold card close to phone’s camera to improve scan accuracy</string>
+    <string name="image_to_be_scanned">image to be scanned</string>
+    <string name="crop_rotate">Crop/Rotate</string>
+    <string name="social_media_icon">social media icon</string>
+    <string name="handle">handle</string>
+    <string name="share_button">share button</string>
+    <string name="qr_image">qr image</string>
+    <string name="header_logo">header logo</string>
+    <string name="arrow">arrow</string>
+    <string name="logo">logo</string>
+    <string name="go_to_scan">go to scan</string>
+    <string name="hand_card_illustration">hand card illustration</string>
+    <string name="illustration">illustration</string>
+    <string name="skip">skip</string>
+    <string name="info_icon">info icon</string>
+    <string name="camera_icon">camera icon</string>
+    <string name="capture_card_image">capture card image</string>
+    <string name="scan_card">scan card</string>
+    <string name="enter_manually">enter manually</string>
+    <string name="viewfinder_corner">viewfinder corner</string>
+    <string name="remove">remove</string>
+    <string name="profile_photo">profile photo</string>
+    <string name="confirm">confirm</string>
+    <string name="rotate">rotate</string>
+    <string name="no_content">no content</string>
+    <string name="add_phone">add phone</string>
+    <string name="add_email">add email</string>
+    <string name="user_photo">user photo</string>
+    <string name="make_call">make call</string>
+    <string name="show_location">show location</string>
+    <string name="send_mail">send mail</string>
 
 
     <array name="phone_types">

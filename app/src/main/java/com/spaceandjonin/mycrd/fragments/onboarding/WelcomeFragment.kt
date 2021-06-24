@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WelcomeFragment : Fragment() {
 
-    lateinit var binding : FragmentWelcomeBinding
+    lateinit var binding: FragmentWelcomeBinding
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
@@ -42,44 +42,45 @@ class WelcomeFragment : Fragment() {
         }*/
     }
 
-   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-       super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
 
-   }
-   override fun onCreateView(
-       inflater: LayoutInflater, container: ViewGroup?,
-       savedInstanceState: Bundle?
-   ): View? {
-       // Inflate the layout for this fragment
+    }
 
-       binding = FragmentWelcomeBinding.inflate(layoutInflater, container, false)
-       binding.viewModel = onboardingViewModel
-       binding.lifecycleOwner = viewLifecycleOwner
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
 
-       onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {
-           findNavController().navigate(it)
-       })
+        binding = FragmentWelcomeBinding.inflate(layoutInflater, container, false)
+        binding.viewModel = onboardingViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        onboardingViewModel.destination.observe(viewLifecycleOwner, EventObserver {
+            findNavController().navigate(it)
+        })
 /*
        binding.title.setOnClickListener {
            throw RuntimeException("Test Crash"); // Force a crash
        }*/
 
-       if (findNavController().currentDestination?.id!=R.id.cardsFragment)
-           FirebaseAuth.getInstance().currentUser?.let {
-               if(FirebaseAuth.getInstance().currentUser!=null){
-                   it.displayName?.let { name->
-                       if(name.isNotEmpty())
-                           findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
-                       else
-                           findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
-                   }
-                   //findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
-               }
+        if (findNavController().currentDestination?.id != R.id.cardsFragment)
+            FirebaseAuth.getInstance().currentUser?.let {
+                if (FirebaseAuth.getInstance().currentUser != null) {
+                    it.displayName?.let { name ->
+                        if (name.isNotEmpty())
+                            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToCardsFragment())
+                        else
+                            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
+                    }
+                    //findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSetupProfileFragment())
+                }
 
-           }
+            }
 
-      return binding.root
-  }
+        return binding.root
+    }
 
 }

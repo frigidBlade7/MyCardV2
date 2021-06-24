@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<inset android:insetLeft="80dp" android:insetRight="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+<inset android:insetLeft="80dp"
+    android:insetRight="24dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <shape>
-        <size android:height="0.5dp"/>
-        <solid android:color="@color/divider_tint"/>
+        <size android:height="0.5dp" />
+        <solid android:color="@color/divider_tint" />
     </shape>
 
 </inset>

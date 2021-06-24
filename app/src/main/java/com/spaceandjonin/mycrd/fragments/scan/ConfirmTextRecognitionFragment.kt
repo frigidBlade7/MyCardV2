@@ -1,11 +1,9 @@
-
 package com.spaceandjonin.mycrd.fragments.scan
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,6 @@ import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.canhub.cropper.CropImage
 import com.spaceandjonin.mycrd.R
@@ -22,6 +19,7 @@ import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.utils.TextGraphic
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 private const val TAG = "ConfirmTextRec"
 
@@ -30,14 +28,13 @@ class ConfirmTextRecognitionFragment : Fragment() {
 
     lateinit var binding: FragmentConfirmTextRecognitionBinding
 
-    val viewModel : OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
-
+    val viewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentConfirmTextRecognitionBinding.inflate(layoutInflater, container, false)
 
@@ -45,7 +42,7 @@ class ConfirmTextRecognitionFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        viewModel.elementListLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.elementListLiveData.observe(viewLifecycleOwner){
             if (it.isNotEmpty()) {
                 binding.graphicOverlay.clear()
                 for (element in it) {
@@ -53,8 +50,9 @@ class ConfirmTextRecognitionFragment : Fragment() {
 
                 }
             }
-        })
-        val uri = Uri.parse(ConfirmTextRecognitionFragmentArgs.fromBundle(requireArguments()).uriString)
+        }
+        val uri =
+            Uri.parse(ConfirmTextRecognitionFragmentArgs.fromBundle(requireArguments()).uriString)
 
         setupImageViewAndProcessUri(uri)
 
@@ -77,10 +75,14 @@ class ConfirmTextRecognitionFragment : Fragment() {
 
         binding.confirmButton.setOnClickListener {
             viewModel.elementListLiveData.value?.let {
-                var lines = mutableListOf<String>()
+                val lines = mutableListOf<String>()
                 for (element in it)
                     lines.add(element.text)
-                findNavController().navigate(ConfirmTextRecognitionFragmentDirections.actionConfirmTextRecognitionFragmentToReviewScannedDetailsFragment(lines.toTypedArray()))
+                findNavController().navigate(
+                    ConfirmTextRecognitionFragmentDirections.actionConfirmTextRecognitionFragmentToReviewScannedDetailsFragment(
+                        lines.toTypedArray()
+                    )
+                )
             }
         }
 
@@ -92,7 +94,7 @@ class ConfirmTextRecognitionFragment : Fragment() {
 
         binding.crop.setOnClickListener {
             CropImage.activity(uri)
-                .start(requireContext(), this,CustomCropImageActivity::class.java)
+                .start(requireContext(), this, CustomCropImageActivity::class.java)
         }
 
 
@@ -112,7 +114,7 @@ class ConfirmTextRecognitionFragment : Fragment() {
             val result = CropImage.getActivityResult(data)
             if (resultCode == Activity.RESULT_OK) {
 
-                Log.d(TAG, "onActivityResult: ${result?.getBitmap(requireContext())}")
+                Timber.d( "onActivityResult: ${result?.getBitmap(requireContext())}")
 
                 val uri = result?.uri
                 setupImageViewAndProcessUri(uri)

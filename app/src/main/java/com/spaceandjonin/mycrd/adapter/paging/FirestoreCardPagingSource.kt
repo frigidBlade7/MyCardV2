@@ -1,6 +1,5 @@
 package com.spaceandjonin.mycrd.adapter.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.google.firebase.firestore.FirebaseFirestore
@@ -10,11 +9,13 @@ import com.spaceandjonin.mycrd.models.LiveCard
 import com.spaceandjonin.mycrd.utils.Utils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import javax.inject.Inject
 
 
 private const val TAG = "FirestoreCardPagingSour"
-class FirestoreCardPagingSource @Inject constructor(db: FirebaseFirestore):
+
+class FirestoreCardPagingSource @Inject constructor(db: FirebaseFirestore) :
     PagingSource<QuerySnapshot, LiveCard>() {
 
     private val collectionReference = db.collection("cards").orderBy("name.fullName")
@@ -24,9 +25,9 @@ class FirestoreCardPagingSource @Inject constructor(db: FirebaseFirestore):
         TODO("Not yet implemented")
     }
 
-    fun filterBy(sort: String): PagingSource<QuerySnapshot,LiveCard> {
-        when(sort){
-            Utils.SORT_MODE_NAME-> collectionReference.orderBy("name.fullname")
+    fun filterBy(sort: String): PagingSource<QuerySnapshot, LiveCard> {
+        when (sort) {
+            Utils.SORT_MODE_NAME -> collectionReference.orderBy("name.fullname")
             Utils.SORT_MODE_RECENT -> collectionReference.orderBy("timestamp")
         }
         return this
@@ -37,24 +38,26 @@ class FirestoreCardPagingSource @Inject constructor(db: FirebaseFirestore):
         return try {
 
 
-            val currentPageQuery = params.key?: collectionReference.limit(Utils.PAGE_SIZE).get().await()
+            val currentPageQuery =
+                params.key ?: collectionReference.limit(Utils.PAGE_SIZE).get().await()
             val lastDocument = currentPageQuery.documents.last()
-            val nextPageQuery = collectionReference.limit(Utils.PAGE_SIZE).startAfter(lastDocument).get().await()
+            val nextPageQuery =
+                collectionReference.limit(Utils.PAGE_SIZE).startAfter(lastDocument).get().await()
 
 
-            var data = currentPageQuery.toObjects(LiveCard::class.java)
+            val data = currentPageQuery.toObjects(LiveCard::class.java)
 
-            if(data.size <Utils.PAGE_SIZE){
+            if (data.size < Utils.PAGE_SIZE) {
                 //added listener
-                Log.d(TAG, "load:update query state flow")
-                currentQuery.value= currentPageQuery.query
+                Timber.d( "load:update query state flow")
+                currentQuery.value = currentPageQuery.query
             }
 
-            LoadResult.Page(data,null, nextPageQuery)
+            LoadResult.Page(data, null, nextPageQuery)
 
 
-        }catch (e: Exception){
-            Log.d(TAG, "load: ${e.localizedMessage}")
+        } catch (e: Exception) {
+            Timber.d( "load: ${e.localizedMessage}")
             LoadResult.Error(e)
         }
     }

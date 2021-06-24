@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel" />
@@ -27,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:clickable="true"
+                android:contentDescription="@string/go_to_scan"
                 android:focusable="true"
                 android:onClick="@{()->viewModel.goToScan()}"
                 app:srcCompat="@drawable/forward"
@@ -73,6 +75,7 @@
                 app:srcCompat="@drawable/onboarding_illustration_2"
                 app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/hand_card_illustration"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title2" />

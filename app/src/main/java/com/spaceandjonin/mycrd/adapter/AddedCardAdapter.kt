@@ -11,7 +11,13 @@ import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 
 class AddedCardAdapter : ListAdapter<AddedCard, BaseViewHolder>(AddedCardDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return BaseViewHolder(AddedCardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return BaseViewHolder(
+            AddedCardItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -22,14 +28,5 @@ class AddedCardAdapter : ListAdapter<AddedCard, BaseViewHolder>(AddedCardDiffUti
     override fun getItemViewType(position: Int): Int {
         return position
     }
-
-    fun getImage(){
-
-    }
-/*
-    override fun getItemId(position: Int): Long {
-        return currentList[position].hashCode().toLong()
-    }
-*/
 
 }

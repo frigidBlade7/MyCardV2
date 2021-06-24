@@ -16,18 +16,17 @@ import com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel
 
 class AddNoteScanFragment : Fragment() {
 
-    lateinit var binding : FragmentAddNoteScanBinding
+    lateinit var binding: FragmentAddNoteScanBinding
 
-    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav){
+    val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory
     }
-
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         binding = FragmentAddNoteScanBinding.inflate(layoutInflater, container, false)
@@ -39,16 +38,15 @@ class AddNoteScanFragment : Fragment() {
         })
 
         viewmodel.note.value?.let {
-            if(it.isEmpty()){
+            if (it.isEmpty()) {
                 goToSaveState()
-            }
-            else{
+            } else {
                 goToEditState()
             }
         }
 
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.save -> {
                     viewmodel.cardNote.value = binding.noteText.text.toString()
                     goToEditState()
@@ -62,20 +60,20 @@ class AddNoteScanFragment : Fragment() {
         }
 
 
-        viewmodel.snackbarInt.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(context,it, Toast.LENGTH_SHORT).show()
+        viewmodel.snackbarInt.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
 
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         return binding.root
     }
 
     private fun goToSaveState() {
-        binding.toolbar.menu.findItem(R.id.edit).isVisible=false
-        binding.toolbar.menu.findItem(R.id.save).isVisible=true
+        binding.toolbar.menu.findItem(R.id.edit).isVisible = false
+        binding.toolbar.menu.findItem(R.id.save).isVisible = true
         binding.groupNote.isVisible = true
         binding.role.isVisible = false
 
@@ -84,8 +82,8 @@ class AddNoteScanFragment : Fragment() {
 
     private fun goToEditState() {
 
-        binding.toolbar.menu.findItem(R.id.edit).isVisible=true
-        binding.toolbar.menu.findItem(R.id.save).isVisible=false
+        binding.toolbar.menu.findItem(R.id.edit).isVisible = true
+        binding.toolbar.menu.findItem(R.id.save).isVisible = false
         binding.groupNote.isVisible = false
         binding.role.isVisible = true
         binding.role.requestFocus()

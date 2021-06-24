@@ -4,11 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="item"
-            type="com.spaceandjonin.mycrd.models.LiveCard"/>
-        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt"/>
+            type="com.spaceandjonin.mycrd.models.LiveCard" />
+
+        <import type="com.spaceandjonin.mycrd.utils.ExtensionsKt" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,7 +48,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/CircularImageView"
-                    app:backgroundColor="@{ExtensionsKt.backgroundColor(icon,item.position)}"/>
+                    app:backgroundColor="@{ExtensionsKt.backgroundColor(icon,item.position)}" />
 
                 <TextView
                     android:id="@+id/initials"

@@ -25,14 +25,16 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsRepository,
-                                        personalCardsRepository: PersonalCardsRepository,
-                                        private val addedCardDataSourceImpl: AddedCardDataSource,
-                                        val auth: FirebaseAuth,
-                                        val storageDir: File?,
-                                        private val personalCardDataSource: LiveCardDataSource,
-                                        val addedCardDao: AddedCardDao,
-                                        val liveCardDao: LiveCardDao): BaseViewModel() {
+class CardViewModel @Inject constructor(
+    addedCardsRepository: AddedCardsRepository,
+    personalCardsRepository: PersonalCardsRepository,
+    private val addedCardDataSourceImpl: AddedCardDataSource,
+    val auth: FirebaseAuth,
+    val storageDir: File?,
+    private val personalCardDataSource: LiveCardDataSource,
+    val addedCardDao: AddedCardDao,
+    val liveCardDao: LiveCardDao
+) : BaseViewModel() {
 
     val sortMode = MutableLiveData(Utils.SORT_MODE_RECENT)
 
@@ -42,9 +44,10 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
 
 
     val cardsLiveData = Transformations.switchMap(sortMode) {
-        return@switchMap when(it){
-            Utils.SORT_MODE_NAME -> addedCardsRepository.getSortedCards("name.fullName").asLiveData()
-            Utils.SORT_MODE_RECENT-> addedCardsRepository.getSortedCards("createdAt").asLiveData()
+        return@switchMap when (it) {
+            Utils.SORT_MODE_NAME -> addedCardsRepository.getSortedCards("name.fullName")
+                .asLiveData()
+            Utils.SORT_MODE_RECENT -> addedCardsRepository.getSortedCards("createdAt").asLiveData()
             else -> addedCardsRepository.getSortedCards("createdAt").asLiveData()
         }
     }
@@ -55,16 +58,18 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
             preferences[Utils.PENDING_URI_LIST]. ?: listOf()
         }*/
 
-    val personalCardsLiveData =  personalCardsRepository.getPersonalCards(auth.currentUser!!.uid).asLiveData()
+    val personalCardsLiveData =
+        personalCardsRepository.getPersonalCards(auth.currentUser!!.uid).asLiveData()
 
-    fun deleteCard(){
+    fun deleteCard() {
         selectedCard.value?.let {
             viewModelScope.launch {
-                when(val deleteData = addedCardDataSourceImpl.removeData(it)){
-                    is Resource.Success->{
-                        _destination.value =(Event(CardsFragmentDirections.actionGlobalCardsFragment()))
+                when (val deleteData = addedCardDataSourceImpl.removeData(it)) {
+                    is Resource.Success -> {
+                        _destination.value =
+                            (Event(CardsFragmentDirections.actionGlobalCardsFragment()))
                     }
-                    is Resource.Error-> _snackbarInt.postValue(Event(deleteData.errorCode))
+                    is Resource.Error -> _snackbarInt.postValue(Event(deleteData.errorCode))
                 }
             }
 
@@ -72,14 +77,14 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
 
     }
 
-    fun deletePersonalCard(){
+    fun deletePersonalCard() {
         selectedPersonalCard.value?.let {
             viewModelScope.launch {
-                when(val deleteData = personalCardDataSource.removeData(it)){
-                    is Resource.Success->{
+                when (val deleteData = personalCardDataSource.removeData(it)) {
+                    is Resource.Success -> {
                         //_destination.postValue(Event(MeFragmentDirections.actionGlobalMeFragment()))
                     }
-                    is Resource.Error-> _snackbarInt.postValue(Event(deleteData.errorCode))
+                    is Resource.Error -> _snackbarInt.postValue(Event(deleteData.errorCode))
                 }
             }
 
@@ -89,7 +94,7 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
 
     fun save(data: List<AddedCard>) {
         //todo find a way to move this to the get call
-        viewModelScope.launch (Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             addedCardDao.deleteAll()
             addedCardDao.addAllCards(data)
         }
@@ -97,18 +102,14 @@ class CardViewModel @Inject constructor(addedCardsRepository: AddedCardsReposito
 
     fun savePersonal(data: List<LiveCard>) {
         //todo find a way to move this to the get call
-        viewModelScope.launch (Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             liveCardDao.deleteAll()
             liveCardDao.addAllCards(data)
         }
     }
 
-    fun createVcf(name: String?): File{
-            return File(storageDir,"$name.vcf")
+    fun createVcf(name: String?): File {
+        return File(storageDir, "$name.vcf")
     }
-    //val cardsPagedDataFlow = cardsRepository.allCardsPaged.flow.cachedIn(viewModelScope)
-
-        //val cardsLiveDataFlow = cardsRepository.currentPage
-
 
 }

@@ -1,7 +1,6 @@
 package com.spaceandjonin.mycrd.fragments.dashboard
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +28,7 @@ import com.spaceandjonin.mycrd.viewmodel.CardViewModel
 import com.spaceandjonin.mycrd.viewmodel.FilterViewModel
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 private const val TAG = "CardsFragment"
@@ -44,18 +44,12 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
     val filterViewModel: FilterViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
     val cardViewmodel: CardViewModel by viewModels()
-/*
-    private val closeCardOnBackPressed = object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() {
-            requireActivity().finish()
-        }
-    }*/
 
 
     override fun onPause() {
         super.onPause()
         //binding.addCard.hide()
-        Log.d("TAG", "onPause: ")
+        Timber.d( "onPause: ")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,26 +58,13 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
         postponeEnterTransition()
         view.doOnPreDraw {
             startPostponedEnterTransition()
-/*
-            val mainActivity = requireActivity() as MainActivity
-            mainActivity.binding.bottomNav.show()*/
         }
 
         binding.list.adapter = cardAdapter
-
-/*
-        viewLifecycleOwner.lifecycleScope.launch {
-            pagedAdapter.loadStateFlow.collectLatest {
-                binding.progressBar.isVisible = it.refresh is LoadState.Loading
-                binding.group.isVisible = it.refresh is LoadState.Error
-            }
-        }*/
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
 
     }
@@ -92,7 +73,7 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = CardsFragmentBinding.inflate(layoutInflater, container, false)
 
@@ -127,14 +108,14 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
         })
 
-        filterViewModel.sortMode.observe(viewLifecycleOwner){
+        filterViewModel.sortMode.observe(viewLifecycleOwner) {
             it?.let {
                 cardViewmodel.sortMode.value = it
             }
         }
 
-        cardViewmodel.cardsLiveData.observe(viewLifecycleOwner){
-            when(it){
+        cardViewmodel.cardsLiveData.observe(viewLifecycleOwner) {
+            when (it) {
                 is Resource.Success -> {
                     binding.empty.isVisible = it.data.isEmpty()
                     cardAdapter.submitList(it.data)
@@ -151,7 +132,7 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 /*        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             cardViewmodel.cardsLiveData.collect {
                 it?.awaitContinuous()?.collect {
-                    Log.d(TAG, "onCreateView: ${it?.toObjects(LiveCard::class.java)}")
+                    Timber.d( "onCreateView: ${it?.toObjects(LiveCard::class.java)}")
                     //pagedAdapter.sub
                 }
             }
@@ -188,7 +169,8 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
             val cardDetailTransitionName = it.id
             val extras = FragmentNavigatorExtras(view to cardDetailTransitionName)/*,
                 view.findViewById<ShapeableImageView>(R.id.icon) to cardDetailTransitionName+"icon"*/
-            val directions = CardsFragmentDirections.actionCardsFragmentToViewCardDetailsFragment(it)
+            val directions =
+                CardsFragmentDirections.actionCardsFragmentToViewCardDetailsFragment(it)
             findNavController().navigate(directions, extras)
         }
 
@@ -199,10 +181,9 @@ class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
         val popupMenu = PopupMenu(requireContext(), view, GravityCompat.END)
         popupMenu.inflate(R.menu.card_options)
-        //val popupHelper = MenuPopupHelper(requireContext(), popupMenu.menu as MenuBuilder)
 
         popupMenu.setOnMenuItemClickListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.edit -> {
                     viewmodel.editCard()
 

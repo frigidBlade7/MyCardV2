@@ -17,7 +17,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
@@ -41,6 +40,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
+import timber.log.Timber
 import java.io.Closeable
 import java.io.File
 import java.io.FileOutputStream
@@ -112,10 +112,9 @@ class CaptureCardFragment : Fragment() {
     }
 
 
+    val viewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
-    val viewModel : OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
-
-    val captureCardViewModel: CaptureCardViewModel by viewModels{
+    val captureCardViewModel: CaptureCardViewModel by viewModels {
         defaultViewModelProviderFactory
     }
 
@@ -127,7 +126,7 @@ class CaptureCardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentCaptureCardBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewModel
@@ -176,16 +175,14 @@ class CaptureCardFragment : Fragment() {
                 val previewSize = getPreviewOutputSize(
                     viewFinder.display, characteristics, SurfaceHolder::class.java
                 )
-                Log.d(TAG, "View finder size: ${viewFinder.width} x ${viewFinder.height}")
-                Log.d(TAG, "Selected preview size: $previewSize")
+                Timber.d( "View finder size: ${viewFinder.width} x ${viewFinder.height}")
+                Timber.d( "Selected preview size: $previewSize")
                 viewFinder.setAspectRatio(previewSize.width, previewSize.height)
 
                 // To ensure that size is set, initialize camera in the view's thread
-                Log.d(TAG, "surfaceCreated: ${cameraId}")
+                Timber.d( "surfaceCreated: ${cameraId}")
             }
         })
-
-
 
 
     }
@@ -206,7 +203,7 @@ class CaptureCardFragment : Fragment() {
         val size = characteristics.get(
             CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP
         )!!
-            .getOutputSizes(ImageFormat.JPEG).maxBy { it.height * it.width }!!
+            .getOutputSizes(ImageFormat.JPEG).maxByOrNull { it.height * it.width }!!
         imageReader = ImageReader.newInstance(
             size.width, size.height, ImageFormat.JPEG, 2
         )
@@ -234,41 +231,16 @@ class CaptureCardFragment : Fragment() {
             // Perform I/O heavy operations in a different scope
             lifecycleScope.launch(Dispatchers.IO) {
                 takePhoto().use { result ->
-                    Log.d(TAG, "Result received: $result")
+                    Timber.d( "Result received: $result")
 
                     // Save the result to disk
                     val output = saveResult(result)
-                    Log.d(TAG, "Image saved: ${output.absolutePath}")
+                    Timber.d( "Image saved: ${output.absolutePath}")
                     viewModel.filePath = output.absolutePath
-//                    viewModel._destination.postValue(Event(SkipOnboardingFragmentDirections.actionGlobalScanNav()))
 
                     CropImage.activity(Uri.fromFile(output))
                         .start(requireContext(), this@CaptureCardFragment)
-                    //viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
 
-                    /*val intent = Intent(context, ScanActivity::class.java)
-
-                    //val inputBuffer = viewModel.loadInputBuffer()
-                    //val bitmap = viewModel.decodeBitmap(inputBuffer, 0, inputBuffer.size)
-
-                    intent.putExtra(ScanConstants.SELECTED_BITMAP, output.absolutePath)
-                    startActivity(intent)
-                    //val bitmap = BitmapFactory.decodeFile(output.absolutePath)
-*/
-                    /*val bitmap = BitmapFactory.decodeFile(output.absolutePath)
-                    viewModel.processPhysicalCard(bitmap)
-                    viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
-*/
-                    // Display the photo taken to user
-/*                    lifecycleScope.launch(Dispatchers.Main) {
-                        //todo go to next view
-                        findNavController().navigate(CameraFragmentDirections
-                            .actionCameraToJpegViewer(output.absolutePath)
-                            .setOrientation(result.orientation)
-                            .setDepth(
-                                Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
-                                    result.format == ImageFormat.DEPTH_JPEG))
-                    }*/
                 }
 
                 // Re-enable click listener after photo is taken
@@ -289,8 +261,7 @@ class CaptureCardFragment : Fragment() {
             override fun onOpened(device: CameraDevice) = cont.resume(device)
 
             override fun onDisconnected(device: CameraDevice) {
-                Log.w(TAG, "Camera $cameraId has been disconnected")
-                //todo requireActivity().finish()
+                Timber.w("Camera $cameraId has been disconnected")
             }
 
             override fun onError(device: CameraDevice, error: Int) {
@@ -303,7 +274,7 @@ class CaptureCardFragment : Fragment() {
                     else -> "Unknown"
                 }
                 val exc = RuntimeException("Camera $cameraId error: ($error) $msg")
-                Log.e(TAG, exc.message, exc)
+                Timber.e(exc)
                 if (cont.isActive) cont.resumeWithException(exc)
             }
         }, handler)
@@ -327,7 +298,7 @@ class CaptureCardFragment : Fragment() {
 
             override fun onConfigureFailed(session: CameraCaptureSession) {
                 val exc = RuntimeException("Camera ${device.id} session configuration failed")
-                Log.e(TAG, exc.message, exc)
+                Timber.e(exc)
                 cont.resumeWithException(exc)
             }
         }, handler)
@@ -344,13 +315,14 @@ class CaptureCardFragment : Fragment() {
 
         // Flush any images left in the image reader
         @Suppress("ControlFlowWithEmptyBody")
-        while (imageReader.acquireNextImage() != null) {}
+        while (imageReader.acquireNextImage() != null) {
+        }
 
         // Start a new image queue
         val imageQueue = ArrayBlockingQueue<Image>(2)
         imageReader.setOnImageAvailableListener({ reader ->
             val image = reader.acquireNextImage()
-            Log.d(TAG, "Image available in queue: ${image.timestamp}")
+            Timber.d( "Image available in queue: ${image.timestamp}")
             imageQueue.add(image)
         }, imageReaderHandler)
 
@@ -376,7 +348,7 @@ class CaptureCardFragment : Fragment() {
             ) {
                 super.onCaptureCompleted(session, request, result)
                 val resultTimestamp = result.get(CaptureResult.SENSOR_TIMESTAMP)
-                Log.d(TAG, "Capture result received: $resultTimestamp")
+                Timber.d( "Capture result received: $resultTimestamp")
 
                 // Set a timeout in case image captured is dropped from the pipeline
                 val exc = TimeoutException("Image dequeuing took too long")
@@ -392,13 +364,13 @@ class CaptureCardFragment : Fragment() {
 
                         // Dequeue images while timestamps don't match
                         val image = imageQueue.take()
-                        // TODO(owahltinez): b/142011420
+                        // TODO(owahltinez): b/142011420 whoever this is thank you
                         // if (image.timestamp != resultTimestamp) continue
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
                             image.format != ImageFormat.DEPTH_JPEG &&
                             image.timestamp != resultTimestamp
                         ) continue
-                        Log.d(TAG, "Matching image dequeued: ${image.timestamp}")
+                        Timber.d( "Matching image dequeued: ${image.timestamp}")
 
                         // Unset the image reader listener
                         imageReaderHandler.removeCallbacks(timeoutRunnable)
@@ -436,7 +408,7 @@ class CaptureCardFragment : Fragment() {
                     FileOutputStream(output).use { it.write(bytes) }
                     cont.resume(output)
                 } catch (exc: IOException) {
-                    Log.e(TAG, "Unable to write JPEG image to file", exc)
+                    Timber.e(exc,"Unable to write JPEG image to file")
                     cont.resumeWithException(exc)
                 }
             }
@@ -449,7 +421,7 @@ class CaptureCardFragment : Fragment() {
                     FileOutputStream(output).use { dngCreator.writeImage(it, result.image) }
                     cont.resume(output)
                 } catch (exc: IOException) {
-                    Log.e(TAG, "Unable to write DNG image to file", exc)
+                    Timber.e(exc,"Unable to write DNG image to file")
                     cont.resumeWithException(exc)
                 }
             }
@@ -457,7 +429,7 @@ class CaptureCardFragment : Fragment() {
             // No other formats are supported by this sample
             else -> {
                 val exc = RuntimeException("Unknown image format: ${result.image.format}")
-                Log.e(TAG, exc.message, exc)
+                Timber.e(exc)
                 cont.resumeWithException(exc)
             }
         }
@@ -468,7 +440,7 @@ class CaptureCardFragment : Fragment() {
         try {
             camera.close()
         } catch (exc: Throwable) {
-            Log.e(TAG, "Error closing camera", exc)
+            Timber.e(exc,"Error closing camera")
         }
     }
 
@@ -484,15 +456,14 @@ class CaptureCardFragment : Fragment() {
         if (EasyPermissions.hasPermissions(
                 requireContext(),
                 Manifest.permission.CAMERA
-            ))
-        {
+            )
+        ) {
 
             binding.container.post {
                 initializeCamera()
             }
 
-        }
-        else {
+        } else {
             // Do not have permissions, request them now
 
 
@@ -526,37 +497,6 @@ class CaptureCardFragment : Fragment() {
         }
     }
 
-/*    @AfterPermissionGranted(Utils.REQUEST_CAMERA)
-    private fun takePhoto() {
-        if (EasyPermissions.hasPermissions(requireContext(), Utils.CAMERA_PERMISSION)) {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (activity?.packageManager?.let { intent.resolveActivity(it) } != null) {
-                intent.also {
-                    val file: File? = try {
-                        viewmodel.imageFile
-                    }catch (e: Exception){
-                        null
-                        //todo inform user that images cannot be saved/created/taken
-                    }
-                    file?.also {
-                        val photoURI: Uri = FileProvider.getUriForFile(
-                            requireContext(),
-                            "com.spaceandjonin.mycrd.fileprovider",
-                            it)
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                        Log.d("TAG", "takePhoto: $photoURI")
-                        startActivityForResult(intent, Utils.REQUEST_IMAGE_CAPTURE)
-                    }
-                }
-            }
-        } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.require_camera),
-                Utils.REQUEST_CAMERA, Utils.CAMERA_PERMISSION)
-        }
-
-    }*/
-
     @AfterPermissionGranted(Utils.REQUEST_PHOTO)
     private fun callGallery() {
         if (EasyPermissions.hasPermissions(requireContext(), Utils.STORAGE_PERMISSION)) {
@@ -568,8 +508,10 @@ class CaptureCardFragment : Fragment() {
             }
         } else {
             // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.require_gallery),
-                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION)
+            EasyPermissions.requestPermissions(
+                this, getString(R.string.require_gallery),
+                Utils.REQUEST_PHOTO, Utils.STORAGE_PERMISSION
+            )
         }
 
     }
@@ -591,7 +533,7 @@ class CaptureCardFragment : Fragment() {
             val result = CropImage.getActivityResult(data)
             if (resultCode == Activity.RESULT_OK) {
 
-                Log.d(TAG, "onActivityResult: ${result?.getBitmap(requireContext())}")
+                Timber.d( "onActivityResult: ${result?.getBitmap(requireContext())}")
                 viewModel.processPhysicalCard(result?.getBitmap(requireContext()))
 
                 //findNavController().popBackStack()
@@ -600,6 +542,7 @@ class CaptureCardFragment : Fragment() {
             }
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

@@ -7,7 +7,8 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
         <item name="android:actionMenuTextColor">?attr/colorPrimary</item>
-        <item name="actionMenuTextAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold</item>
+        <item name="actionMenuTextAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold
+        </item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="textInputStyle">@style/Widget.MyCardStyles.TextInputLayout</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -20,9 +21,15 @@
         <item name="popupMenuStyle">@style/Theme.MyCardStyles.PopupMenu</item>
         <item name="dialogTheme">@style/Theme.MyCardStyles.Dialog</item>
         <item name="toolbarStyle">@style/Widget.MyCard.Toolbar</item>
-        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyCardStyles.LargeComponent</item>
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyCardStyles.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyCardStyles.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">
+            @style/ShapeAppearance.MyCardStyles.LargeComponent
+        </item>
+        <item name="shapeAppearanceSmallComponent">
+            @style/ShapeAppearance.MyCardStyles.SmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">
+            @style/ShapeAppearance.MyCardStyles.MediumComponent
+        </item>
         <item name="floatingActionButtonStyle">@style/ShapeAppearance.MyCardStyles.Fab</item>
     </style>
 
@@ -30,7 +37,8 @@
         <item name="colorPrimary">@color/mc_purple</item>
         <item name="colorAccent">@color/mc_purple</item>
         <item name="toolbarStyle">@style/Widget.MyCard.Toolbar</item>
-        <item name="actionMenuTextAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold</item>
+        <item name="actionMenuTextAppearance">@style/TextAppearance.MyCardStyles.Body.Semibold
+        </item>
 
     </style>
 
@@ -54,8 +62,12 @@
         <item name="ccp_defaultNameCode">GH</item>
         <item name="ccp_rememberLastSelection">true</item>
         <item name="ccp_showArrow">false</item>
-        <item name="ccpDialog_fastScroller_bubbleTextAppearance">@style/TextAppearance.MyCardStyles.Subtitle.Regular</item>
-        <item name="android:textAppearance">@style/TextAppearance.MyCardStyles.Subtitle.Regular</item>
+        <item name="subMenuArrow">@drawable/chevron</item>
+        <item name="ccpDialog_fastScroller_bubbleTextAppearance">
+            @style/TextAppearance.MyCardStyles.Subtitle.Regular
+        </item>
+        <item name="android:textAppearance">@style/TextAppearance.MyCardStyles.Subtitle.Regular
+        </item>
         <item name="ccp_autoFormatNumber">true</item>
         <item name="ccp_showFlag">true</item>
         <item name="ccp_showFullName">false</item>
@@ -63,6 +75,7 @@
         <item name="ccp_showNameCode">false</item>
 
     </style>
+
     <style name="TextAppearance.MyCardStyles.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
         <item name="fontFamily">@font/inter_bold</item>
         <item name="android:fontFamily">@font/inter_bold</item>
@@ -77,6 +90,14 @@
     <style name="ShapeAppearance.MyCardStyles.Fab" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="tint">@android:color/white</item>
         <item name="backgroundTint">@color/mc_purple</item>
+    </style>
+
+    <style name="Widget.MyCardStyles.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="iconTint">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="backgroundTint">@color/mc_white_10</item>
+        <item name="iconPadding">8dp</item>
+        <item name="textAllCaps">false</item>
     </style>
 
     <style name="TextAppearance.MyCardStyles.Subtitle.Regular" parent="TextAppearance.MaterialComponents.Subtitle1">
@@ -153,6 +174,7 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="TextAppearance.MyCardStyles.Body.Regular" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/inter_regular</item>
         <item name="android:fontFamily">@font/inter_regular</item>
@@ -207,14 +229,14 @@
     </style>
 
 
-    <style name="Widget.MyCardStyles.Button.RoundedButton.Dense" parent ="Widget.MyCardStyles.Button.RoundedButton">
+    <style name="Widget.MyCardStyles.Button.RoundedButton.Dense" parent="Widget.MyCardStyles.Button.RoundedButton">
         <item name="android:layout_height">32dp</item>
         <item name="android:padding">0dp</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">0dp</item>
     </style>
 
-    <style name="Widget.MyCardStyles.Button.OutlinedButton.Dense" parent ="Widget.MyCardStyles.Button.OutlinedButton">
+    <style name="Widget.MyCardStyles.Button.OutlinedButton.Dense" parent="Widget.MyCardStyles.Button.OutlinedButton">
         <item name="android:layout_height">32dp</item>
         <item name="android:padding">0dp</item>
     </style>
@@ -318,7 +340,7 @@
 
     </style>
 
-    <style name="ShapeAppearanceOverlay.MyCardStyles.Chip" parent= "Widget.MaterialComponents.Chip.Filter">
+    <style name="ShapeAppearanceOverlay.MyCardStyles.Chip" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="chipCornerRadius">8dp</item>
         <item name="chipMinHeight">36dp</item>
         <item name="chipStrokeWidth">1dp</item>
@@ -327,21 +349,22 @@
         <item name="chipBackgroundColor">@color/selector_color</item>
         <item name="chipStrokeColor">@color/mc_black_5</item>
     </style>
+
     <style name="ShapeAppearance.MyCardStyles.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
-<!--
-    <style name="Theme.MyCardStyles.Options" parent="Theme.MaterialComponents.BottomSheetDialog">
+    <!--
+        <style name="Theme.MyCardStyles.Options" parent="Theme.MaterialComponents.BottomSheetDialog">
 
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.MyCardStyles.MediumComponent.16</item>
+            <item name="shapeAppearanceOverlay">@style/ShapeAppearance.MyCardStyles.MediumComponent.16</item>
 
-    </style>
+        </style>
 
-    <style name="ShapeAppearance.MyCardStyles.MediumComponent.16" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
-    </style>-->
+        <style name="ShapeAppearance.MyCardStyles.MediumComponent.16" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+            <item name="cornerFamily">rounded</item>
+            <item name="cornerSize">16dp</item>
+        </style>-->
 
 
     <style name="Theme.MyCardStyles.Dialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
