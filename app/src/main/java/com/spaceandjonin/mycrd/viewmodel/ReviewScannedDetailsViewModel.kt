@@ -313,7 +313,6 @@ class ReviewScannedDetailsViewModel @Inject constructor(
                                                     mutablePrefs[Utils.NEW_USER_DISPLAY_NAME]= card.name.fullName
                                                     //we could pass it as a param to the destination, but what if the flow is interrupted
                                                     //the card is already created, we can just save the user name to shared prefs
-                                                    //or better yet,as a fallback, todo, get the name of the first created personal card
                                                     _destination.postValue(Event(ScanNavDirections.actionGlobalSetUpAccountFragment()))
                                                 }
                                             }

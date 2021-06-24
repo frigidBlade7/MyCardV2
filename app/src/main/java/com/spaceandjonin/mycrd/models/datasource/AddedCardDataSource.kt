@@ -102,7 +102,6 @@ abstract class AddedCardDataSource : DataSource<AddedCard> {
         trySend(Resource.Loading)
         val subscriptionCallback = tweakedReference.addSnapshotListener { value, error ->
             value?.let {
-                //todo is this necessary if(!it.isEmpty)
                 try {
                     trySend(Resource.Success(value.toObjects(AddedCard::class.java)))
                 } catch (e: Exception) {

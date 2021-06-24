@@ -65,7 +65,6 @@ class UpdatePhoneNumberServiceImpl @Inject constructor(private val auth: Firebas
     private fun setupPhoneAuthOptions() {
         phoneAuthOptions.setCallbacks(callbacks)
             .setPhoneNumber(phoneNumber)
-            //todo .setActivity(TaskExecutors.MAIN_THREAD as Activity)
             .setTimeout(timeoutInMillis, TimeUnit.MILLISECONDS)
 
         forceResendingToken?.let {

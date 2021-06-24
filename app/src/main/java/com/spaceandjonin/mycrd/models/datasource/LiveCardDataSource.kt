@@ -102,9 +102,8 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
         val subscriptionCallback = collectionReference.whereEqualTo("owner", owner)
             .orderBy("createdAt", Query.Direction.DESCENDING).addSnapshotListener { value, error ->
             value?.let {
-                //todo is this necessary if(!it.isEmpty)
                 try {
-                    //todo save to room
+                    // save to room if this implementation ever moves from firebase
 
                     trySend(Resource.Success(value.toObjects(LiveCard::class.java)))
                 } catch (e: Exception) {
@@ -124,9 +123,8 @@ abstract class LiveCardDataSource : DataSource<LiveCard> {
         val subscriptionCallback = collectionReference.whereEqualTo("owner", owner)
             .orderBy("createdAt", Query.Direction.DESCENDING).limit(1).addSnapshotListener { value, error ->
                 value?.let {
-                    //todo is this necessary if(!it.isEmpty)
                     try {
-                        //todo save to room
+                        // save to room if implementation should change
                         val dataList = value.toObjects(LiveCard::class.java)
                         if(dataList.isNullOrEmpty())
                             trySend(Resource.Error(R.string.card_not_found))

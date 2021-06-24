@@ -71,7 +71,6 @@ class SelectPhoneNumberFragment : BottomSheetDialogFragment(), ItemInteraction<P
     }
 
     override fun onItemClicked(item: PhoneNumber) {
-        //TODO("Not yet implemented")
         Uri.parse("tel:${item.number.trim()}")?.let { number ->
             try {
                 startActivity(Intent(Intent.ACTION_DIAL, number))

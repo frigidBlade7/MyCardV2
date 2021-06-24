@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -71,9 +72,6 @@ class SelectEmailFragment : BottomSheetDialogFragment(), ItemInteraction<EmailAd
     }
 
     override fun onItemClicked(item: EmailAddress) {
-        //TODO("Not yet implemented")
-
-
         try {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:${item.address}") // only email apps should handle this
@@ -82,10 +80,10 @@ class SelectEmailFragment : BottomSheetDialogFragment(), ItemInteraction<EmailAd
             startActivity(intent)
 
         } catch (e: ActivityNotFoundException) {
+            Toast.makeText(context, getString(R.string.kindly_set_up_a_default_email_app), Toast.LENGTH_SHORT).show()
             // Define what your app should do if no activity can handle the intent.
         }
         dismiss()
     }
-
 
 }

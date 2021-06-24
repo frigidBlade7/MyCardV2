@@ -364,7 +364,7 @@ class CaptureCardFragment : Fragment() {
 
                         // Dequeue images while timestamps don't match
                         val image = imageQueue.take()
-                        // TODO(owahltinez): b/142011420 whoever this is thank you
+                        //(owahltinez): b/142011420 whoever this is thank you
                         // if (image.timestamp != resultTimestamp) continue
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
                             image.format != ImageFormat.DEPTH_JPEG &&

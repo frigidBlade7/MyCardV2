@@ -64,7 +64,6 @@ class AuthenticationServiceImpl @Inject constructor(private val auth: FirebaseAu
     private fun setupPhoneAuthOptions() {
         phoneAuthOptions.setCallbacks(callbacks)
             .setPhoneNumber(phoneNumber)
-            //todo .setActivity(TaskExecutors.MAIN_THREAD as Activity)
             .setTimeout(timeoutInMillis, TimeUnit.MILLISECONDS)
 
         forceResendingToken?.let {

@@ -184,6 +184,8 @@
     <string name="show_location">show location</string>
     <string name="send_mail">send mail</string>
     <string name="enter_your_name_to_complete_your_profile">Enter your name to complete your profile</string>
+    <string name="your_image_could_not_be_saved">Your image could not be saved</string>
+    <string name="kindly_set_up_a_default_email_app">Kindly set up a default email app</string>
 
 
     <array name="phone_types">

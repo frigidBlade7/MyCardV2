@@ -11,9 +11,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class AddedCardsRepository @Inject constructor(
-    val firebaseAddedCardDataSource: AddedCardDataSource,
-    val addedCardDao: AddedCardDao/*, val firestoreCardPagingSource: FirestoreCardPagingSource*/
-) {
+    val firebaseAddedCardDataSource: AddedCardDataSource) {
 
 
     fun getSortedCards(sort: String): Flow<Resource<List<AddedCard>>> {

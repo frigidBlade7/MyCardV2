@@ -84,8 +84,8 @@ class PhotoActionsFragment : BottomSheetDialogFragment() {
                     val file: File? = try {
                         viewmodel.imageFile
                     } catch (e: Exception) {
+                        Toast.makeText(context, R.string.your_image_could_not_be_saved, Toast.LENGTH_SHORT).show()
                         null
-                        //todo inform user that images cannot be saved/created/taken
                     }
                     file?.also {
                         val photoURI: Uri = FileProvider.getUriForFile(

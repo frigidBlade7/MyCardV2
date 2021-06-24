@@ -31,9 +31,6 @@ class ScanAlertDialogFragment : DialogFragment() {
         binding = FragmentScanAlertDialogBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        //todo complete refactor to move selected card and selected personal card implementations
-        // to card view model and stop this copy life na wanyin
-
 
         binding.delete.setOnClickListener {
             viewmodel.setDialogDismissed()
