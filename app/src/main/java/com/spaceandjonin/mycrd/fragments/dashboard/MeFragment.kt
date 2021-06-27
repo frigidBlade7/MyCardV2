@@ -243,7 +243,7 @@ class MeFragment : Fragment(), SocialItemInteraction {
                         onboardingViewModel.tempCardByteArray
                     )
                 )/*.version(VCardVersion.V2_1)*/.go(file)
-                ShareCompat.IntentBuilder.from(requireActivity())
+                ShareCompat.IntentBuilder(requireActivity())
                     .setStream(vcfURI)
                     .setType("text/vcard")
                     .also {

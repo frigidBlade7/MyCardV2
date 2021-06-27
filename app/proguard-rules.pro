@@ -21,8 +21,10 @@
 #-renamesourcefileattribute SourceFile
 
 -keepnames class androidx.navigation.fragment.NavHostFragment
--keep,includedescriptorclasses class ezvcard.Ezvcard { *; }
--keep enum ezvcard.VCardVersion { *; }
+-keepnames class com.spaceandjonin.mycrd.models.LabelDetail
+-keepclasseswithmembernames class ezvcard.VCard {*; }
+-keepclasseswithmembernames class ezvcard.Ezvcard {*; }
+-keep,includedescriptorclasses class ezvcard.property.** { *; }
 -keepclasseswithmembernames class com.google.mlkit.nl.languageid.internal.LanguageIdentificationJni {
   native <methods>;
 }
