@@ -33,15 +33,16 @@ class AddCardViewModel @Inject constructor(
     val workManager: WorkManager
 ) : BaseViewModel() {
 
-    var isNameExpanded = MutableLiveData<Boolean>(false)
-    var profileImageUri = MutableLiveData<Uri>(Uri.EMPTY)
+    val isNameExpanded = MutableLiveData<Boolean>(false)
+    val profileImageUri = MutableLiveData<Uri>(Uri.EMPTY)
 
-    var isEditFlow = MutableLiveData(false)
+    val isEditFlow = MutableLiveData(false)
 
-    var card = MutableLiveData(AddedCard())
+    val card = MutableLiveData(AddedCard())
 
-    var name = MutableLiveData(Name())
-    var socials = MutableLiveData(
+    val name = MutableLiveData(Name())
+
+    val socials = MutableLiveData(
         mutableListOf<SocialMediaProfile>(
             SocialMediaProfile(type = SocialMediaProfile.SocialMedia.LinkedIn),
             SocialMediaProfile(type = SocialMediaProfile.SocialMedia.Facebook),
@@ -50,11 +51,11 @@ class AddCardViewModel @Inject constructor(
         )
     )
 
-    var phoneNumbers = MutableLiveData(mutableListOf(PhoneNumber()))
-    var emailAddresses = MutableLiveData(mutableListOf(EmailAddress()))
+    val phoneNumbers = MutableLiveData(mutableListOf(PhoneNumber()))
+    val emailAddresses = MutableLiveData(mutableListOf(EmailAddress()))
 
-    var businessInfo = MutableLiveData(BusinessInfo())
-    var note = MutableLiveData("")
+    val businessInfo = MutableLiveData(BusinessInfo())
+    val note = MutableLiveData("")
 
     fun goToSocialProfile() {
         _destination.postValue(Event(AddCardFragmentDirections.actionAddCardFragmentToAddSocialsFragment()))

@@ -41,10 +41,10 @@ class ReviewScannedDetailsViewModel @Inject constructor(
 
     lateinit var SCAN_TYPE: String
 
-    var card = MutableLiveData(Card())
+    val card = MutableLiveData(Card())
 
-    var name = MutableLiveData(Name())
-    var socials = MutableLiveData(
+    val name = MutableLiveData(Name())
+    val socials = MutableLiveData(
         mutableListOf<SocialMediaProfile>(
             SocialMediaProfile(type = SocialMediaProfile.SocialMedia.LinkedIn),
             SocialMediaProfile(type = SocialMediaProfile.SocialMedia.Facebook),
@@ -53,22 +53,22 @@ class ReviewScannedDetailsViewModel @Inject constructor(
         )
     )
 
-    var phoneNumbers = MutableLiveData(mutableSetOf(PhoneNumber()))
-    var emailAddresses = MutableLiveData(mutableSetOf(EmailAddress()))
+    val phoneNumbers = MutableLiveData(mutableSetOf(PhoneNumber()))
+    val emailAddresses = MutableLiveData(mutableSetOf(EmailAddress()))
 
-    var businessInfo = MutableLiveData(BusinessInfo())
-    var note = MutableLiveData("")
-    var cardNote = MutableLiveData("")
+    val businessInfo = MutableLiveData(BusinessInfo())
+    val note = MutableLiveData("")
+    val cardNote = MutableLiveData("")
 
-    var labelledToggle = MutableLiveData(true)
-    var unlabelledToggle = MutableLiveData(true)
+    val labelledToggle = MutableLiveData(true)
+    val unlabelledToggle = MutableLiveData(true)
 
-    var phoneOptionsToggle = MutableLiveData(false)
-    var emailOptionsToggle = MutableLiveData(false)
+    val phoneOptionsToggle = MutableLiveData(false)
+    val emailOptionsToggle = MutableLiveData(false)
 
 
-    var unlabelledStrings = MutableLiveData(mutableListOf<String>())
-    var labelledStrings = MutableLiveData(mutableListOf<LabelDetail>())
+    val unlabelledStrings = MutableLiveData(mutableListOf<String>())
+    val labelledStrings = MutableLiveData(mutableListOf<LabelDetail>())
 
     val selectedDetail = MutableLiveData("")
     val selectedLabelType = MutableLiveData("")

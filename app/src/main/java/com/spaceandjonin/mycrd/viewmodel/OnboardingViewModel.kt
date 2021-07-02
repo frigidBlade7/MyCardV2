@@ -36,7 +36,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val uploadService: UpdateImageService,
     private val auth: FirebaseAuth,
     val imageByteArray: ImageByteArray,
@@ -48,7 +47,7 @@ class OnboardingViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     lateinit var filePath: String
-    var profileImageUri = MutableLiveData<Uri>()
+    val profileImageUri = MutableLiveData<Uri>()
 
     var selectedCard = MutableLiveData<AddedCard>()
     var selectedPersonalCard = MutableLiveData<LiveCard>()

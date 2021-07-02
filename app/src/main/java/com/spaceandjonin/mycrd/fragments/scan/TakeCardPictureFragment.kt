@@ -112,7 +112,7 @@ class TakeCardPictureFragment : Fragment() {
     /** Live data listener for changes in the device orientation relative to the camera */
     private lateinit var relativeOrientation: OrientationLiveData
 
-    var cameraId = 0
+    val cameraId = 0
 
     private val characteristics: CameraCharacteristics by lazy {
         cameraManager.getCameraCharacteristics(cameraId.toString())

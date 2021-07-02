@@ -44,11 +44,11 @@ class SettingsViewModel @Inject constructor(
     private val userRepository: UserRepository, val appDb: AppDb, val db: FirebaseFirestore
 ) : BaseViewModel() {
 
-    var profileImageUri = MutableLiveData<Uri>(Uri.EMPTY)
-    var user = MutableLiveData(User(userRepository.getAuthId()))
-    var isVerifyButtonEnabled = MutableLiveData(true)
-    var isResendButtonEnabled = MutableLiveData(true)
-    var smsCode = MutableLiveData<String>()
+    val profileImageUri = MutableLiveData<Uri>(Uri.EMPTY)
+    val user = MutableLiveData(User(userRepository.getAuthId()))
+    val isVerifyButtonEnabled = MutableLiveData(true)
+    val isResendButtonEnabled = MutableLiveData(true)
+    val smsCode = MutableLiveData<String>()
 
     fun getLoggedInUser(): LiveData<Resource<User>> {
         return userRepository.getLoggedInUser()

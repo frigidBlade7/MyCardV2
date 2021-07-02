@@ -9,7 +9,7 @@ import com.squareup.moshi.Types
 import javax.inject.Inject
 
 @ProvidedTypeConverter
-class LiveCardConverter @Inject constructor(var moshi: Moshi) {
+class LiveCardConverter @Inject constructor(val moshi: Moshi) {
 
     val dataListType =
         Types.newParameterizedType(MutableList::class.java, SocialMediaProfile::class.java)
