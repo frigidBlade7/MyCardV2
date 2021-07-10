@@ -13,7 +13,7 @@ import timber.log.Timber
 
 class CustomCropImageActivity : CropImageActivity(), CustomCropContract.View {
 
-    lateinit var binding: ActivityCustomCropImageBinding
+    private lateinit var binding: ActivityCustomCropImageBinding
     private val presenter: CustomCropContract.Presenter = CustomCropPresenter()
 
     companion object {

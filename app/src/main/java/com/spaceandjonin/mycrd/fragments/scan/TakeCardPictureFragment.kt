@@ -34,7 +34,6 @@ import com.spaceandjonin.mycrd.utils.AutoFitSurfaceView
 import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.utils.computeExifOrientation
 import com.spaceandjonin.mycrd.utils.getPreviewOutputSize
-import com.spaceandjonin.mycrd.viewmodel.CaptureCardViewModel
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,7 +58,7 @@ import kotlin.coroutines.suspendCoroutine
 @AndroidEntryPoint
 class TakeCardPictureFragment : Fragment() {
 
-    lateinit var binding: FragmentTakeCardPictureBinding
+    private lateinit var binding: FragmentTakeCardPictureBinding
 
     /** Detects, characterizes, and connects to a CameraDevice (used for all camera operations) */
     private val cameraManager: CameraManager by lazy {
@@ -121,16 +120,13 @@ class TakeCardPictureFragment : Fragment() {
 
     val viewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
-    val captureCardViewModel: CaptureCardViewModel by viewModels {
-        defaultViewModelProviderFactory
-    }
-
-    val reviewScannedDetailsViewModel: ReviewScannedDetailsViewModel by hiltNavGraphViewModels(R.id.scan_nav)
+    val reviewScannedDetailsViewModel: ReviewScannedDetailsViewModel
+        by hiltNavGraphViewModels(R.id.scan_nav)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        reviewScannedDetailsViewModel.SCAN_TYPE =
-            ScanNavArgs.fromBundle(requireArguments()).scanType
+        reviewScannedDetailsViewModel
+            .setScanType(ScanNavArgs.fromBundle(requireArguments()).scanType)
     }
 
     override fun onResume() {
@@ -159,7 +155,6 @@ class TakeCardPictureFragment : Fragment() {
         })
 
         binding.importCard.setOnClickListener {
-            //viewModel._destination.postValue(Event(CaptureCardFragmentDirections.actionCaptureCardFragmentToAddCardNav(true,)))
             callGallery()
         }
 
@@ -266,7 +261,7 @@ class TakeCardPictureFragment : Fragment() {
                     // Save the result to disk
                     val output = saveResult(result)
                     Timber.d( "Image saved: ${output.absolutePath}")
-                    viewModel.filePath = output.absolutePath
+                    viewModel.setFilePath(output.absolutePath)
 
                     // If the result is a JPEG file (which it kind of is), update EXIF metadata with orientation info
                     if (output.extension == "jpg") {

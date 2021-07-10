@@ -16,7 +16,7 @@ import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 
 class DeletePersonalCardDialogFragment : DialogFragment() {
 
-    lateinit var binding: FragmentDeleteCardDialogBinding
+    private lateinit var binding: FragmentDeleteCardDialogBinding
 
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 

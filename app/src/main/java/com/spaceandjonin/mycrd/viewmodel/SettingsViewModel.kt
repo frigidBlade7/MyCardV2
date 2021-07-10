@@ -54,7 +54,7 @@ class SettingsViewModel @Inject constructor(
         return userRepository.getLoggedInUser()
     }
 
-    var authCallbacks = object : AuthenticationCallbacks<FirebaseUser>() {
+    val authCallbacks = object : AuthenticationCallbacks<FirebaseUser>() {
         override fun onCodeSent() {
             //start countdown
             isVerifyButtonEnabled.value = true

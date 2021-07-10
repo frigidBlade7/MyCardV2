@@ -14,7 +14,7 @@ class SocialDisplayAdapter(val itemInteraction: ItemInteraction<SocialMediaProfi
         SocialDisplayDiffCallback()
     ) {
 
-    lateinit var binding: SocialDisplayItemBinding
+    private lateinit var binding: SocialDisplayItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
         binding =

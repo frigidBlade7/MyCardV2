@@ -24,11 +24,11 @@ private const val TAG = "CardDetailsFragment"
 @AndroidEntryPoint
 class ViewPersonalCardDetailsFragment : Fragment() {
 
-    lateinit var binding: FragmentPersonalCardDetailsBinding
-    lateinit var cardAdapter: PersonalCardAdapter
-    lateinit var socialAdapter: SocialAdapter
-    lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
-    lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
+    private lateinit var binding: FragmentPersonalCardDetailsBinding
+    private lateinit var cardAdapter: PersonalCardAdapter
+    private lateinit var socialAdapter: SocialAdapter
+    private lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
+    private lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
 
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)

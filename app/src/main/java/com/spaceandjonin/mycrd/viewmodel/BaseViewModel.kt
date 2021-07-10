@@ -35,4 +35,5 @@ open class BaseViewModel : ViewModel() {
         get() = _snackbarString
 
 
+            //todo private set get
 }

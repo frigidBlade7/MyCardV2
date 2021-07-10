@@ -15,7 +15,7 @@ import com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel
 
 class AddLabelledDetailFragment : Fragment() {
 
-    lateinit var binding: FragmentAddLabelledDetailBinding
+    private lateinit var binding: FragmentAddLabelledDetailBinding
 
     val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory

@@ -21,7 +21,7 @@ private const val TAG = "SettingsFragment"
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
-    lateinit var binding: FragmentSettingsBinding
+    private lateinit var binding: FragmentSettingsBinding
 
     val viewmodel: SettingsViewModel by navGraphViewModels(R.id.settings_nav) {
         defaultViewModelProviderFactory

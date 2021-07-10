@@ -15,7 +15,7 @@ class SocialAdapter(val itemInteraction: SocialItemInteraction?) :
         SocialDiffCallback()
     ) {
 
-    lateinit var binding: SocialItemBinding
+    private lateinit var binding: SocialItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
         binding = SocialItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

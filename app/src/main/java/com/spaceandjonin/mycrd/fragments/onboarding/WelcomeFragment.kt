@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WelcomeFragment : Fragment() {
 
-    lateinit var binding: FragmentWelcomeBinding
+    private lateinit var binding: FragmentWelcomeBinding
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 

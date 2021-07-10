@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 class EditWorkFragment : Fragment() {
 
-    lateinit var binding: FragmentAddWorkBinding
+    private lateinit var binding: FragmentAddWorkBinding
     val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav) {
         defaultViewModelProviderFactory
     }

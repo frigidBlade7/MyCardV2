@@ -18,7 +18,7 @@ class EditDetailFragment : BottomSheetDialogFragment() {
 
     var existingLabelDetail: LabelDetail? = null
 
-    lateinit var binding: FragmentEditLabelledDetailBinding
+    private lateinit var binding: FragmentEditLabelledDetailBinding
 
     val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory

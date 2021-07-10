@@ -39,7 +39,7 @@ private const val TAG = "SearchCardsFragment"
 class
 SearchCardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
-    lateinit var binding: FragmentSearchCardsBinding
+    private lateinit var binding: FragmentSearchCardsBinding
 
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 

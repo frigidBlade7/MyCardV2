@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SkipOnboardingFragment : Fragment() {
 
-    lateinit var binding: FragmentSkipOnboardingBinding
+    private lateinit var binding: FragmentSkipOnboardingBinding
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

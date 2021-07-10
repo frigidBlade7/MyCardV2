@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchCardViewModel @Inject constructor(val addedCardsRepository: AddedCardsRepository) :
+class SearchCardViewModel @Inject constructor(private val addedCardsRepository: AddedCardsRepository) :
     BaseViewModel() {
 
 
@@ -18,7 +18,7 @@ class SearchCardViewModel @Inject constructor(val addedCardsRepository: AddedCar
     val filterQuery = MutableLiveData("")
 
 
-    var pagedAddedCardsFlow =
+    val pagedAddedCardsFlow =
         Transformations.switchMap(DoubleTransformation(searchMode, filterQuery)) {
             when (it.first) {
                 Utils.FILTER_COMPANY -> Pager(PagingConfig(10)) {

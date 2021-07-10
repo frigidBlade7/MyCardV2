@@ -15,7 +15,7 @@ import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 
 class ConfirmNumberDialogFragment : DialogFragment() {
 
-    lateinit var binding: FragmentConfirmNumberDialogBinding
+    private lateinit var binding: FragmentConfirmNumberDialogBinding
 
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 

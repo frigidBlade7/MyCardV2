@@ -21,7 +21,6 @@ import android.view.*
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -32,7 +31,6 @@ import com.spaceandjonin.mycrd.event.EventObserver
 import com.spaceandjonin.mycrd.utils.AutoFitSurfaceView
 import com.spaceandjonin.mycrd.utils.Utils
 import com.spaceandjonin.mycrd.utils.getPreviewOutputSize
-import com.spaceandjonin.mycrd.viewmodel.CaptureCardViewModel
 import com.spaceandjonin.mycrd.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -56,7 +54,7 @@ import kotlin.coroutines.suspendCoroutine
 @AndroidEntryPoint
 class CaptureCardFragment : Fragment() {
 
-    lateinit var binding: FragmentCaptureCardBinding
+    private lateinit var binding: FragmentCaptureCardBinding
 
     /** Detects, characterizes, and connects to a CameraDevice (used for all camera operations) */
     private val cameraManager: CameraManager by lazy {
@@ -105,7 +103,7 @@ class CaptureCardFragment : Fragment() {
     /** Internal reference to the ongoing [CameraCaptureSession] configured with our parameters */
     private lateinit var session: CameraCaptureSession
 
-    var cameraId = 0
+    val cameraId = 0
 
     private val characteristics: CameraCharacteristics by lazy {
         cameraManager.getCameraCharacteristics(cameraId.toString())
@@ -113,10 +111,6 @@ class CaptureCardFragment : Fragment() {
 
 
     val viewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
-
-    val captureCardViewModel: CaptureCardViewModel by viewModels {
-        defaultViewModelProviderFactory
-    }
 
     override fun onResume() {
         super.onResume()
@@ -236,7 +230,7 @@ class CaptureCardFragment : Fragment() {
                     // Save the result to disk
                     val output = saveResult(result)
                     Timber.d( "Image saved: ${output.absolutePath}")
-                    viewModel.filePath = output.absolutePath
+                    viewModel.setFilePath(output.absolutePath)
 
                     CropImage.activity(Uri.fromFile(output))
                         .start(requireContext(), this@CaptureCardFragment)

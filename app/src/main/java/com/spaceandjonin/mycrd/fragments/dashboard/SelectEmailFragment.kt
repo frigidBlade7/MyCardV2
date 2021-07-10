@@ -25,8 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SelectEmailFragment : BottomSheetDialogFragment(), ItemInteraction<EmailAddress> {
 
-    lateinit var binding: FragmentSelectEmailBinding
-    lateinit var adapter: SelectEmailAdapter
+    private lateinit var binding: FragmentSelectEmailBinding
+    private lateinit var adapter: SelectEmailAdapter
 
     val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav) {
         defaultViewModelProviderFactory

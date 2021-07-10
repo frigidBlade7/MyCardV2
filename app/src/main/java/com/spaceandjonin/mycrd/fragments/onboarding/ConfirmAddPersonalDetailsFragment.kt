@@ -20,12 +20,12 @@ import com.spaceandjonin.mycrd.viewmodel.AddPersonalCardViewModel
 
 class ConfirmAddPersonalDetailsFragment : Fragment() {
 
-    lateinit var binding: FragmentAddPersonalConfirmDetailsBinding
-    lateinit var cardAdapter: CardAdapter
-    lateinit var socialAdapter: SocialAdapter
+    private lateinit var binding: FragmentAddPersonalConfirmDetailsBinding
+    private lateinit var cardAdapter: CardAdapter
+    private lateinit var socialAdapter: SocialAdapter
 
-    lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
-    lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
+    private lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
+    private lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
 
     val addPersonalCardViewModel: AddPersonalCardViewModel by hiltNavGraphViewModels(R.id.add_personal_card_nav)
 

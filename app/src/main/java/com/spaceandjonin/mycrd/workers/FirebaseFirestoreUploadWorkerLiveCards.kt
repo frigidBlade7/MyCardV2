@@ -22,7 +22,7 @@ class FirebaseFirestoreUploadWorkerLiveCards @AssistedInject constructor(/*@Assi
 ) :
     CoroutineWorker(appContext, workerParams) {
 
-    lateinit var dataTask: UploadTask
+    private lateinit var dataTask: UploadTask
 
 
     override suspend fun doWork(): Result {

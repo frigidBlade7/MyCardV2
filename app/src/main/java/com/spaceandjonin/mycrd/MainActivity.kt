@@ -22,7 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    lateinit var navController: NavController
+        private set
+
+    private lateinit var navController: NavController
 
     val currentNavigationFragment: Fragment?
         get() = supportFragmentManager.findFragmentById(R.id.fragment)

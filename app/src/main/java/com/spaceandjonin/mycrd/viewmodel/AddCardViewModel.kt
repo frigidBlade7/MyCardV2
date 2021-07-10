@@ -28,9 +28,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddCardViewModel @Inject constructor(
-    val addedCardsRepository: AddedCardsRepository,
+    private val addedCardsRepository: AddedCardsRepository,
     @ImageFile val imageFile: File?,
-    val workManager: WorkManager
+    private val workManager: WorkManager
 ) : BaseViewModel() {
 
     val isNameExpanded = MutableLiveData<Boolean>(false)

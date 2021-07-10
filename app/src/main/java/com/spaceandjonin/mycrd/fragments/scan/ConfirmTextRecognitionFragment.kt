@@ -26,7 +26,7 @@ private const val TAG = "ConfirmTextRec"
 @AndroidEntryPoint
 class ConfirmTextRecognitionFragment : Fragment() {
 
-    lateinit var binding: FragmentConfirmTextRecognitionBinding
+    private lateinit var binding: FragmentConfirmTextRecognitionBinding
 
     val viewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 

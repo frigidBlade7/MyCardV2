@@ -11,7 +11,7 @@ import com.spaceandjonin.mycrd.databinding.FragmentAlertDialogBinding
 
 class AlertDialogFragment : DialogFragment() {
 
-    lateinit var binding: FragmentAlertDialogBinding
+    private lateinit var binding: FragmentAlertDialogBinding
 
     override fun getTheme(): Int {
         return R.style.Theme_MyCardStyles_Dialog

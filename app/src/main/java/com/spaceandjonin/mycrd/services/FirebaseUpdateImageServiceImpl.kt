@@ -20,7 +20,7 @@ class FirebaseUpdateImageServiceImpl @Inject constructor(val storage: FirebaseSt
     val reference = storage.reference.child("images")
     var photoUri: Uri? = null
     var sessionUri: Uri? = null
-    lateinit var dataTask: UploadTask
+    private lateinit var dataTask: UploadTask
 
 
     override suspend fun uploadImage(pathId: String): Resource<Uri> {

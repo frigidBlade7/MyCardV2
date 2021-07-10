@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CardFilterFragment : BottomSheetDialogFragment() {
 
-    lateinit var binding: FragmentCardFilterBinding
+    private lateinit var binding: FragmentCardFilterBinding
 
     val viewmodel: FilterViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 

@@ -17,7 +17,7 @@ import com.spaceandjonin.mycrd.viewmodel.AddCardViewModel
 
 class AddNoteFragment : Fragment() {
 
-    lateinit var binding: FragmentAddNoteBinding
+    private lateinit var binding: FragmentAddNoteBinding
 
     val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav) {
         defaultViewModelProviderFactory

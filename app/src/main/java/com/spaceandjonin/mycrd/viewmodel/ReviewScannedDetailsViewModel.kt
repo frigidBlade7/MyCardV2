@@ -31,15 +31,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReviewScannedDetailsViewModel @Inject constructor(
-    val addedCardsRepository: AddedCardsRepository,
-    val personalCardsRepository: PersonalCardsRepository,
-    val userRepository: UserRepository,
-    val dataStore: DataStore<Preferences>,
-    val moshi: Moshi,
-    val sessionManagerService: SessionManagerService
+    private val addedCardsRepository: AddedCardsRepository,
+    private val personalCardsRepository: PersonalCardsRepository,
+    private val userRepository: UserRepository,
+    private val dataStore: DataStore<Preferences>,
+    private val sessionManagerService: SessionManagerService
 ) : BaseViewModel() {
 
     lateinit var SCAN_TYPE: String
+        private set
+
+    fun setScanType(scanType: String){
+        this.SCAN_TYPE = scanType
+    }
+
 
     val card = MutableLiveData(Card())
 

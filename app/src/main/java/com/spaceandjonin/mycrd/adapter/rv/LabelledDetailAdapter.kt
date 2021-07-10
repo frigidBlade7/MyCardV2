@@ -12,7 +12,7 @@ import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 class LabelledDetailAdapter(val itemInteraction: LabelledDetailItemInteraction) :
     ListAdapter<LabelDetail, BaseViewHolder>(LabelDetailDiffCallback()) {
 
-    lateinit var binding: LabelledItemBinding
+    private lateinit var binding: LabelledItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         binding = LabelledItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val baseViewHolder = BaseViewHolder(binding)

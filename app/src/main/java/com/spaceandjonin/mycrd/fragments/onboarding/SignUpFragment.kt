@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
 
-    lateinit var binding: FragmentSignUpBinding
+    private lateinit var binding: FragmentSignUpBinding
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

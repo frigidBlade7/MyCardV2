@@ -23,7 +23,7 @@ class FirebaseFirestoreUploadWorker @AssistedInject constructor(/*@Assisted*/ ap
 ) :
     CoroutineWorker(appContext, workerParams) {
 
-    lateinit var dataTask: UploadTask
+    private lateinit var dataTask: UploadTask
 
 
     override suspend fun doWork(): Result {

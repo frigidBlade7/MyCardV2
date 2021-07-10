@@ -13,7 +13,7 @@ import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 class UnlabelledStringsAdapter(val itemInteraction: UnlabelledDetailItemInteraction) :
     ListAdapter<String, BaseViewHolder>(StringDiffCallback()) {
 
-    lateinit var binding: UnlabelledItemBinding
+    private lateinit var binding: UnlabelledItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         binding = UnlabelledItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val baseViewHolder = BaseViewHolder(binding)

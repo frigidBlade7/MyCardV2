@@ -20,12 +20,12 @@ import com.spaceandjonin.mycrd.viewmodel.AddCardViewModel
 
 class ConfirmAddDetailsFragment : Fragment() {
 
-    lateinit var binding: FragmentAddConfirmDetailsBinding
-    lateinit var cardAdapter: AddedCardAdapter
-    lateinit var socialAdapter: SocialAdapter
+    private lateinit var binding: FragmentAddConfirmDetailsBinding
+    private lateinit var cardAdapter: AddedCardAdapter
+    private lateinit var socialAdapter: SocialAdapter
 
-    lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
-    lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
+    private lateinit var extraEmailAddressAdapter: ExtraEmailAddressAdapter
+    private lateinit var extraPhoneNumbersAdapter: ExtraPhoneNumbersAdapter
 
     val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav) {
         defaultViewModelProviderFactory

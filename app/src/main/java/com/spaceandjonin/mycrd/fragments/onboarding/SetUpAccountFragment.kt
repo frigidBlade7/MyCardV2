@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SetUpAccountFragment : Fragment() {
 
-    lateinit var binding: FragmentSetupAccountOnboardingBinding
+    private lateinit var binding: FragmentSetupAccountOnboardingBinding
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
 

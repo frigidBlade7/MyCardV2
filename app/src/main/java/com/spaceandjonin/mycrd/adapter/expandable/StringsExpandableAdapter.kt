@@ -16,8 +16,8 @@ class StringsExpandableAdapter constructor(
 ) : BaseExpandableListAdapter() {
 
     //expandable adapter that contains a header item and a list of child items
-    lateinit var groupItem: BaseViewHolder //header item
-    lateinit var childItem: BaseViewHolder //children items
+    private lateinit var groupItem: BaseViewHolder //header item
+    private lateinit var childItem: BaseViewHolder //children items
 
     override fun getGroupCount(): Int {
         return groupList.size //number of groups

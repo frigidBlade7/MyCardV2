@@ -24,8 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SelectPhoneNumberFragment : BottomSheetDialogFragment(), ItemInteraction<PhoneNumber> {
 
-    lateinit var binding: FragmentSelectPhoneNumberBinding
-    lateinit var adapter: SelectPhoneAdapter
+    private lateinit var binding: FragmentSelectPhoneNumberBinding
+    private lateinit var adapter: SelectPhoneAdapter
 
     val viewmodel: OnboardingViewModel by navGraphViewModels(R.id.onboarding_nav) {
         defaultViewModelProviderFactory

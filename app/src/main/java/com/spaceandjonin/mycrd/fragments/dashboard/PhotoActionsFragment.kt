@@ -30,7 +30,7 @@ import java.io.File
 @AndroidEntryPoint
 class PhotoActionsFragment : BottomSheetDialogFragment() {
 
-    lateinit var binding: FragmentPhotoActionsBinding
+    private lateinit var binding: FragmentPhotoActionsBinding
 
     val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav) {
         defaultViewModelProviderFactory
@@ -69,7 +69,6 @@ class PhotoActionsFragment : BottomSheetDialogFragment() {
             viewmodel.removePhoto()
             findNavController().popBackStack()
         }
-
 
 
         return binding.root

@@ -31,12 +31,12 @@ private const val TAG = "AddPersonalCardFragment"
 class ReviewScannedDetailsFragment : Fragment(), UnlabelledDetailItemInteraction,
     LabelledDetailItemInteraction {
 
-    lateinit var binding: FragmentReviewScannedDetailsBinding
-    lateinit var unlabelledStringsAdapter: UnlabelledStringsAdapter
-    lateinit var labelledDetailAdapter: LabelledDetailAdapter
+    private lateinit var binding: FragmentReviewScannedDetailsBinding
+    private lateinit var unlabelledStringsAdapter: UnlabelledStringsAdapter
+    private lateinit var labelledDetailAdapter: LabelledDetailAdapter
 
-    lateinit var extraEmailAddressActionsAdapter: ExtraEmailAddressActionsAdapter
-    lateinit var extraPhoneNumbersActionsAdapter: ExtraPhoneNumbersActionsAdapter
+    private lateinit var extraEmailAddressActionsAdapter: ExtraEmailAddressActionsAdapter
+    private lateinit var extraPhoneNumbersActionsAdapter: ExtraPhoneNumbersActionsAdapter
 
     val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory

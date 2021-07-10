@@ -12,7 +12,7 @@ import com.spaceandjonin.mycrd.viewholders.BaseViewHolder
 class SelectEmailAdapter(val itemInteraction: ItemInteraction<EmailAddress>) :
     ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
 
-    lateinit var binding: SelectEmailItemBinding
+    private lateinit var binding: SelectEmailItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         binding = SelectEmailItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val baseViewHolder = BaseViewHolder(binding)

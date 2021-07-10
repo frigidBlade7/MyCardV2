@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class EditSocialsFragment : BottomSheetDialogFragment() {
 
-    lateinit var binding: FragmentEditSocialsBinding
+    private lateinit var binding: FragmentEditSocialsBinding
 
     val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav) {
         defaultViewModelProviderFactory

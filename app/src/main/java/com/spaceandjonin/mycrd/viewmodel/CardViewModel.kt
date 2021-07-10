@@ -27,22 +27,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CardViewModel @Inject constructor(
-    addedCardsRepository: AddedCardsRepository,
+    private val addedCardsRepository: AddedCardsRepository,
     personalCardsRepository: PersonalCardsRepository,
     private val addedCardDataSourceImpl: AddedCardDataSource,
-    val auth: FirebaseAuth,
-    val storageDir: File?,
-    val userRepository: UserRepository,
+    private val storageDir: File?,
+    userRepository: UserRepository,
     private val personalCardDataSource: LiveCardDataSource,
-    val addedCardDao: AddedCardDao,
-    val liveCardDao: LiveCardDao
+    private val addedCardDao: AddedCardDao,
+    private val liveCardDao: LiveCardDao
 ) : BaseViewModel() {
 
     val sortMode = MutableLiveData(Utils.SORT_MODE_RECENT)
 
 
-    var selectedCard = MutableLiveData<AddedCard>()
-    var selectedPersonalCard = MutableLiveData<LiveCard>()
+    val selectedCard = MutableLiveData<AddedCard>()
+    val selectedPersonalCard = MutableLiveData<LiveCard>()
 
 
     val cardsLiveData = Transformations.switchMap(sortMode) {

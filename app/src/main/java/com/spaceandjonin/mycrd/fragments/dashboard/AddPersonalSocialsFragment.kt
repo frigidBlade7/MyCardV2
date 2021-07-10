@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AddPersonalSocialsFragment : BottomSheetDialogFragment() {
 
-    lateinit var binding: FragmentAddPersonalSocialsBinding
+    private lateinit var binding: FragmentAddPersonalSocialsBinding
 
     val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav) {
         defaultViewModelProviderFactory

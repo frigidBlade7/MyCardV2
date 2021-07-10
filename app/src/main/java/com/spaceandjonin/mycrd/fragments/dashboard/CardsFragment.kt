@@ -36,7 +36,7 @@ private const val TAG = "CardsFragment"
 @AndroidEntryPoint
 class CardsFragment : Fragment(), ItemViewInteraction<AddedCard?> {
 
-    lateinit var binding: CardsFragmentBinding
+    private lateinit var binding: CardsFragmentBinding
     val cardAdapter = AddedListCardAdapter(this)
 
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)

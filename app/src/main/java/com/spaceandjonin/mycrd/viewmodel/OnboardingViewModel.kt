@@ -38,15 +38,21 @@ import javax.inject.Inject
 class OnboardingViewModel @Inject constructor(
     private val uploadService: UpdateImageService,
     private val auth: FirebaseAuth,
-    val imageByteArray: ImageByteArray,
-    val processServiceImpl: PhysicalCardProcessService<LiveCard?>,
-    val userRepository: UserRepository,
-    val liveCardDataStore: DataStore<Preferences>,
-    val personalCardsRepository: PersonalCardsRepository,
+    private val imageByteArray: ImageByteArray,
+    private val processServiceImpl: PhysicalCardProcessService<LiveCard?>,
+    private val userRepository: UserRepository,
+    private val liveCardDataStore: DataStore<Preferences>,
+    private val personalCardsRepository: PersonalCardsRepository,
     @AuthService val authenticationService: AuthenticationService,
 ) : BaseViewModel() {
 
     lateinit var filePath: String
+        private set
+
+    fun setFilePath(filePath: String){
+        this.filePath = filePath
+    }
+
     val profileImageUri = MutableLiveData<Uri>()
 
     var selectedCard = MutableLiveData<AddedCard>()
@@ -65,7 +71,7 @@ class OnboardingViewModel @Inject constructor(
     var isResendButtonEnabled = MutableLiveData<Boolean>(true)
     var smsCode = MutableLiveData<String>()
 
-    var authCallbacks = object : AuthenticationCallbacks<FirebaseUser>() {
+    val authCallbacks = object : AuthenticationCallbacks<FirebaseUser>() {
         override fun onCodeSent() {
             //start countdown
             isVerifyButtonEnabled.value = true

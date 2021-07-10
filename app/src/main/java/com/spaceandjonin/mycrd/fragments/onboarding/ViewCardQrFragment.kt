@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ViewCardQrFragment : Fragment() {
 
-    lateinit var binding: FragmentQrBinding
+    private lateinit var binding: FragmentQrBinding
 
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 

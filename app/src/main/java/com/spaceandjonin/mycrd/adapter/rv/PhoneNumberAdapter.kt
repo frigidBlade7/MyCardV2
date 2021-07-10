@@ -16,7 +16,7 @@ class PhoneNumberAdapter(
     val arrayAdapter: ArrayAdapter<String>
 ) : ListAdapter<PhoneNumber, BaseViewHolder>(PhoneNumberDiffCallback()) {
 
-    lateinit var binding: PhoneItemBinding
+    private lateinit var binding: PhoneItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         binding = PhoneItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val baseViewHolder = BaseViewHolder(binding)

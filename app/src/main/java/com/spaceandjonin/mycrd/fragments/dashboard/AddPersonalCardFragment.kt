@@ -41,13 +41,13 @@ private const val TAG = "AddPersonalCardFragment"
 class AddPersonalCardFragment : Fragment(), ItemInteraction<PhoneNumber>,
     EmailItemInteraction, SocialItemInteraction {
 
-    lateinit var binding: FragmentAddPersonalCardBinding
-    lateinit var phoneNumberAdapter: PhoneNumberAdapter
-    lateinit var emailAdapter: EmailAdapter
-    lateinit var socialAdapter: SocialAdapter
+    private lateinit var binding: FragmentAddPersonalCardBinding
+    private lateinit var phoneNumberAdapter: PhoneNumberAdapter
+    private lateinit var emailAdapter: EmailAdapter
+    private lateinit var socialAdapter: SocialAdapter
 
-    lateinit var phoneTypes: DropDownAdapter
-    lateinit var emailTypes: DropDownAdapter
+    private lateinit var phoneTypes: DropDownAdapter
+    private lateinit var emailTypes: DropDownAdapter
 
     val viewmodel: AddPersonalCardViewModel by navGraphViewModels(R.id.add_personal_card_nav) {
         defaultViewModelProviderFactory

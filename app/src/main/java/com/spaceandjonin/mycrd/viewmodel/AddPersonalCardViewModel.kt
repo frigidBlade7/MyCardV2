@@ -31,9 +31,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddPersonalCardViewModel @Inject constructor(
-    val personalCardsRepository: PersonalCardsRepository,
-    val workManager: WorkManager,
-    val userRepository: UserRepository,
+    private val personalCardsRepository: PersonalCardsRepository,
+    private val workManager: WorkManager,
+    private val userRepository: UserRepository,
     @ImageFile val imageFile: File?
 ) : BaseViewModel() {
 

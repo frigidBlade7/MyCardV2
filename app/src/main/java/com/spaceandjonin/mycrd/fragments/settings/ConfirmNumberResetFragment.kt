@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ConfirmNumberResetFragment : Fragment() {
 
-    lateinit var binding: FragmentConfirmNumberResetBinding
+    private lateinit var binding: FragmentConfirmNumberResetBinding
 
     val viewmodel: SettingsViewModel by navGraphViewModels(R.id.settings_nav) {
         defaultViewModelProviderFactory

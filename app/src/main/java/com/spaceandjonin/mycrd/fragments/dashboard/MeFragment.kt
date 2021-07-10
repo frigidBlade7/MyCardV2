@@ -47,7 +47,7 @@ import java.io.File
 @AndroidEntryPoint
 class MeFragment : Fragment(), SocialItemInteraction {
 
-    lateinit var binding: MeFragmentBinding
+    private lateinit var binding: MeFragmentBinding
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
     val cardViewModel: CardViewModel by viewModels()
 

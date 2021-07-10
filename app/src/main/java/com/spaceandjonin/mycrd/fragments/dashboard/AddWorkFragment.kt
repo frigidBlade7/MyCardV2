@@ -25,7 +25,7 @@ import pub.devrel.easypermissions.EasyPermissions
 
 class AddWorkFragment : Fragment() {
 
-    lateinit var binding: FragmentAddWorkBinding
+    private lateinit var binding: FragmentAddWorkBinding
     val viewmodel: AddCardViewModel by navGraphViewModels(R.id.add_card_nav) {
         defaultViewModelProviderFactory
     }

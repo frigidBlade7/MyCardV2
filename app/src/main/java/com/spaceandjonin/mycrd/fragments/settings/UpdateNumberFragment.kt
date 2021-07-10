@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class UpdateNumberFragment : Fragment() {
 
-    lateinit var binding: FragmentUpdateNumberBinding
+    private lateinit var binding: FragmentUpdateNumberBinding
     val viewmodel: SettingsViewModel by hiltNavGraphViewModels(R.id.settings_nav)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -24,7 +24,7 @@ import pub.devrel.easypermissions.EasyPermissions
 @AndroidEntryPoint
 class CompleteProfileFragment : Fragment() {
 
-    lateinit var binding: FragmentCompleteProfileBinding
+    private lateinit var binding: FragmentCompleteProfileBinding
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
 
     override fun onCreateView(

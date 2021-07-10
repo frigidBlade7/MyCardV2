@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class UpdateNoteFragment : Fragment() {
 
-    lateinit var binding: FragmentUpdateNoteBinding
+    private lateinit var binding: FragmentUpdateNoteBinding
     val onboardingViewModel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
     val cardViewModel: AddCardViewModel by viewModels()
 

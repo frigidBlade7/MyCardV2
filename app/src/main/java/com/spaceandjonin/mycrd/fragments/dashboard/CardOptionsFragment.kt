@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CardOptionsFragment : BottomSheetDialogFragment() {
 
-    lateinit var binding: FragmentCardOptionsBinding
+    private lateinit var binding: FragmentCardOptionsBinding
 
     val viewmodel: OnboardingViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)
     val cardViewmodel: CardViewModel by hiltNavGraphViewModels(R.id.onboarding_nav)

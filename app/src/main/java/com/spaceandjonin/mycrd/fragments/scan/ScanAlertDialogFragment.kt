@@ -14,7 +14,7 @@ import com.spaceandjonin.mycrd.viewmodel.ReviewScannedDetailsViewModel
 
 class ScanAlertDialogFragment : DialogFragment() {
 
-    lateinit var binding: FragmentScanAlertDialogBinding
+    private lateinit var binding: FragmentScanAlertDialogBinding
 
     val viewmodel: ReviewScannedDetailsViewModel by hiltNavGraphViewModels(R.id.scan_nav)
 

@@ -30,10 +30,10 @@ class EditLabelsFragment : BottomSheetDialogFragment(),
     ItemInteraction<SocialMediaProfile.SocialMedia>, PhoneTypeInteraction,
     EmailTypeInteraction {
 
-    lateinit var binding: FragmentAssignLabelsBinding
-    lateinit var socialDisplayAdapter: SocialDisplayAdapter
-    lateinit var phoneNumberAdapter: ChildPhoneAdapter
-    lateinit var emailAddressAdapter: ChildEmailAdapter
+    private lateinit var binding: FragmentAssignLabelsBinding
+    private lateinit var socialDisplayAdapter: SocialDisplayAdapter
+    private lateinit var phoneNumberAdapter: ChildPhoneAdapter
+    private lateinit var emailAddressAdapter: ChildEmailAdapter
 
     val viewmodel: ReviewScannedDetailsViewModel by navGraphViewModels(R.id.scan_nav) {
         defaultViewModelProviderFactory

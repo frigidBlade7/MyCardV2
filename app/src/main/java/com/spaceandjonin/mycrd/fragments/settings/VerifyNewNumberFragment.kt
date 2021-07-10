@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class VerifyNewNumberFragment : Fragment() {
 
-    lateinit var binding: FragmentVerifyNewNumberBinding
+    private lateinit var binding: FragmentVerifyNewNumberBinding
     val viewmodel: VerificationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

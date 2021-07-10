@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class VerifyCurrentNumberFragment : Fragment() {
 
-    lateinit var binding: FragmentVerifyCurrentNumberBinding
+    private lateinit var binding: FragmentVerifyCurrentNumberBinding
     val viewmodel: SettingsViewModel by hiltNavGraphViewModels(R.id.settings_nav)
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -16,7 +16,7 @@ class EmailAdapter(
     val arrayAdapter: ArrayAdapter<String>
 ) : ListAdapter<EmailAddress, BaseViewHolder>(EmailAddressDiffCallback()) {
 
-    lateinit var binding: EmailItemBinding
+    private lateinit var binding: EmailItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         binding = EmailItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val baseViewHolder = BaseViewHolder(binding)

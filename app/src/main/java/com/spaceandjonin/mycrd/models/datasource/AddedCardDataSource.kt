@@ -15,7 +15,7 @@ import timber.log.Timber
 
 abstract class AddedCardDataSource : DataSource<AddedCard> {
 
-    abstract var collectionReference: CollectionReference
+    abstract val collectionReference: CollectionReference
     //todo review1 abstract var cm: ConnectivityManager
 
 

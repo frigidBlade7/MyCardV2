@@ -30,7 +30,7 @@ import java.io.File
 @AndroidEntryPoint
 class ProfilePhotoActionsFragment : BottomSheetDialogFragment() {
 
-    lateinit var binding: FragmentProfilePhotoActionsBinding
+    private lateinit var binding: FragmentProfilePhotoActionsBinding
 
     val viewmodel: SettingsViewModel by navGraphViewModels(R.id.settings_nav) {
         defaultViewModelProviderFactory

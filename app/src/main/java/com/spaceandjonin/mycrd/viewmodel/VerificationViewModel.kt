@@ -19,12 +19,12 @@ class VerificationViewModel @Inject constructor(
     @UpdateService val updateNumberService: AuthenticationService,
 ) : BaseViewModel() {
 
-    var isVerifyButtonEnabled = MutableLiveData<Boolean>(true)
-    var isResendButtonEnabled = MutableLiveData<Boolean>(true)
-    var smsCode = MutableLiveData<String>()
-    var newPhoneNumber = MutableLiveData<String>()
+    val isVerifyButtonEnabled = MutableLiveData<Boolean>(true)
+    val isResendButtonEnabled = MutableLiveData<Boolean>(true)
+    val smsCode = MutableLiveData<String>()
+    val newPhoneNumber = MutableLiveData<String>()
 
-    var authCallbacks = object : AuthenticationCallbacks<FirebaseUser>() {
+    private val authCallbacks = object : AuthenticationCallbacks<FirebaseUser>() {
         override fun onCodeSent() {
             //start countdown
             isVerifyButtonEnabled.value = true
